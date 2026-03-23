@@ -161,6 +161,14 @@ const onderwerpen = [
         categorie: "Inspiratie"
     },
     {
+        id: "turtle",
+        titel: "Turtle Geometry",
+        samenvatting: "Bestuur een denkbeeldige schildpad met forward, right en left — en ontdek hoe eenvoudige regels leiden tot spiralen, sterren en fractals.",
+        tags: ["turtle", "schildpad", "logo", "papert", "forward", "spiraal", "ster", "fractal", "code concepten"],
+        contentFile: "content/turtle.html",
+        categorie: "Code Concepten"
+    },
+    {
         id: "lissajous",
         titel: "Lissajous-figuren",
         samenvatting: "Combineer twee sinusgolven tot hypnotiserende patronen. Leer parametrische curves kennen via frequentieverhoudingen en faseverschuiving.",
