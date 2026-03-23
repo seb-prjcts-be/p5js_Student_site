@@ -6,6 +6,7 @@
 }
 
 :root {
+    --font-title: 'Oswald', Arial, sans-serif;
     --primary-color: #000000;
     --secondary-color: #000000;
     --accent-color: #000000;
@@ -57,14 +58,18 @@ header {
 header h1 {
     font-size: 2rem;
     margin-bottom: 0.5rem;
-    font-weight: normal;
-    letter-spacing: -0.5px;
+    font-weight: 300;
+    font-family: var(--font-title);
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .subtitle {
     font-size: 0.95rem;
     color: var(--text-light);
     font-weight: normal;
+    font-family: var(--font-title);
+    letter-spacing: 0.5px;
 }
 
 /* Lettergrootte knoppen */
@@ -324,8 +329,10 @@ main {
 .welcome h2 {
     color: var(--text-color);
     margin-bottom: 1rem;
-    font-weight: normal;
+    font-weight: 300;
+    font-family: var(--font-title);
     font-size: 1.5rem;
+    letter-spacing: 0.5px;
 }
 
 .welcome p {
@@ -342,8 +349,10 @@ main {
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border-color);
-    font-weight: normal;
-    letter-spacing: -0.5px;
+    font-weight: 300;
+    font-family: var(--font-title);
+    letter-spacing: 1px;
+    text-transform: uppercase;
 }
 
 .onderwerp-page .intro {
@@ -367,7 +376,9 @@ main {
     font-size: 1.3rem;
     margin-bottom: 1rem;
     margin-top: 2rem;
-    font-weight: normal;
+    font-weight: 300;
+    font-family: var(--font-title);
+    letter-spacing: 0.5px;
 }
 
 .onderwerp-page h3 {
@@ -375,7 +386,9 @@ main {
     font-size: 1.1rem;
     margin-bottom: 0.75rem;
     margin-top: 1.5rem;
-    font-weight: normal;
+    font-weight: 300;
+    font-family: var(--font-title);
+    letter-spacing: 0.5px;
 }
 
 .onderwerp-page p {
