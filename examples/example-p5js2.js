@@ -1,10 +1,9 @@
 // p5.js 2.0 features voorbeeld - curves en pointer events
 window.sketch_example_p5js2 = function (p) {
-    let points = [];
     let curvePoints = [];
 
     p.setup = function () {
-        const canvas = p.createCanvas(600, 400);
+        p.createCanvas(600, 400);
         p.colorMode(p.HSB, 360, 100, 100);
 
         // Genereer curve punten

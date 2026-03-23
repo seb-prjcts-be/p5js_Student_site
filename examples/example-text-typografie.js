@@ -12,7 +12,6 @@ window.sketch_example_text_typografie = function(p) {
         p.background(20, 20, 40);
 
         let aantalLetters = zin.length;
-        let muisHoek = p.atan2(p.mouseY - p.height / 2, p.mouseX - p.width / 2);
 
         for (let i = 0; i < aantalLetters; i++) {
             let hoek = p.map(i, 0, aantalLetters, 0, p.TWO_PI);

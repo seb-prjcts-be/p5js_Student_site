@@ -22,18 +22,31 @@ window.addEventListener('hashchange', loadOnderwerp);
 Onderwerpen worden opgeslagen als JavaScript objecten:
 ```javascript
 {
-    id: "unieke-id",           // Voor routing
-    titel: "Titel",            // Display naam
-    samenvatting: "...",       // Voor zoekfunctie
-    tags: ["tag1", "tag2"],    // Voor zoekfunctie
-    inhoudHtml: "..."          // HTML content
+    id: "unieke-id",                    // Voor routing
+    titel: "Titel",                     // Display naam
+    samenvatting: "...",                // Voor zoekfunctie
+    tags: ["tag1", "tag2", "tag3"],     // Voor zoekfunctie en trefwoordenkolom
+    contentFile: "content/topic.html",  // HTML fragment dat via fetch geladen wordt
+    categorie: "p5.js"                  // Voor navigatiegroepen
 }
 ```
 
-**Design beslissing**: HTML als string in plaats van aparte HTML bestanden
-- **Voordeel**: Alles in één bestand, makkelijker te onderhouden
-- **Nadeel**: Minder handig voor grote content blokken
-- **Alternatief**: Aparte HTML bestanden per onderwerp (niet gekozen voor eenvoud)
+**Design beslissing**: content als aparte HTML fragmenten in `content/`
+- **Voordeel**: Grotere lessen blijven beheersbaar en los van de routerdata
+- **Voordeel**: Inhoud kan via `fetch()` geladen worden zonder extra build stap
+- **Aandachtspunt**: Fragments mogen geen volledige HTML-documenten zijn
+
+### Tag Sidebar
+
+**Werking**:
+1. `onderwerp.tags` voedt de rechterkolom in de opgegeven volgorde
+2. De bovenste trefwoordenlijst rendert compact inline; de volgorde bepaalt welke tags het meest pagina-specifiek zijn
+3. Een actieve tag toont context op de huidige pagina, bredere gerelateerde tags en `Gerelateerde onderwerpen`
+
+**UI-keuze**:
+- Alleen `Gerelateerde onderwerpen` heeft een expliciete kop
+- Extra labeltekst zoals aparte subkoppen voor elk relatieblok wordt bewust vermeden
+- De statische trefwoordenlijst gebruikt geen omlijnde chips of extra tellerlogica
 
 ### p5.js Voorbeeld Loading
 
@@ -83,6 +96,11 @@ grid-template-areas:
 - Duidelijke structuur
 - Eenvoudig responsive te maken
 - Geen floats of positioning hacks nodig
+
+**Desktopverdeling**:
+- Navigatie gebruikt ongeveer 20% van de viewportbreedte
+- Binnen de onderwerplayout gebruiken content en trefwoorden ongeveer een 5fr / 3fr verhouding
+- Samen komt dat neer op ongeveer 20 / 50 / 30 over het hele scherm
 
 **Responsive breakpoint**: 768px
 - Onder 768px: alles stapelt verticaal

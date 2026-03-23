@@ -61,11 +61,23 @@ p5_cursus_site/
 - Sidebar met alle onderwerpen
 - Hash-based routing (bijv. `#basis-p5js`)
 - Actieve onderwerp wordt gemarkeerd
+- Categorieën tonen geen aantalteller meer, alleen naam en open/dicht-icoon
 
 ### Zoekfunctie
 - Client-side zoeken in titels, samenvattingen en tags
 - Resultaten worden getoond met highlights
 - Klik op resultaat om naar onderwerp te gaan
+
+### Trefwoordenkolom
+- Rechterkolom met trefwoorden per onderwerp
+- Tags verschijnen in de volgorde van `onderwerp.tags`
+- Bovenste trefwoordenlijst staat compact inline, zonder omlijnde tagvakjes
+- Klik op een tag om gerelateerde secties, bredere trefwoorden en `Gerelateerde onderwerpen` te tonen
+
+### Layout
+- Desktop gebruikt de volle breedte van het scherm
+- Verdeling op desktop is ongeveer 20% navigatie, 50% inhoud en 30% trefwoordenkolom
+- Op smallere schermen stapelt de layout weer onder elkaar
 
 ### Onderwerpen
 De cursus bevat de volgende onderwerpen (opgesplitst in kleinere pagina's):
@@ -125,8 +137,9 @@ De website gebruikt p5.js via CDN:
     id: "mijn-onderwerp",
     titel: "Mijn Onderwerp",
     samenvatting: "Korte beschrijving",
-    tags: ["tag1", "tag2"],
-    contentFile: "content/mijn-onderwerp.html"
+    tags: ["tag1", "tag2", "tag3"],
+    contentFile: "content/mijn-onderwerp.html",
+    categorie: "p5.js"
 }
 ```
 
@@ -160,7 +173,7 @@ De website gebruikt p5.js via CDN:
 ```javascript
 window.sketch_example_mijn_voorbeeld = function(p) {
     p.setup = function() {
-        const canvas = p.createCanvas(600, 400);
+        p.createCanvas(600, 400);
     };
 
     p.draw = function() {
@@ -170,7 +183,7 @@ window.sketch_example_mijn_voorbeeld = function(p) {
 };
 ```
 
-3. Voeg een div toe in de `inhoudHtml` van je onderwerp:
+3. Voeg een div toe in het `content/<id>.html` fragment van je onderwerp:
 ```html
 <div class="p5-canvas-wrapper" id="example-mijn-voorbeeld"></div>
 ```

@@ -4,7 +4,7 @@ window.sketch_example_interactie = function (p) {
     let trail = [];
 
     p.setup = function () {
-        const canvas = p.createCanvas(600, 400);
+        p.createCanvas(600, 400);
         p.colorMode(p.HSB, 360, 100, 100, 1);
     };
 

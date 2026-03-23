@@ -1,7 +1,6 @@
 // Pixelmanipulatie voorbeeld: mozaïek effect op een kleurovergang
 window.sketch_example_afbeeldingen = function(p) {
     let blokGrootte = 12;
-    let richting = 1;
 
     p.setup = function() {
         p.createCanvas(600, 400);

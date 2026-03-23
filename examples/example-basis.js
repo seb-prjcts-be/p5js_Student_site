@@ -6,7 +6,7 @@ window.sketch_example_basis = function(p) {
     let kleur = 0;
 
     p.setup = function() {
-        const canvas = p.createCanvas(600, 400);
+        p.createCanvas(600, 400);
         p.colorMode(p.RGB);
     };
 

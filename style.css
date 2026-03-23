@@ -10,7 +10,8 @@
     --font-body: 'Alegreya', Georgia, serif;
     --font-title-light: 300;
     --font-title-regular: 400;
-    --nav-width: 290px;
+    --layout-nav-share: 20%;
+    --topic-main-columns: 5fr 3fr;
     --primary-color: #000000;
     --secondary-color: #000000;
     --accent-color: #000000;
@@ -128,7 +129,7 @@ header h1 {
 /* Layout container */
 body {
     display: grid;
-    grid-template-columns: var(--nav-width) minmax(0, 1fr);
+    grid-template-columns: var(--layout-nav-share) minmax(0, 1fr);
     grid-template-rows: auto auto 1fr auto;
     grid-template-areas: 
         "header header"
@@ -232,20 +233,7 @@ nav h2 {
 .nav-group-meta {
     display: inline-flex;
     align-items: center;
-    gap: 0.45rem;
     flex-shrink: 0;
-}
-
-.nav-group-count {
-    min-width: 1.7rem;
-    padding: 0.1rem 0.4rem;
-    border: 1px solid var(--border-color);
-    color: var(--text-light);
-    font-family: var(--font-title);
-    font-size: 0.72rem;
-    font-weight: var(--font-title-regular);
-    line-height: 1.1;
-    text-align: center;
 }
 
 .nav-group-icon::before {
@@ -265,12 +253,8 @@ nav h2 {
     outline: none;
 }
 
-.nav-group.is-active-group .nav-group-toggle,
-.nav-group-toggle:hover .nav-group-count,
-.nav-group-toggle:focus .nav-group-count,
-.nav-group.is-active-group .nav-group-count {
+.nav-group.is-active-group .nav-group-toggle {
     color: var(--text-color);
-    border-color: var(--text-color);
 }
 
 .nav-group-toggle:hover .nav-group-icon::before,
@@ -390,7 +374,8 @@ nav h2 {
 main {
     background: var(--bg-color);
     padding: 2rem;
-    max-width: 1000px;
+    max-width: none;
+    width: 100%;
 }
 
 .welcome {
@@ -634,19 +619,18 @@ main {
 
 /* Tags sidebar */
 .onderwerp-layout {
-    display: flex;
+    display: grid;
+    grid-template-columns: var(--topic-main-columns);
     gap: 2rem;
     align-items: flex-start;
 }
 
 .onderwerp-content {
-    flex: 1;
     min-width: 0;
 }
 
 .tags-sidebar {
-    width: 250px;
-    flex-shrink: 0;
+    width: auto;
     position: sticky;
     top: 1rem;
     display: flex;
@@ -668,25 +652,16 @@ main {
     opacity: 0.7;
 }
 
-.tags-label {
-    font-family: var(--font-title);
-    font-size: 0.75rem;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-light);
-    margin-bottom: 0.75rem;
-}
-
 .tags-list {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 0.4rem;
+    display: inline;
+    line-height: 1.6;
 }
 
-.tag-btn {
+.tag-btn,
+.tag-page-link {
     padding: 0.3rem 0.6rem;
     font-family: var(--font-body);
-    font-size: 0.78rem;
+    font-size: 0.82rem;
     background: none;
     border: 1px solid var(--border-color);
     color: var(--text-light);
@@ -695,7 +670,30 @@ main {
     line-height: 1.3;
 }
 
-.tag-btn:hover {
+.tags-panel .tag-btn {
+    display: inline;
+    padding: 0;
+    border: none;
+    color: var(--text-light);
+    line-height: inherit;
+}
+
+.tags-panel .tag-btn::after {
+    content: ", ";
+}
+
+.tags-panel .tag-btn:last-child::after {
+    content: "";
+}
+
+.tags-panel .tag-btn:hover {
+    color: var(--text-color);
+    border-color: transparent;
+    text-decoration: underline;
+}
+
+.tag-btn:hover,
+.tag-page-link:hover {
     color: var(--text-color);
     border-color: var(--text-color);
 }
@@ -706,25 +704,12 @@ main {
     background: var(--hover-bg);
 }
 
-.tag-primary {
-    color: var(--text-color);
-    border-color: var(--text-color);
-    font-size: 0.85rem;
+.tags-panel .tag-btn.is-active {
+    border-color: transparent;
+    background: none;
+    text-decoration: underline;
 }
 
-.tag-primary:hover {
-    color: var(--text-color);
-    border-color: var(--text-color);
-}
-
-.tags-divider {
-    width: 100%;
-    height: 1px;
-    background: var(--border-color);
-    margin: 0.25rem 0;
-}
-
-.tag-context-label,
 .tag-context-heading {
     font-family: var(--font-title);
     font-size: 0.75rem;
@@ -733,12 +718,6 @@ main {
     color: var(--text-light);
 }
 
-.tag-context-label {
-    margin-bottom: 0.5rem;
-}
-
-.tag-context-intro,
-.tag-context-empty,
 .tag-topic-reason {
     color: var(--text-light);
     font-size: 0.82rem;
@@ -758,22 +737,6 @@ main {
     display: flex;
     flex-wrap: wrap;
     gap: 0.45rem;
-}
-
-.tag-page-link {
-    padding: 0.3rem 0.7rem;
-    background: none;
-    border: 1px solid var(--border-color);
-    color: var(--text-light);
-    cursor: pointer;
-    font-family: var(--font-body);
-    font-size: 0.85rem;
-    transition: color 0.15s, border-color 0.15s;
-}
-
-.tag-page-link:hover {
-    color: var(--text-color);
-    border-color: var(--text-color);
 }
 
 .tag-topic-list {
@@ -813,7 +776,7 @@ main {
 
 @media (max-width: 900px) {
     .onderwerp-layout {
-        flex-direction: column;
+        grid-template-columns: 1fr;
     }
 
     .tags-sidebar {

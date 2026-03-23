@@ -143,19 +143,19 @@ Topics are grouped by `categorie`. Categories are defined in:
 const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie", "Artificiële Intelligentie"];
 ```
 
-Each group renders as a collapsible `<li class="nav-group">` in a click-to-toggle accordion. The active topic's group auto-opens; opening another group closes the others.
+Each group renders as a collapsible `<li class="nav-group">` in a click-to-toggle accordion. The active topic's group auto-opens; opening another group closes the others. The menu shows the category title and expand/collapse icon only; there is no per-group counter badge.
 
 ### Tag System (`main.js`)
 
-Each topic page can render a right-hand `tags-sidebar` with two levels of relevance:
-
-1. **Direct tags** — the first tags in `onderwerp.tags`, intended as the most accurate keywords for the current page
-2. **Broader context** — dynamically computed related tags and related topics based on the active tag and the current topic
+Each topic page can render a right-hand `tags-sidebar` with the topic's own tags plus a dynamic context panel based on the active tag.
 
 Important behavior:
+- Tags in `onderwerp.tags` render in source order
 - Tag order matters: put the most page-specific tags first
+- In the static `tags-panel`, tags are rendered as a compact inline list instead of boxed chips
 - Clicking a tag updates the sidebar context in place; results are **not** rendered at the bottom of the page
-- The context panel first shows matching blocks on the current page, then broader related tags, then related topics
+- The context panel can surface matching blocks on the current page, then broader related tags, then `Gerelateerde onderwerpen`
+- Only `Gerelateerde onderwerpen` keeps an explicit heading; the other relation blocks are shown without extra label text
 - Rapid clicking between tags is supported: only the latest click should win, and re-clicking the already active tag should do nothing
 
 ### p5.js Example Loading
@@ -197,8 +197,8 @@ Code runs inside an `srcdoc` iframe that loads p5.js 1.7.0 from CDN. The iframe 
 Valid `categorie` values: `"Generative Design"`, `"Processing"`, `"p5.js"`, `"Code Concepten"`, `"Strudel"`, `"Inspiratie"`, `"Artificiële Intelligentie"`
 
 **Tag ordering convention:**
-- First 3 tags: most accurate/current-page keywords
-- Remaining tags: broader related concepts, API names, or adjacent concepts
+- Put the most accurate/current-page keywords first
+- Continue with broader related concepts, API names, or adjacent concepts
 - Prefer specific → broad ordering, e.g. `["mouseX", "mouseY", "muis", "interactie", "events"]`
 - Avoid filler tags that are too generic to create useful relations
 
@@ -266,7 +266,7 @@ window.sketch_example_<id_with_underscores> = function(p) {
     let x, y;
 
     p.setup = function() {
-        const canvas = p.createCanvas(600, 400);
+        p.createCanvas(600, 400);
         // Initialisatie hier
     };
 
@@ -441,6 +441,11 @@ grid-template-areas:
 ```
 
 Breakpoint: `768px` — below this, all areas stack vertically.
+
+Desktop layout currently uses the full available width with an approximate 20% / 50% / 30% flow:
+- `nav`: about 20% of the viewport width
+- topic content: about 50% of the viewport width
+- tags sidebar: about 30% of the viewport width
 
 **Tag sidebar layout note:** below `900px`, `.onderwerp-layout` stacks vertically and the tag sidebar becomes full-width below the content. It is no longer hidden on smaller screens.
 
@@ -625,11 +630,12 @@ For any content or code change:
 
 - [ ] Open `http://localhost/p5_cursus_site/` — welcome page loads
 - [ ] Navigate to changed topic via sidebar — content loads correctly
-- [ ] Navigation accordion opens one group clearly at a time and the active topic stays visible
+- [ ] Navigation accordion opens one group clearly at a time, the active topic stays visible, and no category counter badge is shown
 - [ ] Right-hand tag sidebar appears for topics with tags
-- [ ] First tags shown are the most accurate/current-page keywords
-- [ ] Click a tag — in-page relations, broader tags, and related topics update in the sidebar
+- [ ] Tags render in `onderwerp.tags` order as a compact inline list; the earliest tags are the most page-specific keywords
+- [ ] Click a tag — in-page relations, broader tags, and `Gerelateerde onderwerpen` update in the sidebar
 - [ ] Click two different tags quickly — only the latest clicked tag remains active and the panel stays coherent
+- [ ] Desktop layout uses the intended wide 20 / 50 / 30 flow and still stacks correctly on smaller screens
 - [ ] `.p5-example` canvas renders and animates
 - [ ] `.p5-editor` shows textarea + iframe, auto-runs
 - [ ] Click Reset — code reverts and re-runs

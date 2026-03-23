@@ -10,7 +10,6 @@ window.sketch_example_ai_ecologische_kost = function(p) {
     ];
 
     let maxWh = 1000;
-    let actief = -1;
     let animProgress = [];
 
     p.setup = function() {
@@ -29,8 +28,6 @@ window.sketch_example_ai_ecologische_kost = function(p) {
         let grafiekBreedte = p.width - labelBreedte - marge * 2 - 60;
         let rijHoogte = (p.height - marge * 2 - 30) / activiteiten.length;
 
-        actief = -1;
-
         for (let i = 0; i < activiteiten.length; i++) {
             let act = activiteiten[i];
             let y = marge + i * rijHoogte;
@@ -40,7 +37,6 @@ window.sketch_example_ai_ecologische_kost = function(p) {
             animProgress[i] = p.lerp(animProgress[i], doelBreedte, 0.08);
 
             let muisErover = p.mouseY > y && p.mouseY < y + rijHoogte - 2;
-            if (muisErover) actief = i;
 
             // Achtergrond rij
             if (muisErover) {

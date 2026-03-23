@@ -4,7 +4,7 @@ window.sketch_example_generative = function(p) {
     let numCircles = 20;
 
     p.setup = function() {
-        const canvas = p.createCanvas(600, 400);
+        p.createCanvas(600, 400);
         p.colorMode(p.HSB, 360, 100, 100);
         
         // Maak cirkels met willekeurige eigenschappen

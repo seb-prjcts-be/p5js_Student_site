@@ -1,7 +1,7 @@
 // Eenvoudig p5.js voorbeeld
 window.sketch_example_over_p5js = function(p) {
     p.setup = function() {
-        const canvas = p.createCanvas(600, 400);
+        p.createCanvas(600, 400);
         p.background(220);
     };
 
