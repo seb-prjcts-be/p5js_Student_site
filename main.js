@@ -159,10 +159,42 @@ const onderwerpen = [
         tags: ["links", "bronnen", "inspiratie", "boeken", "video", "community", "datasets", "bibliotheken"],
         contentFile: "content/inspiratie-links.html",
         categorie: "Inspiratie"
+    },
+    {
+        id: "lissajous",
+        titel: "Lissajous-figuren",
+        samenvatting: "Combineer twee sinusgolven tot hypnotiserende patronen. Leer parametrische curves kennen via frequentieverhoudingen en faseverschuiving.",
+        tags: ["lissajous", "sinus", "parametrisch", "wiskunde", "animatie", "golven", "code concepten"],
+        contentFile: "content/lissajous.html",
+        categorie: "Code Concepten"
+    },
+    {
+        id: "l-systems",
+        titel: "L-Systemen",
+        samenvatting: "Genereer organische bomen en fractals door simpele tekstregels herhaald te herschrijven — het Lindenmayer-systeem.",
+        tags: ["l-system", "lindenmayer", "fractal", "turtle", "string rewriting", "generative", "code concepten"],
+        contentFile: "content/l-systems.html",
+        categorie: "Code Concepten"
+    },
+    {
+        id: "game-of-life",
+        titel: "Game of Life",
+        samenvatting: "Conway's klassieker: vier simpele regels voor cellen die leven of sterven, met eindeloos complexe patronen als resultaat.",
+        tags: ["game of life", "conway", "cellulair automaat", "simulatie", "emergentie", "code concepten"],
+        contentFile: "content/game-of-life.html",
+        categorie: "Code Concepten"
+    },
+    {
+        id: "quine",
+        titel: "Quine",
+        samenvatting: "Een programma dat zijn eigen broncode afdrukt — zonder bestanden te lezen. Zelfverwijzing als informatica-concept.",
+        tags: ["quine", "zelfverwijzing", "meta", "toString", "recursie", "code concepten"],
+        contentFile: "content/quine.html",
+        categorie: "Code Concepten"
     }
 ];
 
-const navCategories = ["Generative Design", "Processing", "p5.js", "Strudel", "Inspiratie"];
+const navCategories = ["Generative Design", "Processing", "p5.js", "Strudel", "Inspiratie", "Code Concepten"];
 
 // Router - Hash-based routing
 function initRouter() {

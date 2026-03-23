@@ -1,0 +1,116 @@
+<div class="intro">
+    <p>Game of Life is een <strong>cellulair automaat</strong> bedacht door wiskundige John Conway in 1970. Er zijn geen spelers — het systeem evolueert zichzelf op basis van vier simpele regels.</p>
+</div>
+
+<section>
+    <h2>De regels</h2>
+    <p>Elk cel is levend (1) of dood (0). Elke generatie veranderen cellen op basis van hun 8 buren:</p>
+    <ul>
+        <li><strong>Levende cel met 2 of 3 buren</strong> — overleeft</li>
+        <li><strong>Levende cel met &lt;2 buren</strong> — sterft (isolatie)</li>
+        <li><strong>Levende cel met &gt;3 buren</strong> — sterft (overbevolking)</li>
+        <li><strong>Dode cel met exact 3 buren</strong> — wordt levend (geboorte)</li>
+    </ul>
+    <p>Die vier regels zijn genoeg voor eindeloos complexe patronen: stabiele vormen, oscillatoren, en zelfs "gliders" die over het raster bewegen.</p>
+</section>
+
+<section>
+    <h2>Structuur in p5.js</h2>
+    <p>Je werkt met twee grids: het huidige en het volgende. Je berekent de volgende generatie altijd op basis van het huidige grid, anders beïnvloeden cellen elkaar tijdens de berekening.</p>
+    <pre><code>// Bereken volgende generatie
+for (let i = 0; i &lt; cols; i++) {
+  for (let j = 0; j &lt; rows; j++) {
+    let n = telBuren(grid, i, j);
+    let cel = grid[i][j];
+    if (cel === 1 && (n === 2 || n === 3)) next[i][j] = 1;
+    else if (cel === 0 && n === 3)         next[i][j] = 1;
+    else                                    next[i][j] = 0;
+  }
+}
+// Wissel grids
+[grid, next] = [next, grid];</code></pre>
+
+    <h3>Buren tellen met wrapping</h3>
+    <p>Om botsing met de randen te vermijden, "wrappen" we de randen — de rechterkant sluit aan op de linkerkant:</p>
+    <pre><code>function telBuren(g, x, y) {
+  let sum = 0;
+  for (let i = -1; i &lt;= 1; i++)
+    for (let j = -1; j &lt;= 1; j++) {
+      if (i === 0 && j === 0) continue;
+      sum += g[(x + i + cols) % cols][(y + j + rows) % rows];
+    }
+  return sum;
+}</code></pre>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Klik op het canvas voor een nieuw willekeurig startpatroon. Pas <code>frameRate</code> aan voor snelheid.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+const cols = 75, rows = 50;
+let cellW, cellH, grid, next;
+
+function setup() {
+  createCanvas(600, 400);
+  cellW = width / cols;
+  cellH = height / rows;
+  frameRate(12);
+  grid = maakGrid(true);
+  next = maakGrid(false);
+}
+
+function maakGrid(vullen) {
+  return Array.from({length: cols}, () =>
+    Array.from({length: rows}, () =>
+      vullen ? (Math.random() > 0.72 ? 1 : 0) : 0
+    )
+  );
+}
+
+function telBuren(g, x, y) {
+  let sum = 0;
+  for (let i = -1; i <= 1; i++)
+    for (let j = -1; j <= 1; j++) {
+      if (i === 0 && j === 0) continue;
+      sum += g[(x + i + cols) % cols][(y + j + rows) % rows];
+    }
+  return sum;
+}
+
+function draw() {
+  background(255);
+
+  for (let i = 0; i < cols; i++)
+    for (let j = 0; j < rows; j++)
+      if (grid[i][j]) {
+        fill(0);
+        noStroke();
+        rect(i * cellW, j * cellH, cellW - 1, cellH - 1);
+      }
+
+  for (let i = 0; i < cols; i++)
+    for (let j = 0; j < rows; j++) {
+      let n = telBuren(grid, i, j);
+      next[i][j] = (grid[i][j] && (n === 2 || n === 3)) ||
+                   (!grid[i][j] && n === 3) ? 1 : 0;
+    }
+
+  [grid, next] = [next, grid];
+}
+
+function mousePressed() {
+  grid = maakGrid(true); // Nieuw willekeurig grid
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-game-of-life"></div>
+        </div>
+    </div>
+</section>

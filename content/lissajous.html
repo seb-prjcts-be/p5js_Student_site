@@ -1,0 +1,78 @@
+<div class="intro">
+    <p>Een Lissajous-figuur ontstaat als je twee sinusgolven combineert: één voor x en één voor y. De verhouding tussen de frequenties bepaalt de vorm — van een cirkel tot ingewikkelde vlechtpatronen.</p>
+</div>
+
+<section>
+    <h2>De formule</h2>
+    <p>Twee vergelijkingen, één parameter <code>t</code> die loopt van 0 tot 2π:</p>
+    <pre><code>x = A * sin(a * t + δ)
+y = B * sin(b * t)</code></pre>
+    <ul>
+        <li><code>a</code> en <code>b</code> — frequenties; hun verhouding bepaalt de vorm</li>
+        <li><code>δ</code> (delta) — faseverschuiving; laat het figuur morferen</li>
+        <li><code>A</code>, <code>B</code> — amplitudes (grootte in x en y)</li>
+    </ul>
+
+    <h3>Frequentieverhoudingen</h3>
+    <ul>
+        <li><code>1:1</code> — cirkel of ellips</li>
+        <li><code>2:1</code> — parabolische boog of figuur-8</li>
+        <li><code>3:2</code> — vlechtpatroon</li>
+        <li><code>5:4</code> — complexe knoop</li>
+    </ul>
+</section>
+
+<section>
+    <h2>In p5.js</h2>
+    <p>Je tekent de curve door voor elke waarde van <code>t</code> een punt te berekenen en ze te verbinden met <code>vertex()</code>:</p>
+    <pre><code>beginShape();
+for (let t = 0; t &lt; TWO_PI; t += 0.01) {
+  let x = width/2 + 200 * sin(a * t + delta);
+  let y = height/2 + 160 * sin(b * t);
+  vertex(x, y);
+}
+endShape();</code></pre>
+    <p>Door <code>delta</code> langzaam te laten groeien met <code>frameCount</code>, roteert de curve vloeiend door al zijn vormen.</p>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Verander <code>a</code> en <code>b</code> voor andere patronen. Probeer 1:1, 3:2, 4:3, 5:4...</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let a = 3; // Frequentie x — probeer dit aan te passen!
+let b = 2; // Frequentie y
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(0, 20); // Lage alpha = fade-effect
+
+  let delta = frameCount * 0.01; // Faseverschuiving
+
+  stroke(100, 200, 255, 180);
+  strokeWeight(1.5);
+  noFill();
+
+  beginShape();
+  for (let t = 0; t < TWO_PI; t += 0.005) {
+    let x = width / 2 + 220 * sin(a * t + delta);
+    let y = height / 2 + 170 * sin(b * t);
+    vertex(x, y);
+  }
+  endShape();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-lissajous"></div>
+        </div>
+    </div>
+</section>

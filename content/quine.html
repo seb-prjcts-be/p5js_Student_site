@@ -1,0 +1,91 @@
+<div class="intro">
+    <p>Een <strong>quine</strong> is een programma dat geen invoer nodig heeft en als uitvoer precies zijn eigen broncode produceert. Het is een van de meest fascinerende zelfverwijzende concepten in de informatica.</p>
+</div>
+
+<section>
+    <h2>Zelfverwijzing</h2>
+    <p>Het kernprobleem: hoe schrijf je een programma dat zichzelf beschrijft, zonder gewoon een bestand te lezen? Je mag geen <code>readFile()</code> of netwerk gebruiken — de code moet zichzelf <em>kennen</em>.</p>
+    <p>De truc is <strong>quoting</strong>: je slaat de code op als data, en gebruikt die data om de code + data opnieuw te produceren.</p>
+    <pre><code>// Pseudocode quine
+let s = "let s = X; print('let s = ' + quote(s) + '; ' + s)";
+print("let s = " + quote(s) + "; " + s);</code></pre>
+    <p>De variabele <code>s</code> bevat de code <em>buiten</em> zichzelf — en de <code>print</code>-regel combineert beide delen opnieuw tot de volledige broncode.</p>
+</section>
+
+<section>
+    <h2>JavaScript: toString()</h2>
+    <p>In JavaScript heeft elke functie een ingebouwde manier om zijn eigen broncode te lezen: <code>functie.toString()</code>.</p>
+    <pre><code>function setup() {
+  let code = setup.toString(); // Lees eigen broncode
+  console.log(code);           // Druk jezelf af
+}</code></pre>
+    <p>Dit is geen echte quine (de volledige broncode bevat meer dan alleen <code>setup</code>), maar het toont het principe van zelfkennis.</p>
+
+    <h3>Zelfkennis op het canvas</h3>
+    <p>In p5.js kun je een functie letterlijk zichzelf laten tekenen:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  background(20);
+
+  let code = setup.toString(); // Eigen broncode
+  let lijnen = code.split("\n");
+
+  fill(140, 230, 120);
+  textFont("monospace");
+  textSize(11);
+
+  lijnen.forEach(function(lijn, i) {
+    text(lijn, 10, 20 + i * 15);
+  });
+}</code></pre>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Voer de code uit — de <code>setup()</code>-functie tekent zichzelf op het canvas. Pas de tekstkleur of grootte aan en klik Run. Verandert de weergave mee?</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  background(20);
+  noLoop();
+
+  // Lees de eigen broncode van setup()
+  let code = setup.toString();
+  let lijnen = code.split("\n");
+
+  fill(140, 230, 120); // Probeer een andere kleur!
+  textFont("monospace");
+  textSize(11);
+  noStroke();
+
+  lijnen.forEach(function(lijn, i) {
+    text(lijn, 10, 22 + i * 15);
+  });
+}
+
+function draw() {}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-quine"></div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Echte quines</h2>
+    <p>Een volledige quine in JavaScript ziet er zo uit (probeer dit in de browser console):</p>
+    <pre><code>(function q(){
+  let s = "(function q(){\n  let s = " +
+          JSON.stringify(s) + ";\n  " + q.toString().split("\n").slice(2,-1).join("\n  ") +
+          "\n})();";
+  console.log(s);
+})();</code></pre>
+    <p>Bekende quines bestaan in bijna elke programmeertaal. Ze zijn een bewijs van Kleene's recursiestelling: elk berekend programma kan een zelfverwijzende versie van zichzelf produceren.</p>
+</section>
