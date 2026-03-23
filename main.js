@@ -14,7 +14,7 @@ const onderwerpen = [
         samenvatting: "Wat is p5.js, waar komt het vandaan, en hoe gebruik je het?",
         tags: ["p5.js", "Processing", "editor", "reference", "projectstructuur", "introductie"],
         contentFile: "content/over-p5js.html",
-        categorie: "Over p5.js"
+        categorie: "Processing"
     },
     {
         id: "setup-draw",
@@ -162,7 +162,7 @@ const onderwerpen = [
     }
 ];
 
-const navCategories = ["Generative Design", "Over p5.js", "p5.js", "Strudel", "Inspiratie"];
+const navCategories = ["Generative Design", "Processing", "p5.js", "Strudel", "Inspiratie"];
 
 // Router - Hash-based routing
 function initRouter() {
@@ -454,10 +454,32 @@ function loadExample(exampleId, container) {
     }
 }
 
+// Lettergrootte instelling
+function initFontSize() {
+    const sizes = ['klein', 'medium', 'groot'];
+    const saved = localStorage.getItem('fontsize') || 'medium';
+    const body = document.body;
+
+    function setSize(size) {
+        body.setAttribute('data-fontsize', size);
+        localStorage.setItem('fontsize', size);
+        document.querySelectorAll('.font-size-btn').forEach(btn => {
+            btn.classList.toggle('is-active', btn.dataset.size === size);
+        });
+    }
+
+    setSize(saved);
+
+    document.querySelectorAll('.font-size-btn').forEach(btn => {
+        btn.addEventListener('click', () => setSize(btn.dataset.size));
+    });
+}
+
 // Initialisatie
 document.addEventListener('DOMContentLoaded', () => {
     buildNav();
     initNavGroups();
     initRouter();
     initSearch();
+    initFontSize();
 });
