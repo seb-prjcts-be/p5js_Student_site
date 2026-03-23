@@ -47,7 +47,7 @@ Onderwerpen worden opgeslagen als JavaScript objecten:
 - Alleen `Gerelateerde onderwerpen` heeft een expliciete kop
 - Extra labeltekst zoals aparte subkoppen voor elk relatieblok wordt bewust vermeden
 - De statische trefwoordenlijst gebruikt geen omlijnde chips of extra tellerlogica
-- De markup blijft vlak: `aside.tags-sidebar` bevat direct de taglijst en `#tag-context`
+- De markup blijft vlak: `aside.tags-sidebar` bevat direct de chip flow en `#tag-context`
 
 ### Zoekresultaten
 
@@ -115,10 +115,14 @@ grid-template-areas:
 
 ### p5.js CDN Keuze
 
-**Gebruikt**: cdnjs.cloudflare.com
-- **Reden**: Betrouwbaar, snel, wereldwijd CDN
-- **Versie**: 1.7.0 (stabiel)
+**Gebruikt**: cdn.jsdelivr.net
+- **Reden**: Officiële downloadpagina verwijst naar jsDelivr voor de huidige p5.js 2.x build
+- **Versie**: 2.2.1
 - **Alternatief**: Lokale copy (niet nodig voor deze use case)
+
+**Didactische keuze**:
+- Nieuwe lesvoorbeelden gebruiken moderne p5.js 2.x patronen
+- Oudere 1.x-code zoals `preload()` wordt alleen genoemd om bestaand materiaal te kunnen lezen
 
 ### Code Organisatie
 

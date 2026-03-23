@@ -72,7 +72,7 @@ p5_cursus_site/
 - Rechterkolom met trefwoorden per onderwerp
 - Tags verschijnen in de volgorde van `onderwerp.tags`
 - Bovenste trefwoordenlijst gebruikt compacte tagknoppen
-- De sidebar-DOM blijft bewust eenvoudig: directe `.tags-list` en `#tag-context`
+- De sidebar-DOM blijft bewust eenvoudig: directe `.tags-chip-flow` en `#tag-context`
 - Klik op een tag om gerelateerde secties, bredere trefwoorden en `Gerelateerde onderwerpen` te tonen
 
 ### Layout
@@ -100,7 +100,7 @@ De cursus bevat de volgende onderwerpen (opgesplitst in kleinere pagina's):
 12. **Animatie** - Beweging en tijd
 13. **Arrays** - Meerdere waarden opslaan
 14. **3D Basis** - WEBGL en 3D graphics
-15. **p5.js 2.0: Nieuwe Features** - Nieuwe mogelijkheden
+15. **Moderne p5.js** - Async assets, pointer input, curves en shaders
 
 ### p5.js Voorbeelden
 Elk onderwerp heeft werkende p5.js voorbeelden die direct in de pagina draaien. De voorbeelden worden dynamisch geladen wanneer je naar een onderwerp navigeert.
@@ -115,8 +115,10 @@ Elk onderwerp heeft werkende p5.js voorbeelden die direct in de pagina draaien. 
 ### p5.js CDN
 De website gebruikt p5.js via CDN:
 ```html
-<script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js"></script>
 ```
+
+Alle nieuwe lesvoorbeelden vertrekken van moderne p5.js 2.x. Oudere patronen zoals `preload()` mogen nog vermeld worden, maar alleen als context bij bestaand materiaal.
 
 ### Browser Ondersteuning
 - Moderne browsers (Chrome, Firefox, Edge, Safari)

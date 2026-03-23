@@ -77,9 +77,9 @@ Elk onderwerp bevat:
 - **Desktop**: Sidebar + content naast elkaar
 
 ### p5.js Versie
-- **Versie**: 1.7.0 (CDN)
-- **Reden**: Stabiel, goed ondersteund
-- **Toekomst**: Kan naar 2.0 als alle features beschikbaar zijn
+- **Versie**: 2.2.1 (CDN)
+- **Reden**: Sluit aan op de moderne p5.js-standaard waarmee leerlingen nu starten
+- **Didactiek**: Nieuwe voorbeelden gebruiken async/await en andere 2.x-patronen als standaard; oudere 1.x-code is alleen referentiecontext
 
 ## Uitdagingen & Oplossingen
 

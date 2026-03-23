@@ -22,7 +22,7 @@ A static Dutch-language p5.js educational website for students aged 16+. Built w
 | HTML | HTML5 semantic | Single `index.html` entry point |
 | CSS | CSS Grid + custom vars | `style.css` + `editor.css` |
 | JS | Vanilla ES6+ | `main.js` (router/data) + `editor.js` (IIFE module) |
-| p5.js | 1.7.0 via CDN | `cdnjs.cloudflare.com` |
+| p5.js | 2.2.1 via CDN | `cdn.jsdelivr.net` |
 | Bootstrap | 5.3.3 via CDN | Layout utilities, loaded before `style.css` |
 | Strudel | ES module `strudel-mini.js` | For the Strudel live-coding lesson |
 
@@ -140,7 +140,7 @@ Flow:
 
 Topics are grouped by `categorie`. Categories are defined in:
 ```javascript
-const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie", "Artificiële Intelligentie"];
+const navCategories = ["Generative design", "Processing", "p5.js", "Code concepten", "Strudel", "Inspiratie", "Artificiële intelligentie"];
 ```
 
 Each group renders as a collapsible `<li class="nav-group">` in a click-to-toggle accordion. The active topic's group auto-opens; opening another group closes the others. The menu shows the category title and expand/collapse icon only; there is no per-group counter badge.
@@ -152,10 +152,11 @@ Each topic page can render a right-hand `tags-sidebar` with the topic's own tags
 Important behavior:
 - Tags in `onderwerp.tags` render in source order
 - Tag order matters: put the most page-specific tags first
-- The static tag list renders directly inside `aside.tags-sidebar` as compact tag buttons
+- The static tags and dynamic chip results render together in one compact chip flow inside `aside.tags-sidebar`
 - Clicking a tag updates the sidebar context in place; results are **not** rendered at the bottom of the page
 - The context panel can surface matching blocks on the current page, then broader related tags, then `Gerelateerde onderwerpen`
-- The sidebar markup is intentionally shallow: direct tag list plus `#tag-context`, without extra panel/group wrappers
+- Matching blocks on the current page and broader related tags should render as one continuous result flow, not as separate visual panels
+- The sidebar markup is intentionally shallow: direct chip flow plus `#tag-context`, without extra panel/group wrappers
 - Only `Gerelateerde onderwerpen` keeps an explicit heading; the other relation blocks are shown without extra label text
 - Rapid clicking between tags is supported: only the latest click should win, and re-clicking the already active tag should do nothing
 
@@ -178,7 +179,7 @@ IIFE module, exposes `window.P5Editor`.
 
 Each `.p5-editor` div becomes a split-pane editor: textarea (left) + iframe preview (right).
 
-Code runs inside an `srcdoc` iframe that loads p5.js 1.7.0 from CDN. The iframe is fully isolated — no shared state with the page.
+Code runs inside an `srcdoc` iframe that loads p5.js 2.2.1 from CDN. The iframe is fully isolated — no shared state with the page.
 
 ---
 
@@ -187,7 +188,7 @@ Code runs inside an `srcdoc` iframe that loads p5.js 1.7.0 from CDN. The iframe 
 ```javascript
 {
     id: "mijn-onderwerp",         // Used in URL hash and file names
-    titel: "Mijn Onderwerp",      // Displayed in nav and page h1
+    titel: "Mijn onderwerp",      // Displayed in nav and page h1
     samenvatting: "...",          // Used in search results
     tags: ["tag1", "tag2"],       // Used in search and tag relations
     contentFile: "content/mijn-onderwerp.html",
@@ -195,7 +196,11 @@ Code runs inside an `srcdoc` iframe that loads p5.js 1.7.0 from CDN. The iframe 
 }
 ```
 
-Valid `categorie` values: `"Generative Design"`, `"Processing"`, `"p5.js"`, `"Code Concepten"`, `"Strudel"`, `"Inspiratie"`, `"Artificiële Intelligentie"`
+Valid `categorie` values: `"Generative design"`, `"Processing"`, `"p5.js"`, `"Code concepten"`, `"Strudel"`, `"Inspiratie"`, `"Artificiële intelligentie"`
+
+**Titelconventie:**
+- Gebruik sentence case voor `titel` en categorienamen in `main.js`
+- Alleen eigennamen, API-namen en vaste titels houden hun interne hoofdletters, zoals `p5.js`, `Game of Life` en `Langton's Ant`
 
 **Tag ordering convention:**
 - Put the most accurate/current-page keywords first
@@ -383,15 +388,15 @@ Full curriculum. Topics it covers that must be reflected in the site:
 
 ### p5js2_handleiding.pdf (190 KB)
 
-p5.js 2.0 features — must be in `content/p5js-2.0.html`:
+p5.js 2.x features — must be taught as the default approach across the site, with `content/p5js-2.0.html` as a consolidation lesson:
 
-- Breaking changes en migratie van 1.x
-- Async asset loading (`loadImage`, `loadFont` met await)
-- Nieuwe typografie API
+- Async asset loading (`loadImage`, `loadFont`, `loadShader` met await)
+- Pointer events voor muis en touch
+- Moderne typografie API
 - Improved curves en splines
 - WebGL shader verbeteringen
-- Pointer events (vervangt mouse/touch events)
 - `beginShape`/`endShape` verbeteringen
+- Oudere 1.x-patronen zoals `preload()` alleen als context bij bestaand materiaal
 
 **When writing content:** read the relevant PDF sections, translate concepts into student-friendly Dutch, provide working code examples at each concept.
 
@@ -412,6 +417,7 @@ p5.js 2.0 features — must be in `content/p5js-2.0.html`:
 - Comments in Dutch where helpful
 - Show the simplest possible version first, complexity later
 - Always test that snippets are syntactically correct before committing
+- Default to modern p5.js 2.x patterns; mention `preload()` only when clarifying older code students may still encounter
 
 ### Live editor examples
 
@@ -460,7 +466,7 @@ Desktop layout currently uses the full available width with an approximate 20% /
 | `.p5-canvas-wrapper` | Direct container for the p5 instance (needs `id`) |
 | `.p5-editor` | Live editor container (processed by `editor.js`) |
 | `.tags-sidebar` | Right column for topic tags and dynamic relations |
-| `.tags-list` | Static list of the topic's own tag buttons |
+| `.tags-chip-flow` | Combined chip flow for the topic's own tags and dynamic chip results |
 | `.tag-context` | Dynamic relation panel for the active tag |
 | `.tag-page-link` | Button that scrolls to a matching block on the current page |
 | `.tag-topic-item` | Link card to a related topic |
@@ -509,54 +515,53 @@ Defined in `:root` in `style.css`. Use these for colors and spacing instead of h
 Current categories and their topics:
 
 ```
-Generative Design
-  ├── Generative Design & Geschiedenis   (generative-design)
-  └── Vera Molnar                        (vera-molnar)
+Generative design
+  └── Generative design & geschiedenis   (generative-design)
 
 Processing
   └── Processing                         (over-p5js)
 
 p5.js
   ├── setup() en draw()                  (setup-draw)
-  ├── Vormen Tekenen                     (vormen)
+  ├── Vormen tekenen                     (vormen)
   ├── Kleur                              (kleur)
   ├── Variabelen                         (variabelen)
-  ├── If-Statements                      (if-statements)
+  ├── If-statements                      (if-statements)
   ├── Loops                              (loops)
   ├── Functies                           (functies)
-  ├── Muis Interactie                    (muis-interactie)
-  ├── Toetsenbord Input                  (toetsenbord)
+  ├── Muis interactie                    (muis-interactie)
+  ├── Toetsenbord input                  (toetsenbord)
   ├── Animatie                           (animatie)
   ├── Arrays                             (arrays)
-  ├── 3D Basis                           (3d-basis)
-  ├── Objecten & Classes                 (objecten)
-  ├── Noise & Perlin Noise               (noise)
+  ├── 3D basis                           (3d-basis)
+  ├── Objecten & classes                 (objecten)
+  ├── Noise & Perlin noise               (noise)
   ├── Afbeeldingen                       (afbeeldingen)
-  ├── Text & Typografie                  (text-typografie)
+  ├── Text & typografie                  (text-typografie)
   ├── Geluid                             (geluid)
-  └── p5.js 2.0: Nieuwe Features         (p5js-2.0)
+  └── Moderne p5.js                      (p5js-2.0)
 
-Code Concepten
-  ├── Turtle Geometry                    (turtle)
-  ├── Random Walk                        (random-walk)
+Code concepten
+  ├── Turtle geometry                    (turtle)
+  ├── Random walk                        (random-walk)
   ├── Lissajous-figuren                  (lissajous)
   ├── Recursie                           (recursie)
-  ├── L-Systemen                         (l-systems)
+  ├── L-systemen                         (l-systems)
   ├── Game of Life                       (game-of-life)
   ├── Langton's Ant                      (langtons-ant)
-  ├── 1D Cellulaire Automaten            (1d-automaten)
+  ├── 1D cellulaire automaten            (1d-automaten)
   ├── Boids                              (boids)
   └── Quine                              (quine)
 
 Strudel
-  └── Strudel: Live Coding Muziek        (strudel)
+  └── Strudel: live coding muziek        (strudel)
 
 Inspiratie
   ├── Vera Molnar                        (vera-molnar)
-  └── Links & Bronnen                    (inspiratie-links)
+  └── Links & bronnen                    (inspiratie-links)
 
-Artificiële Intelligentie
-  └── AI & Ecologische Kost              (ai-ecologische-kost)
+Artificiële intelligentie
+  └── AI & ecologische kost              (ai-ecologische-kost)
 ```
 
 To add a new category: add its name to `navCategories[]` in `main.js`.
@@ -565,17 +570,17 @@ To add a new category: add its name to `navCategories[]` in `main.js`.
 
 ## p5.js Version Notes
 
-### Current: p5.js 1.7.0
+### Current: p5.js 2.2.1
 
-- CDN: `https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js`
+- CDN: `https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js`
 - Loaded in `index.html` `<head>` — available globally on the page
 - Also loaded inside each editor iframe independently
 
-### p5.js 2.0
+### Older 1.x Patterns
 
-- Covered in `content/p5js-2.0.html` as a separate topic
-- Do NOT upgrade the site's CDN to 2.0 without verifying all examples still work
-- The `p5js2_handleiding.pdf` documents the differences
+- Older patterns such as `preload()` may still be referenced to help students read existing code
+- New lessons and examples should treat async asset loading in `setup()` as the default
+- The `p5js2_handleiding.pdf` documents the shift toward the modern API
 
 ---
 
@@ -633,8 +638,8 @@ For any content or code change:
 - [ ] Navigate to changed topic via sidebar — content loads correctly
 - [ ] Navigation accordion opens one group clearly at a time, the active topic stays visible, and no category counter badge is shown
 - [ ] Right-hand tag sidebar appears for topics with tags
-- [ ] Tags render in `onderwerp.tags` order as compact tag buttons; the earliest tags are the most page-specific keywords
-- [ ] The sidebar DOM stays shallow: direct `.tags-list` plus `#tag-context`, without extra panel/group wrappers
+- [ ] Tags render in `onderwerp.tags` order at the start of the chip flow; the earliest tags are the most page-specific keywords
+- [ ] The sidebar DOM stays shallow: direct `.tags-chip-flow` plus `#tag-context`, without extra panel/group wrappers
 - [ ] Click a tag — in-page relations, broader tags, and `Gerelateerde onderwerpen` update in the sidebar
 - [ ] Click two different tags quickly — only the latest clicked tag remains active and the panel stays coherent
 - [ ] Desktop layout uses the intended wide 20 / 50 / 30 flow and still stacks correctly on smaller screens

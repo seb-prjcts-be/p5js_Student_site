@@ -4,15 +4,12 @@
 
 <section>
     <h2>Een Afbeelding Laden en Tekenen</h2>
-    <p>Gebruik <code>loadImage()</code> in <code>preload()</code> om een afbeelding te laden vóórdat de sketch start. Teken hem dan met <code>image()</code>.</p>
+    <p>Gebruik in moderne p5.js meestal <code>async function setup()</code> met <code>await loadImage()</code>. Zo weet je zeker dat de afbeelding geladen is vóór je ze tekent. In oudere sketches kom je <code>preload()</code> nog tegen.</p>
 
     <pre><code>let foto;
 
-function preload() {
-  foto = loadImage('mijn-foto.jpg'); // laad de afbeelding
-}
-
-function setup() {
+async function setup() {
+  foto = await loadImage('mijn-foto.jpg'); // laad de afbeelding
   createCanvas(600, 400);
 }
 
@@ -36,11 +33,8 @@ image(foto, width / 2, height / 2, 200, 150);</code></pre>
     <h3>Afbeeldingsgrootte opvragen</h3>
     <pre><code>let foto;
 
-function preload() {
-  foto = loadImage('mijn-foto.jpg');
-}
-
-function setup() {
+async function setup() {
+  foto = await loadImage('mijn-foto.jpg');
   createCanvas(foto.width, foto.height); // canvas even groot als foto
   image(foto, 0, 0);
   console.log('Breedte:', foto.width, 'Hoogte:', foto.height);

@@ -1,4 +1,4 @@
-// p5.js 2.0 features voorbeeld - curves en pointer events
+// Moderne p5.js demo - curves en interactieve input
 window.sketch_example_p5js2 = function (p) {
     let curvePoints = [];
 

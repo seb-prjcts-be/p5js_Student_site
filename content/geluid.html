@@ -7,22 +7,19 @@
     <p>De p5.sound library is een apart bestand dat je naast p5.js moet laden. Voeg het toe aan je HTML vóór je sketch:</p>
 
     <pre><code>&lt;!-- Voeg toe in je HTML, na p5.js --&gt;
-&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/addons/p5.sound.min.js"&gt;&lt;/script&gt;</code></pre>
+&lt;script src="https://cdn.jsdelivr.net/npm/p5.sound@0.2.0/dist/p5.sound.min.js"&gt;&lt;/script&gt;</code></pre>
 
     <p><strong>Let op:</strong> in de live editor op deze site is p5.sound niet geladen. De codevoorbeelden hieronder zijn bedoeld voor gebruik in je eigen HTML-projecten.</p>
 </section>
 
 <section>
     <h2>Een Geluid Afspelen</h2>
-    <p>Laad een geluidsbestand met <code>loadSound()</code> in <code>preload()</code> en speel het af met <code>.play()</code>.</p>
+    <p>Laad een geluidsbestand in moderne p5.js meestal met <code>await loadSound()</code> in <code>async function setup()</code>. In oudere code zie je dit nog vaak in <code>preload()</code>.</p>
 
     <pre><code>let geluid;
 
-function preload() {
-  geluid = loadSound('mijn-geluid.mp3');
-}
-
-function setup() {
+async function setup() {
+  geluid = await loadSound('mijn-geluid.mp3');
   createCanvas(400, 300);
   background(220);
 }
@@ -71,11 +68,8 @@ let positie = geluid.currentTime();</code></pre>
     <pre><code>let geluid;
 let analyzer;
 
-function preload() {
-  geluid = loadSound('muziek.mp3');
-}
-
-function setup() {
+async function setup() {
+  geluid = await loadSound('muziek.mp3');
   createCanvas(600, 400);
   geluid.loop();
 
@@ -114,11 +108,8 @@ analyzer.smooth(0.8);</code></pre>
     <pre><code>let geluid;
 let fft;
 
-function preload() {
-  geluid = loadSound('muziek.mp3');
-}
-
-function setup() {
+async function setup() {
+  geluid = await loadSound('muziek.mp3');
   createCanvas(600, 300);
   geluid.loop();
 
@@ -241,11 +232,8 @@ osc = new p5.Oscillator('sawtooth'); // heldere, metaalachtige toon</code></pre>
 let fft;
 let amplitude;
 
-function preload() {
-  geluid = loadSound('muziek.mp3');
-}
-
-function setup() {
+async function setup() {
+  geluid = await loadSound('muziek.mp3');
   createCanvas(600, 400);
   geluid.loop();
 

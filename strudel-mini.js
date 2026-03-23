@@ -1,20 +1,17 @@
 /**
  * Minimal Strudel player for inline examples.
+ *
+ * Uses the official @strudel/web browser bundle so the inline player follows
+ * the same evaluation model as the Strudel docs and REPL.
  */
 (function() {
     'use strict';
 
-    if (typeof globalThis.process === 'undefined') {
-        globalThis.process = { env: { NODE_ENV: 'production' } };
-    }
-
-    const STRUDEL_CORE_URL = 'https://unpkg.com/@strudel/core@1.2.5/dist/index.mjs?module';
-    const STRUDEL_WEBAUDIO_URL = 'https://unpkg.com/@strudel/webaudio@1.2.6/dist/index.mjs?module';
-    const SAMPLE_BASE = 'https://raw.githubusercontent.com/felixroos/dough-samples/main';
-    const SAMPLE_MAPS = [
-        `${SAMPLE_BASE}/Dirt-Samples.json`,
-        `${SAMPLE_BASE}/tidal-drum-machines.json`,
-        `${SAMPLE_BASE}/mridangam.json`,
+    const STRUDEL_WEB_URL = 'https://unpkg.com/@strudel/web@1.2.3?module';
+    const STRUDEL_SAMPLE_MAPS = [
+        'github:tidalcycles/dirt-samples',
+        'https://raw.githubusercontent.com/felixroos/dough-samples/main/tidal-drum-machines.json',
+        'https://raw.githubusercontent.com/felixroos/dough-samples/main/mridangam.json',
         'https://raw.githubusercontent.com/tidalcycles/uzu-drumkit/main/strudel.json'
     ];
 
@@ -24,33 +21,41 @@
     };
 
     let strudelRuntimePromise = null;
-    let strudelRuntime = null;
     let activeInstance = null;
 
     async function loadStrudelRuntime() {
-        if (strudelRuntime) {
-            return strudelRuntime;
+        if (strudelRuntimePromise) {
+            return strudelRuntimePromise;
         }
 
-        if (!strudelRuntimePromise) {
         strudelRuntimePromise = (async () => {
-            const core = await import(STRUDEL_CORE_URL);
-            await core.evalScope(core);
-            const webaudio = await import(STRUDEL_WEBAUDIO_URL);
-            const { webaudioRepl, doughsamples, getAudioContext } = webaudio;
-            const repl = webaudioRepl();
+            const moduleApi = await import(STRUDEL_WEB_URL);
+            const namespaceApi = globalThis.strudel || globalThis.Strudel || globalThis.strudelWeb || {};
+            const initStrudel = moduleApi.initStrudel || globalThis.initStrudel || namespaceApi.initStrudel;
+            const evaluate = moduleApi.evaluate || globalThis.evaluate || namespaceApi.evaluate;
+            const hush = moduleApi.hush || globalThis.hush || namespaceApi.hush;
+            const samples = moduleApi.samples || globalThis.samples || namespaceApi.samples;
 
-                await Promise.all(SAMPLE_MAPS.map((url) => doughsamples(url)));
+            if (
+                typeof initStrudel !== 'function' ||
+                typeof evaluate !== 'function' ||
+                typeof hush !== 'function' ||
+                typeof samples !== 'function'
+            ) {
+                throw new Error('Strudel API is niet beschikbaar.');
+            }
 
-                return {
-                    repl,
-                    getAudioContext
-                };
-            })();
-        }
+            await Promise.resolve(initStrudel({
+                prebake: () => Promise.all(STRUDEL_SAMPLE_MAPS.map((sampleMap) => samples(sampleMap)))
+            }));
 
-        strudelRuntime = await strudelRuntimePromise;
-        return strudelRuntime;
+            return {
+                evaluate,
+                hush
+            };
+        })();
+
+        return strudelRuntimePromise;
     }
 
     class StrudelMini extends HTMLElement {
@@ -68,8 +73,8 @@
         }
 
         disconnectedCallback() {
-            if (activeInstance === this && strudelRuntime) {
-                strudelRuntime.repl.stop();
+            if (activeInstance === this && strudelRuntimePromise) {
+                this.forceStop();
                 activeInstance = null;
             }
         }
@@ -120,6 +125,7 @@
                         this.togglePlay();
                     }
                 }
+
                 if (event.ctrlKey && event.key === '.') {
                     event.preventDefault();
                     if (this.isPlaying) {
@@ -153,12 +159,9 @@
         }
 
         async ensureRuntime() {
-            if (strudelRuntime) {
-                return strudelRuntime;
-            }
-
             this.setButtonsDisabled(true);
             this.setStatus('Audio laden...');
+
             try {
                 const runtime = await loadStrudelRuntime();
                 this.setStatus('');
@@ -182,7 +185,7 @@
             }
 
             if (this.isPlaying) {
-                runtime.repl.stop();
+                runtime.hush();
                 this.setPlaying(false);
                 if (activeInstance === this) {
                     activeInstance = null;
@@ -191,23 +194,22 @@
             }
 
             if (activeInstance && activeInstance !== this) {
-                activeInstance.forceStop(runtime);
+                activeInstance.forceStop();
             }
 
             activeInstance = this;
             this.setStatus('');
 
             try {
-                const audioContext = runtime.getAudioContext();
-                if (audioContext && audioContext.state === 'suspended') {
-                    await audioContext.resume();
-                }
-                await runtime.repl.evaluate(code, true);
+                await Promise.resolve(runtime.evaluate(code));
                 this.setPlaying(true);
             } catch (error) {
                 console.error('Strudel code error:', error);
                 this.setStatus('Code fout.');
                 this.setPlaying(false);
+                if (activeInstance === this) {
+                    activeInstance = null;
+                }
             }
         }
 
@@ -220,12 +222,18 @@
                 return;
             }
 
+            if (!this.isPlaying) {
+                this.setStatus('Speel dit voorbeeld eerst.');
+                return;
+            }
+
+            if (activeInstance && activeInstance !== this) {
+                this.setStatus('Speel dit voorbeeld eerst.');
+                return;
+            }
+
             try {
-                if (activeInstance && activeInstance !== this) {
-                    this.setStatus('Speel dit voorbeeld eerst.');
-                    return;
-                }
-                await runtime.repl.evaluate(code, this.isPlaying);
+                await Promise.resolve(runtime.evaluate(code));
                 this.setStatus('');
             } catch (error) {
                 console.error('Strudel code error:', error);
@@ -233,13 +241,21 @@
             }
         }
 
-        forceStop(runtime) {
-            if (this.isPlaying) {
-                runtime.repl.stop();
-                this.setPlaying(false);
+        forceStop() {
+            if (!this.isPlaying) {
+                return;
             }
+
+            Promise.resolve(loadStrudelRuntime())
+                .then((runtime) => runtime.hush())
+                .catch((error) => console.error('Strudel stop error:', error));
+
+            this.setPlaying(false);
+            this.setStatus('');
         }
     }
 
-    customElements.define('strudel-mini', StrudelMini);
+    if (!customElements.get('strudel-mini')) {
+        customElements.define('strudel-mini', StrudelMini);
+    }
 })();

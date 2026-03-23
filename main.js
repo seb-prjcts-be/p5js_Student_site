@@ -2,11 +2,11 @@
 const onderwerpen = [
     {
         id: "generative-design",
-        titel: "Generative Design & Geschiedenis",
+        titel: "Generative design & geschiedenis",
         samenvatting: "Ontdek de geschiedenis van generative design, van John Whitney tot moderne creative coding.",
         tags: ["geschiedenis", "generative design", "Whitney", "fractals", "DEMO", "BYOB", "creative coding"],
         contentFile: "content/generative-design.html",
-        categorie: "Generative Design"
+        categorie: "Generative design"
     },
     {
         id: "over-p5js",
@@ -26,7 +26,7 @@ const onderwerpen = [
     },
     {
         id: "vormen",
-        titel: "Vormen Tekenen",
+        titel: "Vormen tekenen",
         samenvatting: "Leer hoe je basisvormen tekent: cirkels, rechthoeken, lijnen en meer.",
         tags: ["vormen", "ellipse", "rect", "line", "triangle", "basis"],
         contentFile: "content/vormen.html",
@@ -50,7 +50,7 @@ const onderwerpen = [
     },
     {
         id: "if-statements",
-        titel: "If-Statements",
+        titel: "If-statements",
         samenvatting: "Maak beslissingen in je code met if-statements en voorwaarden.",
         tags: ["if", "else", "voorwaarden", "logica", "beslissingen"],
         contentFile: "content/if-statements.html",
@@ -74,7 +74,7 @@ const onderwerpen = [
     },
     {
         id: "muis-interactie",
-        titel: "Muis Interactie",
+        titel: "Muis interactie",
         samenvatting: "Leer hoe je reageert op muisbewegingen en klikken.",
         tags: ["muis", "mouseX", "mouseY", "interactie", "events"],
         contentFile: "content/muis-interactie.html",
@@ -82,7 +82,7 @@ const onderwerpen = [
     },
     {
         id: "toetsenbord",
-        titel: "Toetsenbord Input",
+        titel: "Toetsenbord input",
         samenvatting: "Gebruik toetsenbord input om je sketches te besturen.",
         tags: ["toetsenbord", "keyboard", "keyPressed", "input"],
         contentFile: "content/toetsenbord.html",
@@ -106,7 +106,7 @@ const onderwerpen = [
     },
     {
         id: "3d-basis",
-        titel: "3D Basis",
+        titel: "3D basis",
         samenvatting: "Ontdek 3D graphics met WEBGL. Leer 3D vormen tekenen en transformeren.",
         tags: ["3D", "WEBGL", "box", "sphere", "rotatie", "transformatie"],
         contentFile: "content/3d-basis.html",
@@ -114,7 +114,7 @@ const onderwerpen = [
     },
     {
         id: "objecten",
-        titel: "Objecten & Classes",
+        titel: "Objecten & classes",
         samenvatting: "Leer hoe je classes gebruikt om objecten te maken met eigen eigenschappen en gedrag. De basis van object-georiënteerd programmeren in p5.js.",
         tags: ["class", "object", "constructor", "OOP", "this", "instantie", "methoden"],
         contentFile: "content/objecten.html",
@@ -122,7 +122,7 @@ const onderwerpen = [
     },
     {
         id: "noise",
-        titel: "Noise & Perlin Noise",
+        titel: "Noise & Perlin noise",
         samenvatting: "Ontdek noise(): een functie voor vloeiende, organische willekeur. Maak bewegende landschappen, texturen en flow fields.",
         tags: ["noise", "Perlin noise", "willekeur", "organisch", "textuur", "flow field", "landschap"],
         contentFile: "content/noise.html",
@@ -138,7 +138,7 @@ const onderwerpen = [
     },
     {
         id: "text-typografie",
-        titel: "Text & Typografie",
+        titel: "Text & typografie",
         samenvatting: "Teken tekst op het canvas met text(), stel grootte en stijl in, en laad custom fonts met loadFont().",
         tags: ["tekst", "text", "font", "typografie", "textSize", "textFont", "loadFont", "textAlign"],
         contentFile: "content/text-typografie.html",
@@ -154,15 +154,15 @@ const onderwerpen = [
     },
     {
         id: "p5js-2.0",
-        titel: "p5.js 2.0: Nieuwe Features",
-        samenvatting: "Ontdek de nieuwe features van p5.js 2.0: async assets, typografie, curves, shaders en meer.",
-        tags: ["p5.js 2.0", "async", "typografie", "curves", "splines", "shaders", "pointer-events", "migratie"],
+        titel: "Moderne p5.js",
+        samenvatting: "Werk met de standaard p5.js-aanpak van deze cursus: async assets, pointer input, typografie, curves en shaders.",
+        tags: ["moderne p5.js", "async", "loadImage", "loadFont", "pointer", "curves", "shaders", "preload"],
         contentFile: "content/p5js-2.0.html",
         categorie: "p5.js"
     },
     {
         id: "strudel",
-        titel: "Strudel: Live Coding Muziek",
+        titel: "Strudel: live coding muziek",
         samenvatting: "Leer live-coding muziek maken in je browser met Strudel: ritme, samples, noten en stack.",
         tags: ["strudel", "live coding", "muziek", "samples", "ritme", "notes", "stack"],
         contentFile: "content/strudel.html",
@@ -178,7 +178,7 @@ const onderwerpen = [
     },
     {
         id: "inspiratie-links",
-        titel: "Links & Bronnen",
+        titel: "Links & bronnen",
         samenvatting: "Alle links uit de cursus: inspirerende projecten, video's, boeken, bibliotheken, tools en datasets.",
         tags: ["links", "bronnen", "inspiratie", "boeken", "video", "community", "datasets", "bibliotheken"],
         contentFile: "content/inspiratie-links.html",
@@ -186,19 +186,19 @@ const onderwerpen = [
     },
     {
         id: "turtle",
-        titel: "Turtle Geometry",
+        titel: "Turtle geometry",
         samenvatting: "Bestuur een denkbeeldige schildpad met forward, right en left en ontdek hoe korte regels kunnen uitgroeien tot patronen, spiralen en fractals.",
         tags: ["turtle", "schildpad", "logo", "papert", "forward", "spiraal", "ster", "fractal", "code concepten"],
         contentFile: "content/turtle.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "random-walk",
-        titel: "Random Walk",
+        titel: "Random walk",
         samenvatting: "Een punt zet stap voor stap willekeurige bewegingen. Simpel idee, verrassend rijke patronen: toeval wordt zichtbaar als spoor.",
         tags: ["random walk", "toeval", "walker", "stappen", "pad", "simulatie", "code concepten"],
         contentFile: "content/random-walk.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "lissajous",
@@ -206,7 +206,7 @@ const onderwerpen = [
         samenvatting: "Combineer twee sinusgolven tot vloeiende figuren en ontdek hoe verhoudingen, ritme en faseverschuiving zichtbaar worden in beeld.",
         tags: ["lissajous", "sinus", "parametrisch", "wiskunde", "animatie", "golven", "code concepten"],
         contentFile: "content/lissajous.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "recursie",
@@ -214,15 +214,15 @@ const onderwerpen = [
         samenvatting: "Een functie die zichzelf opnieuw oproept. Ideaal om vertakkingen, fractals en herhaling op meerdere schalen te begrijpen.",
         tags: ["recursie", "fractal", "boom", "zelfde patroon", "functie", "stopvoorwaarde", "code concepten"],
         contentFile: "content/recursie.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "l-systems",
-        titel: "L-Systemen",
+        titel: "L-systemen",
         samenvatting: "Genereer organische bomen en vertakkingen door simpele tekstregels telkens opnieuw te herschrijven: beeld als grammatica.",
         tags: ["l-system", "lindenmayer", "fractal", "turtle", "string rewriting", "generative", "code concepten"],
         contentFile: "content/l-systems.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "game-of-life",
@@ -230,7 +230,7 @@ const onderwerpen = [
         samenvatting: "Vier simpele regels voor levende en dode cellen leveren werelden op met ritme, groei, instorting en onverwachte orde.",
         tags: ["game of life", "conway", "cellulair automaat", "simulatie", "emergentie", "code concepten"],
         contentFile: "content/game-of-life.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "langtons-ant",
@@ -238,15 +238,15 @@ const onderwerpen = [
         samenvatting: "Een mier draait links of rechts afhankelijk van de tegel onder zich. Een minuscuul regelsysteem dat van orde naar chaos en weer terug kan gaan.",
         tags: ["langton", "ant", "cellulair automaat", "emergentie", "chaos", "rooster", "code concepten"],
         contentFile: "content/langtons-ant.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "1d-automaten",
-        titel: "1D Cellulaire Automaten",
+        titel: "1D cellulaire automaten",
         samenvatting: "Een rij cellen volgt een simpele buurregel en groeit uit tot textielachtige, ritmische of chaotische patronen, zoals Rule 30 en Rule 110.",
         tags: ["1d automaten", "rule 30", "rule 110", "cellulair automaat", "binaire regels", "code concepten"],
         contentFile: "content/1d-automaten.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "boids",
@@ -254,7 +254,7 @@ const onderwerpen = [
         samenvatting: "Zwermgedrag met drie regels: samenblijven, afstand houden en richting delen. Collectief gedrag zonder leider.",
         tags: ["boids", "flocking", "zwerm", "vectoren", "emergentie", "agents", "code concepten"],
         contentFile: "content/boids.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "quine",
@@ -262,19 +262,19 @@ const onderwerpen = [
         samenvatting: "Een programma dat zijn eigen broncode toont zonder bestanden te lezen. Zelfverwijzing als denkoefening in code.",
         tags: ["quine", "zelfverwijzing", "meta", "toString", "recursie", "code concepten"],
         contentFile: "content/quine.html",
-        categorie: "Code Concepten"
+        categorie: "Code concepten"
     },
     {
         id: "ai-ecologische-kost",
-        titel: "AI & Ecologische Kost",
+        titel: "AI & ecologische kost",
         samenvatting: "Hoeveel energie kost AI eigenlijk? Vergelijk AI-gesprekken met koffie, Netflix en meer — en ontdek waarom het verhaal genuanceerder is dan je denkt.",
         tags: ["AI", "energie", "ecologie", "klimaat", "datacenter", "GPU", "duurzaamheid", "training", "koffie"],
         contentFile: "content/ai-ecologische-kost.html",
-        categorie: "Artificiële Intelligentie"
+        categorie: "Artificiële intelligentie"
     }
 ];
 
-const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie", "Artificiële Intelligentie"];
+const navCategories = ["Generative design", "Processing", "p5.js", "Code concepten", "Strudel", "Inspiratie", "Artificiële intelligentie"];
 const MAX_IN_PAGE_RELATIONS = 5;
 const MAX_RELATED_TAGS = 6;
 const MAX_RELATED_TOPICS = 5;
@@ -557,27 +557,44 @@ function getRelatedTopicReason(item, activeTag) {
     return `verwant via ${activeTag}`;
 }
 
+function renderTagChipFlow(currentTags, contextData) {
+    const { activeTag, inPageRelations, broaderTags } = contextData;
+    const activeTagNormalized = normalizeText(activeTag);
+    const activeTagIsCurrent = currentTags.some(tag => normalizeText(tag) === activeTagNormalized);
+    const staticTagButtons = currentTags.map(tag => `
+        <button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">
+            ${escapeHtml(tag)}
+        </button>
+    `);
+    const activeTagButton = !activeTagIsCurrent ? `
+        <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(activeTag)}">
+            ${escapeHtml(activeTag)}
+        </button>
+    ` : '';
+    const contextButtons = [
+        ...inPageRelations.map(item => `
+            <button class="tag-page-link" type="button" data-scroll-target="${escapeHtml(item.id)}">
+                ${escapeHtml(item.label)}
+            </button>
+        `),
+        ...broaderTags.map(tag => `
+            <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(tag)}">
+                ${escapeHtml(tag)}
+            </button>
+        `)
+    ];
+
+    return `
+        ${staticTagButtons.join('')}
+        ${activeTagButton}
+        ${contextButtons.join('')}
+    `;
+}
+
 function renderTagContext(contextData) {
-    const { activeTag, inPageRelations, broaderTags, relatedTopics } = contextData;
-    const inPageSection = inPageRelations.length > 0 ? `
-        <div class="tag-page-links">
-            ${inPageRelations.map(item => `
-                <button class="tag-page-link" type="button" data-scroll-target="${escapeHtml(item.id)}">
-                    ${escapeHtml(item.label)}
-                </button>
-            `).join('')}
-        </div>
-    ` : '';
-    const broaderTagsSection = broaderTags.length > 0 ? `
-        <div class="tag-related-list">
-            ${broaderTags.map(tag => `
-                <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(tag)}">
-                    ${escapeHtml(tag)}
-                </button>
-            `).join('')}
-        </div>
-    ` : '';
+    const { activeTag, relatedTopics } = contextData;
     const relatedTopicsSection = relatedTopics.length > 0 ? `
+        <p class="tag-context-heading">Gerelateerde onderwerpen</p>
         <div class="tag-topic-list">
             ${relatedTopics.map(item => `
                 <a class="tag-topic-item" href="#${item.onderwerp.id}">
@@ -590,9 +607,6 @@ function renderTagContext(contextData) {
     ` : '';
 
     return `
-        ${inPageSection}
-        ${broaderTagsSection}
-        <p class="tag-context-heading">Gerelateerde onderwerpen</p>
         ${relatedTopicsSection}
     `;
 }
@@ -663,7 +677,7 @@ async function renderOnderwerp(onderwerp) {
         const tags = getOnderwerpTags(onderwerp);
         const tagsSidebarHtml = tags.length > 0 ? `
             <aside class="tags-sidebar">
-                <div class="tags-list">
+                <div id="tags-chip-flow" class="tags-chip-flow">
                     ${tags.map(tag => `<button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
                 </div>
                 <div id="tag-context" class="tag-context" aria-live="polite"></div>
@@ -688,6 +702,7 @@ async function renderOnderwerp(onderwerp) {
         primeRelatedContentCache(onderwerp);
 
         if (sidebar) {
+            const chipFlowEl = sidebar.querySelector('#tags-chip-flow');
             const tagContextEl = sidebar.querySelector('#tag-context');
             let activeTag = tags[0];
             let requestId = 0;
@@ -708,10 +723,6 @@ async function renderOnderwerp(onderwerp) {
                 tagContextEl.classList.add('is-loading');
                 tagContextEl.setAttribute('aria-busy', 'true');
 
-                if (!tagContextEl.innerHTML.trim()) {
-                    tagContextEl.innerHTML = '<p class="tag-context-heading">Gerelateerde onderwerpen</p>';
-                }
-
                 const inPageRelations = getInPageRelations(contentRoot, activeTag);
                 const relatedTopics = await getRelatedTopics(onderwerp, activeTag);
                 const broaderTags = getBroaderRelatedTags(onderwerp, activeTag, relatedTopics);
@@ -720,10 +731,13 @@ async function renderOnderwerp(onderwerp) {
                     return;
                 }
 
-                tagContextEl.innerHTML = renderTagContext({
+                chipFlowEl.innerHTML = renderTagChipFlow(tags, {
                     activeTag,
                     inPageRelations,
-                    broaderTags,
+                    broaderTags
+                });
+                tagContextEl.innerHTML = renderTagContext({
+                    activeTag,
                     relatedTopics
                 });
                 tagContextEl.classList.remove('is-loading');

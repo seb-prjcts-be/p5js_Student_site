@@ -160,16 +160,13 @@ text('Regel één\nRegel twee\nRegel drie', 50, 100);</code></pre>
 
 <section>
     <h2>Custom Fonts Laden</h2>
-    <p>Je kunt je eigen lettertype laden met <code>loadFont()</code>. Gebruik Google Fonts of een eigen .ttf/.otf bestand.</p>
+    <p>Je kunt je eigen lettertype laden met <code>loadFont()</code>. In moderne p5.js doe je dat meestal met <code>await loadFont()</code> in <code>async function setup()</code>. Oudere tutorials gebruiken hier vaak nog <code>preload()</code>.</p>
 
     <pre><code>let mijnFont;
 
-function preload() {
+async function setup() {
   // Laad een lokaal font bestand
-  mijnFont = loadFont('fonts/mijn-lettertype.ttf');
-}
-
-function setup() {
+  mijnFont = await loadFont('fonts/mijn-lettertype.ttf');
   createCanvas(600, 400);
   textFont(mijnFont); // stel het font in
 }
@@ -183,9 +180,11 @@ function draw() {
 
     <h3>Google Fonts gebruiken</h3>
     <p>Je kunt ook fonts rechtstreeks laden via een URL (alleen als de server CORS ondersteunt):</p>
-    <pre><code>function preload() {
+    <pre><code>async function setup() {
   // Let op: niet alle externe URLs werken vanwege CORS
-  mijnFont = loadFont('https://fonts.gstatic.com/s/oswald/v53/TK3iWkUHHAIjg752FD8Gl-1PKw.woff2');
+  mijnFont = await loadFont('https://fonts.gstatic.com/s/oswald/v53/TK3iWkUHHAIjg752FD8Gl-1PKw.woff2');
+  createCanvas(600, 400);
+  textFont(mijnFont);
 }</code></pre>
 
     <p><strong>Tip:</strong> Download het font bestand en sla het op in je projectmap — dat is betrouwbaarder.</p>
