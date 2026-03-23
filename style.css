@@ -29,13 +29,13 @@ body {
 
 /* Lettergrootte */
 body[data-fontsize="klein"] {
-    font-size: 14px;
-}
-body[data-fontsize="medium"] {
     font-size: 16px;
 }
-body[data-fontsize="groot"] {
+body[data-fontsize="medium"] {
     font-size: 20px;
+}
+body[data-fontsize="groot"] {
+    font-size: 24px;
 }
 
 /* Header */
