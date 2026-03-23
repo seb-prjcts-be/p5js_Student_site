@@ -65,13 +65,14 @@ p5_cursus_site/
 
 ### Zoekfunctie
 - Client-side zoeken in titels, samenvattingen en tags
-- Resultaten worden getoond met highlights
+- Resultaten worden getoond met highlights zonder extra spatie binnen woorden
 - Klik op resultaat om naar onderwerp te gaan
 
 ### Trefwoordenkolom
 - Rechterkolom met trefwoorden per onderwerp
 - Tags verschijnen in de volgorde van `onderwerp.tags`
-- Bovenste trefwoordenlijst staat compact inline, zonder omlijnde tagvakjes
+- Bovenste trefwoordenlijst gebruikt compacte tagknoppen
+- De sidebar-DOM blijft bewust eenvoudig: directe `.tags-list` en `#tag-context`
 - Klik op een tag om gerelateerde secties, bredere trefwoorden en `Gerelateerde onderwerpen` te tonen
 
 ### Layout

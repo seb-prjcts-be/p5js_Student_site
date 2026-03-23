@@ -560,48 +560,40 @@ function getRelatedTopicReason(item, activeTag) {
 function renderTagContext(contextData) {
     const { activeTag, inPageRelations, broaderTags, relatedTopics } = contextData;
     const inPageSection = inPageRelations.length > 0 ? `
-            <section class="tag-context-group">
-                <div class="tag-page-links">
-                    ${inPageRelations.map(item => `
-                        <button class="tag-page-link" type="button" data-scroll-target="${escapeHtml(item.id)}">
-                            ${escapeHtml(item.label)}
-                        </button>
-                    `).join('')}
-                </div>
-            </section>
+        <div class="tag-page-links">
+            ${inPageRelations.map(item => `
+                <button class="tag-page-link" type="button" data-scroll-target="${escapeHtml(item.id)}">
+                    ${escapeHtml(item.label)}
+                </button>
+            `).join('')}
+        </div>
     ` : '';
     const broaderTagsSection = broaderTags.length > 0 ? `
-            <section class="tag-context-group">
-                <div class="tag-related-list">
-                    ${broaderTags.map(tag => `
-                        <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(tag)}">
-                            ${escapeHtml(tag)}
-                        </button>
-                    `).join('')}
-                </div>
-            </section>
+        <div class="tag-related-list">
+            ${broaderTags.map(tag => `
+                <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(tag)}">
+                    ${escapeHtml(tag)}
+                </button>
+            `).join('')}
+        </div>
     ` : '';
     const relatedTopicsSection = relatedTopics.length > 0 ? `
-                <div class="tag-topic-list">
-                    ${relatedTopics.map(item => `
-                        <a class="tag-topic-item" href="#${item.onderwerp.id}">
-                            <span class="tag-topic-category">${escapeHtml(item.onderwerp.categorie)}</span>
-                            <span class="tag-topic-title">${escapeHtml(item.onderwerp.titel)}</span>
-                            <span class="tag-topic-reason">${escapeHtml(getRelatedTopicReason(item, activeTag))}</span>
-                        </a>
-                    `).join('')}
-                </div>
+        <div class="tag-topic-list">
+            ${relatedTopics.map(item => `
+                <a class="tag-topic-item" href="#${item.onderwerp.id}">
+                    <span class="tag-topic-category">${escapeHtml(item.onderwerp.categorie)}</span>
+                    <span class="tag-topic-title">${escapeHtml(item.onderwerp.titel)}</span>
+                    <span class="tag-topic-reason">${escapeHtml(getRelatedTopicReason(item, activeTag))}</span>
+                </a>
+            `).join('')}
+        </div>
     ` : '';
 
     return `
-        <div class="tag-context-panel">
-            ${inPageSection}
-            ${broaderTagsSection}
-            <section class="tag-context-group">
-                <p class="tag-context-heading">Gerelateerde onderwerpen</p>
-                ${relatedTopicsSection}
-            </section>
-        </div>
+        ${inPageSection}
+        ${broaderTagsSection}
+        <p class="tag-context-heading">Gerelateerde onderwerpen</p>
+        ${relatedTopicsSection}
     `;
 }
 
@@ -671,10 +663,8 @@ async function renderOnderwerp(onderwerp) {
         const tags = getOnderwerpTags(onderwerp);
         const tagsSidebarHtml = tags.length > 0 ? `
             <aside class="tags-sidebar">
-                <div class="tags-panel">
-                    <div class="tags-list">
-                        ${tags.map(tag => `<button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
-                    </div>
+                <div class="tags-list">
+                    ${tags.map(tag => `<button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
                 </div>
                 <div id="tag-context" class="tag-context" aria-live="polite"></div>
             </aside>` : '';
@@ -719,11 +709,7 @@ async function renderOnderwerp(onderwerp) {
                 tagContextEl.setAttribute('aria-busy', 'true');
 
                 if (!tagContextEl.innerHTML.trim()) {
-                    tagContextEl.innerHTML = `
-                        <div class="tag-context-panel">
-                            <p class="tag-context-heading">Gerelateerde onderwerpen</p>
-                        </div>
-                    `;
+                    tagContextEl.innerHTML = '<p class="tag-context-heading">Gerelateerde onderwerpen</p>';
                 }
 
                 const inPageRelations = getInPageRelations(contentRoot, activeTag);

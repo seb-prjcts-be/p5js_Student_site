@@ -638,12 +638,6 @@ main {
     gap: 1.25rem;
 }
 
-.tags-panel,
-.tag-context-panel {
-    border-top: 1px solid var(--border-color);
-    padding-top: 0.9rem;
-}
-
 .tag-context {
     transition: opacity 0.15s ease;
 }
@@ -652,9 +646,14 @@ main {
     opacity: 0.7;
 }
 
+.tag-context > * + * {
+    margin-top: 1rem;
+}
+
 .tags-list {
-    display: inline;
-    line-height: 1.6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
 }
 
 .tag-btn,
@@ -670,28 +669,6 @@ main {
     line-height: 1.3;
 }
 
-.tags-panel .tag-btn {
-    display: inline;
-    padding: 0;
-    border: none;
-    color: var(--text-light);
-    line-height: inherit;
-}
-
-.tags-panel .tag-btn::after {
-    content: ", ";
-}
-
-.tags-panel .tag-btn:last-child::after {
-    content: "";
-}
-
-.tags-panel .tag-btn:hover {
-    color: var(--text-color);
-    border-color: transparent;
-    text-decoration: underline;
-}
-
 .tag-btn:hover,
 .tag-page-link:hover {
     color: var(--text-color);
@@ -702,12 +679,6 @@ main {
     color: var(--text-color);
     border-color: var(--text-color);
     background: var(--hover-bg);
-}
-
-.tags-panel .tag-btn.is-active {
-    border-color: transparent;
-    background: none;
-    text-decoration: underline;
 }
 
 .tag-context-heading {
@@ -724,12 +695,12 @@ main {
     line-height: 1.5;
 }
 
-.tag-context-group + .tag-context-group {
-    margin-top: 1rem;
-}
-
 .tag-context-heading {
     margin-bottom: 0.45rem;
+}
+
+.tag-context-heading + .tag-topic-list {
+    margin-top: 0;
 }
 
 .tag-page-links,
@@ -880,7 +851,7 @@ footer {
 /* Highlight voor zoekresultaten */
 .highlight {
     background-color: var(--hover-bg);
-    padding: 0.1rem 0.2rem;
+    padding: 0;
     border-radius: 0;
     font-weight: normal;
 }

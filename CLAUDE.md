@@ -152,9 +152,10 @@ Each topic page can render a right-hand `tags-sidebar` with the topic's own tags
 Important behavior:
 - Tags in `onderwerp.tags` render in source order
 - Tag order matters: put the most page-specific tags first
-- In the static `tags-panel`, tags are rendered as a compact inline list instead of boxed chips
+- The static tag list renders directly inside `aside.tags-sidebar` as compact tag buttons
 - Clicking a tag updates the sidebar context in place; results are **not** rendered at the bottom of the page
 - The context panel can surface matching blocks on the current page, then broader related tags, then `Gerelateerde onderwerpen`
+- The sidebar markup is intentionally shallow: direct tag list plus `#tag-context`, without extra panel/group wrappers
 - Only `Gerelateerde onderwerpen` keeps an explicit heading; the other relation blocks are shown without extra label text
 - Rapid clicking between tags is supported: only the latest click should win, and re-clicking the already active tag should do nothing
 
@@ -459,7 +460,7 @@ Desktop layout currently uses the full available width with an approximate 20% /
 | `.p5-canvas-wrapper` | Direct container for the p5 instance (needs `id`) |
 | `.p5-editor` | Live editor container (processed by `editor.js`) |
 | `.tags-sidebar` | Right column for topic tags and dynamic relations |
-| `.tags-panel` | Static block with the topic's own tags |
+| `.tags-list` | Static list of the topic's own tag buttons |
 | `.tag-context` | Dynamic relation panel for the active tag |
 | `.tag-page-link` | Button that scrolls to a matching block on the current page |
 | `.tag-topic-item` | Link card to a related topic |
@@ -632,7 +633,8 @@ For any content or code change:
 - [ ] Navigate to changed topic via sidebar — content loads correctly
 - [ ] Navigation accordion opens one group clearly at a time, the active topic stays visible, and no category counter badge is shown
 - [ ] Right-hand tag sidebar appears for topics with tags
-- [ ] Tags render in `onderwerp.tags` order as a compact inline list; the earliest tags are the most page-specific keywords
+- [ ] Tags render in `onderwerp.tags` order as compact tag buttons; the earliest tags are the most page-specific keywords
+- [ ] The sidebar DOM stays shallow: direct `.tags-list` plus `#tag-context`, without extra panel/group wrappers
 - [ ] Click a tag — in-page relations, broader tags, and `Gerelateerde onderwerpen` update in the sidebar
 - [ ] Click two different tags quickly — only the latest clicked tag remains active and the panel stays coherent
 - [ ] Desktop layout uses the intended wide 20 / 50 / 30 flow and still stacks correctly on smaller screens

@@ -40,13 +40,20 @@ Onderwerpen worden opgeslagen als JavaScript objecten:
 
 **Werking**:
 1. `onderwerp.tags` voedt de rechterkolom in de opgegeven volgorde
-2. De bovenste trefwoordenlijst rendert compact inline; de volgorde bepaalt welke tags het meest pagina-specifiek zijn
+2. De bovenste trefwoordenlijst rendert als compacte tagknoppen; de volgorde bepaalt welke tags het meest pagina-specifiek zijn
 3. Een actieve tag toont context op de huidige pagina, bredere gerelateerde tags en `Gerelateerde onderwerpen`
 
 **UI-keuze**:
 - Alleen `Gerelateerde onderwerpen` heeft een expliciete kop
 - Extra labeltekst zoals aparte subkoppen voor elk relatieblok wordt bewust vermeden
 - De statische trefwoordenlijst gebruikt geen omlijnde chips of extra tellerlogica
+- De markup blijft vlak: `aside.tags-sidebar` bevat direct de taglijst en `#tag-context`
+
+### Zoekresultaten
+
+**Highlighting**:
+- Matches worden inline gemarkeerd zonder extra horizontale padding
+- Daardoor blijft een resultaat zoals `Loops` visueel één woord, ook als alleen `Loop` gemarkeerd is
 
 ### p5.js Voorbeeld Loading
 
