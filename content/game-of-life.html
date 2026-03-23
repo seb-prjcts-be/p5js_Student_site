@@ -1,24 +1,39 @@
 <div class="intro">
-    <p>Game of Life is een <strong>cellulair automaat</strong> bedacht door wiskundige John Conway in 1970. Er zijn geen spelers — het systeem evolueert zichzelf op basis van vier simpele regels.</p>
+    <p>Game of Life is een cellulair automaat van John Conway. Er zijn geen spelers en geen doel: alleen cellen die leven of sterven volgens vier regels.</p>
 </div>
 
 <section>
-    <h2>De regels</h2>
-    <p>Elk cel is levend (1) of dood (0). Elke generatie veranderen cellen op basis van hun 8 buren:</p>
+    <h2>Waarom dit concept zo beroemd is</h2>
+    <p>Game of Life laat zien hoe complex gedrag kan ontstaan uit bijna niets. Met vier simpele regels krijg je patronen die pulseren, bewegen, botsen of verdwijnen.</p>
+    <p><strong>Denkvraag:</strong> wanneer voelt een systeem "levend", ook al leeft er niets echt?</p>
+</section>
+
+<section>
+    <h2>Wat je hier leert</h2>
     <ul>
-        <li><strong>Levende cel met 2 of 3 buren</strong> — overleeft</li>
-        <li><strong>Levende cel met &lt;2 buren</strong> — sterft (isolatie)</li>
-        <li><strong>Levende cel met &gt;3 buren</strong> — sterft (overbevolking)</li>
-        <li><strong>Dode cel met exact 3 buren</strong> — wordt levend (geboorte)</li>
+        <li>werken met rasters en burenrelaties</li>
+        <li>toestanden berekenen over opeenvolgende generaties</li>
+        <li>zien hoe lokale regels globale patronen maken</li>
+        <li>simulaties opbouwen met twee grids: nu en straks</li>
     </ul>
-    <p>Die vier regels zijn genoeg voor eindeloos complexe patronen: stabiele vormen, oscillatoren, en zelfs "gliders" die over het raster bewegen.</p>
+</section>
+
+<section>
+    <h2>De regels</h2>
+    <p>Elke cel is levend (1) of dood (0). Elke generatie verandert op basis van zijn 8 buren:</p>
+    <ul>
+        <li><strong>Levende cel met 2 of 3 buren</strong> - overleeft</li>
+        <li><strong>Levende cel met minder dan 2 buren</strong> - sterft door isolatie</li>
+        <li><strong>Levende cel met meer dan 3 buren</strong> - sterft door overbevolking</li>
+        <li><strong>Dode cel met exact 3 buren</strong> - wordt levend</li>
+    </ul>
+    <p>Die vier regels zijn genoeg voor still lifes, oscillatoren en gliders.</p>
 </section>
 
 <section>
     <h2>Structuur in p5.js</h2>
-    <p>Je werkt met twee grids: het huidige en het volgende. Je berekent de volgende generatie altijd op basis van het huidige grid, anders beïnvloeden cellen elkaar tijdens de berekening.</p>
-    <pre><code>// Bereken volgende generatie
-for (let i = 0; i &lt; cols; i++) {
+    <p>Je werkt met twee grids: het huidige en het volgende. Zo voorkom je dat een verandering midden in de berekening andere cellen meteen beinvloedt.</p>
+    <pre><code>for (let i = 0; i &lt; cols; i++) {
   for (let j = 0; j &lt; rows; j++) {
     let n = telBuren(grid, i, j);
     let cel = grid[i][j];
@@ -27,25 +42,41 @@ for (let i = 0; i &lt; cols; i++) {
     else                                    next[i][j] = 0;
   }
 }
-// Wissel grids
+
 [grid, next] = [next, grid];</code></pre>
 
     <h3>Buren tellen met wrapping</h3>
-    <p>Om botsing met de randen te vermijden, "wrappen" we de randen — de rechterkant sluit aan op de linkerkant:</p>
+    <p>Met wrapping sluit de rechterkant aan op de linkerkant en de bovenkant op de onderkant:</p>
     <pre><code>function telBuren(g, x, y) {
   let sum = 0;
-  for (let i = -1; i &lt;= 1; i++)
+  for (let i = -1; i &lt;= 1; i++) {
     for (let j = -1; j &lt;= 1; j++) {
       if (i === 0 && j === 0) continue;
       sum += g[(x + i + cols) % cols][(y + j + rows) % rows];
     }
+  }
   return sum;
 }</code></pre>
 </section>
 
 <section>
+    <h2>Patronen herkennen</h2>
+    <p>In Game of Life krijgen vormen bijna een eigen persoonlijkheid. Sommige blijven staan, sommige knipperen, sommige schuiven door het raster.</p>
+    <ul>
+        <li><strong>still life</strong> - verandert niet meer</li>
+        <li><strong>oscillator</strong> - herhaalt zichzelf na enkele stappen</li>
+        <li><strong>glider</strong> - beweegt schuin door het grid</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Maak eerst een willekeurige wereld. Probeer daarna zelf een klein patroon van levende cellen te ontwerpen dat lang blijft bestaan. Welke startvormen zijn stabiel, en welke storten meteen in?</p>
+</section>
+
+<section>
     <h2>Experimenteer Zelf</h2>
-    <p>Klik op het canvas voor een nieuw willekeurig startpatroon. Pas <code>frameRate</code> aan voor snelheid.</p>
+    <p>Klik op het canvas voor een nieuw startpatroon. Pas <code>frameRate()</code> aan voor snelheid of verander de kans waarmee een cel levend start.</p>
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
 const cols = 75, rows = 50;
@@ -70,37 +101,41 @@ function maakGrid(vullen) {
 
 function telBuren(g, x, y) {
   let sum = 0;
-  for (let i = -1; i <= 1; i++)
+  for (let i = -1; i <= 1; i++) {
     for (let j = -1; j <= 1; j++) {
       if (i === 0 && j === 0) continue;
       sum += g[(x + i + cols) % cols][(y + j + rows) % rows];
     }
+  }
   return sum;
 }
 
 function draw() {
   background(255);
 
-  for (let i = 0; i < cols; i++)
-    for (let j = 0; j < rows; j++)
+  for (let i = 0; i < cols; i++) {
+    for (let j = 0; j < rows; j++) {
       if (grid[i][j]) {
         fill(0);
         noStroke();
         rect(i * cellW, j * cellH, cellW - 1, cellH - 1);
       }
+    }
+  }
 
-  for (let i = 0; i < cols; i++)
+  for (let i = 0; i < cols; i++) {
     for (let j = 0; j < rows; j++) {
       let n = telBuren(grid, i, j);
       next[i][j] = (grid[i][j] && (n === 2 || n === 3)) ||
                    (!grid[i][j] && n === 3) ? 1 : 0;
     }
+  }
 
   [grid, next] = [next, grid];
 }
 
 function mousePressed() {
-  grid = maakGrid(true); // Nieuw willekeurig grid
+  grid = maakGrid(true);
 }
         </script>
     </div>
@@ -108,6 +143,7 @@ function mousePressed() {
 
 <section>
     <h2>Live Demo</h2>
+    <p>Klik om een nieuwe wereld te starten en kijk of er gliders of oscillatoren opduiken.</p>
     <div class="p5-example">
         <div class="p5-example-container">
             <div class="p5-canvas-wrapper" id="example-game-of-life"></div>

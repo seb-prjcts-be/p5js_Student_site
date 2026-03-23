@@ -1,0 +1,123 @@
+<div class="intro">
+    <p>Bij een 1D cellulair automaat begint alles met een enkele rij cellen. Elke nieuwe rij wordt berekend uit de vorige, op basis van een simpele buurregel.</p>
+</div>
+
+<section>
+    <h2>Waarom dit concept sterk is</h2>
+    <p>Het systeem is bijna minimalistisch: zwart of wit, aan of uit. Toch krijg je patronen die textielachtig, ritmisch of verrassend chaotisch kunnen worden.</p>
+    <p><strong>Denkvraag:</strong> wanneer wordt eenvoud onvoorspelbaar?</p>
+</section>
+
+<section>
+    <h2>Wat je hier leert</h2>
+    <ul>
+        <li>binaire toestand gebruiken als bouwsteen</li>
+        <li>nieuwe generaties afleiden uit buren</li>
+        <li>regelnummers zoals Rule 30 of Rule 110 lezen</li>
+        <li>patronen vergelijken op basis van hun gedrag</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Van drie buren naar een nieuwe cel</h2>
+    <p>Elke cel kijkt naar drie waarden in de vorige rij: links, midden en rechts. Dat levert 8 mogelijke patronen op.</p>
+    <pre><code>111 110 101 100 011 010 001 000</code></pre>
+    <p>Een regel zegt voor elk van die patronen of de nieuwe cel 0 of 1 wordt. Bij <strong>Rule 30</strong> is dat bijvoorbeeld:</p>
+    <pre><code>00011110</code></pre>
+</section>
+
+<section>
+    <h2>In code</h2>
+    <p>Je kunt de drie buren omzetten naar een getal tussen 0 en 7 en daarmee een bit uit het regelnummer lezen:</p>
+    <pre><code>let patroon = left * 4 + mid * 2 + right;
+let nieuweCel = (regel >> patroon) &amp; 1;</code></pre>
+    <p>Zo kan een enkel getal zoals 30 of 110 een volledige beeldtaal beschrijven.</p>
+</section>
+
+<section>
+    <h2>Bekende regels</h2>
+    <ul>
+        <li><strong>Rule 30</strong> - ruig en chaotisch</li>
+        <li><strong>Rule 90</strong> - symmetrisch en bijna textielachtig</li>
+        <li><strong>Rule 110</strong> - complex gedrag uit heel simpele regels</li>
+        <li><strong>Rule 184</strong> - wordt soms gebruikt als verkeersmodel</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Vergelijk minstens drie regels. Geef elke regel een karakteromschrijving: rustig, architecturaal, ritmisch, chaotisch, geweven of agressief. Welke regel zou je gebruiken voor een poster, stofpatroon of game-achtergrond?</p>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Deze sketch tekent rij per rij een automaat. Verander <code>regelNummer</code> en kijk welk visueel gedrag je krijgt.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let cellSize = 8;
+let cols, rows;
+let regelNummer = 30;
+let huidigeRij;
+let generatie;
+
+function setup() {
+  createCanvas(600, 400);
+  startRegel();
+}
+
+function startRegel() {
+  cols = floor(width / cellSize);
+  rows = floor(height / cellSize);
+  huidigeRij = Array(cols).fill(0);
+  huidigeRij[floor(cols / 2)] = 1;
+  generatie = 0;
+  background(247, 245, 239);
+  loop();
+}
+
+function volgendeRij(rij) {
+  let next = Array(cols).fill(0);
+
+  for (let i = 0; i < cols; i++) {
+    let left = rij[(i - 1 + cols) % cols];
+    let mid = rij[i];
+    let right = rij[(i + 1) % cols];
+    let patroon = left * 4 + mid * 2 + right;
+    next[i] = (regelNummer >> patroon) & 1;
+  }
+
+  return next;
+}
+
+function draw() {
+  if (generatie >= rows) {
+    noLoop();
+    return;
+  }
+
+  noStroke();
+  for (let i = 0; i < cols; i++) {
+    fill(huidigeRij[i] ? 30 : 247, huidigeRij[i] ? 45 : 245, huidigeRij[i] ? 75 : 239);
+    rect(i * cellSize, generatie * cellSize, cellSize, cellSize);
+  }
+
+  huidigeRij = volgendeRij(huidigeRij);
+  generatie++;
+}
+
+function mousePressed() {
+  startRegel();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Klik op het canvas om naar een andere regel te springen.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-1d-automaten"></div>
+        </div>
+    </div>
+</section>

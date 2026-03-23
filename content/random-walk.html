@@ -1,0 +1,114 @@
+<div class="intro">
+    <p>Een random walk is een pad dat stap voor stap ontstaat uit toeval. Een punt kiest telkens een willekeurige richting en laat zo een spoor achter.</p>
+</div>
+
+<section>
+    <h2>Waarom dit concept sterk is</h2>
+    <p>De regel is bijna belachelijk eenvoudig, maar toch ontstaan er patronen, kluwens en zones met meer of minder dichtheid. Dat maakt random walk ideaal om over toeval en structuur na te denken.</p>
+    <p><strong>Denkvraag:</strong> is toeval echt volledig chaotisch, of krijgt het na veel stappen toch een karakter?</p>
+</section>
+
+<section>
+    <h2>Wat je hier leert</h2>
+    <ul>
+        <li>een systeem stap voor stap laten evolueren</li>
+        <li>toeval zichtbaar maken als spoor</li>
+        <li>werken met toestand: huidige positie en vorige positie</li>
+        <li>zien hoe herhaling en tijd beeld opbouwen</li>
+    </ul>
+</section>
+
+<section>
+    <h2>De basisregel</h2>
+    <p>Bij elke stap kies je een richting en verplaats je het punt. Meer is het niet:</p>
+    <pre><code>let x = width / 2;
+let y = height / 2;
+
+function stap() {
+  let keuze = floor(random(4));
+
+  if (keuze === 0) x += 10;
+  if (keuze === 1) x -= 10;
+  if (keuze === 2) y += 10;
+  if (keuze === 3) y -= 10;
+}</code></pre>
+    <p>Door na elke stap een lijn te tekenen, wordt het pad zichtbaar.</p>
+</section>
+
+<section>
+    <h2>Variaties op hetzelfde idee</h2>
+    <ul>
+        <li><strong>biased walk</strong> - een richting krijgt meer kans</li>
+        <li><strong>self-avoiding walk</strong> - de lijn mag zichzelf niet raken</li>
+        <li><strong>meerdere walkers</strong> - verschillende punten bouwen samen een beeld</li>
+        <li><strong>kleur als geheugen</strong> - elke stap verandert ook tint of dikte</li>
+    </ul>
+    <p>Zo zie je dat een systeem vaak niet draait om grote complexiteit, maar om een kleine regel plus een paar slimme variaties.</p>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Maak eerst een gewone random walk. Voeg daarna een voorkeur toe, bijvoorbeeld meer kans naar rechts. Vergelijk beide sporen en beschrijf welk beeld meer voelt als zwerven en welk beeld meer voelt als doelgericht bewegen.</p>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Deze walker start in het midden en zet meerdere stappen per frame. Verander de stapgrootte, kleur of kansverdeling en kijk hoe het karakter van het spoor verandert.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let x, y;
+let stapGrootte = 8;
+
+function setup() {
+  createCanvas(600, 400);
+  achtergrond();
+  resetWalker();
+}
+
+function achtergrond() {
+  background(248, 246, 241);
+}
+
+function resetWalker() {
+  x = width / 2;
+  y = height / 2;
+}
+
+function draw() {
+  stroke(20, 40, 80, 25);
+  strokeWeight(1.5);
+
+  for (let i = 0; i < 10; i++) {
+    let oudX = x;
+    let oudY = y;
+    let keuze = floor(random(4));
+
+    if (keuze === 0) x += stapGrootte;
+    if (keuze === 1) x -= stapGrootte;
+    if (keuze === 2) y += stapGrootte;
+    if (keuze === 3) y -= stapGrootte;
+
+    x = constrain(x, 0, width);
+    y = constrain(y, 0, height);
+
+    line(oudX, oudY, x, y);
+  }
+}
+
+function mousePressed() {
+  achtergrond();
+  resetWalker();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Klik op het canvas om tussen verschillende random-walk modi te wisselen.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-random-walk"></div>
+        </div>
+    </div>
+</section>

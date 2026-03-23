@@ -1,0 +1,124 @@
+<div class="intro">
+    <p>Langton's Ant is een minuscuul regelsysteem: een mier beweegt over een rooster en draait links of rechts afhankelijk van de kleur van de tegel onder zich.</p>
+</div>
+
+<section>
+    <h2>Waarom dit concept zo vreemd is</h2>
+    <p>Het systeem begint eenvoudig, wordt daarna rommelig en chaotisch, en kan na een tijd spontaan een soort snelweg bouwen. Dat maakt Langton's Ant een sterk voorbeeld van emergentie.</p>
+    <p><strong>Denkvraag:</strong> hoe kan een simpele lokale regel eerst chaos en daarna orde veroorzaken?</p>
+</section>
+
+<section>
+    <h2>Wat je hier leert</h2>
+    <ul>
+        <li>werken met roosterposities en richtingen</li>
+        <li>een systeem stap voor stap updaten</li>
+        <li>toestand koppelen aan gedrag</li>
+        <li>zien hoe lokale regels onverwacht globaal gedrag geven</li>
+    </ul>
+</section>
+
+<section>
+    <h2>De regels</h2>
+    <ul>
+        <li>op een witte tegel: draai rechts, kleur de tegel zwart, stap vooruit</li>
+        <li>op een zwarte tegel: draai links, kleur de tegel wit, stap vooruit</li>
+    </ul>
+    <p>Meer is het niet. Toch kan het patroon erg rijk worden.</p>
+</section>
+
+<section>
+    <h2>De structuur in code</h2>
+    <pre><code>let cel = grid[x][y];
+
+if (cel === 0) dir = (dir + 1) % 4;
+else           dir = (dir + 3) % 4;
+
+grid[x][y] = 1 - cel;
+stapVooruit();</code></pre>
+    <p>De mier heeft maar drie dingen nodig: een positie, een richting en een rooster met toestanden.</p>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Laat eerst een gewone mier lopen. Verander daarna de kleurregels of voeg een derde tegeltoestand toe. Wordt het systeem rustiger, wilder of juist minder interessant?</p>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Deze versie voert meerdere stappen per frame uit. Verander het aantal stappen of de tegelgrootte en kijk hoe het gedrag verandert.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let cellSize = 6;
+let cols, rows;
+let grid;
+let antX, antY, dir;
+
+function setup() {
+  createCanvas(600, 400);
+  cols = floor(width / cellSize);
+  rows = floor(height / cellSize);
+  resetWereld();
+}
+
+function resetWereld() {
+  grid = Array.from({length: cols}, () => Array(rows).fill(0));
+  antX = floor(cols / 2);
+  antY = floor(rows / 2);
+  dir = 0;
+}
+
+function stapMier() {
+  let cel = grid[antX][antY];
+
+  if (cel === 0) dir = (dir + 1) % 4;
+  else dir = (dir + 3) % 4;
+
+  grid[antX][antY] = 1 - cel;
+
+  if (dir === 0) antY--;
+  if (dir === 1) antX++;
+  if (dir === 2) antY++;
+  if (dir === 3) antX--;
+
+  antX = (antX + cols) % cols;
+  antY = (antY + rows) % rows;
+}
+
+function draw() {
+  for (let i = 0; i < 40; i++) {
+    stapMier();
+  }
+
+  background(246, 244, 240);
+  noStroke();
+
+  for (let x = 0; x < cols; x++) {
+    for (let y = 0; y < rows; y++) {
+      if (grid[x][y] === 1) {
+        fill(30, 40, 65);
+        rect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
+    }
+  }
+
+  fill(210, 40, 35);
+  rect(antX * cellSize, antY * cellSize, cellSize, cellSize);
+}
+
+function mousePressed() {
+  resetWereld();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Klik om opnieuw te starten en kijk hoe de mier opnieuw orde, ruis en later vaak een richting opbouwt.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-langtons-ant"></div>
+        </div>
+    </div>
+</section>

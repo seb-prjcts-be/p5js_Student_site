@@ -1,25 +1,40 @@
 <div class="intro">
-    <p>Een <strong>quine</strong> is een programma dat geen invoer nodig heeft en als uitvoer precies zijn eigen broncode produceert. Het is een van de meest fascinerende zelfverwijzende concepten in de informatica.</p>
+    <p>Een quine is een programma dat zijn eigen broncode produceert zonder een bestand te openen. Het is een klein, vreemd en verrassend idee over zelfverwijzing in code.</p>
 </div>
 
 <section>
-    <h2>Zelfverwijzing</h2>
-    <p>Het kernprobleem: hoe schrijf je een programma dat zichzelf beschrijft, zonder gewoon een bestand te lezen? Je mag geen <code>readFile()</code> of netwerk gebruiken — de code moet zichzelf <em>kennen</em>.</p>
-    <p>De truc is <strong>quoting</strong>: je slaat de code op als data, en gebruikt die data om de code + data opnieuw te produceren.</p>
-    <pre><code>// Pseudocode quine
-let s = "let s = X; print('let s = ' + quote(s) + '; ' + s)";
-print("let s = " + quote(s) + "; " + s);</code></pre>
-    <p>De variabele <code>s</code> bevat de code <em>buiten</em> zichzelf — en de <code>print</code>-regel combineert beide delen opnieuw tot de volledige broncode.</p>
+    <h2>Waarom dit concept bijzonder is</h2>
+    <p>De meeste code doet iets buiten zichzelf: tekenen, rekenen, reageren of simuleren. Een quine draait dat om. Het programma wordt zelf het onderwerp.</p>
+    <p><strong>Denkvraag:</strong> kan een systeem zichzelf beschrijven zonder van buitenaf hulp te krijgen?</p>
 </section>
 
 <section>
-    <h2>JavaScript: toString()</h2>
+    <h2>Wat je hier leert</h2>
+    <ul>
+        <li>het verschil tussen code en data</li>
+        <li>hoe strings een beschrijving van code kunnen bevatten</li>
+        <li>wat zelfverwijzing betekent in informatica</li>
+        <li>waarom een slim idee soms belangrijker is dan veel code</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Zelfverwijzing</h2>
+    <p>Het kernprobleem: hoe schrijf je een programma dat zichzelf beschrijft zonder gewoon een bestand te lezen? Je mag geen <code>readFile()</code> of netwerk gebruiken. De code moet zichzelf dus als data mee dragen.</p>
+    <p>De truc is <strong>quoting</strong>: je bewaart een deel van de code in een string en gebruikt die string om de volledige broncode opnieuw op te bouwen.</p>
+    <pre><code>// Pseudocode quine
+let s = "let s = X; print('let s = ' + quote(s) + '; ' + s)";
+print("let s = " + quote(s) + "; " + s);</code></pre>
+</section>
+
+<section>
+    <h2>Een toegankelijke versie in JavaScript</h2>
     <p>In JavaScript heeft elke functie een ingebouwde manier om zijn eigen broncode te lezen: <code>functie.toString()</code>.</p>
     <pre><code>function setup() {
-  let code = setup.toString(); // Lees eigen broncode
-  console.log(code);           // Druk jezelf af
+  let code = setup.toString();
+  console.log(code);
 }</code></pre>
-    <p>Dit is geen echte quine (de volledige broncode bevat meer dan alleen <code>setup</code>), maar het toont het principe van zelfkennis.</p>
+    <p>Dit is geen perfecte quine, omdat je alleen de functie leest en niet het volledige programma. Maar didactisch is het wel een sterke opstap.</p>
 
     <h3>Zelfkennis op het canvas</h3>
     <p>In p5.js kun je een functie letterlijk zichzelf laten tekenen:</p>
@@ -27,7 +42,7 @@ print("let s = " + quote(s) + "; " + s);</code></pre>
   createCanvas(600, 400);
   background(20);
 
-  let code = setup.toString(); // Eigen broncode
+  let code = setup.toString();
   let lijnen = code.split("\n");
 
   fill(140, 230, 120);
@@ -41,8 +56,18 @@ print("let s = " + quote(s) + "; " + s);</code></pre>
 </section>
 
 <section>
+    <h2>Waarom dit meer is dan een grap</h2>
+    <p>Een quine opent een deur naar diepere vragen: wat is een beschrijving, wat is een representatie, en waar zit de grens tussen systeem en meta-systeem? Daarom hoort dit onderwerp thuis tussen creatieve codeconcepten: het is code als filosofie.</p>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Gebruik eerst het voorbeeld met <code>toString()</code>. Laat daarna de code niet alleen zichzelf tonen, maar ook iets extra doen: een raster tekenen, een kleurverloop tonen of sleutelwoorden accentueren. Zo wordt de broncode zelf beeldmateriaal.</p>
+</section>
+
+<section>
     <h2>Experimenteer Zelf</h2>
-    <p>Voer de code uit — de <code>setup()</code>-functie tekent zichzelf op het canvas. Pas de tekstkleur of grootte aan en klik Run. Verandert de weergave mee?</p>
+    <p>Voer de code uit. De <code>setup()</code>-functie tekent zichzelf op het canvas. Pas de tekstkleur of grootte aan en kijk of de weergave mee verandert.</p>
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
 function setup() {
@@ -50,11 +75,10 @@ function setup() {
   background(20);
   noLoop();
 
-  // Lees de eigen broncode van setup()
   let code = setup.toString();
   let lijnen = code.split("\n");
 
-  fill(140, 230, 120); // Probeer een andere kleur!
+  fill(140, 230, 120);
   textFont("monospace");
   textSize(11);
   noStroke();
@@ -71,6 +95,7 @@ function draw() {}
 
 <section>
     <h2>Live Demo</h2>
+    <p>De demo toont de broncode van de sketch zelf, met eenvoudige kleuraccenten.</p>
     <div class="p5-example">
         <div class="p5-example-container">
             <div class="p5-canvas-wrapper" id="example-quine"></div>
@@ -80,12 +105,12 @@ function draw() {}
 
 <section>
     <h2>Echte quines</h2>
-    <p>Een volledige quine in JavaScript ziet er zo uit (probeer dit in de browser console):</p>
+    <p>Een volledige quine in JavaScript ziet er ingewikkelder uit. Je hoeft die niet uit je hoofd te leren. Belangrijker is dat je begrijpt waarom ze werkt:</p>
     <pre><code>(function q(){
   let s = "(function q(){\n  let s = " +
           JSON.stringify(s) + ";\n  " + q.toString().split("\n").slice(2,-1).join("\n  ") +
           "\n})();";
   console.log(s);
 })();</code></pre>
-    <p>Bekende quines bestaan in bijna elke programmeertaal. Ze zijn een bewijs van Kleene's recursiestelling: elk berekend programma kan een zelfverwijzende versie van zichzelf produceren.</p>
+    <p>Quines bestaan in bijna elke programmeertaal. Ze tonen dat code zichzelf niet alleen kan uitvoeren, maar ook kan representeren.</p>
 </section>

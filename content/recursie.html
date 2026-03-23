@@ -1,0 +1,114 @@
+<div class="intro">
+    <p>Recursie betekent dat een functie zichzelf opnieuw oproept. Dat klinkt vreemd, maar het is een krachtige manier om vertakkingen, fractals en herhaling op meerdere schalen te maken.</p>
+</div>
+
+<section>
+    <h2>Waarom dit concept belangrijk is</h2>
+    <p>Recursie laat zien dat een rijke vorm niet altijd veel verschillende regels nodig heeft. Soms is een enkele regel genoeg, zolang die zichzelf opnieuw mag toepassen.</p>
+    <p><strong>Denkvraag:</strong> hoe kan iets oneindig rijk lijken terwijl het steeds hetzelfde principe herhaalt?</p>
+</section>
+
+<section>
+    <h2>Wat je hier leert</h2>
+    <ul>
+        <li>het verschil tussen herhaling met een lus en recursie met een functie</li>
+        <li>werken met een stopvoorwaarde</li>
+        <li>tekenen op meerdere schalen</li>
+        <li>zien waarom fractals en bomen vaak recursief voelen</li>
+    </ul>
+</section>
+
+<section>
+    <h2>De stopvoorwaarde</h2>
+    <p>Een recursieve functie moet weten wanneer ze stopt. Zonder stopvoorwaarde blijf je eindeloos doorgaan.</p>
+    <pre><code>function telAchteruit(n) {
+  if (n &lt;= 0) return;
+  print(n);
+  telAchteruit(n - 1);
+}</code></pre>
+    <p>Hier roept de functie zichzelf op met een kleinere waarde. Dat is de kern van recursie.</p>
+</section>
+
+<section>
+    <h2>Een recursieve boom</h2>
+    <p>Bij een boom teken je eerst een stam. Daarna teken je vanuit het einde twee kleinere takken. Elke tak doet opnieuw hetzelfde:</p>
+    <pre><code>function tak(lengte) {
+  if (lengte &lt; 12) return;
+
+  line(0, 0, 0, -lengte);
+  translate(0, -lengte);
+
+  push();
+  rotate(0.4);
+  tak(lengte * 0.7);
+  pop();
+
+  push();
+  rotate(-0.4);
+  tak(lengte * 0.7);
+  pop();
+}</code></pre>
+</section>
+
+<section>
+    <h2>Recursie versus lus</h2>
+    <p>Een <code>for</code>-lus is handig als je iets een vast aantal keer wil herhalen. Recursie is sterk wanneer een vorm of idee zichzelf op kleinere schaal moet herhalen. Daarom zie je recursie vaak bij bomen, rivieren, bliksem en fractals.</p>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Maak eerst een eenvoudige recursieve boom. Verander daarna maar een ding tegelijk: de hoek, de verkleiningsfactor of de stopvoorwaarde. Welke versie voelt organisch, welke eerder grafisch of architecturaal?</p>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Verander de hoek, de verkleining of de stopwaarde. Kleine verschillen geven vaak totaal andere bomen.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let hoek = 0.42;
+
+function setup() {
+  createCanvas(600, 400);
+  noLoop();
+}
+
+function tak(lengte) {
+  if (lengte < 10) return;
+
+  strokeWeight(map(lengte, 10, 120, 1, 6));
+  line(0, 0, 0, -lengte);
+  translate(0, -lengte);
+
+  push();
+  rotate(hoek);
+  tak(lengte * 0.72);
+  pop();
+
+  push();
+  rotate(-hoek);
+  tak(lengte * 0.72);
+  pop();
+}
+
+function draw() {
+  background(248, 246, 241);
+  stroke(40, 28, 18);
+
+  push();
+  translate(width / 2, height - 20);
+  tak(120);
+  pop();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>De demo laat een recursieve boom ademen. Klik om de diepte van de structuur te veranderen.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-recursie"></div>
+        </div>
+    </div>
+</section>

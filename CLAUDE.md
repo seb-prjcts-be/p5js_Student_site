@@ -66,9 +66,14 @@ p5_cursus_site/
 │   ├── vera-molnar.html
 │   ├── objecten.html
 │   ├── noise.html
+│   ├── random-walk.html
 │   ├── lissajous.html
+│   ├── recursie.html
 │   ├── l-systems.html
 │   ├── game-of-life.html
+│   ├── langtons-ant.html
+│   ├── 1d-automaten.html
+│   ├── boids.html
 │   ├── quine.html
 │   └── turtle.html
 ├── examples/           ← p5.js sketch scripts (window.sketch_* pattern)
@@ -76,12 +81,28 @@ p5_cursus_site/
 │   ├── example-generative.js
 │   ├── example-over-p5js.js
 │   ├── example-interactie.js
+│   ├── example-animatie.js
+│   ├── example-arrays.js
+│   ├── example-functies.js
+│   ├── example-objecten.js
+│   ├── example-noise.js
 │   ├── example-3d.js
 │   ├── example-p5js2.js
 │   ├── example-ai-ecologische-kost.js
 │   ├── example-afbeeldingen.js
 │   ├── example-text-typografie.js
-│   └── example-geluid.js
+│   ├── example-geluid.js
+│   ├── example-vera-molnar.js
+│   ├── example-turtle.js
+│   ├── example-random-walk.js
+│   ├── example-lissajous.js
+│   ├── example-recursie.js
+│   ├── example-l-systems.js
+│   ├── example-game-of-life.js
+│   ├── example-langtons-ant.js
+│   ├── example-1d-automaten.js
+│   ├── example-boids.js
+│   └── example-quine.js
 ├── data/               ← Source PDFs (read-only reference material)
 │   ├── Lab44_EDU - p5.js_FULL_def_Update_25.pdf   (15 MB — full curriculum)
 │   └── p5js2_handleiding.pdf                       (190 KB — p5.js 2.0 guide)
@@ -106,8 +127,14 @@ Flow:
 1. `DOMContentLoaded` → `buildNav()` → `initNavGroups()` → `initRouter()` → `initSearch()`
 2. `hashchange` or initial load → `loadOnderwerp()` → finds topic in `onderwerpen[]`
 3. `renderOnderwerp(onderwerp)` → `fetch(onderwerp.contentFile)` → inject into `#content`
-4. `loadP5Examples(onderwerpId)` → finds `.p5-canvas-wrapper` divs → `loadExample()`
-5. `window.P5Editor.init()` (with 100ms delay) → initializes `.p5-editor` elements
+4. `ensureContentAnchors()` adds stable ids to `.intro`, `section`, and `.p5-example` blocks for tag-based in-page navigation
+5. `renderOnderwerp()` builds a right-hand `tags-sidebar` when `onderwerp.tags` exists
+6. `updateTagContext(activeTag)` computes:
+   - matching blocks on the current page
+   - broader related tags from other topics
+   - related topics ranked by overlap and text matches
+7. `loadP5Examples(onderwerpId)` → finds `.p5-canvas-wrapper` divs → `loadExample()`
+8. `window.P5Editor.init()` (with 100ms delay) → initializes `.p5-editor` elements
 
 ### Navigation (`buildNav`)
 
@@ -116,7 +143,20 @@ Topics are grouped by `categorie`. Categories are defined in:
 const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie", "Artificiële Intelligentie"];
 ```
 
-Each group renders as a collapsible `<li class="nav-group">` with hover + click-to-pin behavior.
+Each group renders as a collapsible `<li class="nav-group">` in a click-to-toggle accordion. The active topic's group auto-opens; opening another group closes the others.
+
+### Tag System (`main.js`)
+
+Each topic page can render a right-hand `tags-sidebar` with two levels of relevance:
+
+1. **Direct tags** — the first tags in `onderwerp.tags`, intended as the most accurate keywords for the current page
+2. **Broader context** — dynamically computed related tags and related topics based on the active tag and the current topic
+
+Important behavior:
+- Tag order matters: put the most page-specific tags first
+- Clicking a tag updates the sidebar context in place; results are **not** rendered at the bottom of the page
+- The context panel first shows matching blocks on the current page, then broader related tags, then related topics
+- Rapid clicking between tags is supported: only the latest click should win, and re-clicking the already active tag should do nothing
 
 ### p5.js Example Loading
 
@@ -148,13 +188,19 @@ Code runs inside an `srcdoc` iframe that loads p5.js 1.7.0 from CDN. The iframe 
     id: "mijn-onderwerp",         // Used in URL hash and file names
     titel: "Mijn Onderwerp",      // Displayed in nav and page h1
     samenvatting: "...",          // Used in search results
-    tags: ["tag1", "tag2"],       // Used in search
+    tags: ["tag1", "tag2"],       // Used in search and tag relations
     contentFile: "content/mijn-onderwerp.html",
     categorie: "p5.js"            // Must match a value in navCategories[]
 }
 ```
 
-Valid `categorie` values: `"Generative Design"`, `"Processing"`, `"p5.js"`, `"Strudel"`, `"Inspiratie"`
+Valid `categorie` values: `"Generative Design"`, `"Processing"`, `"p5.js"`, `"Code Concepten"`, `"Strudel"`, `"Inspiratie"`, `"Artificiële Intelligentie"`
+
+**Tag ordering convention:**
+- First 3 tags: most accurate/current-page keywords
+- Remaining tags: broader related concepts, API names, or adjacent concepts
+- Prefer specific → broad ordering, e.g. `["mouseX", "mouseY", "muis", "interactie", "events"]`
+- Avoid filler tags that are too generic to create useful relations
 
 ---
 
@@ -396,6 +442,8 @@ grid-template-areas:
 
 Breakpoint: `768px` — below this, all areas stack vertically.
 
+**Tag sidebar layout note:** below `900px`, `.onderwerp-layout` stacks vertically and the tag sidebar becomes full-width below the content. It is no longer hidden on smaller screens.
+
 ### Content styling classes
 
 | Class | Usage |
@@ -405,8 +453,44 @@ Breakpoint: `768px` — below this, all areas stack vertically.
 | `.p5-example-container` | Inner container for the canvas |
 | `.p5-canvas-wrapper` | Direct container for the p5 instance (needs `id`) |
 | `.p5-editor` | Live editor container (processed by `editor.js`) |
+| `.tags-sidebar` | Right column for topic tags and dynamic relations |
+| `.tags-panel` | Static block with the topic's own tags |
+| `.tag-context` | Dynamic relation panel for the active tag |
+| `.tag-page-link` | Button that scrolls to a matching block on the current page |
+| `.tag-topic-item` | Link card to a related topic |
 | `section` | Main content sections within a topic |
 | `pre > code` | Inline code display |
+
+### Typography
+
+Fonts are loaded via Google Fonts in `index.html` (`<head>`):
+
+```html
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Oswald:wght@300;400&family=Alegreya:ital,wght@0,400;0,700;1,400&display=swap">
+```
+
+| Role | Font | Weight/Style | CSS var |
+|---|---|---|---|
+| Titels, nav, subtitels | Oswald | 300 (Light), 400 (Regular) | `--font-title` |
+| Bodytekst, alinea's | Alegreya | 400, 700, italic 400 | `--font-body` |
+| Code blocks (`pre`, `code`) | Courier New | — | hardcoded |
+
+**Gebruik:**
+- `--font-title` → `font-family: 'Oswald', Arial, sans-serif`
+- Gebruik Oswald 300 voor hoofdtitels zoals de site title en pagina-`h1`
+- Gebruik Oswald 400 voor navigatie, subtitels en tussenkoppen zodat de hiërarchie duidelijker blijft
+- `--font-body` → `font-family: 'Alegreya', Georgia, serif` — `body`, lopende tekst
+- Koppen schalen mee via `em` eenheden zodat de lettergrootte-knoppen correct werken
+
+**Lettergrootte-switcher** (knoppen in header, opgeslagen in `localStorage`):
+
+| Waarde `data-fontsize` | `font-size` op `body` |
+|---|---|
+| `klein` | 16px |
+| `medium` | 20px |
+| `groot` | 24px |
+
+Alle kopgroottes zijn in `em` zodat ze meeschalen met de body-fontsize.
 
 ### CSS variables
 
@@ -448,9 +532,14 @@ p5.js
 
 Code Concepten
   ├── Turtle Geometry                    (turtle)
+  ├── Random Walk                        (random-walk)
   ├── Lissajous-figuren                  (lissajous)
+  ├── Recursie                           (recursie)
   ├── L-Systemen                         (l-systems)
   ├── Game of Life                       (game-of-life)
+  ├── Langton's Ant                      (langtons-ant)
+  ├── 1D Cellulaire Automaten            (1d-automaten)
+  ├── Boids                              (boids)
   └── Quine                              (quine)
 
 Strudel
@@ -507,6 +596,14 @@ Mixing these up will break sketches silently.
 
 `content/*.html` files are fetched and injected via `innerHTML`. They must NOT contain `<html>`, `<head>`, `<body>`, `<script src="">`, or `<link>` tags. Inline `<script type="text/p5">` inside `.p5-editor` is the only script tag allowed.
 
+### Tag system depends on meaningful sections
+
+The relation panel scans `.intro`, `section`, and `.p5-example` blocks on the current page.
+
+- Use real `section` blocks for major concepts
+- Prefer clear `h2` / `h3` headings so in-page relation labels are meaningful
+- Do not flatten an entire lesson into one giant undivided block if you want tag relations to work well
+
 ### XAMPP / local server required
 
 The site uses `fetch()` to load content files. This requires HTTP — opening `index.html` directly as a `file://` URL will fail with CORS errors. Always serve via Apache/XAMPP.
@@ -517,7 +614,6 @@ The site uses `fetch()` to load content files. This requires HTTP — opening `i
 
 - **Vera Molnar** — deepen with practical generative art exercises
 - **Strudel** — add more examples: polyrhythm, samples, effects
-- **Code Concepten** (turtle, lissajous, l-systems, game-of-life, quine) — check completeness and depth
 
 All core p5.js topics are complete as of 2026-03-23.
 
@@ -529,6 +625,11 @@ For any content or code change:
 
 - [ ] Open `http://localhost/p5_cursus_site/` — welcome page loads
 - [ ] Navigate to changed topic via sidebar — content loads correctly
+- [ ] Navigation accordion opens one group clearly at a time and the active topic stays visible
+- [ ] Right-hand tag sidebar appears for topics with tags
+- [ ] First tags shown are the most accurate/current-page keywords
+- [ ] Click a tag — in-page relations, broader tags, and related topics update in the sidebar
+- [ ] Click two different tags quickly — only the latest clicked tag remains active and the panel stays coherent
 - [ ] `.p5-example` canvas renders and animates
 - [ ] `.p5-editor` shows textarea + iframe, auto-runs
 - [ ] Click Reset — code reverts and re-runs

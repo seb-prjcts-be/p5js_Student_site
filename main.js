@@ -187,23 +187,39 @@ const onderwerpen = [
     {
         id: "turtle",
         titel: "Turtle Geometry",
-        samenvatting: "Bestuur een denkbeeldige schildpad met forward, right en left — en ontdek hoe eenvoudige regels leiden tot spiralen, sterren en fractals.",
+        samenvatting: "Bestuur een denkbeeldige schildpad met forward, right en left en ontdek hoe korte regels kunnen uitgroeien tot patronen, spiralen en fractals.",
         tags: ["turtle", "schildpad", "logo", "papert", "forward", "spiraal", "ster", "fractal", "code concepten"],
         contentFile: "content/turtle.html",
         categorie: "Code Concepten"
     },
     {
+        id: "random-walk",
+        titel: "Random Walk",
+        samenvatting: "Een punt zet stap voor stap willekeurige bewegingen. Simpel idee, verrassend rijke patronen: toeval wordt zichtbaar als spoor.",
+        tags: ["random walk", "toeval", "walker", "stappen", "pad", "simulatie", "code concepten"],
+        contentFile: "content/random-walk.html",
+        categorie: "Code Concepten"
+    },
+    {
         id: "lissajous",
         titel: "Lissajous-figuren",
-        samenvatting: "Combineer twee sinusgolven tot hypnotiserende patronen. Leer parametrische curves kennen via frequentieverhoudingen en faseverschuiving.",
+        samenvatting: "Combineer twee sinusgolven tot vloeiende figuren en ontdek hoe verhoudingen, ritme en faseverschuiving zichtbaar worden in beeld.",
         tags: ["lissajous", "sinus", "parametrisch", "wiskunde", "animatie", "golven", "code concepten"],
         contentFile: "content/lissajous.html",
         categorie: "Code Concepten"
     },
     {
+        id: "recursie",
+        titel: "Recursie",
+        samenvatting: "Een functie die zichzelf opnieuw oproept. Ideaal om vertakkingen, fractals en herhaling op meerdere schalen te begrijpen.",
+        tags: ["recursie", "fractal", "boom", "zelfde patroon", "functie", "stopvoorwaarde", "code concepten"],
+        contentFile: "content/recursie.html",
+        categorie: "Code Concepten"
+    },
+    {
         id: "l-systems",
         titel: "L-Systemen",
-        samenvatting: "Genereer organische bomen en fractals door simpele tekstregels herhaald te herschrijven — het Lindenmayer-systeem.",
+        samenvatting: "Genereer organische bomen en vertakkingen door simpele tekstregels telkens opnieuw te herschrijven: beeld als grammatica.",
         tags: ["l-system", "lindenmayer", "fractal", "turtle", "string rewriting", "generative", "code concepten"],
         contentFile: "content/l-systems.html",
         categorie: "Code Concepten"
@@ -211,15 +227,39 @@ const onderwerpen = [
     {
         id: "game-of-life",
         titel: "Game of Life",
-        samenvatting: "Conway's klassieker: vier simpele regels voor cellen die leven of sterven, met eindeloos complexe patronen als resultaat.",
+        samenvatting: "Vier simpele regels voor levende en dode cellen leveren werelden op met ritme, groei, instorting en onverwachte orde.",
         tags: ["game of life", "conway", "cellulair automaat", "simulatie", "emergentie", "code concepten"],
         contentFile: "content/game-of-life.html",
         categorie: "Code Concepten"
     },
     {
+        id: "langtons-ant",
+        titel: "Langton's Ant",
+        samenvatting: "Een mier draait links of rechts afhankelijk van de tegel onder zich. Een minuscuul regelsysteem dat van orde naar chaos en weer terug kan gaan.",
+        tags: ["langton", "ant", "cellulair automaat", "emergentie", "chaos", "rooster", "code concepten"],
+        contentFile: "content/langtons-ant.html",
+        categorie: "Code Concepten"
+    },
+    {
+        id: "1d-automaten",
+        titel: "1D Cellulaire Automaten",
+        samenvatting: "Een rij cellen volgt een simpele buurregel en groeit uit tot textielachtige, ritmische of chaotische patronen, zoals Rule 30 en Rule 110.",
+        tags: ["1d automaten", "rule 30", "rule 110", "cellulair automaat", "binaire regels", "code concepten"],
+        contentFile: "content/1d-automaten.html",
+        categorie: "Code Concepten"
+    },
+    {
+        id: "boids",
+        titel: "Boids",
+        samenvatting: "Zwermgedrag met drie regels: samenblijven, afstand houden en richting delen. Collectief gedrag zonder leider.",
+        tags: ["boids", "flocking", "zwerm", "vectoren", "emergentie", "agents", "code concepten"],
+        contentFile: "content/boids.html",
+        categorie: "Code Concepten"
+    },
+    {
         id: "quine",
         titel: "Quine",
-        samenvatting: "Een programma dat zijn eigen broncode afdrukt — zonder bestanden te lezen. Zelfverwijzing als informatica-concept.",
+        samenvatting: "Een programma dat zijn eigen broncode toont zonder bestanden te lezen. Zelfverwijzing als denkoefening in code.",
         tags: ["quine", "zelfverwijzing", "meta", "toString", "recursie", "code concepten"],
         contentFile: "content/quine.html",
         categorie: "Code Concepten"
@@ -235,6 +275,350 @@ const onderwerpen = [
 ];
 
 const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie", "Artificiële Intelligentie"];
+const DIRECT_TAG_COUNT = 3;
+const MAX_IN_PAGE_RELATIONS = 5;
+const MAX_RELATED_TAGS = 6;
+const MAX_RELATED_TOPICS = 5;
+const onderwerpTextCache = new Map();
+
+function escapeHtml(text) {
+    return String(text)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function escapeRegExp(text) {
+    return String(text).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function normalizeText(text) {
+    return String(text || '').toLowerCase().trim();
+}
+
+function textContainsTag(text, tag) {
+    const source = String(text || '');
+    const query = normalizeText(tag);
+
+    if (!query) {
+        return false;
+    }
+
+    if (/^[a-z0-9]+$/.test(query) && query.length <= 3) {
+        const regex = new RegExp(`(^|[^a-z0-9])${escapeRegExp(query)}([^a-z0-9]|$)`, 'i');
+        return regex.test(source);
+    }
+
+    return source.toLowerCase().includes(query);
+}
+
+function getOnderwerpTags(onderwerp) {
+    return Array.isArray(onderwerp.tags) ? onderwerp.tags.filter(Boolean) : [];
+}
+
+function extractPlainText(html) {
+    const template = document.createElement('template');
+    template.innerHTML = html;
+    return template.content.textContent || '';
+}
+
+function cacheOnderwerpText(onderwerpId, plainText) {
+    onderwerpTextCache.set(onderwerpId, Promise.resolve(plainText));
+}
+
+function getOnderwerpText(onderwerp) {
+    if (onderwerpTextCache.has(onderwerp.id)) {
+        return onderwerpTextCache.get(onderwerp.id);
+    }
+
+    const fallbackText = `${onderwerp.titel} ${onderwerp.samenvatting} ${getOnderwerpTags(onderwerp).join(' ')}`;
+    const textPromise = (async () => {
+        if (!onderwerp.contentFile) {
+            return fallbackText;
+        }
+
+        try {
+            const response = await fetch(onderwerp.contentFile);
+            if (!response.ok) {
+                return fallbackText;
+            }
+
+            const html = await response.text();
+            return extractPlainText(html);
+        } catch (error) {
+            return fallbackText;
+        }
+    })();
+
+    onderwerpTextCache.set(onderwerp.id, textPromise);
+    return textPromise;
+}
+
+function primeRelatedContentCache(huidigOnderwerp) {
+    onderwerpen
+        .filter(onderwerp =>
+            onderwerp.id !== huidigOnderwerp.id &&
+            onderwerp.categorie === huidigOnderwerp.categorie
+        )
+        .forEach(onderwerp => {
+            getOnderwerpText(onderwerp).catch(() => {});
+        });
+}
+
+function ensureContentAnchors(contentRoot, onderwerpId) {
+    const relationBlocks = Array.from(contentRoot.querySelectorAll('.intro, section, .p5-example'));
+    const usedIds = new Set(
+        Array.from(contentRoot.querySelectorAll('[id]')).map(element => element.id)
+    );
+
+    relationBlocks.forEach((block, index) => {
+        if (block.id) {
+            usedIds.add(block.id);
+            return;
+        }
+
+        const heading = block.querySelector('h2, h3');
+        const baseLabel = heading ? heading.textContent : `sectie-${index + 1}`;
+        const slug = slugify(baseLabel) || `sectie-${index + 1}`;
+        const baseId = `${onderwerpId}-${slug}`;
+        let candidateId = baseId;
+        let suffix = 2;
+
+        while (usedIds.has(candidateId)) {
+            candidateId = `${baseId}-${suffix}`;
+            suffix += 1;
+        }
+
+        block.id = candidateId;
+        usedIds.add(candidateId);
+    });
+}
+
+function getRelationLabel(block, index) {
+    const heading = block.querySelector('h2, h3');
+
+    if (heading) {
+        return heading.textContent.trim();
+    }
+
+    if (block.classList.contains('intro')) {
+        return 'Intro';
+    }
+
+    if (block.classList.contains('p5-example')) {
+        return `Voorbeeld ${index + 1}`;
+    }
+
+    return `Sectie ${index + 1}`;
+}
+
+function getInPageRelations(contentRoot, activeTag) {
+    const relationBlocks = Array.from(contentRoot.querySelectorAll('.intro, section, .p5-example'));
+    const seenIds = new Set();
+
+    return relationBlocks
+        .filter(block => textContainsTag(block.textContent, activeTag))
+        .map((block, index) => ({
+            id: block.id,
+            label: getRelationLabel(block, index)
+        }))
+        .filter(item => {
+            if (seenIds.has(item.id)) {
+                return false;
+            }
+
+            seenIds.add(item.id);
+            return true;
+        })
+        .slice(0, MAX_IN_PAGE_RELATIONS);
+}
+
+async function getRelatedTopics(huidigOnderwerp, activeTag) {
+    const currentTags = getOnderwerpTags(huidigOnderwerp);
+    const currentTagSet = new Set(currentTags.map(normalizeText));
+    const activeTagNormalized = normalizeText(activeTag);
+
+    const candidates = onderwerpen.filter(onderwerp => {
+        if (onderwerp.id === huidigOnderwerp.id) {
+            return false;
+        }
+
+        const onderwerpTags = getOnderwerpTags(onderwerp);
+        return (
+            onderwerp.categorie === huidigOnderwerp.categorie ||
+            onderwerpTags.some(tag =>
+                currentTagSet.has(normalizeText(tag)) ||
+                normalizeText(tag) === activeTagNormalized ||
+                textContainsTag(tag, activeTag) ||
+                textContainsTag(activeTag, tag)
+            ) ||
+            textContainsTag(onderwerp.titel, activeTag) ||
+            textContainsTag(onderwerp.samenvatting, activeTag)
+        );
+    });
+
+    const scoredTopics = await Promise.all(
+        candidates.map(async onderwerp => {
+            const onderwerpTags = getOnderwerpTags(onderwerp);
+            const sharedTags = onderwerpTags.filter(tag => currentTagSet.has(normalizeText(tag)));
+            const onderwerpText = await getOnderwerpText(onderwerp);
+            let score = 0;
+
+            score += sharedTags.length * 4;
+
+            if (onderwerp.categorie === huidigOnderwerp.categorie) {
+                score += 2;
+            }
+
+            if (onderwerpTags.some(tag => normalizeText(tag) === activeTagNormalized)) {
+                score += 10;
+            } else if (onderwerpTags.some(tag => textContainsTag(tag, activeTag) || textContainsTag(activeTag, tag))) {
+                score += 6;
+            }
+
+            if (textContainsTag(onderwerp.titel, activeTag)) {
+                score += 7;
+            }
+
+            if (textContainsTag(onderwerp.samenvatting, activeTag)) {
+                score += 4;
+            }
+
+            if (textContainsTag(onderwerpText, activeTag)) {
+                score += 5;
+            }
+
+            return {
+                onderwerp,
+                score,
+                sharedTags
+            };
+        })
+    );
+
+    return scoredTopics
+        .filter(item => item.score > 2)
+        .sort((a, b) => {
+            if (b.score !== a.score) {
+                return b.score - a.score;
+            }
+
+            if (b.sharedTags.length !== a.sharedTags.length) {
+                return b.sharedTags.length - a.sharedTags.length;
+            }
+
+            return a.onderwerp.titel.localeCompare(b.onderwerp.titel, 'nl');
+        })
+        .slice(0, MAX_RELATED_TOPICS);
+}
+
+function getBroaderRelatedTags(huidigOnderwerp, activeTag, relatedTopics) {
+    const currentTagSet = new Set(getOnderwerpTags(huidigOnderwerp).map(normalizeText));
+    const activeTagNormalized = normalizeText(activeTag);
+    const tagWeights = new Map();
+
+    relatedTopics.forEach(item => {
+        getOnderwerpTags(item.onderwerp).forEach(tag => {
+            const normalizedTag = normalizeText(tag);
+
+            if (!normalizedTag || normalizedTag === activeTagNormalized || currentTagSet.has(normalizedTag)) {
+                return;
+            }
+
+            const currentWeight = tagWeights.get(tag) || 0;
+            tagWeights.set(tag, currentWeight + item.score);
+        });
+    });
+
+    return Array.from(tagWeights.entries())
+        .sort((a, b) => {
+            if (b[1] !== a[1]) {
+                return b[1] - a[1];
+            }
+
+            return a[0].localeCompare(b[0], 'nl');
+        })
+        .slice(0, MAX_RELATED_TAGS)
+        .map(([tag]) => tag);
+}
+
+function getRelatedTopicReason(item, activeTag) {
+    const onderwerpTags = getOnderwerpTags(item.onderwerp);
+
+    if (onderwerpTags.some(tag => normalizeText(tag) === normalizeText(activeTag))) {
+        return `bevat ${activeTag}`;
+    }
+
+    if (item.sharedTags.length > 0) {
+        return `gedeeld: ${item.sharedTags.slice(0, 2).join(', ')}`;
+    }
+
+    return `verwant via ${activeTag}`;
+}
+
+function renderTagContext(contextData) {
+    const { activeTag, inPageRelations, broaderTags, relatedTopics } = contextData;
+
+    return `
+        <div class="tag-context-panel">
+            <p class="tag-context-label">Vanuit ${escapeHtml(activeTag)}</p>
+            <p class="tag-context-intro">Eerst koppelingen in deze pagina, daarna bredere verbanden in de cursus.</p>
+
+            <section class="tag-context-group">
+                <p class="tag-context-heading">Op deze pagina</p>
+                ${inPageRelations.length > 0 ? `
+                    <div class="tag-page-links">
+                        ${inPageRelations.map(item => `
+                            <button class="tag-page-link" type="button" data-scroll-target="${escapeHtml(item.id)}">
+                                ${escapeHtml(item.label)}
+                            </button>
+                        `).join('')}
+                    </div>
+                ` : '<p class="tag-context-empty">Geen directe secties gevonden voor dit trefwoord.</p>'}
+            </section>
+
+            <section class="tag-context-group">
+                <p class="tag-context-heading">Breder verwant</p>
+                ${broaderTags.length > 0 ? `
+                    <div class="tag-related-list">
+                        ${broaderTags.map(tag => `
+                            <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(tag)}">
+                                ${escapeHtml(tag)}
+                            </button>
+                        `).join('')}
+                    </div>
+                ` : '<p class="tag-context-empty">Geen bredere trefwoorden gevonden.</p>'}
+            </section>
+
+            <section class="tag-context-group">
+                <p class="tag-context-heading">Gerelateerde onderwerpen</p>
+                ${relatedTopics.length > 0 ? `
+                    <div class="tag-topic-list">
+                        ${relatedTopics.map(item => `
+                            <a class="tag-topic-item" href="#${item.onderwerp.id}">
+                                <span class="tag-topic-category">${escapeHtml(item.onderwerp.categorie)}</span>
+                                <span class="tag-topic-title">${escapeHtml(item.onderwerp.titel)}</span>
+                                <span class="tag-topic-reason">${escapeHtml(getRelatedTopicReason(item, activeTag))}</span>
+                            </a>
+                        `).join('')}
+                    </div>
+                ` : '<p class="tag-context-empty">Geen gerelateerde onderwerpen gevonden.</p>'}
+            </section>
+        </div>
+    `;
+}
+
+function syncActiveTagButtons(sidebar, activeTag) {
+    const activeTagNormalized = normalizeText(activeTag);
+
+    sidebar.querySelectorAll('[data-tag]').forEach(button => {
+        const isActive = normalizeText(button.dataset.tag) === activeTagNormalized;
+        button.classList.toggle('is-active', isActive);
+        button.setAttribute('aria-pressed', isActive ? 'true' : 'false');
+    });
+}
 
 // Router - Hash-based routing
 function initRouter() {
@@ -278,25 +662,123 @@ async function renderOnderwerp(onderwerp) {
             const response = await fetch(onderwerp.contentFile);
             if (response.ok) {
                 htmlContent = await response.text();
+                cacheOnderwerpText(onderwerp.id, extractPlainText(htmlContent));
             } else {
                 htmlContent = '<p>Content niet gevonden. Maak een HTML bestand aan in de content/ map.</p>';
             }
         } else if (onderwerp.inhoudHtml) {
             // Fallback naar oude inline HTML
             htmlContent = onderwerp.inhoudHtml;
+            cacheOnderwerpText(onderwerp.id, extractPlainText(htmlContent));
         }
         
         // Render content
+        const tags = getOnderwerpTags(onderwerp);
+        const primaryTags = tags.slice(0, DIRECT_TAG_COUNT);
+        const secondaryTags = tags.slice(DIRECT_TAG_COUNT);
+        const tagsSidebarHtml = tags.length > 0 ? `
+            <aside class="tags-sidebar">
+                <div class="tags-panel">
+                    <p class="tags-label">Trefwoorden</p>
+                    <div class="tags-list">
+                        ${primaryTags.map(tag => `<button class="tag-btn tag-primary" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
+                        ${secondaryTags.length > 0 ? `<span class="tags-divider"></span>${secondaryTags.map(tag => `<button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}` : ''}
+                    </div>
+                </div>
+                <div id="tag-context" class="tag-context" aria-live="polite"></div>
+            </aside>` : '';
+
         content.innerHTML = `
             <div class="onderwerp-page">
                 <h1>${onderwerp.titel}</h1>
-                ${htmlContent}
+                <div class="onderwerp-layout">
+                    <div class="onderwerp-content">
+                        ${htmlContent}
+                    </div>
+                    ${tagsSidebarHtml}
+                </div>
             </div>
         `;
-        
+
+        const contentRoot = content.querySelector('.onderwerp-content');
+        const sidebar = content.querySelector('.tags-sidebar');
+
+        ensureContentAnchors(contentRoot, onderwerp.id);
+        primeRelatedContentCache(onderwerp);
+
+        if (sidebar) {
+            const tagContextEl = sidebar.querySelector('#tag-context');
+            let activeTag = primaryTags[0] || tags[0];
+            let requestId = 0;
+
+            const updateTagContext = async (tag, options = {}) => {
+                const normalizedTag = normalizeText(tag);
+                const currentActiveTag = normalizeText(activeTag);
+
+                if (!options.force && normalizedTag && normalizedTag === currentActiveTag && tagContextEl.innerHTML.trim()) {
+                    return;
+                }
+
+                activeTag = tag;
+                requestId += 1;
+                const currentRequestId = requestId;
+
+                syncActiveTagButtons(sidebar, activeTag);
+                tagContextEl.classList.add('is-loading');
+                tagContextEl.setAttribute('aria-busy', 'true');
+
+                if (!tagContextEl.innerHTML.trim()) {
+                    tagContextEl.innerHTML = `
+                        <div class="tag-context-panel">
+                            <p class="tag-context-label">Vanuit ${escapeHtml(activeTag)}</p>
+                            <p class="tag-context-intro">Verbanden laden...</p>
+                        </div>
+                    `;
+                }
+
+                const inPageRelations = getInPageRelations(contentRoot, activeTag);
+                const relatedTopics = await getRelatedTopics(onderwerp, activeTag);
+                const broaderTags = getBroaderRelatedTags(onderwerp, activeTag, relatedTopics);
+
+                if (currentRequestId !== requestId) {
+                    return;
+                }
+
+                tagContextEl.innerHTML = renderTagContext({
+                    activeTag,
+                    inPageRelations,
+                    broaderTags,
+                    relatedTopics
+                });
+                tagContextEl.classList.remove('is-loading');
+                tagContextEl.setAttribute('aria-busy', 'false');
+                syncActiveTagButtons(sidebar, activeTag);
+            };
+
+            sidebar.addEventListener('click', (event) => {
+                const tagButton = event.target.closest('[data-tag]');
+                if (tagButton) {
+                    updateTagContext(tagButton.dataset.tag);
+                    return;
+                }
+
+                const scrollButton = event.target.closest('[data-scroll-target]');
+                if (scrollButton) {
+                    const target = contentRoot.querySelector(`#${scrollButton.dataset.scrollTarget}`);
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                }
+            });
+
+            if (activeTag) {
+                updateTagContext(activeTag, { force: true });
+            }
+        }
+
         // Laad p5.js voorbeelden voor dit onderwerp
         loadP5Examples(onderwerp.id);
-        
+
         // Initialiseer editors na korte delay zodat DOM is bijgewerkt
         setTimeout(() => {
             if (window.P5Editor && window.P5Editor.init) {
@@ -350,10 +832,13 @@ function setGroupOpen(group, isOpen) {
 function updateActiveNav(activeId) {
     const navLinks = document.querySelectorAll('#nav-list a');
     navLinks.forEach(link => {
-        if (link.getAttribute('href') === `#${activeId}`) {
+        const isActive = link.getAttribute('href') === `#${activeId}`;
+        if (isActive) {
             link.classList.add('active');
+            link.setAttribute('aria-current', 'page');
         } else {
             link.classList.remove('active');
+            link.removeAttribute('aria-current');
         }
     });
 
@@ -361,11 +846,7 @@ function updateActiveNav(activeId) {
     navGroups.forEach(group => {
         const hasActive = group.querySelector('a.active');
         group.classList.toggle('is-active-group', Boolean(hasActive));
-        if (hasActive) {
-            setGroupOpen(group, true);
-        } else if (!group.classList.contains('is-pinned')) {
-            setGroupOpen(group, false);
-        }
+        setGroupOpen(group, Boolean(hasActive));
     });
 }
 
@@ -386,7 +867,11 @@ function buildNav() {
         return `
             <li class="nav-group" data-category="${group.categorie}">
                 <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="${groupId}">
-                    ${group.categorie}
+                    <span class="nav-group-text">${group.categorie}</span>
+                    <span class="nav-group-meta">
+                        <span class="nav-group-count">${group.items.length}</span>
+                        <span class="nav-group-icon" aria-hidden="true"></span>
+                    </span>
                 </button>
                 <ul class="nav-sublist" id="${groupId}">
                     ${itemsMarkup}
@@ -394,6 +879,15 @@ function buildNav() {
             </li>
         `;
     }).join('');
+}
+
+function closeOtherNavGroups(currentGroup) {
+    const navGroups = document.querySelectorAll('.nav-group');
+    navGroups.forEach(group => {
+        if (group !== currentGroup) {
+            setGroupOpen(group, false);
+        }
+    });
 }
 
 function initNavGroups() {
@@ -405,18 +899,9 @@ function initNavGroups() {
         }
 
         toggle.addEventListener('click', () => {
-            const isPinned = group.classList.toggle('is-pinned');
-            setGroupOpen(group, isPinned);
-        });
-
-        group.addEventListener('mouseenter', () => {
-            setGroupOpen(group, true);
-        });
-
-        group.addEventListener('mouseleave', () => {
-            if (!group.classList.contains('is-pinned') && !group.classList.contains('is-active-group')) {
-                setGroupOpen(group, false);
-            }
+            const shouldOpen = !group.classList.contains('is-open');
+            closeOtherNavGroups(group);
+            setGroupOpen(group, shouldOpen);
         });
     });
 }
@@ -530,10 +1015,8 @@ function loadExample(exampleId, container) {
 function initFontSize() {
     const sizes = ['klein', 'medium', 'groot'];
     const saved = localStorage.getItem('fontsize') || 'medium';
-    const body = document.body;
-
     function setSize(size) {
-        body.setAttribute('data-fontsize', size);
+        document.documentElement.setAttribute('data-fontsize', size);
         localStorage.setItem('fontsize', size);
         document.querySelectorAll('.font-size-btn').forEach(btn => {
             btn.classList.toggle('is-active', btn.dataset.size === size);

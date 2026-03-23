@@ -1,28 +1,44 @@
 <div class="intro">
-    <p>Turtle geometry is een manier van tekenen waarbij je een denkbeeldige schildpad bestuurt: zet hem vooruit, draai hem, en hij trekt een lijn. Eenvoudige commando's leiden tot verrassend complexe figuren.</p>
+    <p>Turtle geometry is tekenen met een denkbeeldige schildpad. Je geeft alleen eenvoudige commando's zoals vooruit en draaien, maar uit die korte instructies kunnen complexe figuren groeien.</p>
 </div>
 
 <section>
+    <h2>Waarom dit concept sterk is</h2>
+    <p>Turtle geometry maakt code heel concreet. Je schrijft geen abstracte formules, maar stuurt een tekenend lichaam door de ruimte. Daardoor voelt algoritmisch denken bijna lichamelijk aan.</p>
+    <p><strong>Denkvraag:</strong> hoe kan een rijke tekening ontstaan uit maar drie of vier regels?</p>
+</section>
+
+<section>
+    <h2>Wat je hier leert</h2>
+    <ul>
+        <li>ruimte beschrijven met positie en hoek</li>
+        <li>patronen bouwen met herhaling</li>
+        <li>functies maken die je eigen tekentaal vormen</li>
+        <li>zien hoe een regel niet alleen rekent, maar ook tekent</li>
+    </ul>
+</section>
+
+<section>
     <h2>Oorsprong: Logo en Seymour Papert</h2>
-    <p>Turtle graphics werden in 1967 uitgevonden als onderdeel van de programmeertaal <strong>Logo</strong>, door Seymour Papert aan het MIT. Het idee was simpel: een kind kan zichzelf identificeren met de schildpad en zo "lichamelijk" wiskunde leren.</p>
+    <p>Turtle graphics werden bekend via de programmeertaal <strong>Logo</strong>. Seymour Papert gebruikte het idee om leerlingen wiskunde te laten begrijpen door beweging en actie.</p>
     <p>De schildpad heeft drie eigenschappen:</p>
     <ul>
-        <li><strong>Positie</strong> — x en y op het canvas</li>
-        <li><strong>Richting</strong> — de hoek waarnaar hij kijkt (heading)</li>
-        <li><strong>Pen</strong> — neer (tekent) of op (beweegt zonder lijn)</li>
+        <li><strong>Positie</strong> - x en y op het canvas</li>
+        <li><strong>Richting</strong> - de hoek waarnaar hij kijkt</li>
+        <li><strong>Pen</strong> - neer (tekent) of op (beweegt zonder lijn)</li>
     </ul>
 </section>
 
 <section>
     <h2>De basiscommando's</h2>
-    <pre><code>forward(n)    // Ga n pixels vooruit (en teken een lijn)
+    <pre><code>forward(n)    // Ga n pixels vooruit en teken een lijn
 right(hoek)   // Draai n graden naar rechts
 left(hoek)    // Draai n graden naar links
 penUp()       // Pen omhoog: beweeg zonder te tekenen
 penDown()     // Pen omlaag: begin weer te tekenen</code></pre>
 
     <h3>Implementatie in p5.js</h3>
-    <p>De turtle houdt zijn positie en richting bij. <code>forward()</code> berekent het eindpunt met sinus en cosinus:</p>
+    <p>De turtle houdt zijn positie en richting bij. <code>forward()</code> berekent het nieuwe punt met sinus en cosinus:</p>
     <pre><code>let tx, ty, heading, penNeer;
 
 function forward(n) {
@@ -38,21 +54,21 @@ function left(hoek)  { heading -= hoek; }</code></pre>
 </section>
 
 <section>
-    <h2>Vormen tekenen</h2>
-    <p>Een <strong>vierkant</strong>: vier keer vooruit, dan 90° draaien.</p>
+    <h2>Van regel naar patroon</h2>
+    <p>De kracht van turtle geometry zit in herhaling. Een vierkant is niets meer dan vier keer vooruit en 90 graden draaien.</p>
     <pre><code>for (let i = 0; i &lt; 4; i++) {
   forward(100);
   right(90);
 }</code></pre>
 
-    <p>Een <strong>ster</strong> met vijf punten: de buitenhoek is 144°.</p>
+    <p>Een ster met vijf punten gebruikt een andere draaihoek:</p>
     <pre><code>for (let i = 0; i &lt; 5; i++) {
   forward(120);
   right(144);
 }</code></pre>
 
-    <p>Een <strong>regelmatige n-hoek</strong>: de buitenhoek is altijd 360°/n.</p>
-    <pre><code>let n = 6; // Zeshoek
+    <p>Voor een regelmatige n-hoek gebruik je altijd <code>360 / n</code>:</p>
+    <pre><code>let n = 6;
 for (let i = 0; i &lt; n; i++) {
   forward(80);
   right(360 / n);
@@ -60,18 +76,18 @@ for (let i = 0; i &lt; n; i++) {
 </section>
 
 <section>
-    <h2>Spiralen</h2>
+    <h2>Spiralen en afwijkingen</h2>
     <p>Vergroot de staplengte elke iteratie een beetje, dan krijg je een spiraal:</p>
     <pre><code>for (let i = 0; i &lt; 200; i++) {
-  forward(i * 0.5);  // Steeds groter
-  right(91);         // Net niet 90° → spiraal
+  forward(i * 0.5);
+  right(91);
 }</code></pre>
-    <p>Het kleine verschil tussen de hoek en een "nette" veelvoud van 360° bepaalt hoe snel de spiraal uitdraait.</p>
+    <p>Dat kleine verschil tussen 90 en 91 graden lijkt onbelangrijk, maar verandert het gedrag volledig. Dat is typisch voor codeconcepten: kleine regels kunnen grote visuele gevolgen hebben.</p>
 </section>
 
 <section>
     <h2>Recursieve patronen</h2>
-    <p>Met een recursieve functie kun je de turtle zichzelf laten herhalen op kleinere schaal — zo ontstaan fractals:</p>
+    <p>Als je dezelfde tekening op kleinere schaal laat terugkeren, kom je uit bij recursie en fractals:</p>
     <pre><code>function boom(lengte) {
   if (lengte &lt; 5) return;
   forward(lengte);
@@ -80,23 +96,35 @@ for (let i = 0; i &lt; n; i++) {
   left(60);
   boom(lengte * 0.7);
   right(30);
-  forward(-lengte); // Terug
+  forward(-lengte);
 }
+
 boom(80);</code></pre>
+    <p>Hier zie je dat turtle geometry niet alleen over vormen gaat, maar ook over structuur en groei.</p>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Maak drie versies van hetzelfde idee:</p>
+    <ul>
+        <li>een nette vorm met een "juiste" hoek, zoals 90 of 120 graden</li>
+        <li>een versie met een kleine afwijking, zoals 89 of 121 graden</li>
+        <li>een persoonlijke variant met kleur, variabele staplengte of pen-up bewegingen</li>
+    </ul>
+    <p>Vergelijk daarna welk patroon het meest voorspelbaar voelt en welk patroon juist verrassend wordt.</p>
 </section>
 
 <section>
     <h2>Experimenteer Zelf</h2>
-    <p>De turtle is al klaargezet. Probeer een ster, spiraal, of eigen patroon — de commando's <code>forward()</code>, <code>right()</code>, <code>left()</code>, <code>penUp()</code> en <code>penDown()</code> zijn beschikbaar.</p>
+    <p>De turtle is al klaargezet. Probeer een ster, spiraal of eigen patroon. De commando's <code>forward()</code>, <code>right()</code>, <code>left()</code>, <code>penUp()</code> en <code>penDown()</code> zijn beschikbaar.</p>
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
-// --- Turtle-bibliotheek ---
 let tx, ty, heading, penNeer;
 
 function turtleReset() {
   tx = width / 2;
   ty = height / 2;
-  heading = -90; // Start omhoog
+  heading = -90;
   penNeer = true;
 }
 
@@ -113,7 +141,6 @@ function left(hoek)  { heading -= hoek; }
 function penUp()     { penNeer = false; }
 function penDown()   { penNeer = true; }
 
-// --- Jouw tekening ---
 function setup() {
   createCanvas(600, 400);
   background(255);
@@ -123,10 +150,10 @@ function setup() {
   stroke(0);
   strokeWeight(1.5);
 
-  // Spiraal — probeer de hoek of stapgroei aan te passen!
+  // Probeer de hoek of stapgroei aan te passen!
   for (let i = 0; i < 220; i++) {
     forward(i * 0.45);
-    right(89); // Probeer 90, 91, 120, 144...
+    right(89);
   }
 }
 
@@ -137,7 +164,7 @@ function draw() {}
 
 <section>
     <h2>Live Demo</h2>
-    <p>Klik op het canvas om een nieuw patroon te genereren.</p>
+    <p>Klik op het canvas om tussen verschillende turtle-patronen te wisselen.</p>
     <div class="p5-example">
         <div class="p5-example-container">
             <div class="p5-canvas-wrapper" id="example-turtle"></div>

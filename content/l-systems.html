@@ -1,58 +1,87 @@
 <div class="intro">
-    <p>Een L-systeem (Lindenmayer-systeem) is een taal van regels die strings herschrijven. Herhaal de regels een paar keer en je krijgt complexe, organische vormen: bomen, planten, fractals.</p>
+    <p>Een L-systeem is een regelsysteem dat tekst herschrijft. Door die tekst daarna als tekening te lezen, krijg je groeivormen zoals planten, vertakkingen en fractals.</p>
 </div>
 
 <section>
-    <h2>Hoe werkt het?</h2>
-    <p>Je begint met een <strong>axioma</strong> — een startstring — en vervangt elke letter herhaaldelijk via <strong>regels</strong>.</p>
-    <pre><code>Axioma:  F
-Regel:   F → F+F−F−F+F
+    <h2>Waarom dit concept boeiend is</h2>
+    <p>Bij een L-systeem teken je een plant niet stap voor stap met de hand. Je beschrijft alleen hoe ze groeit. Het beeld ontstaat dus uit een grammatica.</p>
+    <p><strong>Denkvraag:</strong> kan een beeld een soort taal hebben?</p>
+</section>
 
-Iteratie 0:  F
-Iteratie 1:  F+F−F−F+F
-Iteratie 2:  F+F−F−F+F + F+F−F−F+F − F+F−F−F+F − F+F−F−F+F + F+F−F−F+F
-...</code></pre>
-    <p>Dan teken je de string met <strong>turtle graphics</strong>:</p>
+<section>
+    <h2>Wat je hier leert</h2>
     <ul>
-        <li><code>F</code> — ga vooruit en teken een lijn</li>
-        <li><code>+</code> — draai rechts met de hoek</li>
-        <li><code>-</code> — draai links met de hoek</li>
-        <li><code>[</code> — sla positie op (<code>push()</code>)</li>
-        <li><code>]</code> — herstel positie (<code>pop()</code>)</li>
+        <li>denken in regels en herschrijvingen</li>
+        <li>groei beschrijven in plaats van rechtstreeks tekenen</li>
+        <li>werken met turtle geometry, <code>push()</code> en <code>pop()</code></li>
+        <li>het verband zien tussen tekststructuur en beeldstructuur</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Hoe werkt het?</h2>
+    <p>Je begint met een <strong>axioma</strong>, een startstring, en vervangt elke letter herhaaldelijk via regels.</p>
+    <pre><code>Axioma:  F
+Regel:   F -&gt; F+F-F-F+F
+
+Iteratie 0: F
+Iteratie 1: F+F-F-F+F
+Iteratie 2: F+F-F-F+F + F+F-F-F+F - ...</code></pre>
+    <p>Daarna lees je de string met turtle-commando's:</p>
+    <ul>
+        <li><code>F</code> - ga vooruit en teken</li>
+        <li><code>+</code> - draai rechts</li>
+        <li><code>-</code> - draai links</li>
+        <li><code>[</code> - sla positie en richting op</li>
+        <li><code>]</code> - herstel positie en richting</li>
     </ul>
 </section>
 
 <section>
     <h2>Plantmodel</h2>
-    <p>Met het <code>[</code> en <code>]</code> mechanisme kun je vertakkingen maken:</p>
+    <p>Met <code>[</code> en <code>]</code> kun je vertakkingen maken:</p>
     <pre><code>Axioma: X
-Regels: X → F+[[X]-X]-F[-FX]+X
-        F → FF
-Hoek:   25°</code></pre>
-    <p>In p5.js gebruik je <code>push()</code> en <code>pop()</code> als schildpad-geheugen:</p>
+Regels: X -&gt; F+[[X]-X]-F[-FX]+X
+        F -&gt; FF
+Hoek:   25</code></pre>
     <pre><code>for (let c of sentence) {
   if (c === "F") { line(0, 0, len, 0); translate(len, 0); }
   else if (c === "+") rotate(radians(hoek));
   else if (c === "-") rotate(radians(-hoek));
-  else if (c === "[") push();  // Onthoud positie
-  else if (c === "]") pop();   // Herstel positie
+  else if (c === "[") push();
+  else if (c === "]") pop();
 }</code></pre>
+    <p>Zo krijg je iets dat voelt als groei: elke iteratie bouwt verder op de vorige structuur.</p>
+</section>
+
+<section>
+    <h2>Wat verandert een regel?</h2>
+    <p>Een kleine wijziging in een regel of hoek kan een plant sierlijk, compact, chaotisch of bijna architecturaal maken.</p>
+    <ul>
+        <li>meer iteraties - meer detail</li>
+        <li>grotere hoek - bredere vertakking</li>
+        <li>andere vervangregel - ander groeigedrag</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Verander maar een ding tegelijk: eerst de hoek, dan het aantal iteraties, dan de regel voor <code>X</code>. Beschrijf telkens of je resultaat meer op een plant, een netwerk, een ornament of een abstract patroon lijkt.</p>
 </section>
 
 <section>
     <h2>Experimenteer Zelf</h2>
-    <p>Pas <code>hoek</code> aan (bijv. 20° of 30°) of verander het aantal iteraties. Klik op Run om opnieuw te tekenen.</p>
+    <p>Pas <code>hoek</code> aan, of verander het aantal iteraties. Zoek een versie die natuurlijk aanvoelt en daarna een versie die juist kunstmatig of mechanisch oogt.</p>
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
 let sentence = "X";
 let len = 90;
-const hoek = 25; // Probeer 20 of 30!
+const hoek = 25;
 
 function setup() {
   createCanvas(600, 400);
   noLoop();
 
-  // Genereer 5 iteraties
   for (let i = 0; i < 5; i++) {
     let nieuw = "";
     for (let c of sentence) {
@@ -72,14 +101,21 @@ function draw() {
 
   push();
   translate(width / 2, height - 5);
-  rotate(-HALF_PI); // Start omhoog
+  rotate(-HALF_PI);
 
   for (let c of sentence) {
-    if (c === "F") { line(0, 0, len, 0); translate(len, 0); }
-    else if (c === "+") rotate(radians(hoek));
-    else if (c === "-") rotate(radians(-hoek));
-    else if (c === "[") push();
-    else if (c === "]") pop();
+    if (c === "F") {
+      line(0, 0, len, 0);
+      translate(len, 0);
+    } else if (c === "+") {
+      rotate(radians(hoek));
+    } else if (c === "-") {
+      rotate(radians(-hoek));
+    } else if (c === "[") {
+      push();
+    } else if (c === "]") {
+      pop();
+    }
   }
   pop();
 }
@@ -89,6 +125,7 @@ function draw() {
 
 <section>
     <h2>Live Demo</h2>
+    <p>Klik op het canvas om een nieuwe groeivorm te genereren.</p>
     <div class="p5-example">
         <div class="p5-example-container">
             <div class="p5-canvas-wrapper" id="example-l-systems"></div>
