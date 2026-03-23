@@ -1,0 +1,300 @@
+<div class="intro">
+    <p>Met p5.js kun je tekst tekenen op het canvas. Je bepaalt zelf de grootte, het lettertype, de uitlijning en de kleur. Tekst is een krachtig onderdeel van generatieve kunst, data visualisatie en interactieve sketches.</p>
+</div>
+
+<section>
+    <h2>Basis: Tekst Tekenen</h2>
+    <p>Gebruik <code>text()</code> om tekst te tekenen. Stel altijd een grootte in met <code>textSize()</code>.</p>
+
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  background(240);
+}
+
+function draw() {
+  background(240);
+
+  fill(50);          // kleur van de tekst
+  noStroke();        // geen rand om de tekst
+  textSize(32);      // lettergrootte in pixels
+
+  text('Hallo wereld!', 50, 100); // tekst, x, y
+}</code></pre>
+
+    <p>De x en y in <code>text()</code> geven de <strong>onderkant links</strong> van de tekst aan (de baseline), niet de linkerbovenhoek.</p>
+</section>
+
+<section>
+    <h2>Lettergrootte en Stijl</h2>
+
+    <pre><code>function draw() {
+  background(240);
+  fill(30);
+  noStroke();
+
+  // Verschillende groottes
+  textSize(12);
+  text('Klein lettertype', 50, 80);
+
+  textSize(24);
+  text('Normaal lettertype', 50, 130);
+
+  textSize(48);
+  text('Groot lettertype', 50, 200);
+
+  // Lettertype stijl
+  textStyle(NORMAL);
+  text('Normaal', 50, 270);
+
+  textStyle(BOLD);
+  text('Vet', 50, 310);
+
+  textStyle(ITALIC);
+  text('Cursief', 50, 350);
+
+  textStyle(BOLDITALIC);
+  text('Vet en cursief', 200, 350);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Uitlijning</h2>
+    <p>Met <code>textAlign()</code> bepaal je hoe tekst wordt uitgelijnd ten opzichte van de opgegeven positie.</p>
+
+    <pre><code>function draw() {
+  background(240);
+  fill(30);
+  noStroke();
+  textSize(20);
+
+  // Horizontale uitlijning
+  textAlign(LEFT);
+  text('Links uitgelijnd', 300, 80);
+
+  textAlign(CENTER);
+  text('Gecentreerd', 300, 130);
+
+  textAlign(RIGHT);
+  text('Rechts uitgelijnd', 300, 180);
+
+  // Verticale uitlijning (tweede parameter)
+  textAlign(CENTER, TOP);
+  text('Boven', 300, 230);
+
+  textAlign(CENTER, CENTER);
+  text('Midden', 300, 280);
+
+  textAlign(CENTER, BOTTOM);
+  text('Onder', 300, 330);
+
+  // Hulplijn om de positie te zien
+  stroke(255, 0, 0);
+  line(300, 0, 300, height);
+}</code></pre>
+
+    <h3>Tekst centreren op het canvas</h3>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  textSize(40);
+  textAlign(CENTER, CENTER);
+  fill(50);
+  noStroke();
+}
+
+function draw() {
+  background(240);
+  text('Ik sta in het midden!', width / 2, height / 2);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Tekst in een Rechthoek</h2>
+    <p>Als je een vierde en vijfde parameter meegeeft aan <code>text()</code>, wordt de tekst automatisch afgebroken binnen de opgegeven breedte en hoogte.</p>
+
+    <pre><code>function draw() {
+  background(240);
+  fill(30);
+  noStroke();
+  textSize(16);
+
+  // text(inhoud, x, y, breedte, hoogte)
+  text('Dit is een langere tekst die automatisch op de volgende regel doorloopt als hij te lang wordt.', 50, 50, 300, 200);
+
+  // Kader tekenen om de tekstbox te zien
+  noFill();
+  stroke(200, 0, 0);
+  rect(50, 50, 300, 200);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Regelafstand</h2>
+    <pre><code>textSize(18);
+textLeading(30); // afstand tussen regels in pixels
+
+text('Regel één\nRegel twee\nRegel drie', 50, 100);</code></pre>
+</section>
+
+<section>
+    <h2>Tekstbreedte Meten</h2>
+    <p>Met <code>textWidth()</code> kun je meten hoe breed een tekst is. Handig om tekst precies te positioneren.</p>
+
+    <pre><code>function draw() {
+  background(240);
+  textSize(32);
+  fill(30);
+
+  let woord = 'p5.js';
+  let breedte = textWidth(woord);
+
+  // Teken een markering onder het woord
+  text(woord, 100, 100);
+  stroke(255, 0, 0);
+  line(100, 105, 100 + breedte, 105);
+
+  // Tekst precies centreren (handmatig)
+  noStroke();
+  text(woord, width / 2 - breedte / 2, 200);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Custom Fonts Laden</h2>
+    <p>Je kunt je eigen lettertype laden met <code>loadFont()</code>. Gebruik Google Fonts of een eigen .ttf/.otf bestand.</p>
+
+    <pre><code>let mijnFont;
+
+function preload() {
+  // Laad een lokaal font bestand
+  mijnFont = loadFont('fonts/mijn-lettertype.ttf');
+}
+
+function setup() {
+  createCanvas(600, 400);
+  textFont(mijnFont); // stel het font in
+}
+
+function draw() {
+  background(240);
+  textSize(48);
+  fill(50);
+  text('Custom lettertype!', 50, 200);
+}</code></pre>
+
+    <h3>Google Fonts gebruiken</h3>
+    <p>Je kunt ook fonts rechtstreeks laden via een URL (alleen als de server CORS ondersteunt):</p>
+    <pre><code>function preload() {
+  // Let op: niet alle externe URLs werken vanwege CORS
+  mijnFont = loadFont('https://fonts.gstatic.com/s/oswald/v53/TK3iWkUHHAIjg752FD8Gl-1PKw.woff2');
+}</code></pre>
+
+    <p><strong>Tip:</strong> Download het font bestand en sla het op in je projectmap — dat is betrouwbaarder.</p>
+</section>
+
+<section>
+    <h2>Tekst als Generatieve Kunst</h2>
+    <p>Tekst is een krachtig medium voor generatieve kunst. Hier zijn een paar ideeën:</p>
+
+    <h3>Bewegende tekst</h3>
+    <pre><code>function draw() {
+  background(20);
+  fill(255);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+
+  let x = width / 2 + sin(frameCount * 0.05) * 100;
+  let y = height / 2 + cos(frameCount * 0.03) * 80;
+
+  text('p5.js', x, y);
+}</code></pre>
+
+    <h3>Tekst met variabele grootte</h3>
+    <pre><code>function draw() {
+  background(240);
+  fill(50, 100, 200);
+  textAlign(CENTER, CENTER);
+
+  let grootte = map(mouseX, 0, width, 10, 100);
+  textSize(grootte);
+  text('Beweeg de muis!', width / 2, height / 2);
+}</code></pre>
+
+    <h3>Letters op een cirkel</h3>
+    <pre><code>let zin = 'p5.js is geweldig! ';
+
+function draw() {
+  background(240);
+  textSize(18);
+  textAlign(CENTER, CENTER);
+  fill(30);
+  noStroke();
+
+  for (let i = 0; i < zin.length; i++) {
+    let hoek = map(i, 0, zin.length, 0, TWO_PI);
+    hoek += frameCount * 0.01; // draai langzaam
+
+    let x = width / 2 + cos(hoek) * 150;
+    let y = height / 2 + sin(hoek) * 150;
+
+    push();
+    translate(x, y);
+    rotate(hoek + HALF_PI); // letter in de juiste richting draaien
+    text(zin[i], 0, 0);
+    pop();
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Interactief Voorbeeld: Typografisch Effect</h3>
+    <p>Beweeg je muis om de tekstgrootte en positie te beïnvloeden.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-text-typografie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf!</h2>
+    <p>Pas de tekst, grootte, kleur en positie aan. Probeer ook <code>textStyle(BOLD)</code> of <code>textAlign(CENTER)</code>!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+function setup() {
+  createCanvas(600, 400);
+  textAlign(CENTER, CENTER);
+}
+
+function draw() {
+  background(20, 20, 40);
+
+  // Teken letters in een raster
+  let kolommen = 10;
+  let rijen = 6;
+  let celBreedte = width / kolommen;
+  let celHoogte = height / rijen;
+
+  for (let k = 0; k < kolommen; k++) {
+    for (let r = 0; r < rijen; r++) {
+      let x = k * celBreedte + celBreedte / 2;
+      let y = r * celHoogte + celHoogte / 2;
+
+      // Afstand tot muis bepaalt grootte en helderheid
+      let afstand = dist(mouseX, mouseY, x, y);
+      let grootte = map(afstand, 0, 300, 40, 8);
+      let helderheid = map(afstand, 0, 300, 255, 80);
+
+      // Kies een letter op basis van positie en tijd
+      let letterIndex = (k + r * kolommen + floor(frameCount * 0.05)) % letters.length;
+
+      textSize(grootte);
+      fill(100, 200, helderheid);
+      noStroke();
+      text(letters[letterIndex], x, y);
+    }
+  }
+}
+        </script>
+    </div>
+</section>

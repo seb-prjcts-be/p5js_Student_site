@@ -129,6 +129,30 @@ const onderwerpen = [
         categorie: "p5.js"
     },
     {
+        id: "afbeeldingen",
+        titel: "Afbeeldingen",
+        samenvatting: "Leer afbeeldingen laden en tekenen met loadImage() en image(). Ontdek ook pixelmanipulatie en filters.",
+        tags: ["afbeelding", "loadImage", "image", "pixels", "filter", "tint", "pixelArray"],
+        contentFile: "content/afbeeldingen.html",
+        categorie: "p5.js"
+    },
+    {
+        id: "text-typografie",
+        titel: "Text & Typografie",
+        samenvatting: "Teken tekst op het canvas met text(), stel grootte en stijl in, en laad custom fonts met loadFont().",
+        tags: ["tekst", "text", "font", "typografie", "textSize", "textFont", "loadFont", "textAlign"],
+        contentFile: "content/text-typografie.html",
+        categorie: "p5.js"
+    },
+    {
+        id: "geluid",
+        titel: "Geluid",
+        samenvatting: "Voeg geluid toe aan je sketch met de p5.sound library: speel geluiden af, analyseer audio en maak visualisaties.",
+        tags: ["geluid", "sound", "audio", "p5.sound", "loadSound", "SoundFile", "Amplitude", "FFT", "muziek"],
+        contentFile: "content/geluid.html",
+        categorie: "p5.js"
+    },
+    {
         id: "p5js-2.0",
         titel: "p5.js 2.0: Nieuwe Features",
         samenvatting: "Ontdek de nieuwe features van p5.js 2.0: async assets, typografie, curves, shaders en meer.",
@@ -199,10 +223,18 @@ const onderwerpen = [
         tags: ["quine", "zelfverwijzing", "meta", "toString", "recursie", "code concepten"],
         contentFile: "content/quine.html",
         categorie: "Code Concepten"
+    },
+    {
+        id: "ai-ecologische-kost",
+        titel: "AI & Ecologische Kost",
+        samenvatting: "Hoeveel energie kost AI eigenlijk? Vergelijk AI-gesprekken met koffie, Netflix en meer — en ontdek waarom het verhaal genuanceerder is dan je denkt.",
+        tags: ["AI", "energie", "ecologie", "klimaat", "datacenter", "GPU", "duurzaamheid", "training", "koffie"],
+        contentFile: "content/ai-ecologische-kost.html",
+        categorie: "Artificiële Intelligentie"
     }
 ];
 
-const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie"];
+const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie", "Artificiële Intelligentie"];
 
 // Router - Hash-based routing
 function initRouter() {

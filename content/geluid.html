@@ -1,0 +1,350 @@
+<div class="intro">
+    <p>Met de p5.sound library kun je geluiden afspelen, opnemen en analyseren in je sketch. Maak audio-visualisaties, interactieve muziek of gebruik geluid als input voor je animaties.</p>
+</div>
+
+<section>
+    <h2>p5.sound Laden</h2>
+    <p>De p5.sound library is een apart bestand dat je naast p5.js moet laden. Voeg het toe aan je HTML vóór je sketch:</p>
+
+    <pre><code>&lt;!-- Voeg toe in je HTML, na p5.js --&gt;
+&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/addons/p5.sound.min.js"&gt;&lt;/script&gt;</code></pre>
+
+    <p><strong>Let op:</strong> in de live editor op deze site is p5.sound niet geladen. De codevoorbeelden hieronder zijn bedoeld voor gebruik in je eigen HTML-projecten.</p>
+</section>
+
+<section>
+    <h2>Een Geluid Afspelen</h2>
+    <p>Laad een geluidsbestand met <code>loadSound()</code> in <code>preload()</code> en speel het af met <code>.play()</code>.</p>
+
+    <pre><code>let geluid;
+
+function preload() {
+  geluid = loadSound('mijn-geluid.mp3');
+}
+
+function setup() {
+  createCanvas(400, 300);
+  background(220);
+}
+
+function mousePressed() {
+  if (geluid.isPlaying()) {
+    geluid.stop();
+  } else {
+    geluid.play();
+  }
+}</code></pre>
+
+    <h3>Geluidsopties</h3>
+    <pre><code>// Volume instellen (0.0 = stil, 1.0 = vol)
+geluid.setVolume(0.5);
+
+// Afspelen in een lus
+geluid.loop();
+
+// Stoppen en terugspoelen
+geluid.stop();
+
+// Pauzeren (hervat later op dezelfde positie)
+geluid.pause();
+
+// Hoe lang duurt het geluid?
+let duur = geluid.duration(); // in seconden
+
+// Op welke positie zit het afspelen nu?
+let positie = geluid.currentTime();</code></pre>
+
+    <h3>Ondersteunde bestandsformaten</h3>
+    <ul>
+        <li><strong>.mp3</strong> — werkt in alle moderne browsers</li>
+        <li><strong>.wav</strong> — hoge kwaliteit, grote bestanden</li>
+        <li><strong>.ogg</strong> — open formaat, goede compressie</li>
+        <li><strong>.m4a</strong> — werkt goed in Safari</li>
+    </ul>
+    <p>Tip: bied zowel .mp3 als .ogg aan voor de beste browsercompatibiliteit.</p>
+</section>
+
+<section>
+    <h2>Amplitude: Hoe Hard?</h2>
+    <p>Met de <code>p5.Amplitude</code> analyzer meet je het volume (de amplitude) van een geluid. Gebruik dit voor visualisaties die reageren op hoe hard het geluid is.</p>
+
+    <pre><code>let geluid;
+let analyzer;
+
+function preload() {
+  geluid = loadSound('muziek.mp3');
+}
+
+function setup() {
+  createCanvas(600, 400);
+  geluid.loop();
+
+  analyzer = new p5.Amplitude();
+  analyzer.setInput(geluid); // analyseer dit geluid
+}
+
+function draw() {
+  background(20);
+
+  // Haal het volume op (0.0 - 1.0)
+  let volume = analyzer.getLevel();
+
+  // Teken een cirkel die groter wordt naarmate het harder is
+  let diameter = map(volume, 0, 1, 10, 400);
+  fill(100, 200, 255);
+  noStroke();
+  circle(width / 2, height / 2, diameter);
+
+  fill(255);
+  textSize(16);
+  textAlign(CENTER);
+  text('Volume: ' + nf(volume, 1, 2), width / 2, 30);
+}</code></pre>
+
+    <h3>Smoothing: vloeiende animatie</h3>
+    <pre><code>// Smoothing maakt de amplitude-waarden vloeiender (0.0 - 1.0)
+// 0.0 = direct reageren, 0.9 = langzaam reageren
+analyzer.smooth(0.8);</code></pre>
+</section>
+
+<section>
+    <h2>FFT: Frequentie Analyse</h2>
+    <p>Met <code>p5.FFT</code> analyseer je de frequentie-inhoud van geluid: welke tonen zitten er in? Gebruik dit voor equalizer-visualisaties en spectrum displays.</p>
+
+    <pre><code>let geluid;
+let fft;
+
+function preload() {
+  geluid = loadSound('muziek.mp3');
+}
+
+function setup() {
+  createCanvas(600, 300);
+  geluid.loop();
+
+  fft = new p5.FFT();
+  fft.setInput(geluid);
+}
+
+function draw() {
+  background(20);
+
+  // Haal het spectrum op (array van 1024 waarden, van laag naar hoog)
+  let spectrum = fft.analyze();
+
+  noStroke();
+  fill(100, 200, 255);
+
+  // Teken een staafdiagram van het frequentiespectrum
+  for (let i = 0; i < spectrum.length; i++) {
+    let x = map(i, 0, spectrum.length, 0, width);
+    let hoogte = map(spectrum[i], 0, 255, 0, height);
+    rect(x, height - hoogte, width / spectrum.length, hoogte);
+  }
+}</code></pre>
+
+    <h3>Specifieke frequentiebanden</h3>
+    <pre><code>// Haal de energie in een frequentieband op
+let bass    = fft.getEnergy('bass');     // lage tonen
+let mid     = fft.getEnergy('mid');      // middentonen
+let treble  = fft.getEnergy('treble');   // hoge tonen
+
+// Of een specifiek bereik (in Hz)
+let energie = fft.getEnergy(200, 400);</code></pre>
+</section>
+
+<section>
+    <h2>Microfoon Input</h2>
+    <p>Je kunt ook het geluid van de microfoon van de gebruiker analyseren. De browser vraagt om toestemming.</p>
+
+    <pre><code>let mic;
+let analyzer;
+
+function setup() {
+  createCanvas(600, 400);
+
+  // Microfoon aansluiten
+  mic = new p5.AudioIn();
+  mic.start();
+
+  // Microfoon analyseren
+  analyzer = new p5.Amplitude();
+  analyzer.setInput(mic);
+}
+
+function draw() {
+  background(20);
+
+  let volume = analyzer.getLevel();
+  let diameter = map(volume, 0, 1, 10, min(width, height) - 20);
+
+  fill(255, 100, 50);
+  noStroke();
+  circle(width / 2, height / 2, diameter);
+
+  fill(255);
+  textAlign(CENTER);
+  textSize(14);
+  text('Praat of fluit om de cirkel groter te maken', width / 2, 30);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Geluiden Genereren (Oscillator)</h2>
+    <p>Je kunt ook zelf tonen genereren met een <code>p5.Oscillator</code>. Dit werkt zonder geluidsbestand.</p>
+
+    <pre><code>let osc;
+let aanGezet = false;
+
+function setup() {
+  createCanvas(400, 300);
+  background(220);
+
+  osc = new p5.Oscillator('sine'); // 'sine', 'triangle', 'square', 'sawtooth'
+  osc.amp(0.5);    // volume 50%
+  osc.freq(440);   // frequentie in Hz (440 = la)
+}
+
+function mousePressed() {
+  if (!aanGezet) {
+    osc.start();
+    aanGezet = true;
+  } else {
+    osc.stop();
+    aanGezet = false;
+  }
+}
+
+function mouseMoved() {
+  // Muis links/rechts bepaalt de frequentie
+  let freq = map(mouseX, 0, width, 100, 1000);
+  osc.freq(freq);
+
+  // Muis omhoog/omlaag bepaalt het volume
+  let vol = map(mouseY, 0, height, 1.0, 0.0);
+  osc.amp(vol);
+}</code></pre>
+
+    <h3>Verschillende golfvormen</h3>
+    <pre><code>// Golfvormen hebben elk een eigen klankkleur:
+osc = new p5.Oscillator('sine');     // zachte, pure toon
+osc = new p5.Oscillator('triangle'); // iets scherpere toon
+osc = new p5.Oscillator('square');   // elektronische, buzzende toon
+osc = new p5.Oscillator('sawtooth'); // heldere, metaalachtige toon</code></pre>
+</section>
+
+<section>
+    <h2>Audio Visualisatie: Volledig Voorbeeld</h2>
+    <p>Een volledig voorbeeld dat spectrum en amplitude combineert:</p>
+
+    <pre><code>let geluid;
+let fft;
+let amplitude;
+
+function preload() {
+  geluid = loadSound('muziek.mp3');
+}
+
+function setup() {
+  createCanvas(600, 400);
+  geluid.loop();
+
+  fft = new p5.FFT(0.8, 64); // smoothing 0.8, 64 banden
+  amplitude = new p5.Amplitude(0.8);
+}
+
+function draw() {
+  background(10, 10, 30, 80); // semi-transparant voor sleep effect
+
+  let spectrum = fft.analyze();
+  let vol = amplitude.getLevel();
+
+  // Teken spectrum als cirkels
+  noFill();
+  for (let i = 0; i < spectrum.length; i++) {
+    let hoek = map(i, 0, spectrum.length, 0, TWO_PI);
+    let r = map(spectrum[i], 0, 255, 50, 200);
+    let x = width / 2 + cos(hoek) * r;
+    let y = height / 2 + sin(hoek) * r;
+
+    let kleur = map(i, 0, spectrum.length, 0, 255);
+    stroke(kleur, 200 - kleur, 255);
+    strokeWeight(2);
+    point(x, y);
+  }
+
+  // Pulserende cirkel op basis van volume
+  noStroke();
+  fill(255, 200, 50, 100);
+  let diameter = map(vol, 0, 1, 20, 150);
+  circle(width / 2, height / 2, diameter);
+}
+
+function mousePressed() {
+  if (geluid.isPlaying()) {
+    geluid.pause();
+  } else {
+    geluid.play();
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Oscillator Visualisatie</h3>
+    <p>Een gesimuleerd geluidsgolfpatroon (zonder p5.sound, met pure wiskunde).</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-geluid"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf!</h2>
+    <p>Dit voorbeeld simuleert een geluidsvisualisatie met sinusgolven. Pas de frequentie en amplitude aan door de muis te bewegen.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Simulatie van audio-visualisatie (zonder p5.sound)
+// Beweeg de muis om de frequentie en amplitude aan te passen
+
+function setup() {
+  createCanvas(600, 400);
+  strokeWeight(2);
+}
+
+function draw() {
+  background(15, 15, 35);
+
+  // Parameters op basis van muispositie
+  let freq = map(mouseX, 0, width, 1, 10);   // frequentie
+  let amp  = map(mouseY, 0, height, 150, 10); // amplitude
+
+  // Teken meerdere lagen golven
+  for (let laag = 0; laag < 3; laag++) {
+    let r = map(laag, 0, 2, 100, 255);
+    let g = map(laag, 0, 2, 200, 50);
+    let b = 200;
+    stroke(r, g, b, 180);
+
+    beginShape();
+    noFill();
+    for (let x = 0; x <= width; x += 2) {
+      let t = frameCount * 0.02 + laag * 0.5;
+      let y = height / 2 +
+              sin((x / width) * TWO_PI * freq + t) * amp / (laag + 1) +
+              sin((x / width) * TWO_PI * freq * 2 + t * 1.3) * amp / (laag + 2);
+      vertex(x, y);
+    }
+    endShape();
+  }
+
+  // Labels
+  fill(200);
+  noStroke();
+  textSize(13);
+  text('Frequentie: ' + nf(freq, 1, 1), 20, 25);
+  text('Amplitude: ' + nf(amp, 1, 0), 20, 45);
+  text('Beweeg de muis om de golf aan te passen', 20, height - 15);
+}
+        </script>
+    </div>
+</section>

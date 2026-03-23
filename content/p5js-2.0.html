@@ -1,98 +1,352 @@
 <div class="intro">
-    <p>p5.js 2.0 introduceert veel nieuwe features die het nog krachtiger maken. Leer wat er nieuw is en hoe je het gebruikt.</p>
+    <p>p5.js 2.0 is een grote update met nieuwe features, verbeterde performance en een paar wijzigingen ten opzichte van versie 1.x. Op deze pagina leer je wat er nieuw is en hoe je de nieuwe mogelijkheden gebruikt.</p>
 </div>
 
 <section>
+    <h2>Migratie van 1.x naar 2.0</h2>
+    <p>De meeste p5.js 1.x code werkt ook in 2.0, maar er zijn een paar belangrijke wijzigingen waar je rekening mee moet houden:</p>
+
+    <h3>Wat is veranderd?</h3>
+    <ul>
+        <li><strong>Async asset loading</strong> — <code>loadImage()</code> en <code>loadFont()</code> werken nu met <code>async/await</code> in <code>setup()</code></li>
+        <li><strong>Pointer events</strong> — nieuwe, universele events die werken voor zowel muis als touchscreen</li>
+        <li><strong>Verbeterde typografie</strong> — meer controle over fonts en tekst rendering</li>
+        <li><strong>Betere curves</strong> — verbeterde <code>beginShape()</code> en spline functies</li>
+        <li><strong>WebGL verbeteringen</strong> — betere shader ondersteuning en 3D performance</li>
+    </ul>
+
+    <h3>Wat werkt nog hetzelfde?</h3>
+    <p>Alle basisprincipes blijven hetzelfde: <code>setup()</code>, <code>draw()</code>, vormen tekenen, kleuren, animatie — dat alles werkt gewoon door. De meeste 1.x sketches draaien zonder aanpassingen in 2.0.</p>
+
+    <pre><code>// Dit werkt in zowel 1.x als 2.0
+function setup() {
+  createCanvas(600, 400);
+  background(220);
+}
+
+function draw() {
+  fill(mouseX, 100, 200);
+  circle(mouseX, mouseY, 50);
+}</code></pre>
+</section>
+
+<section>
     <h2>Async Assets Laden</h2>
-    <p>In p5.js 2.0 kun je assets asynchroon laden met <code>async/await</code>:</p>
+    <p>In p5.js 1.x gebruikte je <code>preload()</code> om afbeeldingen en fonts te laden vóór <code>setup()</code>. In p5.js 2.0 kun je dit ook doen met <code>async/await</code> direct in <code>setup()</code>.</p>
+
+    <h3>De oude manier (1.x — werkt nog steeds)</h3>
     <pre><code>let img;
 
-async function setup() {
-  createCanvas(800, 600);
-  img = await loadImage('afbeelding.jpg');
+function preload() {
+  img = loadImage('foto.jpg'); // blokkeert totdat geladen
+}
+
+function setup() {
+  createCanvas(600, 400);
 }
 
 function draw() {
   image(img, 0, 0);
 }</code></pre>
-    <p>Dit maakt het makkelijker om meerdere assets te laden en fouten af te handelen.</p>
-</section>
 
-<section>
-    <h2>Nieuwe Typografie Features</h2>
-    <p>p5.js 2.0 heeft verbeterde tekst rendering:</p>
-    <ul>
-        <li>Betere font ondersteuning</li>
-        <li>Meer controle over tekst layout</li>
-        <li>Verbeterde performance</li>
-    </ul>
-</section>
+    <h3>De nieuwe manier (2.0 — met async/await)</h3>
+    <pre><code>let img;
+let lettertype;
 
-<section>
-    <h2>Curves en Splines</h2>
-    <p>Nieuwe functies voor vloeiende curves:</p>
-    <ul>
-        <li><code>bezier()</code> - Bézier curves</li>
-        <li><code>curve()</code> - Catmull-Rom splines</li>
-        <li><code>quadraticVertex()</code> - Kwadratische curves</li>
-    </ul>
+async function setup() {
+  createCanvas(600, 400);
+
+  // Laad meerdere assets tegelijk
+  img = await loadImage('foto.jpg');
+  lettertype = await loadFont('mijn-font.ttf');
+
+  textFont(lettertype);
+  background(220);
+}
+
+function draw() {
+  image(img, 0, 0);
+  fill(255);
+  textSize(32);
+  text('Hallo!', 20, 50);
+}</code></pre>
+
+    <p>Het voordeel van <code>async/await</code> is dat je meerdere assets kunt laden en foutafhandeling kunt toevoegen:</p>
+
+    <pre><code>async function setup() {
+  createCanvas(600, 400);
+
+  try {
+    img = await loadImage('foto.jpg');
+  } catch (fout) {
+    console.error('Afbeelding kon niet worden geladen:', fout);
+    // Toon een vervanger als de afbeelding niet laadt
+    background(200, 100, 100);
+    fill(255);
+    text('Afbeelding niet gevonden', 20, 200);
+  }
+}
+
+// Je kunt ook meerdere assets tegelijk laden (sneller!)
+async function setup() {
+  createCanvas(600, 400);
+  [img1, img2, img3] = await Promise.all([
+    loadImage('foto1.jpg'),
+    loadImage('foto2.jpg'),
+    loadImage('foto3.jpg')
+  ]);
+}</code></pre>
 </section>
 
 <section>
     <h2>Pointer Events</h2>
-    <p>Nieuwe events voor touch en pointer input:</p>
-    <ul>
-        <li><code>pointerX</code>, <code>pointerY</code> - Werkt voor muis én touch</li>
-        <li><code>pointerPressed()</code> - Event voor pointer down</li>
-        <li><code>pointerMoved()</code> - Event voor pointer beweging</li>
-        <li><code>pointerReleased()</code> - Event voor pointer up</li>
-    </ul>
+    <p>In p5.js 1.x had je aparte events voor muis (<code>mousePressed()</code>) en touch (<code>touchStarted()</code>). In p5.js 2.0 zijn er nieuwe <strong>pointer events</strong> die werken voor beide — ideaal voor mobiel én desktop.</p>
+
+    <h3>Pointer variabelen</h3>
+    <pre><code>function draw() {
+  background(220);
+
+  // pointerX en pointerY werken voor muis EN touch
+  fill(255, 100, 0);
+  circle(pointerX, pointerY, 60);
+
+  // pointerIsDown: true als muis ingedrukt of vinger op scherm
+  if (pointerIsDown) {
+    fill(0, 200, 100);
+    circle(pointerX, pointerY, 100);
+  }
+}</code></pre>
+
+    <h3>Pointer event functies</h3>
+    <pre><code>// Wordt aangeroepen bij muisklik OF touch start
+function pointerPressed() {
+  fill(random(255), random(255), random(255));
+  circle(pointerX, pointerY, 40);
+}
+
+// Wordt aangeroepen bij bewegen (muis of vinger)
+function pointerMoved() {
+  stroke(0, 150, 255);
+  strokeWeight(3);
+  line(ppointerX, ppointerY, pointerX, pointerY); // ppointerX/Y = vorige positie
+}
+
+// Wordt aangeroepen bij loslaten
+function pointerReleased() {
+  console.log('Losgelaten op:', pointerX, pointerY);
+}</code></pre>
+
+    <h3>Vergelijking: oud vs nieuw</h3>
+    <pre><code>// OUDE manier (1.x) — apart voor muis en touch
+function mousePressed() { tekenPunt(); }
+function touchStarted() { tekenPunt(); return false; }
+
+// NIEUWE manier (2.0) — één functie voor alles
+function pointerPressed() { tekenPunt(); }</code></pre>
+
+    <p><strong>Let op:</strong> de oude <code>mousePressed()</code> en <code>touchStarted()</code> functies werken in 2.0 nog steeds. Je hoeft bestaande code niet aan te passen.</p>
+</section>
+
+<section>
+    <h2>Verbeterde Curves en Splines</h2>
+    <p>p5.js 2.0 heeft verbeterde ondersteuning voor het tekenen van vloeiende curves via <code>beginShape()</code> en <code>endShape()</code>.</p>
+
+    <h3>Catmull-Rom splines met curveVertex()</h3>
+    <pre><code>// Vloeiende curve door controlepunten
+beginShape();
+curveVertex(50, 300);   // eerste controlepunt (niet getekend)
+curveVertex(150, 100);
+curveVertex(250, 250);
+curveVertex(350, 80);
+curveVertex(450, 200);
+curveVertex(550, 300);  // laatste controlepunt (niet getekend)
+endShape();</code></pre>
+
+    <h3>Bézier curves in een shape</h3>
+    <pre><code>beginShape();
+vertex(50, 200);                         // startpunt
+bezierVertex(100, 50, 200, 50, 250, 200); // c1, c2, eindpunt
+bezierVertex(300, 350, 400, 350, 450, 200);
+endShape();</code></pre>
+
+    <h3>Kwadratische curves</h3>
+    <pre><code>beginShape();
+vertex(50, 300);                    // startpunt
+quadraticVertex(200, 50, 350, 300); // controlepunt, eindpunt
+quadraticVertex(450, 450, 550, 300);
+endShape();</code></pre>
+
+    <h3>Gesloten shapes met curves</h3>
+    <pre><code>// CLOSE sluit de shape automatisch
+beginShape();
+curveVertex(300, 100);
+curveVertex(400, 200);
+curveVertex(350, 350);
+curveVertex(200, 350);
+curveVertex(150, 200);
+endShape(CLOSE);</code></pre>
+</section>
+
+<section>
+    <h2>Nieuwe Typografie Features</h2>
+    <p>p5.js 2.0 heeft verbeterde text rendering, vooral voor webfonts en complexe lettertypes.</p>
+
+    <h3>Tekst tekenen — basisprincipes</h3>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(240);
+
+  // Grootte en stijl instellen
+  textSize(48);
+  textStyle(BOLD);       // NORMAL, BOLD, ITALIC, BOLDITALIC
+  textAlign(CENTER, CENTER);
+
+  fill(50);
+  text('Hallo p5.js 2.0!', width / 2, height / 2);
+}</code></pre>
+
+    <h3>Tekst opmaken</h3>
+    <pre><code>textSize(24);
+textLeading(36);   // regelafstand
+textAlign(LEFT);
+
+// Tekst in een rechthoek (automatische regelterugloop)
+text('Dit is een lange zin die automatisch afbreekt.', 50, 50, 300, 200);</code></pre>
+
+    <h3>Een custom font laden</h3>
+    <pre><code>let mijnFont;
+
+async function setup() {
+  createCanvas(600, 400);
+  mijnFont = await loadFont('mijn-lettertype.ttf');
+  textFont(mijnFont);
+}
+
+function draw() {
+  background(240);
+  textSize(64);
+  fill(100, 0, 200);
+  text('Custom font!', 50, 200);
+}</code></pre>
+
+    <h3>Tekst meten</h3>
+    <pre><code>// Hoe breed is een tekst?
+let breedte = textWidth('Hallo');
+
+// Tekst centreren op basis van werkelijke breedte
+let woord = 'Gecentreerd';
+text(woord, width / 2 - textWidth(woord) / 2, height / 2);</code></pre>
+</section>
+
+<section>
+    <h2>WebGL Verbeteringen (3D)</h2>
+    <p>p5.js 2.0 heeft verbeterde WebGL ondersteuning voor 3D sketches. De basisprincipes zijn hetzelfde, maar de performance is beter en shaders zijn makkelijker in te zetten.</p>
+
+    <h3>Custom shaders in 2.0</h3>
+    <pre><code>let mijnShader;
+
+async function setup() {
+  createCanvas(600, 400, WEBGL);
+
+  // Laad vertex en fragment shaders
+  mijnShader = await loadShader('shader.vert', 'shader.frag');
+}
+
+function draw() {
+  shader(mijnShader);
+  mijnShader.setUniform('tijd', millis() / 1000.0);
+  rect(0, 0, width, height);
+}</code></pre>
+
+    <h3>Betere 3D performance</h3>
+    <pre><code>function setup() {
+  createCanvas(600, 400, WEBGL);
+}
+
+function draw() {
+  background(20);
+  lights();
+
+  // Draaiende bollen — in 2.0 soepeler dankzij verbeterde rendering
+  for (let i = 0; i < 5; i++) {
+    push();
+    translate(i * 100 - 200, 0, 0);
+    rotateY(frameCount * 0.02 + i);
+    specularMaterial(255, 100, 50);
+    sphere(40);
+    pop();
+  }
+}</code></pre>
 </section>
 
 <div class="p5-example">
-    <h3>Voorbeeld: p5.js 2.0 Features</h3>
-    <p>Dit voorbeeld toont enkele nieuwe mogelijkheden:</p>
+    <h3>Interactief Voorbeeld: Pointer Events + Curves</h3>
+    <p>Beweeg je muis (of vinger op touch) over het canvas om een vloeiend spoor te tekenen. Klik om het canvas te wissen.</p>
     <div class="p5-example-container">
         <div class="p5-canvas-wrapper" id="example-p5js2"></div>
     </div>
 </div>
 
 <section>
-    <h2>Probeer het Zelf!</h2>
-    <p>Experimenteer met pointer events! Deze werken voor zowel muis als touch. Probeer ook curves en andere nieuwe features uit.</p>
-    
+    <h2>Experimenteer Zelf!</h2>
+    <p>Probeer de nieuwe curve functies uit. Versleep de punten in je hoofd en kijk wat er verandert als je de coördinaten aanpast!</p>
+
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
+let punten = [];
+
 function setup() {
   createCanvas(600, 400);
-  noStroke();
+  strokeWeight(3);
+  // Maak een paar startpunten
+  punten = [
+    {x: 80, y: 200},
+    {x: 180, y: 100},
+    {x: 300, y: 300},
+    {x: 420, y: 100},
+    {x: 520, y: 200}
+  ];
 }
 
 function draw() {
-  background(220);
-  
-  // Gebruik mouseX/Y (in p5.js 1.x)
-  fill(100, 200, 255);
-  ellipse(mouseX, mouseY, 60, 60);
-  
-  // Teken een curve
-  stroke(0);
-  strokeWeight(2);
+  background(30);
+
+  // Teken de curve door de punten
+  stroke(100, 200, 255);
   noFill();
   beginShape();
-  curveVertex(50, 200);
-  curveVertex(150, 100);
-  curveVertex(300, 150);
-  curveVertex(450, 100);
-  curveVertex(550, 200);
+  // Extra controlepunten aan begin en einde voor Catmull-Rom
+  curveVertex(punten[0].x, punten[0].y);
+  for (let p of punten) {
+    curveVertex(p.x, p.y);
+  }
+  curveVertex(punten[punten.length - 1].x, punten[punten.length - 1].y);
   endShape();
+
+  // Teken de controlepunten
+  fill(255, 150, 0);
+  noStroke();
+  for (let p of punten) {
+    circle(p.x, p.y, 14);
+  }
+
+  // Instructie
+  fill(200);
+  noStroke();
+  textSize(13);
+  text('Klik om een punt toe te voegen | Dubbelklik om te wissen', 20, height - 15);
 }
 
 function mousePressed() {
-  // Werkt voor muis klik
-  background(random(255), random(255), random(255));
+  punten.push({x: mouseX, y: mouseY});
+}
+
+function doubleClicked() {
+  punten = [];
 }
         </script>
     </div>
 </section>
-

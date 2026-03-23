@@ -57,16 +57,31 @@ p5_cursus_site/
 │   ├── animatie.html
 │   ├── arrays.html
 │   ├── 3d-basis.html
+│   ├── ai-ecologische-kost.html
+│   ├── afbeeldingen.html
+│   ├── text-typografie.html
+│   ├── geluid.html
 │   ├── p5js-2.0.html
 │   ├── strudel.html
-│   └── vera-molnar.html
+│   ├── vera-molnar.html
+│   ├── objecten.html
+│   ├── noise.html
+│   ├── lissajous.html
+│   ├── l-systems.html
+│   ├── game-of-life.html
+│   ├── quine.html
+│   └── turtle.html
 ├── examples/           ← p5.js sketch scripts (window.sketch_* pattern)
 │   ├── example-basis.js
 │   ├── example-generative.js
 │   ├── example-over-p5js.js
 │   ├── example-interactie.js
 │   ├── example-3d.js
-│   └── example-p5js2.js
+│   ├── example-p5js2.js
+│   ├── example-ai-ecologische-kost.js
+│   ├── example-afbeeldingen.js
+│   ├── example-text-typografie.js
+│   └── example-geluid.js
 ├── data/               ← Source PDFs (read-only reference material)
 │   ├── Lab44_EDU - p5.js_FULL_def_Update_25.pdf   (15 MB — full curriculum)
 │   └── p5js2_handleiding.pdf                       (190 KB — p5.js 2.0 guide)
@@ -98,7 +113,7 @@ Flow:
 
 Topics are grouped by `categorie`. Categories are defined in:
 ```javascript
-const navCategories = ["Generative Design", "Over p5.js", "p5.js", "Strudel", "Inspiratie"];
+const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie", "Artificiële Intelligentie"];
 ```
 
 Each group renders as a collapsible `<li class="nav-group">` with hover + click-to-pin behavior.
@@ -139,7 +154,7 @@ Code runs inside an `srcdoc` iframe that loads p5.js 1.7.0 from CDN. The iframe 
 }
 ```
 
-Valid `categorie` values: `"Generative Design"`, `"Over p5.js"`, `"p5.js"`, `"Strudel"`, `"Inspiratie"`
+Valid `categorie` values: `"Generative Design"`, `"Processing"`, `"p5.js"`, `"Strudel"`, `"Inspiratie"`
 
 ---
 
@@ -408,8 +423,8 @@ Generative Design
   ├── Generative Design & Geschiedenis   (generative-design)
   └── Vera Molnar                        (vera-molnar)
 
-Over p5.js
-  └── Over p5.js                         (over-p5js)
+Processing
+  └── Processing                         (over-p5js)
 
 p5.js
   ├── setup() en draw()                  (setup-draw)
@@ -424,7 +439,19 @@ p5.js
   ├── Animatie                           (animatie)
   ├── Arrays                             (arrays)
   ├── 3D Basis                           (3d-basis)
+  ├── Objecten & Classes                 (objecten)
+  ├── Noise & Perlin Noise               (noise)
+  ├── Afbeeldingen                       (afbeeldingen)
+  ├── Text & Typografie                  (text-typografie)
+  ├── Geluid                             (geluid)
   └── p5.js 2.0: Nieuwe Features         (p5js-2.0)
+
+Code Concepten
+  ├── Turtle Geometry                    (turtle)
+  ├── Lissajous-figuren                  (lissajous)
+  ├── L-Systemen                         (l-systems)
+  ├── Game of Life                       (game-of-life)
+  └── Quine                              (quine)
 
 Strudel
   └── Strudel: Live Coding Muziek        (strudel)
@@ -432,6 +459,9 @@ Strudel
 Inspiratie
   ├── Vera Molnar                        (vera-molnar)
   └── Links & Bronnen                    (inspiratie-links)
+
+Artificiële Intelligentie
+  └── AI & Ecologische Kost              (ai-ecologische-kost)
 ```
 
 To add a new category: add its name to `navCategories[]` in `main.js`.
@@ -485,23 +515,11 @@ The site uses `fetch()` to load content files. This requires HTTP — opening `i
 
 ## Topics Still to Complete / Expand
 
-Based on the PDF source material, these topics likely need more depth:
-
-- **Functies** — add examples with parameters and return values
-- **Arrays** — add object arrays, `map()`, particle systems
-- **Animatie** — expand with Lissajous curves, easing, noise
-- **3D Basis** — add lighting (`ambientLight`, `pointLight`), materials, camera
-- **p5.js 2.0** — ensure all features from `p5js2_handleiding.pdf` are covered
 - **Vera Molnar** — deepen with practical generative art exercises
 - **Strudel** — add more examples: polyrhythm, samples, effects
+- **Code Concepten** (turtle, lissajous, l-systems, game-of-life, quine) — check completeness and depth
 
-Topics not yet created that the PDF may cover:
-
-- **Objecten & Classes** — OOP in p5.js sketches
-- **Geluid** — `p5.sound` library
-- **Afbeeldingen** — `loadImage()`, `image()`, pixel manipulation
-- **Text & Typografie** — `text()`, `textSize()`, `loadFont()`
-- **Noise** — `noise()`, Perlin noise patterns
+All core p5.js topics are complete as of 2026-03-23.
 
 ---
 

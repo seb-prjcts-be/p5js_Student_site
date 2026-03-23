@@ -1,0 +1,263 @@
+<div class="intro">
+    <p>Met p5.js kun je afbeeldingen laden en op het canvas tekenen. Je kunt ze schalen, kleuren aanpassen, filters toepassen en zelfs losse pixels bewerken. Dit opent de deur naar creatieve beeldbewerking rechtstreeks in de browser.</p>
+</div>
+
+<section>
+    <h2>Een Afbeelding Laden en Tekenen</h2>
+    <p>Gebruik <code>loadImage()</code> in <code>preload()</code> om een afbeelding te laden vóórdat de sketch start. Teken hem dan met <code>image()</code>.</p>
+
+    <pre><code>let foto;
+
+function preload() {
+  foto = loadImage('mijn-foto.jpg'); // laad de afbeelding
+}
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(220);
+  image(foto, 0, 0); // teken op positie (0, 0)
+}</code></pre>
+
+    <h3>Positie en formaat</h3>
+    <p>Je kunt een afbeelding op een specifieke positie zetten en het formaat aanpassen:</p>
+    <pre><code>// image(afbeelding, x, y)
+image(foto, 50, 50);
+
+// image(afbeelding, x, y, breedte, hoogte)
+image(foto, 50, 50, 300, 200);  // schaal naar 300×200
+
+// Afbeelding centreren
+imageMode(CENTER);
+image(foto, width / 2, height / 2, 200, 150);</code></pre>
+
+    <h3>Afbeeldingsgrootte opvragen</h3>
+    <pre><code>let foto;
+
+function preload() {
+  foto = loadImage('mijn-foto.jpg');
+}
+
+function setup() {
+  createCanvas(foto.width, foto.height); // canvas even groot als foto
+  image(foto, 0, 0);
+  console.log('Breedte:', foto.width, 'Hoogte:', foto.height);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Tint: Kleur en Transparantie</h2>
+    <p>Met <code>tint()</code> geef je een afbeelding een kleurlaag of maak je hem transparant. Het werkt net als <code>fill()</code>, maar dan voor afbeeldingen.</p>
+
+    <pre><code>function draw() {
+  background(220);
+
+  // Rood tintje
+  tint(255, 0, 0);
+  image(foto, 0, 0);
+
+  // Half transparant
+  tint(255, 128); // tweede getal = alpha (0-255)
+  image(foto, 100, 100);
+
+  // Blauw tintje + half transparant
+  tint(0, 100, 255, 180);
+  image(foto, 200, 200);
+
+  // Tint uitzetten
+  noTint();
+  image(foto, 300, 0);
+}</code></pre>
+
+    <h3>Afbeelding faden</h3>
+    <pre><code>let alpha = 0;
+
+function draw() {
+  background(0);
+  alpha = (sin(frameCount * 0.05) + 1) * 127; // waarde tussen 0 en 255
+  tint(255, alpha);
+  image(foto, 0, 0, width, height);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Filters</h2>
+    <p>p5.js heeft ingebouwde filters die je op het canvas (of op een afbeelding) kunt toepassen:</p>
+
+    <pre><code>function draw() {
+  image(foto, 0, 0);
+
+  // Grijswaarden
+  filter(GRAY);
+
+  // Omgekeerde kleuren
+  filter(INVERT);
+
+  // Vervagen (het getal = sterkte, 1-20)
+  filter(BLUR, 5);
+
+  // Drempelwaarde (zwart/wit op basis van helderheid)
+  filter(THRESHOLD, 0.5); // waarde 0.0 - 1.0
+
+  // Posteriseren (aantal kleurlagen beperken)
+  filter(POSTERIZE, 4); // 2-255
+}</code></pre>
+
+    <p><strong>Let op:</strong> <code>filter()</code> past het filter toe op alles wat al op het canvas staat. Zet het dus altijd ná <code>image()</code>.</p>
+</section>
+
+<section>
+    <h2>Pixelmanipulatie</h2>
+    <p>Met <code>loadPixels()</code> en <code>updatePixels()</code> kun je elke individuele pixel van het canvas lezen en aanpassen. Dit is krachtig maar ook langzamer.</p>
+
+    <h3>Pixels lezen</h3>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  background(100, 150, 200);
+  loadPixels(); // laad de pixeldata in het 'pixels' array
+
+  // pixels is een plat array: [R, G, B, A, R, G, B, A, ...]
+  // Pixel op positie (x, y):
+  let x = 100;
+  let y = 50;
+  let index = (y * width + x) * 4; // elk pixel = 4 waarden
+
+  let rood  = pixels[index];
+  let groen = pixels[index + 1];
+  let blauw = pixels[index + 2];
+  let alpha = pixels[index + 3];
+
+  console.log('Pixel op (100, 50):', rood, groen, blauw, alpha);
+}</code></pre>
+
+    <h3>Pixels aanpassen</h3>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  image(foto, 0, 0, width, height);
+
+  loadPixels();
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      let index = (y * width + x) * 4;
+
+      // Haal de rode waarde op
+      let r = pixels[index];
+      let g = pixels[index + 1];
+      let b = pixels[index + 2];
+
+      // Bereken helderheid (gemiddelde van RGB)
+      let helderheid = (r + g + b) / 3;
+
+      // Zet om naar grijswaarden
+      pixels[index]     = helderheid; // rood
+      pixels[index + 1] = helderheid; // groen
+      pixels[index + 2] = helderheid; // blauw
+      // pixels[index + 3] = alpha, laten we met rust
+    }
+  }
+
+  updatePixels(); // sla de wijzigingen op
+}</code></pre>
+
+    <h3>Creatief gebruik van pixels</h3>
+    <pre><code>// Mozaïek effect: vergroot pixels tot blokjes
+function setup() {
+  createCanvas(400, 400);
+  image(foto, 0, 0, width, height);
+  loadPixels();
+
+  let blokGrootte = 10;
+
+  for (let x = 0; x < width; x += blokGrootte) {
+    for (let y = 0; y < height; y += blokGrootte) {
+      let index = (y * width + x) * 4;
+      let r = pixels[index];
+      let g = pixels[index + 1];
+      let b = pixels[index + 2];
+
+      // Teken een gekleurd blokje
+      fill(r, g, b);
+      noStroke();
+      rect(x, y, blokGrootte, blokGrootte);
+    }
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Een Afbeelding Opslaan</h2>
+    <p>Je kunt het canvas als afbeelding opslaan met <code>saveCanvas()</code>:</p>
+
+    <pre><code>function keyPressed() {
+  if (key === 's') {
+    saveCanvas('mijn-sketch', 'png'); // opslaan als PNG
+    // saveCanvas('mijn-sketch', 'jpg'); // of als JPG
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Interactief Voorbeeld</h3>
+    <p>Dit voorbeeld toont pixelmanipulatie: het canvas wordt gevuld met kleuren en omgezet naar grijswaarden per rij als je de muis beweegt.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-afbeeldingen"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf!</h2>
+    <p>Dit voorbeeld tekent een kleurovergang en past pixelmanipulatie toe. Pas de code aan om andere effecten te maken!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noLoop(); // tekent één keer
+}
+
+function draw() {
+  // Teken een kleurovergang
+  for (let x = 0; x < width; x++) {
+    let kleur = map(x, 0, width, 0, 255);
+    stroke(kleur, 100, 255 - kleur);
+    line(x, 0, x, height);
+  }
+
+  // Laad de pixels en pas een effect toe
+  loadPixels();
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height / 2; y++) { // alleen bovenste helft
+      let index = (y * width + x) * 4;
+      let r = pixels[index];
+      let g = pixels[index + 1];
+      let b = pixels[index + 2];
+
+      // Grijswaarden in de bovenste helft
+      let grijs = (r + g + b) / 3;
+      pixels[index]     = grijs;
+      pixels[index + 1] = grijs;
+      pixels[index + 2] = grijs;
+    }
+  }
+
+  updatePixels();
+
+  // Label
+  fill(255);
+  noStroke();
+  textSize(14);
+  textAlign(CENTER);
+  text('Boven: grijswaarden — Onder: origineel', width / 2, height / 2 + 20);
+  text('Klik om opnieuw te tekenen met andere kleuren', width / 2, height - 15);
+}
+
+function mousePressed() {
+  redraw(); // probeer dit aan te passen!
+}
+        </script>
+    </div>
+</section>
