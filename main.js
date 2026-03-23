@@ -14,7 +14,7 @@ const onderwerpen = [
         samenvatting: "Wat is p5.js, waar komt het vandaan, en hoe gebruik je het?",
         tags: ["p5.js", "Processing", "editor", "reference", "projectstructuur", "introductie"],
         contentFile: "content/over-p5js.html",
-        categorie: "Generative Design"
+        categorie: "Over p5.js"
     },
     {
         id: "setup-draw",
@@ -151,10 +151,18 @@ const onderwerpen = [
         tags: ["inspiratie", "generative art", "plotter", "raster", "algoritmes", "kunstgeschiedenis"],
         contentFile: "content/vera-molnar.html",
         categorie: "Inspiratie"
+    },
+    {
+        id: "inspiratie-links",
+        titel: "Links & Bronnen",
+        samenvatting: "Alle links uit de cursus: inspirerende projecten, video's, boeken, bibliotheken, tools en datasets.",
+        tags: ["links", "bronnen", "inspiratie", "boeken", "video", "community", "datasets", "bibliotheken"],
+        contentFile: "content/inspiratie-links.html",
+        categorie: "Inspiratie"
     }
 ];
 
-const navCategories = ["Generative Design", "p5.js", "Strudel", "Inspiratie"];
+const navCategories = ["Generative Design", "Over p5.js", "p5.js", "Strudel", "Inspiratie"];
 
 // Router - Hash-based routing
 function initRouter() {

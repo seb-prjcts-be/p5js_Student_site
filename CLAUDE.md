@@ -98,7 +98,7 @@ Flow:
 
 Topics are grouped by `categorie`. Categories are defined in:
 ```javascript
-const navCategories = ["Generative Design", "p5.js", "Strudel", "Inspiratie"];
+const navCategories = ["Generative Design", "Over p5.js", "p5.js", "Strudel", "Inspiratie"];
 ```
 
 Each group renders as a collapsible `<li class="nav-group">` with hover + click-to-pin behavior.
@@ -139,7 +139,7 @@ Code runs inside an `srcdoc` iframe that loads p5.js 1.7.0 from CDN. The iframe 
 }
 ```
 
-Valid `categorie` values: `"Generative Design"`, `"p5.js"`, `"Strudel"`, `"Inspiratie"`
+Valid `categorie` values: `"Generative Design"`, `"Over p5.js"`, `"p5.js"`, `"Strudel"`, `"Inspiratie"`
 
 ---
 
@@ -406,8 +406,10 @@ Current categories and their topics:
 ```
 Generative Design
   ├── Generative Design & Geschiedenis   (generative-design)
-  ├── Over p5.js                         (over-p5js)
   └── Vera Molnar                        (vera-molnar)
+
+Over p5.js
+  └── Over p5.js                         (over-p5js)
 
 p5.js
   ├── setup() en draw()                  (setup-draw)
@@ -428,7 +430,8 @@ Strudel
   └── Strudel: Live Coding Muziek        (strudel)
 
 Inspiratie
-  └── Vera Molnar                        (vera-molnar)
+  ├── Vera Molnar                        (vera-molnar)
+  └── Links & Bronnen                    (inspiratie-links)
 ```
 
 To add a new category: add its name to `navCategories[]` in `main.js`.
