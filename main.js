@@ -194,7 +194,7 @@ const onderwerpen = [
     }
 ];
 
-const navCategories = ["Generative Design", "Processing", "p5.js", "Strudel", "Inspiratie", "Code Concepten"];
+const navCategories = ["Generative Design", "Processing", "p5.js", "Code Concepten", "Strudel", "Inspiratie"];
 
 // Router - Hash-based routing
 function initRouter() {
