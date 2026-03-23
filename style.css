@@ -7,6 +7,7 @@
 
 :root {
     --font-title: 'Oswald', Arial, sans-serif;
+    --font-body: 'Alegreya', Georgia, serif;
     --primary-color: #000000;
     --secondary-color: #000000;
     --accent-color: #000000;
@@ -21,7 +22,7 @@
 }
 
 body {
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-body);
     line-height: 1.7;
     color: var(--text-color);
     background-color: var(--bg-color);
@@ -56,7 +57,7 @@ header {
 }
 
 header h1 {
-    font-size: 2rem;
+    font-size: 2em;
     margin-bottom: 0.5rem;
     font-weight: 300;
     font-family: var(--font-title);
@@ -271,7 +272,7 @@ nav h2 {
     border-radius: 0;
     transition: border-color 0.2s;
     background: var(--bg-color);
-    font-family: Arial, Helvetica, sans-serif;
+    font-family: var(--font-body);
 }
 
 #search-input:focus {
@@ -331,7 +332,7 @@ main {
     margin-bottom: 1rem;
     font-weight: 300;
     font-family: var(--font-title);
-    font-size: 1.5rem;
+    font-size: 1.5em;
     letter-spacing: 0.5px;
 }
 
@@ -345,7 +346,7 @@ main {
 /* Onderwerp pagina styling */
 .onderwerp-page h1 {
     color: var(--text-color);
-    font-size: 2rem;
+    font-size: 2em;
     margin-bottom: 1.5rem;
     padding-bottom: 0.5rem;
     border-bottom: 1px solid var(--border-color);
@@ -373,7 +374,7 @@ main {
 
 .onderwerp-page h2 {
     color: var(--text-color);
-    font-size: 1.3rem;
+    font-size: 1.3em;
     margin-bottom: 1rem;
     margin-top: 2rem;
     font-weight: 300;
@@ -383,7 +384,7 @@ main {
 
 .onderwerp-page h3 {
     color: var(--text-color);
-    font-size: 1.1rem;
+    font-size: 1.1em;
     margin-bottom: 0.75rem;
     margin-top: 1.5rem;
     font-weight: 300;
@@ -642,7 +643,7 @@ footer {
     }
 
     header h1 {
-        font-size: 2rem;
+        font-size: 2em;
     }
 
     main {
