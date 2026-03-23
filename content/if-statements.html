@@ -1,0 +1,103 @@
+<div class="intro">
+    <p>Met if-statements maak je beslissingen in je code. Je code kan verschillende dingen doen afhankelijk van voorwaarden.</p>
+</div>
+
+<section>
+    <h2>Basis If-Statement</h2>
+    <p>Een if-statement controleert een voorwaarde:</p>
+    <pre><code>if (voorwaarde) {
+  // Code die uitgevoerd wordt als voorwaarde waar is
+}</code></pre>
+    
+    <h3>Voorbeeld</h3>
+    <pre><code>function draw() {
+  if (mouseX > width/2) {
+    fill(255, 0, 0);  // Rood als muis rechts
+  } else {
+    fill(0, 0, 255);  // Blauw als muis links
+  }
+  ellipse(200, 200, 100, 100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Vergelijkingen</h2>
+    <p>Je kunt verschillende vergelijkingen maken:</p>
+    <ul>
+        <li><code>==</code> - Gelijk aan</li>
+        <li><code>!=</code> - Niet gelijk aan</li>
+        <li><code>&gt;</code> - Groter dan</li>
+        <li><code>&lt;</code> - Kleiner dan</li>
+        <li><code>&gt;=</code> - Groter of gelijk</li>
+        <li><code>&lt;=</code> - Kleiner of gelijk</li>
+    </ul>
+    
+    <h3>Voorbeelden</h3>
+    <pre><code>if (x > 100) { }
+if (y < 200) { }
+if (diameter == 50) { }
+if (snelheid != 0) { }</code></pre>
+</section>
+
+<section>
+    <h2>Else en Else If</h2>
+    <p>Je kunt meerdere voorwaarden controleren:</p>
+    <pre><code>if (x < 100) {
+  fill(255, 0, 0);  // Rood
+} else if (x < 200) {
+  fill(0, 255, 0);  // Groen
+} else {
+  fill(0, 0, 255);  // Blauw
+}</code></pre>
+</section>
+
+<section>
+    <h2>Logische Operatoren</h2>
+    <p>Combineer voorwaarden met <code>&&</code> (en) en <code>||</code> (of):</p>
+    <pre><code>if (x > 100 && x < 300) {
+  // x is tussen 100 en 300
+}
+
+if (x < 50 || x > 350) {
+  // x is kleiner dan 50 OF groter dan 350
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Interactieve Kleuren</h3>
+    <p>Beweeg je muis om te zien hoe if-statements werken:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-basis"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Pas de voorwaarden aan! Probeer verschillende vergelijkingen en logische operatoren uit.</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(220);
+  
+  // Verander kleur op basis van muispositie
+  if (mouseX > width/2) {
+    fill(255, 0, 0);  // Rood als muis rechts
+  } else {
+    fill(0, 0, 255);  // Blauw als muis links
+  }
+  
+  ellipse(width/2, height/2, 100, 100);
+  
+  // Kleine cirkel volgt muis
+  fill(0, 255, 0);
+  ellipse(mouseX, mouseY, 30, 30);
+}
+        </script>
+    </div>
+</section>
+

@@ -1,0 +1,98 @@
+<div class="intro">
+    <p>p5.js 2.0 introduceert veel nieuwe features die het nog krachtiger maken. Leer wat er nieuw is en hoe je het gebruikt.</p>
+</div>
+
+<section>
+    <h2>Async Assets Laden</h2>
+    <p>In p5.js 2.0 kun je assets asynchroon laden met <code>async/await</code>:</p>
+    <pre><code>let img;
+
+async function setup() {
+  createCanvas(800, 600);
+  img = await loadImage('afbeelding.jpg');
+}
+
+function draw() {
+  image(img, 0, 0);
+}</code></pre>
+    <p>Dit maakt het makkelijker om meerdere assets te laden en fouten af te handelen.</p>
+</section>
+
+<section>
+    <h2>Nieuwe Typografie Features</h2>
+    <p>p5.js 2.0 heeft verbeterde tekst rendering:</p>
+    <ul>
+        <li>Betere font ondersteuning</li>
+        <li>Meer controle over tekst layout</li>
+        <li>Verbeterde performance</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Curves en Splines</h2>
+    <p>Nieuwe functies voor vloeiende curves:</p>
+    <ul>
+        <li><code>bezier()</code> - Bézier curves</li>
+        <li><code>curve()</code> - Catmull-Rom splines</li>
+        <li><code>quadraticVertex()</code> - Kwadratische curves</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Pointer Events</h2>
+    <p>Nieuwe events voor touch en pointer input:</p>
+    <ul>
+        <li><code>pointerX</code>, <code>pointerY</code> - Werkt voor muis én touch</li>
+        <li><code>pointerPressed()</code> - Event voor pointer down</li>
+        <li><code>pointerMoved()</code> - Event voor pointer beweging</li>
+        <li><code>pointerReleased()</code> - Event voor pointer up</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: p5.js 2.0 Features</h3>
+    <p>Dit voorbeeld toont enkele nieuwe mogelijkheden:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-p5js2"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Experimenteer met pointer events! Deze werken voor zowel muis als touch. Probeer ook curves en andere nieuwe features uit.</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+}
+
+function draw() {
+  background(220);
+  
+  // Gebruik mouseX/Y (in p5.js 1.x)
+  fill(100, 200, 255);
+  ellipse(mouseX, mouseY, 60, 60);
+  
+  // Teken een curve
+  stroke(0);
+  strokeWeight(2);
+  noFill();
+  beginShape();
+  curveVertex(50, 200);
+  curveVertex(150, 100);
+  curveVertex(300, 150);
+  curveVertex(450, 100);
+  curveVertex(550, 200);
+  endShape();
+}
+
+function mousePressed() {
+  // Werkt voor muis klik
+  background(random(255), random(255), random(255));
+}
+        </script>
+    </div>
+</section>
+

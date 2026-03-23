@@ -1,0 +1,191 @@
+<div class="intro">
+    <p>Strudel is een live-coding muziekinstrument in je browser. Je schrijft korte regels tekst, drukt op <strong>Ctrl + Enter</strong>, en je hoort meteen muziek. Het werkt als een drumcomputer, synthesizer en sequencer tegelijk, maar zonder ingewikkelde instellingen.</p>
+    <p>Elke regel code die je schrijft is een patroon. Strudel verdeelt ritme en tijd wiskundig, zodat alles synchroon blijft. Meer info en de webeditor vind je op <a href="https://strudel.cc/" target="_blank" rel="noopener">strudel.cc</a>.</p>
+</div>
+
+<section>
+    <h2>Tempo</h2>
+    <p>Strudel rekent in <strong>cycles per minute (cpm)</strong>. 1 cycle staat gelijk aan 1 maat (4 tellen). Daarom start je bijna elk project met een tempo:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+setcpm(90/4)
+--></strudel-mini>
+    </div>
+    <p>Dat voelt ongeveer als 90 BPM. Richtlijnen:</p>
+    <ul>
+        <li>Traaag/ruimtelijk: <code>setcpm(50/4)</code></li>
+        <li>Pop/hiphop: <code>setcpm(90/4)</code></li>
+        <li>Dance/snel: <code>setcpm(130/4)</code></li>
+    </ul>
+</section>
+
+<section>
+    <h2>Hoe speel je?</h2>
+    <ul>
+        <li><strong>Ctrl + Enter:</strong> speel of update de code</li>
+        <li><strong>Ctrl + .:</strong> stop het geluid</li>
+    </ul>
+    <p>Je moet meestal eerst ergens klikken in de editor zodat de browser audio toelaat.</p>
+</section>
+
+<section>
+    <h2>Geluiden (samples)</h2>
+    <p>Strudel heeft ingebouwde geluiden. Je roept ze op met <code>s()</code> of <code>sound()</code>:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("casio")
+--></strudel-mini>
+    </div>
+    <p>Je kan meerdere woorden na elkaar zetten. Strudel propt ze automatisch in 1 cycle:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("casio metal casio casio")
+--></strudel-mini>
+    </div>
+    <p>De meeste namen zijn mappen met variaties. Kies een variant met <code>:</code> en een nummer:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("casio:1 casio:2 casio:3 casio:4")
+--></strudel-mini>
+    </div>
+    <figure>
+        <img src="assets/strudel/strudel-sounds.png" alt="Strudel sidebar met sounds en sample variaties">
+        <figcaption>Alle samples en variaties vind je in de sidebar.</figcaption>
+    </figure>
+    <p>Leuke geluiden om te proberen: <code>casio</code>, <code>metal</code>, <code>jazz</code>, <code>wind</code>, <code>insect</code>, <code>crow</code>, <code>east</code>, <code>numbers</code>, <code>game</code>.</p>
+</section>
+
+<section>
+    <h2>Drums</h2>
+    <p>Drums werken hetzelfde, maar met afkortingen:</p>
+    <p>
+        <code>bd</code> (bass drum),
+        <code>sd</code> (snare),
+        <code>rim</code>,
+        <code>hh</code> (hi-hat),
+        <code>oh</code> (open hi-hat),
+        <code>lt</code> (low tom),
+        <code>mt</code> (mid tom),
+        <code>ht</code> (high tom),
+        <code>rd</code> (ride),
+        <code>cr</code> (crash)
+    </p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("bd hh sd hh")
+--></strudel-mini>
+    </div>
+    <p>Andere drumkit kiezen:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("bd sd hh").bank("RolandTR808")
+--></strudel-mini>
+    </div>
+    <figure>
+        <img src="assets/strudel/strudel-drums.png" alt="Overzicht van drum afkortingen en een voorbeeldritme">
+        <figcaption>Drumafkortingen en een basisritme.</figcaption>
+    </figure>
+</section>
+
+<section>
+    <h2>Ritme: vierkante haken [ ]</h2>
+    <p>Met vierkante haken prop je meerdere geluiden in de tijd van 1 stap. Ze worden dus sneller:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("bd [hh hh] bd sd")
+--></strudel-mini>
+    </div>
+    <p>Afwisselen per maat kan met punthaken <code>&lt; &gt;</code>:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("bd <cp sd>")
+--></strudel-mini>
+    </div>
+    <p>Tempo per geluid aanpassen:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("bd hh*2 sd hh")
+--></strudel-mini>
+    </div>
+    <p>Rusten maak je met een tilde:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+s("bd ~ sd ~")
+--></strudel-mini>
+    </div>
+</section>
+
+<section>
+    <h2>Noten (melodie en harmonie)</h2>
+    <p>Voor toonhoogte gebruik je <code>note()</code>. Het cijfer is de octaaf:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+note("c4 d4 e4 g4")
+--></strudel-mini>
+    </div>
+    <p>Akkoorden maak je met vierkante haken en komma's:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+note("[c4,e4,g4]")
+--></strudel-mini>
+    </div>
+    <p>Koppel noten aan een synth met <code>.s()</code>:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+note("c4 e4 g4").s("sine")
+--></strudel-mini>
+    </div>
+    <p>Andere synths: <code>sine</code>, <code>square</code>, <code>saw</code>, <code>triangle</code>.</p>
+</section>
+
+<section>
+    <h2>Alles samen: de stack</h2>
+    <p>Als je regels gewoon onder elkaar zet, speelt Strudel enkel de laatste. Gebruik <code>stack()</code> om meerdere lagen te combineren:</p>
+    <div class="strudel-embed">
+        <strudel-mini><!--
+stack(
+  s("bd hh sd hh"),
+  note("c4 a3 f3 g3").s("sine")
+)
+--></strudel-mini>
+    </div>
+    <p>Let op de komma aan het eind van de eerste regel.</p>
+</section>
+
+<section>
+    <h2>Visualisaties</h2>
+    <p>Je kan visuals toevoegen binnen je code of fullscreen:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+note("c4 e4 g4").s("sine")._punchcard()
+--></strudel-mini>
+    </div>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+note("c4 e4 g4").s("sine").punchcard()
+--></strudel-mini>
+    </div>
+    <p>Kleur toevoegen:</p>
+    <div class="strudel-embed strudel-embed--compact">
+        <strudel-mini><!--
+note("c4 e4 g4").s("sine").color("red")._punchcard()
+--></strudel-mini>
+    </div>
+    <p>Andere visuals werken op dezelfde manier: <code>pianoroll()</code>, <code>spiral()</code>, <code>scope()</code>, <code>pitchwheel()</code>, <code>spectrum()</code>.</p>
+</section>
+
+<section>
+    <h2>Complete live-set voorbeeld</h2>
+    <p>Kopieer dit blok voor een mini-band. Klik in de editor en druk <strong>Ctrl + Enter</strong> om te starten.</p>
+    <div class="strudel-embed">
+        <strudel-mini><!--
+setcpm(90/4)
+stack(
+  s("bd hh sd hh"),
+  s("<oh oh>*4"),
+  note("<[c4,e4,g4] [f4,a4,c5]>").s("sine"),
+  note("c2 g1 c2 g1").s("square")._scope()
+)
+--></strudel-mini>
+    </div>
+</section>

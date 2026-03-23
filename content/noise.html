@@ -1,0 +1,197 @@
+<div class="intro">
+    <p>Perlin noise is een speciale wiskundige functie die vloeiende, "organische" willekeur genereert. Waar <code>random()</code> elk frame een compleet willekeurige waarde geeft, geeft <code>noise()</code> waarden die rustig in elkaar overlopen — ideaal voor vloeiende beweging, texturen en landschappen.</p>
+</div>
+
+<section>
+    <h2>noise() vs random()</h2>
+    <p>Het verschil is meteen zichtbaar:</p>
+    <pre><code>// random(): springt elke frame naar een willekeurige waarde
+let x = random(0, width);   // Schokkerig, onrustig
+
+// noise(): vloeiende overgang tussen waarden
+let offset = 0;
+
+function draw() {
+  let x = noise(offset) * width;  // noise() geeft waarde tussen 0 en 1
+  offset += 0.01;                 // Kleine stap = vloeiende beweging
+}</code></pre>
+    <p><code>noise(t)</code> geeft altijd een waarde tussen 0 en 1. Door <code>t</code> langzaam te verhogen, beweeg je door de noise-ruimte.</p>
+</section>
+
+<section>
+    <h2>Basisgebruik</h2>
+    <pre><code>let t = 0;
+
+function draw() {
+  background(220);
+
+  let x = noise(t) * width;
+  let y = noise(t + 100) * height;  // Ander startpunt = andere beweging
+
+  circle(x, y, 40);
+
+  t += 0.01;  // Snelheid: kleiner = trager en vloeiender
+}</code></pre>
+    <p>Door <code>t + 100</code> voor de y-coördinaat te gebruiken, zorgen we dat x en y onafhankelijk van elkaar bewegen.</p>
+</section>
+
+<section>
+    <h2>noise() Mappen naar een Bereik</h2>
+    <p><code>noise()</code> geeft altijd een waarde tussen 0 en 1. Gebruik <code>map()</code> om dat om te zetten naar een gewenst bereik:</p>
+    <pre><code>let t = 0;
+
+function draw() {
+  let diameter = map(noise(t), 0, 1, 20, 200);
+  // of: let diameter = noise(t) * 200;
+
+  background(220);
+  circle(width/2, height/2, diameter);
+  t += 0.02;
+}</code></pre>
+</section>
+
+<section>
+    <h2>2D Noise: Texturen</h2>
+    <p><code>noise()</code> werkt ook in twee dimensies: <code>noise(x, y)</code>. Zo maak je naadloze texturen en "wolken":</p>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  noLoop();  // Slechts één keer tekenen
+}
+
+function draw() {
+  loadPixels();
+  let schaal = 0.005;  // Kleiner = grotere "vlekken"
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      let n = noise(x * schaal, y * schaal);
+      let helderheid = n * 255;
+      let index = (x + y * width) * 4;
+      pixels[index]     = helderheid;  // R
+      pixels[index + 1] = helderheid;  // G
+      pixels[index + 2] = helderheid;  // B
+      pixels[index + 3] = 255;         // Alpha
+    }
+  }
+  updatePixels();
+}</code></pre>
+</section>
+
+<section>
+    <h2>noiseSeed() en noiseDetail()</h2>
+    <p>Je kunt het noise-patroon beïnvloeden:</p>
+    <pre><code>// noiseSeed(): zelfde seed = altijd hetzelfde patroon
+noiseSeed(42);
+
+// noiseDetail(): hoeveel "lagen" van detail (octaven)
+// Meer octaven = meer detail maar grilliger
+noiseDetail(8, 0.5);  // 8 octaven, amplitude halveert per octaaf</code></pre>
+</section>
+
+<section>
+    <h2>Noise voor Vloeiende Beweging</h2>
+    <p>Een klassieker: meerdere objecten die elk onafhankelijk door de noise-ruimte bewegen:</p>
+    <pre><code>let offsets = [];
+let N = 20;
+
+function setup() {
+  createCanvas(600, 400);
+  // Geef elk object een ander startpunt in de noise-ruimte
+  for (let i = 0; i < N; i++) {
+    offsets.push({ x: random(1000), y: random(1000) });
+  }
+}
+
+function draw() {
+  background(30, 20);
+
+  noStroke();
+  fill(100, 200, 255, 180);
+
+  for (let off of offsets) {
+    let x = noise(off.x) * width;
+    let y = noise(off.y) * height;
+
+    circle(x, y, 15);
+
+    off.x += 0.007;  // Beweeg door de noise-ruimte
+    off.y += 0.007;
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Noise Landschap</h2>
+    <p>Noise is perfect voor terrein en golven:</p>
+    <pre><code>let t = 0;
+
+function draw() {
+  background(30, 100, 180);  // Lucht
+
+  fill(50, 180, 80);  // Groen terrein
+  noStroke();
+  beginShape();
+  vertex(0, height);
+
+  for (let x = 0; x <= width; x += 5) {
+    let y = noise(x * 0.003 + t) * height * 0.7 + height * 0.2;
+    vertex(x, y);
+  }
+
+  vertex(width, height);
+  endShape(CLOSE);
+
+  t += 0.003;  // Laat terrein langzaam schuiven
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Noise Veld</h3>
+    <p>Deeltjes die door een Perlin noise-veld bewegen — elk met een eigen baan:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-noise"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf!</h2>
+    <p>Verander de noise-schaal, het aantal deeltjes of de kleur. Probeer <code>noiseSeed()</code> om een vast patroon te krijgen!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let t = 0;
+let punten = [];
+
+function setup() {
+  createCanvas(600, 400);
+  // Maak 60 punten aan met willekeurig startpunt in noise-ruimte
+  for (let i = 0; i < 60; i++) {
+    punten.push({
+      offX: random(1000),
+      offY: random(1000) + 500  // Ander startpunt dan offX
+    });
+  }
+  background(10);
+}
+
+function draw() {
+  background(10, 15);  // Semi-transparant → spoor vervagen
+
+  for (let p of punten) {
+    let x = noise(p.offX) * width;
+    let y = noise(p.offY) * height;
+
+    // Kleur op basis van positie
+    let hue = map(x, 0, width, 160, 320);
+    fill(hue, 180, 255, 150);
+    noStroke();
+    circle(x, y, 8);
+
+    // Stap door de noise-ruimte
+    p.offX += 0.008; // Probeer dit aan te passen!
+    p.offY += 0.008;
+  }
+}
+        </script>
+    </div>
+</section>

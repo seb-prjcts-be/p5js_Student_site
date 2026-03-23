@@ -1,0 +1,229 @@
+<div class="intro">
+    <p>p5.js kan meer dan alleen 2D! Met de WEBGL-renderer maak je 3D graphics: vormen in de ruimte, rotaties, belichting en materialen.</p>
+</div>
+
+<section>
+    <h2>WEBGL Canvas</h2>
+    <p>Om 3D te gebruiken, geef je <code>WEBGL</code> mee als derde argument:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400, WEBGL);
+}
+
+function draw() {
+  background(220);
+  box(100);  // Standaard kubus in het midden
+}</code></pre>
+    <p>In WEBGL-mode staat het middelpunt van het canvas op coördinaat (0, 0, 0). Gebruik <code>translate()</code> om objecten te verplaatsen.</p>
+</section>
+
+<section>
+    <h2>3D Vormen</h2>
+    <p>p5.js heeft ingebouwde 3D vormen:</p>
+    <ul>
+        <li><code>box(breedte, hoogte, diepte)</code> — kubus of doos</li>
+        <li><code>sphere(straal, detail)</code> — bol</li>
+        <li><code>cylinder(straal, hoogte)</code> — cilinder</li>
+        <li><code>cone(straal, hoogte)</code> — kegel</li>
+        <li><code>torus(straal, buisdikte)</code> — donut-vorm</li>
+        <li><code>plane(breedte, hoogte)</code> — plat vlak</li>
+    </ul>
+
+    <pre><code>function draw() {
+  background(30);
+  rotateY(frameCount * 0.01);
+
+  // Drie vormen naast elkaar
+  push();
+    translate(-150, 0, 0);
+    box(70);
+  pop();
+
+  push();
+    translate(0, 0, 0);
+    sphere(45);
+  pop();
+
+  push();
+    translate(150, 0, 0);
+    torus(40, 15);
+  pop();
+}</code></pre>
+</section>
+
+<section>
+    <h2>Transformaties in 3D</h2>
+    <p>Naast <code>translate()</code> en <code>scale()</code> heb je drie rotatierichtingen:</p>
+    <pre><code>function draw() {
+  background(220);
+
+  rotateX(frameCount * 0.01);  // Kantelt voor/achter
+  rotateY(frameCount * 0.02);  // Draait links/rechts
+  rotateZ(frameCount * 0.005); // Rolt
+
+  box(100);
+}</code></pre>
+    <p>Gebruik altijd <code>push()</code> / <code>pop()</code> om transformaties te isoleren:</p>
+    <pre><code>function draw() {
+  background(220);
+
+  push();
+    translate(-120, 0, 0);
+    rotateY(frameCount * 0.02);
+    box(80);
+  pop();
+
+  push();
+    translate(120, 0, 0);
+    rotateX(frameCount * 0.03);
+    sphere(50);
+  pop();
+}</code></pre>
+</section>
+
+<section>
+    <h2>Belichting</h2>
+    <p>Zonder licht zien 3D vormen er plat uit. p5.js heeft verschillende lichtbronnen:</p>
+
+    <h3>ambientLight() — omgevingslicht</h3>
+    <pre><code>function draw() {
+  background(0);
+  ambientLight(100);  // Waarde 0-255: hoe helder het omgevingslicht
+  sphere(100);
+}</code></pre>
+
+    <h3>directionalLight() — richtingslicht</h3>
+    <pre><code>function draw() {
+  background(0);
+  // directionalLight(kleur, richting als vector)
+  directionalLight(255, 255, 255, -1, 1, -1);
+  sphere(100);
+}</code></pre>
+
+    <h3>pointLight() — puntlicht</h3>
+    <pre><code>function draw() {
+  background(0);
+  // Licht dat vanuit één punt schijnt
+  pointLight(255, 200, 100, mouseX - width/2, mouseY - height/2, 200);
+  sphere(100);
+}</code></pre>
+
+    <h3>Combinatie</h3>
+    <pre><code>function draw() {
+  background(0);
+  ambientLight(40);                             // Zwak omgevingslicht
+  directionalLight(255, 240, 200, 1, 1, -1);   // Zonlicht-effect
+  pointLight(100, 150, 255, -200, -100, 100);   // Blauw accent
+  sphere(100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Materialen</h2>
+    <p>Materialen bepalen hoe een vorm reageert op licht:</p>
+
+    <h3>normalMaterial() — kleurt op basis van normaalvector</h3>
+    <pre><code>function draw() {
+  background(0);
+  normalMaterial();  // Geen extra parameters nodig
+  box(100);
+}</code></pre>
+
+    <h3>ambientMaterial() — reageert op omgevingslicht</h3>
+    <pre><code>function draw() {
+  background(0);
+  ambientLight(200);
+  ambientMaterial(255, 100, 0);  // Oranje materiaal
+  sphere(100);
+}</code></pre>
+
+    <h3>specularMaterial() — glanzend oppervlak</h3>
+    <pre><code>function draw() {
+  background(0);
+  ambientLight(60);
+  directionalLight(255, 255, 255, 0, 0, -1);
+  specularMaterial(255);  // Glanzend wit
+  shininess(50);          // Hoe scherp de glinstering is
+  sphere(100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Camera Instellen</h2>
+    <p>Met <code>camera()</code> bepaal je vanwaar je kijkt:</p>
+    <pre><code>function draw() {
+  background(0);
+
+  // camera(oogX, oogY, oogZ, doelX, doelY, doelZ, upX, upY, upZ)
+  camera(0, -200, 400,   // Positie van de camera
+         0, 0, 0,        // Naar welk punt je kijkt
+         0, 1, 0);       // "Up" richting
+
+  box(100);
+}
+
+// Eenvoudiger: orbitControl() voor muis-gestuurd rondkijken
+function draw() {
+  background(30);
+  orbitControl();  // Klik + sleep om te roteren, scroll om in/uit te zoomen
+  box(100);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: 3D met Belichting</h3>
+    <p>Beweeg de muis om het puntlicht te verplaatsen:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-3d"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf!</h2>
+    <p>Verander de vormen, kleuren en lichtbronnen. Probeer <code>orbitControl()</code> toe te voegen!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400, WEBGL);
+}
+
+function draw() {
+  background(10, 10, 30);
+
+  // Belichting
+  ambientLight(40);
+  pointLight(255, 220, 150,
+    mouseX - width / 2,
+    mouseY - height / 2,
+    200);
+
+  // Kubus
+  push();
+    translate(-130, 20, 0);
+    rotateX(frameCount * 0.01);
+    rotateY(frameCount * 0.015);
+    specularMaterial(100, 160, 255);
+    shininess(30);
+    box(90);
+  pop();
+
+  // Bol
+  push();
+    translate(80, -10, 0);
+    rotateY(frameCount * 0.02);
+    specularMaterial(255, 120, 80);
+    shininess(60);
+    sphere(60);
+  pop();
+
+  // Torus
+  push();
+    translate(0, 120, 0);
+    rotateX(frameCount * 0.02);
+    normalMaterial();
+    torus(50, 18);
+  pop();
+}
+        </script>
+    </div>
+</section>

@@ -1,0 +1,87 @@
+<div class="intro">
+    <p>Loops herhalen code. Ze zijn perfect voor het tekenen van meerdere elementen of het doorlopen van data.</p>
+</div>
+
+<section>
+    <h2>For-Loop</h2>
+    <p>De for-loop is het meest gebruikt. Hij heeft drie delen:</p>
+    <pre><code>for (start; voorwaarde; stap) {
+  // Code die herhaald wordt
+}</code></pre>
+    
+    <h3>Voorbeeld: 10 Cirkels</h3>
+    <pre><code>for (let i = 0; i < 10; i++) {
+  ellipse(i * 50, 100, 40, 40);
+}</code></pre>
+    <p>Dit tekent 10 cirkels naast elkaar.</p>
+</section>
+
+<section>
+    <h2>Loop Variabelen</h2>
+    <p>De loop variabele (meestal <code>i</code>) verandert bij elke iteratie:</p>
+    <pre><code>for (let i = 0; i < 5; i++) {
+  console.log(i);  // Print: 0, 1, 2, 3, 4
+}</code></pre>
+    
+    <h3>Gebruik in Tekenen</h3>
+    <pre><code>for (let i = 0; i < 10; i++) {
+  let x = i * 50;
+  let y = 100;
+  ellipse(x, y, 30, 30);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Geneste Loops</h2>
+    <p>Je kunt loops binnen loops gebruiken voor 2D patronen:</p>
+    <pre><code>for (let x = 0; x < 10; x++) {
+  for (let y = 0; y < 10; y++) {
+    ellipse(x * 50, y * 50, 30, 30);
+  }
+}</code></pre>
+    <p>Dit tekent een grid van 10x10 cirkels.</p>
+</section>
+
+<section>
+    <h2>While-Loop</h2>
+    <p>Een while-loop herhaalt zolang een voorwaarde waar is:</p>
+    <pre><code>let x = 0;
+while (x < width) {
+  line(x, 0, x, height);
+  x += 20;
+}</code></pre>
+    <p>Let op: zorg dat de voorwaarde ooit false wordt, anders krijg je een oneindige loop!</p>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Loops voor Patronen</h3>
+    <p>Dit voorbeeld gebruikt loops om patronen te maken:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-basis"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Pas de loop aan! Verander het aantal herhalingen, de afstand tussen elementen, of probeer een geneste loop voor een grid.</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+}
+
+function draw() {
+  background(220);
+  
+  // Teken rijen cirkels
+  for (let i = 0; i < 10; i++) {
+    fill(i * 25, 100, 200);
+    ellipse(i * 60, height/2, 40, 40);
+  }
+}
+        </script>
+    </div>
+</section>
+

@@ -1,0 +1,185 @@
+<div class="intro">
+    <p>Arrays zijn lijsten van waarden. Ze zijn perfect voor het opslaan van meerdere gerelateerde elementen, zoals posities van ballen, kleuren of objecten in een animatie.</p>
+</div>
+
+<section>
+    <h2>Arrays Aanmaken</h2>
+    <p>Een array maak je zo aan:</p>
+    <pre><code>let getallen = [10, 20, 30, 40];
+let namen = ["rood", "groen", "blauw"];
+let leeg = [];  // Lege array
+
+// Toegang via index (begint bij 0)
+console.log(getallen[0]);  // 10
+console.log(namen[2]);     // "blauw"</code></pre>
+
+    <h3>Array lengte</h3>
+    <pre><code>let getallen = [10, 20, 30, 40];
+console.log(getallen.length);  // 4</code></pre>
+</section>
+
+<section>
+    <h2>Elementen Toevoegen en Verwijderen</h2>
+    <p>Gebruik <code>push()</code> om elementen toe te voegen aan het einde:</p>
+    <pre><code>let ballen = [];
+
+function mousePressed() {
+  ballen.push(mouseX);  // Voeg muispositie toe
+}
+
+console.log(ballen);  // [120, 340, 55, ...]</code></pre>
+
+    <p>Andere handige methoden:</p>
+    <ul>
+        <li><code>push(waarde)</code> — voeg toe aan einde</li>
+        <li><code>pop()</code> — verwijder laatste element (en geef het terug)</li>
+        <li><code>splice(index, aantal)</code> — verwijder elementen op een positie</li>
+        <li><code>indexOf(waarde)</code> — zoek de index van een waarde</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Arrays Doorlopen met een Loop</h2>
+    <p>Gebruik een <code>for</code>-loop om elk element te verwerken:</p>
+    <pre><code>let posities = [50, 150, 250, 350, 450];
+
+function draw() {
+  background(220);
+  for (let i = 0; i < posities.length; i++) {
+    circle(posities[i], height / 2, 40);
+  }
+}</code></pre>
+
+    <p>Of de moderne <code>for...of</code> loop — korter en leesbaarder:</p>
+    <pre><code>for (let x of posities) {
+  circle(x, height / 2, 40);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Object Arrays</h2>
+    <p>Arrays kunnen ook objecten bevatten. Zo sla je meerdere eigenschappen per item op:</p>
+    <pre><code>let ballen = [
+  { x: 100, y: 200, grootte: 40, kleur: [255, 0, 0] },
+  { x: 300, y: 150, grootte: 60, kleur: [0, 150, 255] },
+  { x: 450, y: 300, grootte: 30, kleur: [0, 200, 100] }
+];
+
+function draw() {
+  background(30);
+  for (let bal of ballen) {
+    fill(bal.kleur);
+    circle(bal.x, bal.y, bal.grootte);
+  }
+}</code></pre>
+    <p>Dit is de basis van een <strong>particle system</strong>: een array van objecten die elk hun eigen eigenschappen bijhouden.</p>
+</section>
+
+<section>
+    <h2>Dynamische Object Arrays</h2>
+    <p>Je kunt objecten aanmaken en toevoegen terwijl je sketch draait:</p>
+    <pre><code>let ballen = [];
+
+function mousePressed() {
+  // Voeg een nieuw object toe bij klik
+  ballen.push({
+    x: mouseX,
+    y: mouseY,
+    vx: random(-2, 2),   // Horizontale snelheid
+    vy: random(-4, -1),  // Verticale snelheid (omhoog)
+    grootte: random(15, 40)
+  });
+}
+
+function draw() {
+  background(220);
+
+  for (let bal of ballen) {
+    bal.x += bal.vx;
+    bal.y += bal.vy;
+    bal.vy += 0.15;  // Zwaartekracht
+
+    circle(bal.x, bal.y, bal.grootte);
+  }
+
+  // Verwijder ballen die buiten het scherm zijn
+  ballen = ballen.filter(bal => bal.y < height + 50);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Handige Array Methoden</h2>
+    <h3>filter() — elementen selecteren</h3>
+    <pre><code>// Verwijder dode particles (life <= 0)
+particles = particles.filter(p => p.life > 0);</code></pre>
+
+    <h3>map() — elk element omzetten</h3>
+    <pre><code>let getallen = [1, 2, 3, 4, 5];
+let verdubbeld = getallen.map(n => n * 2);
+// verdubbeld = [2, 4, 6, 8, 10]</code></pre>
+
+    <h3>forEach() — iets doen met elk element</h3>
+    <pre><code>ballen.forEach(bal => {
+  bal.x += bal.vx;
+  bal.y += bal.vy;
+});</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Particle System</h3>
+    <p>Klik of sleep om ballen te spawnen. Arrays houden alle posities en snelheden bij:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-arrays"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf!</h2>
+    <p>Klik om nieuwe cirkels toe te voegen. Pas grootte, kleur of zwaartekracht aan!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let ballen = [];
+
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+}
+
+function draw() {
+  background(30);
+
+  for (let bal of ballen) {
+    bal.x += bal.vx;
+    bal.y += bal.vy;
+    bal.vy += 0.15; // Zwaartekracht
+
+    fill(bal.r, bal.g, bal.b, 200);
+    circle(bal.x, bal.y, bal.grootte);
+  }
+
+  // Verwijder ballen buiten het scherm
+  ballen = ballen.filter(bal => bal.y < height + 50);
+
+  fill(255);
+  text("Klik om ballen te spawnen: " + ballen.length, 10, 20);
+}
+
+function mousePressed() {
+  // Voeg 5 nieuwe ballen toe per klik
+  for (let i = 0; i < 5; i++) {
+    ballen.push({
+      x: mouseX,
+      y: mouseY,
+      vx: random(-3, 3),
+      vy: random(-5, -1),
+      grootte: random(15, 45),
+      r: random(100, 255),
+      g: random(50, 200),
+      b: random(100, 255)
+    });
+  }
+}
+        </script>
+    </div>
+</section>

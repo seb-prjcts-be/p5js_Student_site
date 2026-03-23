@@ -1,0 +1,98 @@
+<div class="intro">
+    <p>Kleur maakt je sketches levend. p5.js biedt verschillende manieren om kleuren te gebruiken.</p>
+</div>
+
+<section>
+    <h2>Kleur Functies</h2>
+    <p>Je kunt kleuren instellen met verschillende functies:</p>
+    <ul>
+        <li><code>background(kleur)</code> - Achtergrondkleur</li>
+        <li><code>fill(kleur)</code> - Vulkleur voor vormen</li>
+        <li><code>stroke(kleur)</code> - Lijnkleur</li>
+        <li><code>noFill()</code> - Geen vulling</li>
+        <li><code>noStroke()</code> - Geen lijn</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Kleurwaarden</h2>
+    <p>Kleuren kunnen op verschillende manieren worden opgegeven:</p>
+    
+    <h3>Grijs (0-255)</h3>
+    <pre><code>fill(255);        // Wit
+fill(128);        // Grijs
+fill(0);          // Zwart</code></pre>
+    
+    <h3>RGB (Rood, Groen, Blauw)</h3>
+    <pre><code>fill(255, 0, 0);      // Rood
+fill(0, 255, 0);      // Groen
+fill(0, 0, 255);      // Blauw
+fill(255, 200, 0);    // Geel</code></pre>
+    
+    <h3>RGBA (Met Transparantie)</h3>
+    <pre><code>fill(255, 0, 0, 128);  // Half transparant rood
+fill(0, 0, 255, 200);  // Bijna ondoorzichtig blauw</code></pre>
+</section>
+
+<section>
+    <h2>Kleurmodus</h2>
+    <p>Standaard gebruikt p5.js RGB. Je kunt ook HSB (Hue, Saturation, Brightness) gebruiken:</p>
+    <pre><code>colorMode(HSB);
+fill(0, 100, 100);    // Rood (hue=0)
+fill(120, 100, 100);  // Groen (hue=120)
+fill(240, 100, 100);  // Blauw (hue=240)</code></pre>
+    <p>HSB is handig voor kleurwielen en vloeiende kleurovergangen.</p>
+</section>
+
+<section>
+    <h2>Kleur Variabelen</h2>
+    <p>Je kunt kleuren opslaan in variabelen:</p>
+    <pre><code>let rood = color(255, 0, 0);
+let blauw = color(0, 0, 255);
+
+function draw() {
+  fill(rood);
+  ellipse(100, 200, 50, 50);
+  
+  fill(blauw);
+  ellipse(300, 200, 50, 50);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Kleurgebruik</h3>
+    <p>Dit voorbeeld toont verschillende kleurtechnieken:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-basis"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Experimenteer met kleuren! Pas de RGB-waarden aan, voeg transparantie toe, of probeer HSB mode.</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(220);
+  
+  // Rode cirkel
+  fill(255, 0, 0);
+  ellipse(150, 200, 100, 100);
+  
+  // Groene cirkel
+  fill(0, 255, 0);
+  ellipse(300, 200, 100, 100);
+  
+  // Blauwe cirkel met transparantie
+  fill(0, 0, 255, 128);
+  ellipse(450, 200, 100, 100);
+}
+        </script>
+    </div>
+</section>
+

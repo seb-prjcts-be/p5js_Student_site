@@ -1,0 +1,92 @@
+<div class="intro">
+    <p>Met toetsenbord input kun je je sketches besturen. p5.js heeft functies om toetsaanslagen te detecteren.</p>
+</div>
+
+<section>
+    <h2>keyPressed()</h2>
+    <p>De <code>keyPressed()</code> functie wordt aangeroepen wanneer een toets wordt ingedrukt:</p>
+    <pre><code>let kleur = 0;
+
+function keyPressed() {
+  if (key === 'r' || key === 'R') {
+    kleur = color(255, 0, 0);  // Rood
+  } else if (key === 'g' || key === 'G') {
+    kleur = color(0, 255, 0);  // Groen
+  }
+}
+
+function draw() {
+  fill(kleur);
+  ellipse(200, 200, 100, 100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Toets Variabelen</h2>
+    <p>p5.js heeft variabelen voor toetsen:</p>
+    <ul>
+        <li><code>key</code> - De ingedrukte toets (als karakter)</li>
+        <li><code>keyCode</code> - Voor speciale toetsen</li>
+    </ul>
+    
+    <h3>Speciale Toetsen</h3>
+    <pre><code>if (keyCode === UP_ARROW) { }
+if (keyCode === DOWN_ARROW) { }
+if (keyCode === LEFT_ARROW) { }
+if (keyCode === RIGHT_ARROW) { }
+if (keyCode === ENTER) { }
+if (keyCode === BACKSPACE) { }</code></pre>
+</section>
+
+<section>
+    <h2>keyIsPressed</h2>
+    <p>Je kunt controleren of een toets ingedrukt is:</p>
+    <pre><code>function draw() {
+  if (keyIsPressed) {
+    if (key === 'w' || key === 'W') {
+      y -= 2;  // Beweeg omhoog
+    }
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Toetsenbord Controle</h3>
+    <p>Druk op toetsen om te zien hoe het werkt:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-interactie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Voeg je eigen toetsen toe! Druk op 'r', 'g', of 'b' om de kleur te veranderen. Experimenteer met verschillende toetsen!</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let cirkelKleur = [255, 100, 100];
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(220);
+  
+  fill(cirkelKleur[0], cirkelKleur[1], cirkelKleur[2]);
+  ellipse(width/2, height/2, 100, 100);
+}
+
+function keyPressed() {
+  if (key === 'r' || key === 'R') {
+    cirkelKleur = [255, 0, 0];  // Rood
+  } else if (key === 'g' || key === 'G') {
+    cirkelKleur = [0, 255, 0];  // Groen
+  } else if (key === 'b' || key === 'B') {
+    cirkelKleur = [0, 0, 255];  // Blauw
+  }
+}
+        </script>
+    </div>
+</section>
+

@@ -1,0 +1,104 @@
+<div class="intro">
+    <p>Variabelen slaan waarden op die je later kunt gebruiken. Ze zijn essentieel voor dynamische en interactieve sketches.</p>
+</div>
+
+<section>
+    <h2>Variabelen Aanmaken</h2>
+    <p>In JavaScript gebruik je <code>let</code> of <code>const</code> om variabelen aan te maken:</p>
+    <pre><code>let x = 100;        // Kan veranderen
+const y = 200;      // Blijft constant
+let diameter = 50;  // Diameter van cirkel</code></pre>
+    
+    <h3>Wanneer gebruik je wat?</h3>
+    <ul>
+        <li><code>let</code> - Voor waarden die kunnen veranderen</li>
+        <li><code>const</code> - Voor waarden die niet veranderen</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Types Variabelen</h2>
+    <p>JavaScript heeft verschillende datatypes:</p>
+    
+    <h3>Numbers (Getallen)</h3>
+    <pre><code>let x = 100;
+let snelheid = 2.5;
+let percentage = 0.75;</code></pre>
+    
+    <h3>Strings (Tekst)</h3>
+    <pre><code>let naam = "p5.js";
+let bericht = 'Hello World';</code></pre>
+    
+    <h3>Booleans (True/False)</h3>
+    <pre><code>let isActief = true;
+let isGepauzeerd = false;</code></pre>
+</section>
+
+<section>
+    <h2>Variabelen Gebruiken</h2>
+    <p>Variabelen maken je code flexibel:</p>
+    <pre><code>let x = 100;
+let y = 200;
+let diameter = 50;
+
+function draw() {
+  ellipse(x, y, diameter, diameter);
+  
+  // Verander waarden
+  x += 1;  // Beweeg naar rechts
+}</code></pre>
+</section>
+
+<section>
+    <h2>Berekeningen</h2>
+    <p>Je kunt berekeningen doen met variabelen:</p>
+    <pre><code>let breedte = 400;
+let hoogte = 300;
+let middenX = breedte / 2;      // 200
+let middenY = hoogte / 2;       // 150
+let oppervlakte = breedte * hoogte;  // 120000</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Variabelen in Actie</h3>
+    <p>Dit voorbeeld gebruikt variabelen voor beweging:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-basis"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Pas de variabelen aan om de positie, grootte en kleur te veranderen. Experimenteer met berekeningen!</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let x = 100;
+let y = 200;
+let diameter = 50;
+let kleurR = 255;
+let kleurG = 100;
+let kleurB = 100;
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(220);
+  
+  fill(kleurR, kleurG, kleurB);
+  ellipse(x, y, diameter, diameter);
+  
+  // Beweeg naar rechts
+  x += 1;
+  
+  // Als buiten scherm, begin opnieuw
+  if (x > width) {
+    x = 0;
+  }
+}
+        </script>
+    </div>
+</section>
+

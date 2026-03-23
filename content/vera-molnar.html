@@ -1,0 +1,147 @@
+<div class="intro">
+    <p>Vera Molnar (1924-2023) was een Franse kunstenares van Hongaarse afkomst en een van de grondleggers van digitale en generatieve kunst. Ze werkte met regels, systemen en minimale variatie om verrassende visuele resultaten te maken.</p>
+    <figure>
+        <img src="assets/inspiratie/vera-molnar-hero.jpg" alt="Vera Molnar en een voorbeeld van haar geometrische werk">
+        <figcaption>Vera Molnar: pionier van digitale esthetiek en generatieve kunst.</figcaption>
+    </figure>
+    <p><em>"I have no regrets. My life is squares, triangles, lines."</em></p>
+</div>
+
+<section>
+    <h2>Biografie: van penseel naar ponskaart</h2>
+    <p>Molnar studeerde schilderkunst, kunstgeschiedenis en esthetiek in Boedapest (1942-1947). Al vroeg raakte ze gefascineerd door regels en systemen, en stoorde ze zich aan de subjectiviteit van traditionele kunst.</p>
+    <p>In 1947 verhuisde ze naar Parijs. Daar koos ze resoluut voor abstracte geometrie: het raster en de rechthoek werden haar basismotieven. Ze liet de natuur los als directe inspiratie en zocht een strenge, bijna wiskundige beeldtaal.</p>
+</section>
+
+<section>
+    <h2>Machine Imaginaire en de overstap naar de computer</h2>
+    <p>Voor ze toegang had tot computers werkte Molnar al algoritmisch. In haar "Machine Imaginaire" tekende ze regels uit en voerde ze die stap voor stap met de hand uit. Het doel was kunst die niet door intuïtie, maar door logica en herhaling werd gestuurd.</p>
+    <p>Vanaf 1968 kreeg ze toegang tot een mainframecomputer in Parijs. Ze programmeerde op ponskaarten en wachtte tot een plotter de tekeningen op papier zette. Daarmee werd ze een van de eerste kunstenaars die de computer bewust als artistiek medium gebruikte.</p>
+</section>
+
+<section>
+    <h2>Belangrijke themas en reeksen</h2>
+    <h3>De zoektocht naar 1% disorder</h3>
+    <p>Molnar vertrok vaak van een perfect raster en bracht vervolgens een minimale verstoring aan: een kleine verschuiving, rotatie of afwijking. Zo ontstond spanning tussen orde en chaos.</p>
+
+    <h3>Lettres de ma mere</h3>
+    <p>In deze reeks vertaalde ze het handschrift van haar moeder naar algoritmes. De computer genereerde nieuwe, abstracte brieven en toonde hoe data ook emotie kan dragen.</p>
+
+    <h3>Hommages aan de meesters</h3>
+    <p>Molnar analyseerde composities van kunstenaars zoals Albrecht Durer en Paul Klee en herwerkte die naar geometrische en algoritmische structuren, niet als kopie maar als onderzoek.</p>
+</section>
+
+<section>
+    <h2>Kernbegrippen</h2>
+    <ul>
+        <li><strong>Algoritmische kunst:</strong> kunst gebaseerd op vooraf vastgelegde regels.</li>
+        <li><strong>Iteratie:</strong> het herhalen van een vorm met kleine variaties.</li>
+        <li><strong>Plotterkunst:</strong> fysieke tekeningen gemaakt door een machine met pen.</li>
+        <li><strong>Humanisering van de machine:</strong> technologie als drager van poezie en emotie.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Iconische werken</h2>
+    <figure>
+        <img src="assets/inspiratie/vera-molnar-desordres.png" alt="(Des)Ordres (1974) - concentrische vierkanten met afwijkingen">
+        <figcaption><strong>(Des)Ordres (1974):</strong> een perfect grid met bewust toegevoegde afwijkingen.</figcaption>
+    </figure>
+    <figure>
+        <img src="assets/inspiratie/vera-molnar-interruptions.png" alt="Interruptions (1968-1969) - parallelle lijnen met verstoringen">
+        <figcaption><strong>Interruptions (1968-1969):</strong> minimale ingrepen die maximaal effect geven.</figcaption>
+    </figure>
+    <p><strong>Lettres de ma mere (1988):</strong> handschrift vertaald naar algoritme, een brug tussen data en emotie.</p>
+</section>
+
+<section>
+    <h2>Kijklijst</h2>
+    <ul>
+        <li>Vera Molnar - The Grandmother of Computer Art</li>
+        <li>Vera Molnar | Pionniers, Pionnieres | Centre Pompidou</li>
+        <li>The Art of Code - Dylan Beattie</li>
+        <li>Vera Molnar, interview | Paris | 11 July 2017</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Relevantie vandaag</h2>
+    <ul>
+        <li><strong>Vrijheid binnen regels:</strong> beperkingen als motor voor creativiteit.</li>
+        <li><strong>Pionierschap:</strong> een vrouw in een sterk door mannen gedomineerde techwereld.</li>
+        <li><strong>Link met code:</strong> code als penseel, niet enkel als technisch gereedschap.</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Interactief: (Des)Ordres — Orde en Chaos</h3>
+    <p>Geïnspireerd op Molnars werk: concentrische rechthoeken met een instelbare hoeveelheid afwijking. Beweeg de muis om de chaos te regelen:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-vera-molnar"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Maak Zelf een Molnár</h2>
+    <p>Pas de code aan: verander het aantal rijen, de grootte van de afwijking, of de kleur van de lijnen.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Geïnspireerd op Vera Molnár — (Des)Ordres (1974)
+// Concentrische vierkanten met bewuste afwijking
+
+function setup() {
+  createCanvas(600, 400);
+  background(250);
+  noFill();
+  stroke(30);
+  strokeWeight(1);
+}
+
+function draw() {
+  background(250);
+
+  let rijen = 5;
+  let kolommen = 7;
+  let celBreedte = width / kolommen;
+  let celHoogte = height / rijen;
+
+  // Afwijking op basis van muispositie (0 = perfect, max = chaos)
+  let maxAfwijking = map(mouseX, 0, width, 0, 20);
+
+  for (let ry = 0; ry < rijen; ry++) {
+    for (let kol = 0; kol < kolommen; kol++) {
+      let cx = kol * celBreedte + celBreedte / 2;
+      let cy = ry * celHoogte + celHoogte / 2;
+
+      // 5 concentrische vierkanten per cel
+      for (let s = 5; s >= 1; s--) {
+        let w = celBreedte * 0.85 * (s / 5);
+        let h = celHoogte * 0.85 * (s / 5);
+
+        // Kleine willekeurige afwijking per hoekpunt
+        let dx1 = random(-maxAfwijking, maxAfwijking);
+        let dy1 = random(-maxAfwijking, maxAfwijking);
+        let dx2 = random(-maxAfwijking, maxAfwijking);
+        let dy2 = random(-maxAfwijking, maxAfwijking);
+
+        beginShape();
+          vertex(cx - w/2 + dx1, cy - h/2 + dy1);
+          vertex(cx + w/2 + dx2, cy - h/2 + dy2);
+          vertex(cx + w/2 - dx1, cy + h/2 - dy1);
+          vertex(cx - w/2 - dx2, cy + h/2 - dy2);
+        endShape(CLOSE);
+      }
+    }
+  }
+
+  // Label
+  noStroke();
+  fill(80);
+  textSize(12);
+  text("← Muis links = orde   Muis rechts = chaos →", 10, height - 10);
+  stroke(30);
+}
+        </script>
+    </div>
+</section>

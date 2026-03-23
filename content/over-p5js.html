@@ -1,0 +1,106 @@
+<div class="intro">
+    <p>p5.js is een JavaScript bibliotheek die creative coding toegankelijk maakt. Het is gebaseerd op Processing, maar werkt volledig in de browser zonder extra software.</p>
+</div>
+
+<section>
+    <h2>Wat is Processing?</h2>
+    <p>Processing is een programmeertaal en ontwikkelomgeving die in 2001 werd gemaakt door Casey Reas en Ben Fry aan het MIT Media Lab. Het doel was om programmeren toegankelijk te maken voor kunstenaars, designers en beginners.</p>
+    <p>Processing gebruikt Java en heeft zijn eigen editor. Het is krachtig, maar vereist dat je software installeert.</p>
+</section>
+
+<section>
+    <h2>Van Processing naar p5.js</h2>
+    <p>p5.js is de JavaScript-versie van Processing. Het werd ontwikkeld door Lauren McCarthy en een community van ontwikkelaars. Het belangrijkste verschil:</p>
+    <ul>
+        <li><strong>Processing:</strong> Java-gebaseerd, desktop applicatie</li>
+        <li><strong>p5.js:</strong> JavaScript-gebaseerd, werkt in de browser</li>
+    </ul>
+    <p>Met p5.js hoef je niets te installeren - je schrijft code in een editor en opent het in je browser!</p>
+</section>
+
+<section>
+    <h2>De p5.js Editor</h2>
+    <p>De officiële p5.js editor (editor.p5js.org) is een online ontwikkelomgeving waar je direct kunt beginnen met coden. Voordelen:</p>
+    <ul>
+        <li>Geen installatie nodig</li>
+        <li>Automatisch opslaan</li>
+        <li>Delen van sketches is eenvoudig</li>
+        <li>Werkt op elke computer met een browser</li>
+    </ul>
+    <p>Je kunt ook je eigen HTML-bestand maken en p5.js via een CDN laden (zoals we in deze cursus doen).</p>
+</section>
+
+<section>
+    <h2>De Reference</h2>
+    <p>De p5.js reference (p5js.org/reference) is je beste vriend. Het bevat documentatie voor elke functie in p5.js:</p>
+    <ul>
+        <li>Uitleg wat een functie doet</li>
+        <li>Welke parameters je kunt gebruiken</li>
+        <li>Voorbeelden van gebruik</li>
+    </ul>
+    <p><strong>Tip:</strong> Als je niet weet hoe iets werkt, zoek het op in de reference!</p>
+</section>
+
+<section>
+    <h2>Projectstructuur</h2>
+    <p>Een eenvoudig p5.js project ziet er zo uit:</p>
+    <pre><code>mijn-project/
+  ├── index.html
+  ├── sketch.js
+  └── style.css (optioneel)</code></pre>
+    
+    <h3>index.html</h3>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"&gt;&lt;/script&gt;
+  &lt;script src="sketch.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h3>sketch.js</h3>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(220);
+  ellipse(200, 200, 50, 50);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Je Eerste p5.js Sketch</h3>
+    <p>Dit is een simpel voorbeeld dat laat zien hoe p5.js werkt:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-over-p5js"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Maak je eerste p5.js sketch! Pas de code aan, voeg vormen toe, of maak het interactief met mouseX en mouseY.</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(220);
+  
+  // Cirkel die de muis volgt
+  fill(100, 150, 255);
+  ellipse(mouseX, mouseY, 50, 50);
+  
+  // Vaste rechthoek
+  fill(255, 100, 100);
+  rect(200, 150, 100, 100);
+}
+        </script>
+    </div>
+</section>
+

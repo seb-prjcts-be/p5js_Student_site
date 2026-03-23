@@ -1,0 +1,64 @@
+<div class="intro">
+    <p>Elke p5.js sketch begint met twee belangrijke functies: <code>setup()</code> en <code>draw()</code>. Deze vormen de basis van je creatie.</p>
+</div>
+
+<section>
+    <h2>setup() - De Start</h2>
+    <p><code>setup()</code> wordt <strong>één keer</strong> uitgevoerd wanneer je sketch start. Hierin zet je de basis op:</p>
+    <pre><code>function setup() {
+  createCanvas(800, 600);  // Maak een canvas van 800x600 pixels
+  background(220);          // Zet achtergrondkleur
+}</code></pre>
+    
+    <h3>Wat doe je in setup()?</h3>
+    <ul>
+        <li>Canvas aanmaken met <code>createCanvas()</code></li>
+        <li>Begintoestand instellen</li>
+        <li>Variabelen initialiseren</li>
+        <li>Assets laden (afbeeldingen, geluiden)</li>
+    </ul>
+</section>
+
+<section>
+    <h2>draw() - De Loop</h2>
+    <p><code>draw()</code> wordt <strong>continu</strong> uitgevoerd (meestal 60 keer per seconde). Hierin teken je je animatie:</p>
+    <pre><code>function draw() {
+  background(220);           // Wis het canvas
+  ellipse(mouseX, mouseY, 50, 50);  // Teken cirkel op muispositie
+}</code></pre>
+    
+    <h3>Belangrijk</h3>
+    <ul>
+        <li><code>draw()</code> loopt automatisch door</li>
+        <li>Zonder <code>background()</code> zie je trails van vorige frames</li>
+        <li>Met <code>background()</code> maak je een schone achtergrond</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Canvas Grootte</h2>
+    <p>Het canvas is je tekengebied. Je kunt verschillende formaten maken:</p>
+    <pre><code>createCanvas(400, 400);   // Vierkant
+createCanvas(800, 600);   // Landscape
+createCanvas(600, 800);   // Portrait
+createCanvas(windowWidth, windowHeight);  // Volledig scherm</code></pre>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Pas de code aan en zie wat er gebeurt. Probeer bijvoorbeeld de achtergrondkleur te veranderen of andere vormen toe te voegen!</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(220);
+  ellipse(mouseX, mouseY, 50, 50);
+}
+        </script>
+    </div>
+</section>
+

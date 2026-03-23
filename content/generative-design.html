@@ -1,0 +1,101 @@
+<div class="intro">
+    <p>Generative design is het maken van kunst en visuele patronen met behulp van algoritmes en code. Deze vorm van creativiteit heeft een rijke geschiedenis die teruggaat tot de jaren 60.</p>
+</div>
+
+<section>
+    <h2>De Oorsprong</h2>
+    <p>Generative design begon met pioniers zoals <strong>John Whitney</strong>, die in de jaren 60 experimenteerde met computeranimatie en wiskundige patronen. Hij gebruikte analoge computers om abstracte animaties te maken die de basis legden voor wat we nu creative coding noemen.</p>
+    
+    <h3>Belangrijke Momenten</h3>
+    <ul>
+        <li><strong>1960s:</strong> John Whitney creëert de eerste computer-gegenereerde animaties</li>
+        <li><strong>1970s:</strong> Fractals worden ontdekt en gebruikt in kunst (Mandelbrot set)</li>
+        <li><strong>1980s:</strong> DEMO scene ontstaat - programmeurs maken visuele kunst met code</li>
+        <li><strong>2000s:</strong> Processing wordt ontwikkeld, maakt creative coding toegankelijk</li>
+        <li><strong>2010s:</strong> p5.js brengt Processing naar het web</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Wat is Generative Design?</h2>
+    <p>Generative Design is een samensmelting van kunst en technologie, waarbij je algoritmes en code gebruikt om visuele composities te creëren. Je schrijft geen beeld per beeld, maar bedenkt een systeem dat beelden voortbrengt.</p>
+    <p>In tegenstelling tot traditionele kunst, waar je elk detail zelf bepaalt, definieer je hier regels, parameters en variatie. Die regels produceren het werk: je maakt niet langer één affiche, maar een systeem om duizenden unieke affiches te genereren.</p>
+    <p>Door herhaling, toeval en gecontroleerde verstoring toe te laten, ontstaan patronen die je zelf niet telkens had kunnen tekenen. Dat is precies de kracht van generatieve kunst: je ontwerpt het proces, de computer onderzoekt de mogelijkheden.</p>
+    <figure>
+        <img src="assets/generative-design/generative-lines.png" alt="Generative design met diagonale lijnen en herhaling">
+        <figcaption>Een eenvoudige regel kan leiden tot rijke variatie.</figcaption>
+    </figure>
+
+    <h3>Voordelen</h3>
+    <p>Generative Design combineert creativiteit met systeemdenken. Dat levert een aantal duidelijke voordelen op:</p>
+    <ul>
+        <li>Je maakt in korte tijd veel variaties en ontdekt onverwachte oplossingen.</li>
+        <li>Wiskundige patronen zijn precies en herhaalbaar, waardoor je gericht kan experimenteren.</li>
+        <li>Interactie en animatie voelen natuurlijk omdat het systeem reageert op tijd en input.</li>
+        <li>Je leert programmeren op een creatieve manier en bouwt je eigen gereedschap.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Voorbeelden uit de Geschiedenis</h2>
+    <h3>Fractals</h3>
+    <p>Begin jaren 80 bracht wiskundige <strong>Benoît Mandelbrot</strong> de concepten van fractals naar voren. Fractals zijn patronen die zichzelf herhalen op verschillende schalen. Bekende voorbeelden zijn de Mandelbrot set en de Koch snowflake.</p>
+    <p>Fractals tonen hoe eenvoudige formules complexe structuren kunnen vormen. Ze maakten generatieve kunst meteen zichtbaar voor een breed publiek.</p>
+    <figure>
+        <img src="assets/generative-design/generative-fractal.jpg" alt="Mandelbrot fractal met diepe zoom en complexe patronen">
+        <figcaption>Fractals: complexe vormen uit eenvoudige regels.</figcaption>
+    </figure>
+
+    <h3>DEMO scene</h3>
+    <p>De demoscene is een internationale subcultuur van computerkunst die demo's produceert: kleine programma's die audiovisuele presentaties genereren. Het draait om programmeren, beeld, muziek en showmanship.</p>
+    <p>Het jaarlijkse <strong>DEMO festival</strong> (Design in Motion) claimt publieke reclameschermen als tentoonstellingsruimte en toont bewegende, kleurrijke creaties in de stad.</p>
+    <figure>
+        <img src="assets/generative-design/generative-demo.jpg" alt="Publieke schermen met bewegende generatieve visuals tijdens DEMO festival">
+        <figcaption>DEMO festival (Design in Motion) brengt generatieve beelden naar de straat.</figcaption>
+    </figure>
+
+    <h3>BYOB (Bring Your Own Beamer)</h3>
+    <p>Bring Your Own Beamer is een format waarbij kunstenaars hun werk tonen op hun eigen projector. Elke stad heeft vaak een lokale versie, en in Gent is Nerdlab een bekende organisator.</p>
+    <p>Het resultaat is een tijdelijke expositie waar generatieve beelden, animaties en live visuals samenkomen in een gedeelde ruimte.</p>
+    <figure>
+        <img src="assets/generative-design/generative-byob.jpg" alt="Projecties tijdens een Bring Your Own Beamer evenement">
+        <figcaption>BYOB events maken van projecties een collectieve expo.</figcaption>
+    </figure>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Eenvoudig Generative Patroon</h3>
+    <p>Dit voorbeeld toont een eenvoudig generative patroon met bewegende cirkels:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-generative"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Maak je eigen generative patroon! Pas de parameters aan, voeg wiskundige functies toe, of experimenteer met random() voor variatie.</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+}
+
+function draw() {
+  background(220, 20);
+  
+  // Generative patroon met sin/cos
+  for (let i = 0; i < 20; i++) {
+    let x = width/2 + sin(frameCount * 0.01 + i) * 150;
+    let y = height/2 + cos(frameCount * 0.01 + i) * 100;
+    let grootte = 20 + sin(frameCount * 0.02 + i) * 15;
+    
+    fill(100 + i * 5, 150, 200);
+    ellipse(x, y, grootte, grootte);
+  }
+}
+        </script>
+    </div>
+</section>
+

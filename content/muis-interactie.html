@@ -1,0 +1,94 @@
+<div class="intro">
+    <p>Muis interactie maakt je sketches responsief. p5.js heeft ingebouwde variabelen en functies voor muis input.</p>
+</div>
+
+<section>
+    <h2>Muis Positie</h2>
+    <p>p5.js heeft ingebouwde variabelen voor muispositie:</p>
+    <ul>
+        <li><code>mouseX</code> - X-positie van de muis</li>
+        <li><code>mouseY</code> - Y-positie van de muis</li>
+        <li><code>pmouseX</code> - Vorige X-positie</li>
+        <li><code>pmouseY</code> - Vorige Y-positie</li>
+    </ul>
+    
+    <h3>Voorbeeld</h3>
+    <pre><code>function draw() {
+  background(220);
+  ellipse(mouseX, mouseY, 50, 50);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Muis Events</h2>
+    <p>Je kunt reageren op muisklikken en bewegingen:</p>
+    
+    <h3>mousePressed()</h3>
+    <pre><code>function mousePressed() {
+  // Wordt uitgevoerd bij muisklik
+  fill(random(255), random(255), random(255));
+}</code></pre>
+    
+    <h3>mouseDragged()</h3>
+    <pre><code>function mouseDragged() {
+  // Wordt uitgevoerd tijdens slepen
+  ellipse(mouseX, mouseY, 20, 20);
+}</code></pre>
+    
+    <h3>mouseReleased()</h3>
+    <pre><code>function mouseReleased() {
+  // Wordt uitgevoerd bij loslaten
+  background(220);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Trails Maken</h2>
+    <p>Met <code>pmouseX</code> en <code>pmouseY</code> kun je trails maken:</p>
+    <pre><code>function draw() {
+  // Teken lijn van vorige naar huidige muispositie
+  line(pmouseX, pmouseY, mouseX, mouseY);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Muis Interactie</h3>
+    <p>Beweeg en klik met je muis:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-interactie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer het Zelf!</h2>
+    <p>Experimenteer met muis interactie! Voeg mousePressed() toe, maak trails met pmouseX/Y, of combineer verschillende muis events.</p>
+    
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let klikKleur = 255;
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(220);
+  
+  // Cirkel volgt muis
+  fill(klikKleur, 100, 200);
+  ellipse(mouseX, mouseY, 50, 50);
+  
+  // Teken lijn van vorige naar huidige positie
+  stroke(0);
+  strokeWeight(2);
+  line(pmouseX, pmouseY, mouseX, mouseY);
+}
+
+function mousePressed() {
+  // Verander kleur bij klik
+  klikKleur = random(255);
+}
+        </script>
+    </div>
+</section>
+

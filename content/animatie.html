@@ -1,0 +1,172 @@
+<div class="intro">
+    <p>Animatie ontstaat doordat <code>draw()</code> steeds opnieuw wordt uitgevoerd — standaard 60 keer per seconde. Door waarden elke frame een beetje te veranderen, krijg je beweging.</p>
+</div>
+
+<section>
+    <h2>Eenvoudige Beweging</h2>
+    <p>De simpelste animatie: een variabele ophogen elke frame.</p>
+    <pre><code>let x = 0;
+
+function draw() {
+  background(220);
+  x += 2;         // Beweeg 2 pixels naar rechts per frame
+  if (x > width) {
+    x = 0;        // Begin opnieuw aan de linkerkant
+  }
+  circle(x, height / 2, 50);
+}</code></pre>
+</section>
+
+<section>
+    <h2>frameCount en millis()</h2>
+    <p><code>frameCount</code> telt het aantal frames. <code>millis()</code> geeft de verstreken tijd in milliseconden.</p>
+    <pre><code>function draw() {
+  // frameCount loopt oneindig op
+  let x = (frameCount * 2) % width;
+  circle(x, height / 2, 50);
+}
+
+// millis() is handig als framerate kan variëren
+function draw() {
+  let seconden = millis() / 1000;
+  let x = (seconden * 120) % width;  // 120 pixels per seconde
+  circle(x, height / 2, 50);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Sinus en Cosinus</h2>
+    <p><code>sin()</code> en <code>cos()</code> geven een waarde tussen -1 en 1 terug die vloeiend op en neer gaat. Ideaal voor organische beweging.</p>
+    <pre><code>let hoek = 0;
+
+function draw() {
+  background(220);
+
+  // sin/cos mappen op een bereik met map()
+  let x = width / 2 + cos(hoek) * 150;
+  let y = height / 2 + sin(hoek) * 100;
+
+  circle(x, y, 50);
+  hoek += 0.03;  // Langzamer = kleinere stap
+}</code></pre>
+
+    <h3>Lissajous-figuur</h3>
+    <p>Door twee verschillende frequenties te combineren, ontstaan mooie Lissajous-figuren:</p>
+    <pre><code>let hoek = 0;
+
+function draw() {
+  // Geen background() → spoor blijft zichtbaar
+  let x = width / 2 + cos(hoek * 3) * 150;
+  let y = height / 2 + sin(hoek * 2) * 150;
+  circle(x, y, 8);
+  hoek += 0.02;
+}</code></pre>
+</section>
+
+<section>
+    <h2>Easing: Vloeiende Beweging</h2>
+    <p>Easing laat een object vloeiend naar een doel bewegen, in plaats van abrupt teleporteren. Het idee: beweeg elke frame een fractie van de resterende afstand.</p>
+    <pre><code>let huidigeX = 0;
+let doelX = 0;
+
+function draw() {
+  background(220);
+
+  // Beweeg 10% dichter naar het doel toe
+  huidigeX += (doelX - huidigeX) * 0.1;
+
+  circle(huidigeX, height / 2, 50);
+}
+
+function mousePressed() {
+  doelX = mouseX;  // Nieuw doel instellen
+}</code></pre>
+</section>
+
+<section>
+    <h2>push() en pop() voor Transformaties</h2>
+    <p><code>push()</code> en <code>pop()</code> isoleren transformaties zodat ze andere objecten niet beïnvloeden:</p>
+    <pre><code>function draw() {
+  background(220);
+
+  // Roterende kubus links
+  push();
+    translate(150, 200);
+    rotate(frameCount * 0.02);
+    rect(-40, -40, 80, 80);
+  pop();  // Rotatie wordt hier gereset
+
+  // Dit blok wordt NIET meegedraaid
+  push();
+    translate(400, 200);
+    rotate(frameCount * -0.03);
+    rect(-40, -40, 80, 80);
+  pop();
+}</code></pre>
+</section>
+
+<section>
+    <h2>frameRate()</h2>
+    <p>Je kunt de framerate aanpassen:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  frameRate(30);  // 30 frames per seconde (standaard: 60)
+}
+
+function draw() {
+  // frameRate() geeft de actuele framerate terug:
+  text("FPS: " + round(frameRate()), 10, 20);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Lissajous en Easing</h3>
+    <p>Beweeg je muis — de cirkel volgt vloeiend met easing:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-animatie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf!</h2>
+    <p>Verander de frequenties van sin/cos voor andere Lissajous-patronen, of pas de easing-factor aan!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let hoek = 0;
+let huidigeX, huidigeY;
+
+function setup() {
+  createCanvas(600, 400);
+  huidigeX = width / 2;
+  huidigeY = height / 2;
+  background(20);
+}
+
+function draw() {
+  // Laat spoor vervagen
+  background(20, 20, 20, 20);
+
+  // Lissajous-figuur
+  let lx = width / 2 + cos(hoek * 3) * 180;
+  let ly = height / 2 + sin(hoek * 2) * 160;
+
+  // Easing: volg de Lissajous-positie
+  huidigeX += (lx - huidigeX) * 0.08;
+  huidigeY += (ly - huidigeY) * 0.08;
+
+  // Teken spoor
+  stroke(map(hoek % TWO_PI, 0, TWO_PI, 0, 255), 150, 255);
+  strokeWeight(3);
+  point(lx, ly);
+
+  // Volgende bal
+  noStroke();
+  fill(255, 200, 50);
+  circle(huidigeX, huidigeY, 18);
+
+  hoek += 0.02; // Probeer dit aan te passen!
+}
+        </script>
+    </div>
+</section>
