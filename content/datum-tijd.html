@@ -1,0 +1,176 @@
+<div class="intro">
+    <p>p5.js heeft ingebouwde functies om de huidige datum en tijd op te vragen. Daarmee kun je klokken bouwen, countdowns maken of je sketch aan het moment van de dag koppelen.</p>
+</div>
+
+<section>
+    <h2>Datum en tijd opvragen</h2>
+    <p>Zes functies geven je de huidige systeemtijd — ze worden elke keer opnieuw uitgevoerd als je ze aanroept:</p>
+    <pre><code>function draw() {
+  let j = year();    // bijv. 2026
+  let mo = month();  // 1 – 12
+  let d = day();     // 1 – 31
+
+  let u = hour();    // 0 – 23
+  let m = minute();  // 0 – 59
+  let s = second();  // 0 – 59
+}</code></pre>
+
+    <p>Combineer ze voor een digitale klok:</p>
+    <pre><code>function draw() {
+  background(20);
+  fill(255);
+  textSize(48);
+  textAlign(CENTER, CENTER);
+
+  // Voeg een nul toe als getal kleiner dan 10
+  let u = nf(hour(), 2);
+  let m = nf(minute(), 2);
+  let s = nf(second(), 2);
+
+  text(u + ":" + m + ":" + s, width / 2, height / 2);
+}</code></pre>
+
+    <p><code>nf(waarde, 2)</code> zorgt voor een vaste breedte van 2 cijfers — zodat <code>9</code> wordt weergegeven als <code>09</code>.</p>
+</section>
+
+<section>
+    <h2>Tijd omzetten naar een hoek</h2>
+    <p>Een analoge klok werkt door seconden, minuten en uren te vertalen naar hoeken. Gebruik <code>map()</code> om van een tijdbereik naar een hoekbereik te gaan.</p>
+
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+}
+
+function draw() {
+  background(20);
+  translate(width / 2, height / 2);
+
+  let u = hour() % 12;   // 0 – 11
+  let m = minute();       // 0 – 59
+  let s = second();       // 0 – 59
+
+  // -90 zodat 0 bovenaan staat (12 uur) in plaats van rechts
+  let sHoek = map(s, 0, 60, 0, 360) - 90;
+  let mHoek = map(m, 0, 60, 0, 360) - 90;
+  let hHoek = map(u + m / 60, 0, 12, 0, 360) - 90;
+
+  // Secundenwijzer
+  stroke(255, 60, 60);
+  line(0, 0, cos(sHoek) * 130, sin(sHoek) * 130);
+
+  // Minutenwijzer
+  stroke(200);
+  strokeWeight(3);
+  line(0, 0, cos(mHoek) * 100, sin(mHoek) * 100);
+
+  // Urenwijzer
+  stroke(255);
+  strokeWeight(5);
+  line(0, 0, cos(hHoek) * 65, sin(hHoek) * 65);
+}</code></pre>
+
+    <h3>Vloeiende secondenwijzer</h3>
+    <p><code>second()</code> springt elke seconde een stap. Voor een vloeiende beweging gebruik je <code>millis()</code>:</p>
+    <pre><code>// millis() geeft milliseconden → deel door 1000 voor seconden
+let secVloeiend = (millis() / 1000) % 60;
+let sHoek = map(secVloeiend, 0, 60, 0, 360) - 90;</code></pre>
+</section>
+
+<section>
+    <h2>John Maeda — 12 o'clocks (1996)</h2>
+    <p>In 1996 maakte de Amerikaanse ontwerper en programmeur <strong>John Maeda</strong> een reeks van twaalf kleine programma's — elk een andere manier om de tijd te tonen. Hij noemde ze <em>12 o'clocks</em>.</p>
+    <p>Geen van de twaalf lijkt op een gewone klok. Eén toont alleen stippen die verschuiven. Een andere laat concentrische cirkels pulseren op het ritme van de seconden. Weer een andere tekent lijnen die samen het uur uitdrukken als abstract patroon.</p>
+    <p>Maeda's stelling: <em>een klok is een interface voor tijd</em> — en een interface kan eindeloos opnieuw worden uitgevonden. De enige beperking is dat het systeem de huidige tijd correct moet weergeven. Hoe je dat doet, is volledig vrij.</p>
+    <p>12 o'clocks was een van de vroegste voorbeelden van code als ontwerpmedium. Maeda werkte destijds in Java; vandaag doe jij hetzelfde in p5.js.</p>
+</section>
+
+<section>
+    <h2>De uitdaging: maak jouw eigen klok</h2>
+    <p>Maak een sketch die de huidige tijd toont — maar doe het op een manier die nergens op lijkt wat je al eerder gezien hebt.</p>
+
+    <p>Wat mag je gebruiken:</p>
+    <ul>
+        <li>Vormen, lijnen, punten, curves</li>
+        <li>Kleur, transparantie, verloop</li>
+        <li>Beweging, rotatie, schaal</li>
+        <li>Rasters, grids, herhaling met <code>for</code></li>
+        <li>Willekeur via <code>random()</code> of <code>noise()</code></li>
+        <li>Tekst — al dan niet als cijfers</li>
+    </ul>
+
+    <p>Wat moet het doen:</p>
+    <ul>
+        <li>De huidige tijd correct weergeven (uren, minuten, seconden)</li>
+        <li>Leven in de loop — animatie is niet verplicht, maar het mag</li>
+        <li>Iets tonen wat je aan Maeda zou durven laten zien</li>
+    </ul>
+
+    <p>Enkele ideeën om los te komen van de standaardklok:</p>
+    <ul>
+        <li>Gebruik de tijd als frequentie voor <code>sin()</code> of <code>cos()</code></li>
+        <li>Laat het aantal seconden het aantal stippen of vormen bepalen</li>
+        <li>Gebruik kleur of transparantie om uren en minuten te coderen</li>
+        <li>Bouw een raster waarbij vakjes aan en uit gaan op basis van de tijd</li>
+        <li>Laat de achtergrondkleur langzaam verschuiven over de dag</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: analoge klok</h3>
+    <p>Een klok met vloeiende secondenwijzer en datumweergave:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-datum-tijd"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Bouw je eigen klok</h2>
+    <p>Gebruik deze startcode als basis. Vervang de wijzers door iets dat helemaal jij is.</p>
+
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+}
+
+function draw() {
+  background(20);
+  translate(width / 2, height / 2);
+
+  let u = hour() % 12;
+  let m = minute();
+  let s = second();
+
+  // Wijzerplaat
+  noFill();
+  stroke(80);
+  circle(0, 0, 300);
+
+  // Secundenwijzer — probeer dit aan te passen!
+  let sHoek = map(s, 0, 60, 0, 360) - 90;
+  stroke(255, 60, 60);
+  strokeWeight(1);
+  line(0, 0, cos(sHoek) * 130, sin(sHoek) * 130);
+
+  // Minutenwijzer
+  let mHoek = map(m, 0, 60, 0, 360) - 90;
+  stroke(180);
+  strokeWeight(3);
+  line(0, 0, cos(mHoek) * 100, sin(mHoek) * 100);
+
+  // Urenwijzer
+  let hHoek = map(u + m / 60, 0, 12, 0, 360) - 90;
+  stroke(255);
+  strokeWeight(5);
+  line(0, 0, cos(hHoek) * 65, sin(hHoek) * 65);
+
+  // Middelpunt
+  fill(255);
+  noStroke();
+  circle(0, 0, 10);
+}
+        </script>
+    </div>
+</section>

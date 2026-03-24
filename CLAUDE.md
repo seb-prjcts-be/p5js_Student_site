@@ -49,21 +49,23 @@ p5_cursus_site/
 │   ├── vormen.html
 │   ├── kleur.html
 │   ├── variabelen.html
+│   ├── berekeningen.html
 │   ├── if-statements.html
 │   ├── loops.html
 │   ├── functies.html
 │   ├── muis-interactie.html
 │   ├── toetsenbord.html
 │   ├── animatie.html
+│   ├── datum-tijd.html
 │   ├── arrays.html
 │   ├── 3d-basis.html
-│   ├── ai-ecologische-kost.html
 │   ├── afbeeldingen.html
 │   ├── text-typografie.html
 │   ├── geluid.html
 │   ├── p5js-2.0.html
 │   ├── strudel.html
 │   ├── vera-molnar.html
+│   ├── sol-lewitt.html
 │   ├── objecten.html
 │   ├── noise.html
 │   ├── random-walk.html
@@ -74,14 +76,22 @@ p5_cursus_site/
 │   ├── langtons-ant.html
 │   ├── 1d-automaten.html
 │   ├── boids.html
+│   ├── circle-packing.html
+│   ├── kleurenfamilie.html
 │   ├── quine.html
-│   └── turtle.html
+│   ├── turtle.html
+│   ├── ai-ecologische-kost.html
+│   ├── ai-tools.html
+│   ├── ai-modellen.html
+│   └── vibe-coding.html
 ├── examples/           ← p5.js sketch scripts (window.sketch_* pattern)
 │   ├── example-basis.js
 │   ├── example-generative.js
 │   ├── example-over-p5js.js
 │   ├── example-interactie.js
 │   ├── example-animatie.js
+│   ├── example-berekeningen.js
+│   ├── example-datum-tijd.js
 │   ├── example-arrays.js
 │   ├── example-functies.js
 │   ├── example-objecten.js
@@ -92,7 +102,9 @@ p5_cursus_site/
 │   ├── example-afbeeldingen.js
 │   ├── example-text-typografie.js
 │   ├── example-geluid.js
+│   ├── example-datum-tijd.js
 │   ├── example-vera-molnar.js
+│   ├── example-sol-lewitt.js
 │   ├── example-turtle.js
 │   ├── example-random-walk.js
 │   ├── example-lissajous.js
@@ -102,7 +114,13 @@ p5_cursus_site/
 │   ├── example-langtons-ant.js
 │   ├── example-1d-automaten.js
 │   ├── example-boids.js
+│   ├── example-circle-packing.js
+│   ├── example-kleurenfamilie.js
 │   └── example-quine.js
+├── assets/             ← Afbeeldingen per onderwerp
+│   ├── generative-design/   (generative-byob.jpg, generative-demo.jpg, generative-fractal.jpg, generative-lines.png)
+│   ├── inspiratie/          (vera-molnar-desordres.png, vera-molnar-hero.jpg, vera-molnar-interruptions.png)
+│   └── strudel/             (strudel-drums.png, strudel-sounds.png)
 ├── data/               ← Source PDFs (read-only reference material)
 │   ├── Lab44_EDU - p5.js_FULL_def_Update_25.pdf   (15 MB — full curriculum)
 │   └── p5js2_handleiding.pdf                       (190 KB — p5.js 2.0 guide)
@@ -140,7 +158,7 @@ Flow:
 
 Topics are grouped by `categorie`. Categories are defined in:
 ```javascript
-const navCategories = ["Generative design", "Processing", "p5.js", "Code concepten", "Strudel", "Inspiratie", "Artificiële intelligentie"];
+const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie"];
 ```
 
 Each group renders as a collapsible `<li class="nav-group">` in a click-to-toggle accordion. The active topic's group auto-opens; opening another group closes the others. The menu shows the category title and expand/collapse icon only; there is no per-group counter badge.
@@ -192,11 +210,11 @@ Code runs inside an `srcdoc` iframe that loads p5.js 2.2.1 from CDN. The iframe 
     samenvatting: "...",          // Used in search results
     tags: ["tag1", "tag2"],       // Used in search and tag relations
     contentFile: "content/mijn-onderwerp.html",
-    categorie: "p5.js"            // Must match a value in navCategories[]
+    categorie: "p5.js basis"      // Must match a value in navCategories[]
 }
 ```
 
-Valid `categorie` values: `"Generative design"`, `"Processing"`, `"p5.js"`, `"Code concepten"`, `"Strudel"`, `"Inspiratie"`, `"Artificiële intelligentie"`
+Valid `categorie` values: `"Introductie"`, `"p5.js basis"`, `"p5.js +"`, `"Code concepten"`, `"Strudel"`, `"Inspiratie"`, `"AI"`
 
 **Titelconventie:**
 - Gebruik sentence case voor `titel` en categorienamen in `main.js`
@@ -305,7 +323,7 @@ Add to the `onderwerpen` array in the correct position (order matters for nav di
     samenvatting: "Korte beschrijving voor zoekresultaten (1-2 zinnen).",
     tags: ["tag1", "tag2", "trefwoord"],
     contentFile: "content/mijn-onderwerp.html",
-    categorie: "p5.js"
+    categorie: "p5.js basis"
 }
 ```
 
@@ -515,23 +533,25 @@ Defined in `:root` in `style.css`. Use these for colors and spacing instead of h
 Current categories and their topics:
 
 ```
-Generative design
-  └── Generative design & geschiedenis   (generative-design)
+Introductie
+  ├── Generative design & geschiedenis   (generative-design)
+  └── Over p5.js                         (over-p5js)
 
-Processing
-  └── Processing                         (over-p5js)
-
-p5.js
+p5.js basis
   ├── setup() en draw()                  (setup-draw)
   ├── Vormen tekenen                     (vormen)
   ├── Kleur                              (kleur)
   ├── Variabelen                         (variabelen)
+  ├── Berekeningen                       (berekeningen)
   ├── If-statements                      (if-statements)
   ├── Loops                              (loops)
   ├── Functies                           (functies)
-  ├── Muis interactie                    (muis-interactie)
+  └── Muis interactie                    (muis-interactie)
+
+p5.js +
   ├── Toetsenbord input                  (toetsenbord)
   ├── Animatie                           (animatie)
+  ├── Datum en tijd                      (datum-tijd)
   ├── Arrays                             (arrays)
   ├── 3D basis                           (3d-basis)
   ├── Objecten & classes                 (objecten)
@@ -542,29 +562,35 @@ p5.js
   └── Moderne p5.js                      (p5js-2.0)
 
 Code concepten
-  ├── Turtle geometry                    (turtle)
-  ├── Random walk                        (random-walk)
-  ├── Lissajous-figuren                  (lissajous)
-  ├── Recursie                           (recursie)
-  ├── L-systemen                         (l-systems)
-  ├── Game of Life                       (game-of-life)
-  ├── Langton's Ant                      (langtons-ant)
   ├── 1D cellulaire automaten            (1d-automaten)
   ├── Boids                              (boids)
-  └── Quine                              (quine)
+  ├── Circle packing                     (circle-packing)
+  ├── Game of Life                       (game-of-life)
+  ├── Kleurenfamilie                     (kleurenfamilie)
+  ├── L-systemen                         (l-systems)
+  ├── Langton's Ant                      (langtons-ant)
+  ├── Lissajous-figuren                  (lissajous)
+  ├── Quine                              (quine)
+  ├── Random walk                        (random-walk)
+  ├── Recursie                           (recursie)
+  └── Turtle geometry                    (turtle)
 
 Strudel
   └── Strudel: live coding muziek        (strudel)
 
 Inspiratie
   ├── Vera Molnar                        (vera-molnar)
+  ├── Sol LeWitt — instructies als kunst (sol-lewitt)
   └── Links & bronnen                    (inspiratie-links)
 
-Artificiële intelligentie
-  └── AI & ecologische kost              (ai-ecologische-kost)
+AI
+  ├── AI & ecologische kost              (ai-ecologische-kost)
+  ├── AI-tools en playgrounds            (ai-tools)
+  ├── AI-modellen vergelijken            (ai-modellen)
+  └── Vibe coding                        (vibe-coding)
 ```
 
-To add a new category: add its name to `navCategories[]` in `main.js`.
+To add a new category: add its name to `navCategories[]` in `main.js`. Current order: `["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie", "AI"]`.
 
 ---
 
@@ -626,7 +652,7 @@ The site uses `fetch()` to load content files. This requires HTTP — opening `i
 - **Vera Molnar** — deepen with practical generative art exercises
 - **Strudel** — add more examples: polyrhythm, samples, effects
 
-All core p5.js topics are complete as of 2026-03-23.
+All core p5.js topics are complete as of 2026-03-24. New Inspiratie topics added: ai-tools, ai-modellen (2026-03-24).
 
 ---
 

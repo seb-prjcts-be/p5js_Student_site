@@ -49,6 +49,14 @@ const onderwerpen = [
         categorie: "p5.js basis"
     },
     {
+        id: "berekeningen",
+        titel: "Berekeningen",
+        samenvatting: "Leer rekenen in p5.js: de vier basisoperatoren, modulo %, samengestelde operatoren en handige functies zoals map(), constrain() en dist().",
+        tags: ["berekeningen", "operatoren", "modulo", "map", "constrain", "dist", "floor", "round", "abs", "%", "rekenen"],
+        contentFile: "content/berekeningen.html",
+        categorie: "p5.js basis"
+    },
+    {
         id: "if-statements",
         titel: "If-statements",
         samenvatting: "Maak beslissingen in je code met if-statements en voorwaarden.",
@@ -94,6 +102,14 @@ const onderwerpen = [
         samenvatting: "Maak animaties door waarden te veranderen in draw(). Leer over tijd, beweging en sinus/cosinus.",
         tags: ["animatie", "beweging", "tijd", "millis", "sin", "cos"],
         contentFile: "content/animatie.html",
+        categorie: "p5.js +"
+    },
+    {
+        id: "datum-tijd",
+        titel: "Datum en tijd",
+        samenvatting: "Vraag de huidige datum en tijd op met year(), month(), day(), hour(), minute() en second(). Bouw klokken en tijdgestuurde sketches, geïnspireerd op John Maeda's 12 o'clocks (1996).",
+        tags: ["datum", "tijd", "hour", "minute", "second", "year", "klok", "John Maeda", "12 o'clocks", "map", "angleMode"],
+        contentFile: "content/datum-tijd.html",
         categorie: "p5.js +"
     },
     {
@@ -177,62 +193,6 @@ const onderwerpen = [
         categorie: "Inspiratie"
     },
     {
-        id: "turtle",
-        titel: "Turtle geometry",
-        samenvatting: "Bestuur een denkbeeldige schildpad met forward, right en left en ontdek hoe korte regels kunnen uitgroeien tot patronen, spiralen en fractals.",
-        tags: ["turtle", "schildpad", "logo", "papert", "forward", "spiraal", "ster", "fractal", "code concepten"],
-        contentFile: "content/turtle.html",
-        categorie: "Code concepten"
-    },
-    {
-        id: "random-walk",
-        titel: "Random walk",
-        samenvatting: "Een punt zet stap voor stap willekeurige bewegingen. Simpel idee, verrassend rijke patronen: toeval wordt zichtbaar als spoor.",
-        tags: ["random walk", "toeval", "walker", "stappen", "pad", "simulatie", "code concepten"],
-        contentFile: "content/random-walk.html",
-        categorie: "Code concepten"
-    },
-    {
-        id: "lissajous",
-        titel: "Lissajous-figuren",
-        samenvatting: "Combineer twee sinusgolven tot vloeiende figuren en ontdek hoe verhoudingen, ritme en faseverschuiving zichtbaar worden in beeld.",
-        tags: ["lissajous", "sinus", "parametrisch", "wiskunde", "animatie", "golven", "code concepten"],
-        contentFile: "content/lissajous.html",
-        categorie: "Code concepten"
-    },
-    {
-        id: "recursie",
-        titel: "Recursie",
-        samenvatting: "Een functie die zichzelf opnieuw oproept. Ideaal om vertakkingen, fractals en herhaling op meerdere schalen te begrijpen.",
-        tags: ["recursie", "fractal", "boom", "zelfde patroon", "functie", "stopvoorwaarde", "code concepten"],
-        contentFile: "content/recursie.html",
-        categorie: "Code concepten"
-    },
-    {
-        id: "l-systems",
-        titel: "L-systemen",
-        samenvatting: "Genereer organische bomen en vertakkingen door simpele tekstregels telkens opnieuw te herschrijven: beeld als grammatica.",
-        tags: ["l-system", "lindenmayer", "fractal", "turtle", "string rewriting", "generative", "code concepten"],
-        contentFile: "content/l-systems.html",
-        categorie: "Code concepten"
-    },
-    {
-        id: "game-of-life",
-        titel: "Game of Life",
-        samenvatting: "Vier simpele regels voor levende en dode cellen leveren werelden op met ritme, groei, instorting en onverwachte orde.",
-        tags: ["game of life", "conway", "cellulair automaat", "simulatie", "emergentie", "code concepten"],
-        contentFile: "content/game-of-life.html",
-        categorie: "Code concepten"
-    },
-    {
-        id: "langtons-ant",
-        titel: "Langton's Ant",
-        samenvatting: "Een mier draait links of rechts afhankelijk van de tegel onder zich. Een minuscuul regelsysteem dat van orde naar chaos en weer terug kan gaan.",
-        tags: ["langton", "ant", "cellulair automaat", "emergentie", "chaos", "rooster", "code concepten"],
-        contentFile: "content/langtons-ant.html",
-        categorie: "Code concepten"
-    },
-    {
         id: "1d-automaten",
         titel: "1D cellulaire automaten",
         samenvatting: "Een rij cellen volgt een simpele buurregel en groeit uit tot textielachtige, ritmische of chaotische patronen, zoals Rule 30 en Rule 110.",
@@ -249,11 +209,83 @@ const onderwerpen = [
         categorie: "Code concepten"
     },
     {
+        id: "circle-packing",
+        titel: "Circle packing",
+        samenvatting: "Vul een canvas met zo veel mogelijk niet-overlappende cirkels die groeien tot ze elkaar of de rand raken.",
+        tags: ["circle packing", "cirkels", "overlapping", "dist", "groeien", "generative", "algoritme"],
+        contentFile: "content/circle-packing.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "game-of-life",
+        titel: "Game of Life",
+        samenvatting: "Vier simpele regels voor levende en dode cellen leveren werelden op met ritme, groei, instorting en onverwachte orde.",
+        tags: ["game of life", "conway", "cellulair automaat", "simulatie", "emergentie", "code concepten"],
+        contentFile: "content/game-of-life.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "kleurenfamilie",
+        titel: "Kleurenfamilie",
+        samenvatting: "Begrens willekeurige kleuren tot een klein venster per kanaal en maak zo een samenhangend kleurenpalet — zoals een textielontwerper een colorway kiest.",
+        tags: ["kleur", "RGB", "random", "bereik", "palet", "colorway", "raster", "harmonie"],
+        contentFile: "content/kleurenfamilie.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "l-systems",
+        titel: "L-systemen",
+        samenvatting: "Genereer organische bomen en vertakkingen door simpele tekstregels telkens opnieuw te herschrijven: beeld als grammatica.",
+        tags: ["l-system", "lindenmayer", "fractal", "turtle", "string rewriting", "generative", "code concepten"],
+        contentFile: "content/l-systems.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "langtons-ant",
+        titel: "Langton's Ant",
+        samenvatting: "Een mier draait links of rechts afhankelijk van de tegel onder zich. Een minuscuul regelsysteem dat van orde naar chaos en weer terug kan gaan.",
+        tags: ["langton", "ant", "cellulair automaat", "emergentie", "chaos", "rooster", "code concepten"],
+        contentFile: "content/langtons-ant.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "lissajous",
+        titel: "Lissajous-figuren",
+        samenvatting: "Combineer twee sinusgolven tot vloeiende figuren en ontdek hoe verhoudingen, ritme en faseverschuiving zichtbaar worden in beeld.",
+        tags: ["lissajous", "sinus", "parametrisch", "wiskunde", "animatie", "golven", "code concepten"],
+        contentFile: "content/lissajous.html",
+        categorie: "Code concepten"
+    },
+    {
         id: "quine",
         titel: "Quine",
         samenvatting: "Een programma dat zijn eigen broncode toont zonder bestanden te lezen. Zelfverwijzing als denkoefening in code.",
         tags: ["quine", "zelfverwijzing", "meta", "toString", "recursie", "code concepten"],
         contentFile: "content/quine.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "random-walk",
+        titel: "Random walk",
+        samenvatting: "Een punt zet stap voor stap willekeurige bewegingen. Simpel idee, verrassend rijke patronen: toeval wordt zichtbaar als spoor.",
+        tags: ["random walk", "toeval", "walker", "stappen", "pad", "simulatie", "code concepten"],
+        contentFile: "content/random-walk.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "recursie",
+        titel: "Recursie",
+        samenvatting: "Een functie die zichzelf opnieuw oproept. Ideaal om vertakkingen, fractals en herhaling op meerdere schalen te begrijpen.",
+        tags: ["recursie", "fractal", "boom", "zelfde patroon", "functie", "stopvoorwaarde", "code concepten"],
+        contentFile: "content/recursie.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "turtle",
+        titel: "Turtle geometry",
+        samenvatting: "Bestuur een denkbeeldige schildpad met forward, right en left en ontdek hoe korte regels kunnen uitgroeien tot patronen, spiralen en fractals.",
+        tags: ["turtle", "schildpad", "logo", "papert", "forward", "spiraal", "ster", "fractal", "code concepten"],
+        contentFile: "content/turtle.html",
         categorie: "Code concepten"
     },
     {
@@ -273,24 +305,40 @@ const onderwerpen = [
         categorie: "Inspiratie"
     },
     {
-        id: "circle-packing",
-        titel: "Circle packing",
-        samenvatting: "Vul een canvas met zo veel mogelijk niet-overlappende cirkels die groeien tot ze elkaar of de rand raken.",
-        tags: ["circle packing", "cirkels", "overlapping", "dist", "groeien", "generative", "algoritme"],
-        contentFile: "content/circle-packing.html",
-        categorie: "Code concepten"
-    },
-    {
         id: "ai-ecologische-kost",
         titel: "AI & ecologische kost",
         samenvatting: "Hoeveel energie kost AI eigenlijk? Vergelijk AI-gesprekken met koffie, Netflix en meer — en ontdek waarom het verhaal genuanceerder is dan je denkt.",
         tags: ["AI", "energie", "ecologie", "klimaat", "datacenter", "GPU", "duurzaamheid", "training", "koffie"],
         contentFile: "content/ai-ecologische-kost.html",
-        categorie: "Inspiratie"
+        categorie: "AI"
+    },
+    {
+        id: "ai-tools",
+        titel: "AI-tools en playgrounds",
+        samenvatting: "Van API's en playgrounds tot NotebookLM en Cursor — een overzicht van de meest nuttige AI-tools voor studenten en makers.",
+        tags: ["AI", "API", "tools", "playground", "NotebookLM", "Cursor", "Copilot", "programmeren", "ElevenLabs"],
+        contentFile: "content/ai-tools.html",
+        categorie: "AI"
+    },
+    {
+        id: "ai-modellen",
+        titel: "AI-modellen vergelijken",
+        samenvatting: "ChatGPT, Gemini, Claude, Copilot, Grok — welk model presteert het best voor creatieve en technische vragen? Met scoretabel en een blik op Europese alternatieven.",
+        tags: ["AI", "modellen", "ChatGPT", "Claude", "Gemini", "Copilot", "Grok", "Mistral", "vergelijking", "Le Chat"],
+        contentFile: "content/ai-modellen.html",
+        categorie: "AI"
+    },
+    {
+        id: "vibe-coding",
+        titel: "Vibe coding",
+        samenvatting: "Beschrijf wat je wilt maken en laat AI de code schrijven. Een inleiding tot vibe coding: wat het is, welke tools je gebruikt en waar je op moet letten.",
+        tags: ["vibe coding", "AI", "Cursor", "Copilot", "Replit", "Windsurf", "Karpathy", "programmeren", "tools"],
+        contentFile: "content/vibe-coding.html",
+        categorie: "AI"
     }
 ];
 
-const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie"];
+const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie", "AI"];
 
 const MAX_IN_PAGE_RELATIONS = 5;
 const MAX_RELATED_TAGS = 6;

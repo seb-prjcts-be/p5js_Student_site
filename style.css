@@ -45,7 +45,7 @@ body {
 }
 
 /* Leestekst: Alegreya voor lopende tekst */
-p, a, li, label, .intro, .welcome p {
+p, a, li, label, td, th, .intro, .welcome p {
     font-family: var(--font-body);
 }
 

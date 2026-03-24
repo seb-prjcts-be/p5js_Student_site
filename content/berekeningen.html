@@ -1,0 +1,158 @@
+<div class="intro">
+    <p>p5.js is een rekenmachine die tekent. Bijna alles wat je ziet — posities, maten, kleuren, beweging — is het resultaat van berekeningen. Hoe je die berekeningen schrijft, bepaalt wat er op het scherm verschijnt.</p>
+</div>
+
+<section>
+    <h2>De vier basisoperatoren</h2>
+    <pre><code>let a = 10 + 3;   // 13  optellen
+let b = 10 - 3;   // 7   aftrekken
+let c = 10 * 3;   // 30  vermenigvuldigen
+let d = 10 / 4;   // 2.5 delen</code></pre>
+
+    <p>Volgorde van bewerkingen werkt zoals in wiskunde: vermenigvuldigen en delen vóór optellen en aftrekken. Gebruik haakjes om de volgorde te sturen:</p>
+    <pre><code>let x = 2 + 3 * 4;    // 14  (niet 20)
+let y = (2 + 3) * 4;  // 20</code></pre>
+</section>
+
+<section>
+    <h2>Samengestelde operatoren</h2>
+    <p>Verkorte schrijfwijzen voor veelgebruikte bewerkingen:</p>
+    <pre><code>let x = 10;
+
+x += 5;   // x = x + 5  → 15
+x -= 3;   // x = x - 3  → 12
+x *= 2;   // x = x * 2  → 24
+x /= 4;   // x = x / 4  → 6
+
+x++;      // x = x + 1  → 7  (één ophogen)
+x--;      // x = x - 1  → 6  (één verlagen)</code></pre>
+
+    <p>In p5.js zie je <code>x += snelheid</code> en <code>hoek += 0.02</code> overal terug — het is de standaardmanier om iets te laten bewegen of draaien.</p>
+</section>
+
+<section>
+    <h2>De modulo-operator: %</h2>
+    <p><code>%</code> geeft de <strong>rest na deling</strong> terug. Denk aan klokrekenen: na 59 seconden kom je terug bij 0.</p>
+    <pre><code>7 % 3   // → 1  (7 ÷ 3 = 2, rest 1)
+10 % 5  // → 0  (10 ÷ 5 = 2, rest 0)
+4 % 2   // → 0  (even: rest is altijd 0)
+5 % 2   // → 1  (oneven: rest is altijd 1)</code></pre>
+
+    <p>Gebruik <code>%</code> om een waarde te laten <strong>omslaan</strong> zodra die een grens bereikt:</p>
+    <pre><code>let x = 0;
+
+function draw() {
+  x += 3;
+  circle(x % width, height / 2, 40);  // slaat vanzelf om aan de rand
+}</code></pre>
+
+    <p>Of om iets te doen op een vast ritme:</p>
+    <pre><code>function draw() {
+  // Elke 60 frames (≈ elke seconde bij 60fps)
+  if (frameCount % 60 === 0) {
+    background(random(255));
+  }
+
+  // Wisselend per frame: even of oneven
+  if (frameCount % 2 === 0) {
+    fill(255, 0, 0);
+  } else {
+    fill(0, 0, 255);
+  }
+}</code></pre>
+
+    <p>En in loops om rijen en kolommen te berekenen:</p>
+    <pre><code>for (let i = 0; i < 12; i++) {
+  let kolom = i % 4;       // 0, 1, 2, 3, 0, 1, 2, 3, ...
+  let rij   = floor(i / 4); // 0, 0, 0, 0, 1, 1, 1, 1, ...
+  circle(kolom * 100 + 50, rij * 100 + 50, 60);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Rekenfuncties in p5.js</h2>
+    <p>p5.js heeft een reeks ingebouwde functies die je veel schrijfwerk besparen.</p>
+
+    <h3>Afronden</h3>
+    <pre><code>round(3.7)   // → 4   (dichtstbijzijnde geheel)
+floor(3.9)   // → 3   (altijd naar beneden)
+ceil(3.1)    // → 4   (altijd naar boven)
+abs(-5)      // → 5   (absolute waarde, altijd positief)</code></pre>
+
+    <h3>Minimum en maximum</h3>
+    <pre><code>min(3, 7, 1)    // → 1  (kleinste waarde)
+max(3, 7, 1)    // → 7  (grootste waarde)</code></pre>
+
+    <h3>constrain() — houd een waarde binnen grenzen</h3>
+    <p>Handig om te voorkomen dat iets buiten het scherm gaat:</p>
+    <pre><code>let x = constrain(mouseX, 50, width - 50);
+// x is nooit kleiner dan 50, nooit groter dan width - 50</code></pre>
+
+    <h3>map() — schaal een bereik naar een ander bereik</h3>
+    <p><code>map()</code> is een van de meest gebruikte functies in p5.js. Je geeft aan waar een waarde vandaan komt en waar die naartoe moet:</p>
+    <pre><code>// mouseX loopt van 0 tot width → maak er een kleurwaarde van (0–255)
+let rood = map(mouseX, 0, width, 0, 255);
+fill(rood, 0, 150);
+
+// frameCount naar een hoek (0 – TWO_PI)
+let hoek = map(frameCount % 120, 0, 120, 0, TWO_PI);</code></pre>
+
+    <h3>dist() — afstand tussen twee punten</h3>
+    <pre><code>// Afstand van de muis tot het midden
+let d = dist(mouseX, mouseY, width / 2, height / 2);
+
+// Groter als de muis verder weg is
+let grootte = map(d, 0, 300, 10, 80);
+circle(width / 2, height / 2, grootte);</code></pre>
+
+    <h3>sqrt() en sq()</h3>
+    <pre><code>sqrt(16)   // → 4   (vierkantswortel)
+sq(4)      // → 16  (kwadraat, zelfde als 4 * 4)</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: map() en dist()</h3>
+    <p>Beweeg je muis — elke cirkel reageert op de afstand tot de muiscursor:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-berekeningen"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer zelf</h2>
+    <p>Pas de <code>map()</code>-grenzen aan en kijk hoe de kleuren en maten veranderen:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+}
+
+function draw() {
+  background(20);
+
+  let rasterBreedte = 8;
+  let stapX = width / rasterBreedte;
+  let stapY = height / rasterBreedte;
+
+  for (let kolom = 0; kolom < rasterBreedte; kolom++) {
+    for (let rij = 0; rij < rasterBreedte; rij++) {
+      let x = kolom * stapX + stapX / 2;
+      let y = rij * stapY + stapY / 2;
+
+      // Afstand van dit punt tot de muis
+      let d = dist(mouseX, mouseY, x, y);
+
+      // map(): afstand → grootte en kleur — probeer de getallen aan te passen!
+      let grootte = map(d, 0, 300, 60, 5);
+      let helderheid = map(d, 0, 300, 255, 40);
+
+      fill(helderheid, 80, 180);
+      circle(x, y, grootte);
+    }
+  }
+}
+        </script>
+    </div>
+</section>

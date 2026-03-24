@@ -1,0 +1,150 @@
+<div class="intro">
+    <p>Stel je voor: je gaat schilderen en je kiest één verfpot als startpunt. Daarna mag je alleen kleuren gebruiken die er dicht bij liggen. Zo krijg je een samenhangend schilderij — geen wilde chaos. Dat doet deze code ook, maar dan digitaal.</p>
+</div>
+
+<section>
+    <h2>Hoe werkt kleur in p5.js?</h2>
+    <p>Elke kleur bestaat uit drie getallen tussen 0 en 255:</p>
+    <ul>
+        <li><strong>R</strong> — hoeveel rood</li>
+        <li><strong>G</strong> — hoeveel groen</li>
+        <li><strong>B</strong> — hoeveel blauw</li>
+    </ul>
+    <pre><code>fill(255, 0, 0)     // puur rood
+fill(200, 180, 190) // zacht roze-achtig</code></pre>
+    <p>Als je alle drie de kanalen volledig willekeurig kiest, krijg je kleurchaos. De truc is om de willekeur te <em>beperken</em> tot een klein venster per kanaal.</p>
+</section>
+
+<section>
+    <h2>De truc in drie stappen</h2>
+
+    <h3>Stap 1 — kies een startpunt per kleurkanaal</h3>
+    <pre><code>let startR = floor(random(0, 155));
+let startG = floor(random(0, 155));
+let startB = floor(random(0, 155));</code></pre>
+    <p>Waarom tot 155 en niet 255? Omdat we straks nog 100 optellen. 155 + 100 = 255 — zo blijven we altijd binnen het bereik.</p>
+
+    <h3>Stap 2 — bepaal het bereik</h3>
+    <pre><code>// Het bereik loopt van startR tot startR + 100
+// Voorbeeld: startR = 80 → rood varieert tussen 80 en 180</code></pre>
+
+    <h3>Stap 3 — kleur elk vakje willekeurig, maar binnen het bereik</h3>
+    <pre><code>fill(
+  random(startR, startR + 100),
+  random(startG, startG + 100),
+  random(startB, startB + 100)
+);</code></pre>
+    <p>Elk vakje krijgt een andere kleur — maar nooit té anders. Ze zitten allemaal in dezelfde <em>buurt</em>.</p>
+</section>
+
+<section>
+    <h2>Waarom is dit slim?</h2>
+    <p>Vergelijk de twee aanpakken:</p>
+
+    <pre><code>// Zonder beperking — kleurchaos
+fill(random(255), random(255), random(255));
+
+// Met beperking — kleurenfamilie
+fill(
+  random(startR, startR + 100),
+  random(startG, startG + 100),
+  random(startB, startB + 100)
+);</code></pre>
+
+    <p>Met de beperking zitten alle kleuren in dezelfde toonbuurt. Dat is precies wat textielontwerpers doen: ze kiezen een palet van tonen die dicht bij elkaar liggen, zodat elk draadje iets anders is maar het weefsel toch harmonieus oogt. In de mode-industrie heet dat een <strong>colorway</strong>.</p>
+</section>
+
+<section>
+    <h2>Een raster tekenen met een kleurenfamilie</h2>
+    <p>De dubbele for-lus tekent het raster: rij per rij, kolom per kolom. Elke cel krijgt een eigen kleur, maar altijd uit dezelfde familie:</p>
+
+    <pre><code>let startR, startG, startB;
+let celBreedte = 60;
+let celHoogte = 60;
+
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+  nieuweKleurenfamilie();
+}
+
+function nieuweKleurenfamilie() {
+  startR = floor(random(0, 155));
+  startG = floor(random(0, 155));
+  startB = floor(random(0, 155));
+}
+
+function draw() {
+  for (let y = 0; y < height; y += celHoogte) {
+    for (let x = 0; x < width; x += celBreedte) {
+      fill(
+        random(startR, startR + 100),
+        random(startG, startG + 100),
+        random(startB, startB + 100)
+      );
+      rect(x, y, celBreedte, celHoogte);
+    }
+  }
+  noLoop(); // eén keer tekenen is genoeg
+}
+
+function mousePressed() {
+  nieuweKleurenfamilie();
+  loop(); // opnieuw tekenen
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Interactief voorbeeld</h3>
+    <p>Klik om een nieuwe kleurenfamilie te genereren.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-kleurenfamilie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer zelf</h2>
+    <p>Pas het bereik aan van 100 naar een kleinere of grotere waarde. Wat gebeurt er als je 20 gebruikt? En als je 250 gebruikt?</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Kleurenfamilie — klik voor een nieuwe familie
+// Probeer het bereik (nu 100) aan te passen!
+
+let startR, startG, startB;
+let bereik = 100; // Probeer dit aan te passen!
+let celGrootte = 50;
+
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+  nieuweKleurenfamilie();
+  noLoop();
+}
+
+function nieuweKleurenfamilie() {
+  startR = floor(random(0, 255 - bereik));
+  startG = floor(random(0, 255 - bereik));
+  startB = floor(random(0, 255 - bereik));
+}
+
+function draw() {
+  for (let y = 0; y < height; y += celGrootte) {
+    for (let x = 0; x < width; x += celGrootte) {
+      fill(
+        random(startR, startR + bereik),
+        random(startG, startG + bereik),
+        random(startB, startB + bereik)
+      );
+      rect(x, y, celGrootte, celGrootte);
+    }
+  }
+}
+
+function mousePressed() {
+  nieuweKleurenfamilie();
+  redraw();
+}
+        </script>
+    </div>
+</section>
