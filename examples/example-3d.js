@@ -27,7 +27,7 @@ window.sketch_example_3d = function (p) {
         p.translate(-150, 0, 0);
         p.rotateX(p.frameCount * 0.012);
         p.rotateY(p.frameCount * 0.018);
-        p.specularMaterial(80, 140, 255);
+        p.specularMaterial(0, 0, 255);
         p.shininess(40);
         p.noStroke();
         p.box(90);
@@ -36,7 +36,7 @@ window.sketch_example_3d = function (p) {
         // Bol midden
         p.push();
         p.translate(20, -20, 0);
-        p.specularMaterial(255, 110, 70);
+        p.specularMaterial(255, 0, 0);
         p.shininess(80);
         p.noStroke();
         p.sphere(60, 32, 32);

@@ -10,7 +10,7 @@
 }
 
 function draw() {
-  background(220);
+  background(245);
   box(100);  // Standaard kubus in het midden
 }</code></pre>
     <p>In WEBGL-mode staat het middelpunt van het canvas op coördinaat (0, 0, 0). Gebruik <code>translate()</code> om objecten te verplaatsen.</p>
@@ -54,7 +54,7 @@ function draw() {
     <h2>Transformaties in 3D</h2>
     <p>Naast <code>translate()</code> en <code>scale()</code> heb je drie rotatierichtingen:</p>
     <pre><code>function draw() {
-  background(220);
+  background(245);
 
   rotateX(frameCount * 0.01);  // Kantelt voor/achter
   rotateY(frameCount * 0.02);  // Draait links/rechts
@@ -64,7 +64,7 @@ function draw() {
 }</code></pre>
     <p>Gebruik altijd <code>push()</code> / <code>pop()</code> om transformaties te isoleren:</p>
     <pre><code>function draw() {
-  background(220);
+  background(245);
 
   push();
     translate(-120, 0, 0);

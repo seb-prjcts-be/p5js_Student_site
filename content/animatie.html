@@ -8,7 +8,7 @@
     <pre><code>let x = 0;
 
 function draw() {
-  background(220);
+  background(245);
   x += 2;         // Beweeg 2 pixels naar rechts per frame
   if (x > width) {
     x = 0;        // Begin opnieuw aan de linkerkant
@@ -40,7 +40,7 @@ function draw() {
     <pre><code>let hoek = 0;
 
 function draw() {
-  background(220);
+  background(245);
 
   // sin/cos mappen op een bereik met map()
   let x = width / 2 + cos(hoek) * 150;
@@ -70,7 +70,7 @@ function draw() {
 let doelX = 0;
 
 function draw() {
-  background(220);
+  background(245);
 
   // Beweeg 10% dichter naar het doel toe
   huidigeX += (doelX - huidigeX) * 0.1;
@@ -87,7 +87,7 @@ function mousePressed() {
     <h2>push() en pop() voor Transformaties</h2>
     <p><code>push()</code> en <code>pop()</code> isoleren transformaties zodat ze andere objecten niet beïnvloeden:</p>
     <pre><code>function draw() {
-  background(220);
+  background(245);
 
   // Roterende kubus links
   push();
@@ -179,7 +179,7 @@ function draw() {
 
   // Volgende bal
   noStroke();
-  fill(255, 200, 50);
+  fill(255, 255, 0);
   circle(huidigeX, huidigeY, 18);
 
   hoek += 0.02; // Probeer dit aan te passen!

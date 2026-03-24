@@ -6,9 +6,9 @@ window.sketch_example_functies = function (p) {
         p.createCanvas(600, 400);
         p.noStroke();
         // Zet een paar startbloemen
-        bloemen.push({ x: 150, y: 200, grootte: 70, tint: [255, 150, 180] });
-        bloemen.push({ x: 350, y: 150, grootte: 90, tint: [200, 100, 255] });
-        bloemen.push({ x: 500, y: 280, grootte: 55, tint: [255, 220,  80] });
+        bloemen.push({ x: 150, y: 200, grootte: 70, tint: [255, 0, 125] });
+        bloemen.push({ x: 350, y: 150, grootte: 90, tint: [125, 0, 125] });
+        bloemen.push({ x: 500, y: 280, grootte: 55, tint: [255, 255,  0] });
     };
 
     p.draw = function () {
@@ -47,7 +47,7 @@ window.sketch_example_functies = function (p) {
             p.ellipse(grootte * 0.55, 0, grootte, grootte * 0.45);
             p.pop();
         }
-        p.fill(255, 220, 60);
+        p.fill(255, 255, 0);
         p.circle(x, y, grootte * 0.4);
     }
 };

@@ -48,7 +48,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(245);
 
   for (let bal of ballen) {
     bal.update();
@@ -128,7 +128,7 @@ function draw() {
   }
 
   teken(geraakt) {
-    fill(geraakt ? 255 : 100, 150, 255);
+    fill(geraakt ? 255 : 0, 0, 255);
     circle(this.x, this.y, this.d);
   }
 }
@@ -142,7 +142,7 @@ function setup() {
 }
 
 function draw() {
-  background(220);
+  background(245);
   b.x = mouseX;
   b.y = mouseY;
 

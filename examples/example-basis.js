@@ -15,9 +15,9 @@ window.sketch_example_basis = function(p) {
         
         // Verander kleur op basis van muispositie
         if (p.mouseX > p.width / 2) {
-            kleur = p.color(255, 100, 100); // Rood
+            kleur = p.color(255, 0, 0); // Rood
         } else {
-            kleur = p.color(100, 100, 255); // Blauw
+            kleur = p.color(0, 0, 255); // Blauw
         }
         
         p.fill(kleur);
@@ -27,7 +27,7 @@ window.sketch_example_basis = function(p) {
         p.ellipse(x, y, diameter, diameter);
         
         // Teken meerdere kleine cirkels in een loop
-        p.fill(200, 200, 0);
+        p.fill(255, 255, 0);
         for (let i = 0; i < 5; i++) {
             let offsetX = p.cos(p.frameCount * 0.05 + i) * 80;
             let offsetY = p.sin(p.frameCount * 0.05 + i) * 80;

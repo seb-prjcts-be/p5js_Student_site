@@ -21,7 +21,7 @@
 async function setup() {
   geluid = await loadSound('mijn-geluid.mp3');
   createCanvas(400, 300);
-  background(220);
+  background(245);
 }
 
 function mousePressed() {
@@ -85,7 +85,7 @@ function draw() {
 
   // Teken een cirkel die groter wordt naarmate het harder is
   let diameter = map(volume, 0, 1, 10, 400);
-  fill(100, 200, 255);
+  fill(0, 0, 255);
   noStroke();
   circle(width / 2, height / 2, diameter);
 
@@ -124,7 +124,7 @@ function draw() {
   let spectrum = fft.analyze();
 
   noStroke();
-  fill(100, 200, 255);
+  fill(0, 0, 255);
 
   // Teken een staafdiagram van het frequentiespectrum
   for (let i = 0; i < spectrum.length; i++) {
@@ -169,7 +169,7 @@ function draw() {
   let volume = analyzer.getLevel();
   let diameter = map(volume, 0, 1, 10, min(width, height) - 20);
 
-  fill(255, 100, 50);
+  fill(255, 0, 0);
   noStroke();
   circle(width / 2, height / 2, diameter);
 
@@ -189,7 +189,7 @@ let aanGezet = false;
 
 function setup() {
   createCanvas(400, 300);
-  background(220);
+  background(245);
 
   osc = new p5.Oscillator('sine'); // 'sine', 'triangle', 'square', 'sawtooth'
   osc.amp(0.5);    // volume 50%

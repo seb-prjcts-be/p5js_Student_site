@@ -23,7 +23,7 @@ function draw() {
     <pre><code>let t = 0;
 
 function draw() {
-  background(220);
+  background(245);
 
   let x = noise(t) * width;
   let y = noise(t + 100) * height;  // Ander startpunt = andere beweging
@@ -44,7 +44,7 @@ function draw() {
   let diameter = map(noise(t), 0, 1, 20, 200);
   // of: let diameter = noise(t) * 200;
 
-  background(220);
+  background(245);
   circle(width/2, height/2, diameter);
   t += 0.02;
 }</code></pre>
@@ -106,7 +106,7 @@ function draw() {
   background(30, 20);
 
   noStroke();
-  fill(100, 200, 255, 180);
+  fill(0, 0, 255, 180);
 
   for (let off of offsets) {
     let x = noise(off.x) * width;

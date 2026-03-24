@@ -291,6 +291,7 @@ const onderwerpen = [
 ];
 
 const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie"];
+
 const MAX_IN_PAGE_RELATIONS = 5;
 const MAX_RELATED_TAGS = 6;
 const MAX_RELATED_TOPICS = 5;
@@ -1039,4 +1040,135 @@ document.addEventListener('DOMContentLoaded', () => {
     initRouter();
     initSearch();
     initFontSize();
+    initBalls();
 });
+
+// Achtergrond ballen — vallen, stuiteren en wijken voor de muis
+function initBalls() {
+    const kleuren = [
+        '#00ff00', '#00ff00', '#00ff00', '#00ff00', // groen — Lab44
+        '#ff0000', '#ff0000',                        // rood
+        '#0000ff', '#0000ff',                        // blauw
+        '#7d007d',                                   // paars
+        '#ff007d',                                   // roze
+        '#ffff00',                                   // geel
+    ];
+
+    new p5(function(p) {
+        const AANTAL = 16;
+        const ZWAARTEKRACHT = 0.35;
+        const STUIT = 0.72;
+        const MUIS_STRAAL = 120;
+        const MUIS_KRACHT = 6;
+        let ballen = [];
+
+        p.setup = function() {
+            let cnv = p.createCanvas(p.windowWidth, p.windowHeight);
+            cnv.parent('balls-canvas');
+            p.noStroke();
+
+            for (let i = 0; i < AANTAL; i++) {
+                ballen.push({
+                    x:  p.random(p.width),
+                    y:  p.random(-p.height, -20),
+                    r:  p.random(18, 48),
+                    vx: p.random(-2, 2),
+                    vy: p.random(0, 2),
+                    kleur: p.random(kleuren)
+                });
+            }
+        };
+
+        p.draw = function() {
+            p.clear();
+
+            for (let b of ballen) {
+                // Zwaartekracht
+                b.vy += ZWAARTEKRACHT;
+
+                // Muisafstoting
+                let dx = b.x - p.mouseX;
+                let dy = b.y - p.mouseY;
+                let afstand = p.sqrt(dx * dx + dy * dy);
+                if (afstand < MUIS_STRAAL && afstand > 0) {
+                    let kracht = (MUIS_STRAAL - afstand) / MUIS_STRAAL * MUIS_KRACHT;
+                    b.vx += (dx / afstand) * kracht;
+                    b.vy += (dy / afstand) * kracht;
+                }
+
+                b.x += b.vx;
+                b.y += b.vy;
+
+                // Bodem — stuiteren
+                if (b.y + b.r > p.height) {
+                    b.y = p.height - b.r;
+                    b.vy *= -STUIT;
+                    b.vx *= 0.98;
+                }
+
+                // Buiten beeld — verwijderen
+                if (b.x + b.r < 0 || b.x - b.r > p.width || b.y - b.r > p.height) {
+                    b.weg = true;
+                }
+            }
+
+            // Verdwenen ballen verwijderen
+            ballen = ballen.filter(b => !b.weg);
+
+            // Botsingen tussen ballen
+            for (let i = 0; i < ballen.length; i++) {
+                for (let j = i + 1; j < ballen.length; j++) {
+                    botsBallen(ballen[i], ballen[j]);
+                }
+            }
+
+            // Tekenen
+            for (let b of ballen) {
+                p.fill(b.kleur);
+                p.circle(b.x, b.y, b.r * 2);
+            }
+        };
+
+        function botsBallen(a, b) {
+            let dx = b.x - a.x;
+            let dy = b.y - a.y;
+            let dist = p.sqrt(dx * dx + dy * dy);
+            let minDist = a.r + b.r;
+
+            if (dist === 0 || dist >= minDist) return;
+
+            // Normaalvector
+            let nx = dx / dist;
+            let ny = dy / dist;
+
+            // Duw ballen uit elkaar zodat ze niet overlappen
+            let overlap = (minDist - dist) / 2;
+            a.x -= nx * overlap;
+            a.y -= ny * overlap;
+            b.x += nx * overlap;
+            b.y += ny * overlap;
+
+            // Snelheidsverschil langs de normaal
+            let dvx = a.vx - b.vx;
+            let dvy = a.vy - b.vy;
+            let dot = dvx * nx + dvy * ny;
+
+            // Alleen botsen als ze naar elkaar toe bewegen
+            if (dot <= 0) return;
+
+            // Massa evenredig aan oppervlak (r²)
+            let ma = a.r * a.r;
+            let mb = b.r * b.r;
+            let impuls = (2 * dot) / (ma + mb);
+
+            a.vx -= impuls * mb * nx;
+            a.vy -= impuls * mb * ny;
+            b.vx += impuls * ma * nx;
+            b.vy += impuls * ma * ny;
+        }
+
+        p.windowResized = function() {
+            p.resizeCanvas(p.windowWidth, p.windowHeight);
+        };
+    });
+}

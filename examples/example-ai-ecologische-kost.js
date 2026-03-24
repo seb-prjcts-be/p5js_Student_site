@@ -60,7 +60,7 @@ window.sketch_example_ai_ecologische_kost = function(p) {
             // Waarde rechts van balk
             let waardeX = labelBreedte + animProgress[i] + 6;
             if (muisErover) {
-                p.fill(255, 220, 80);
+                p.fill(255, 255, 0);
                 p.textAlign(p.LEFT, p.CENTER);
                 p.textSize(13);
                 p.text(act.wh + ' Wh', waardeX, y + rijHoogte / 2);

@@ -48,7 +48,7 @@ window.sketch_example_geluid = function(p) {
         // Centrale puls
         let pulsGrootte = 20 + p.sin(p.frameCount * 0.1) * 15;
         p.noStroke();
-        p.fill(255, 220, 80, 180);
+        p.fill(255, 255, 0, 180);
         p.circle(p.width / 2, p.height / 2, pulsGrootte * 2);
 
         // Labels

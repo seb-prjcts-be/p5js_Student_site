@@ -68,7 +68,7 @@ function setup() {
 
     <h3>Pointer variabelen</h3>
     <pre><code>function draw() {
-  background(220);
+  background(245);
 
   fill(255, 120, 0);
   circle(pointerX, pointerY, 60);
@@ -98,15 +98,14 @@ function pointerMoved() {
     <h2>Curves en shapes</h2>
     <p>Curves zijn niet nieuw als idee, maar ze passen goed in een moderne p5.js-workflow waarin je snelle schetsen combineert met vloeiende vormen en interactieve input.</p>
 
-    <h3>Catmull-Rom met <code>curveVertex()</code></h3>
+    <h3>Catmull-Rom met <code>splineVertex()</code></h3>
+    <p>In p5.js 2.x gebruik je <code>splineVertex()</code> in plaats van <code>curveVertex()</code>. Je hoeft het eerste en laatste punt niet meer te herhalen — de curve loopt gewoon door alle punten:</p>
     <pre><code>beginShape();
-curveVertex(80, 260);
-curveVertex(80, 260);
-curveVertex(180, 120);
-curveVertex(320, 300);
-curveVertex(460, 140);
-curveVertex(540, 250);
-curveVertex(540, 250);
+splineVertex(80, 260);
+splineVertex(180, 120);
+splineVertex(320, 300);
+splineVertex(460, 140);
+splineVertex(540, 250);
 endShape();</code></pre>
 
     <h3>Bézier en quadratische curves</h3>
@@ -201,24 +200,22 @@ function setup() {
 function draw() {
   background(28);
 
-  stroke(100, 210, 255);
+  stroke(0, 0, 255);
   noFill();
   beginShape();
-  curveVertex(punten[0].x, punten[0].y);
   for (let punt of punten) {
-    curveVertex(punt.x, punt.y);
+    splineVertex(punt.x, punt.y);
   }
-  curveVertex(punten[punten.length - 1].x, punten[punten.length - 1].y);
   endShape();
 
-  fill(255, 150, 0);
+  fill(255, 255, 0);
   noStroke();
   for (let punt of punten) {
     circle(punt.x, punt.y, 14);
   }
 
   if (pointerIsDown) {
-    fill(120, 255, 180, 180);
+    fill(0, 255, 0, 180);
     circle(pointerX, pointerY, 20);
   }
 

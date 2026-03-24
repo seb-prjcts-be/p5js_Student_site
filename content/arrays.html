@@ -44,7 +44,7 @@ console.log(ballen);  // [120, 340, 55, ...]</code></pre>
     <pre><code>let posities = [50, 150, 250, 350, 450];
 
 function draw() {
-  background(220);
+  background(245);
   for (let i = 0; i < posities.length; i++) {
     circle(posities[i], height / 2, 40);
   }
@@ -61,8 +61,8 @@ function draw() {
     <p>Arrays kunnen ook objecten bevatten. Zo sla je meerdere eigenschappen per item op:</p>
     <pre><code>let ballen = [
   { x: 100, y: 200, grootte: 40, kleur: [255, 0, 0] },
-  { x: 300, y: 150, grootte: 60, kleur: [0, 150, 255] },
-  { x: 450, y: 300, grootte: 30, kleur: [0, 200, 100] }
+  { x: 300, y: 150, grootte: 60, kleur: [0, 0, 255] },
+  { x: 450, y: 300, grootte: 30, kleur: [0, 255, 0] }
 ];
 
 function draw() {
@@ -92,7 +92,7 @@ function mousePressed() {
 }
 
 function draw() {
-  background(220);
+  background(245);
 
   for (let bal of ballen) {
     bal.x += bal.vx;

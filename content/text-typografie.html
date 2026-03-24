@@ -178,16 +178,49 @@ function draw() {
   text('Custom lettertype!', 50, 200);
 }</code></pre>
 
-    <h3>Google Fonts gebruiken</h3>
-    <p>Je kunt ook fonts rechtstreeks laden via een URL (alleen als de server CORS ondersteunt):</p>
-    <pre><code>async function setup() {
-  // Let op: niet alle externe URLs werken vanwege CORS
-  mijnFont = await loadFont('https://fonts.gstatic.com/s/oswald/v53/TK3iWkUHHAIjg752FD8Gl-1PKw.woff2');
+    <p><strong>Tip:</strong> Download het font bestand en sla het op in je projectmap — dat is het meest betrouwbaar.</p>
+</section>
+
+<section>
+    <h2>Google Fonts via index.html</h2>
+    <p>De makkelijkste manier om een Google Font te gebruiken is het importeren via <code>index.html</code>. Zo laadt de browser het font automatisch bij het openen van de pagina.</p>
+
+    <h3>Stap 1 — kies een font op Google Fonts</h3>
+    <p>Ga naar <a href="https://fonts.google.com/" target="_blank" rel="noopener">fonts.google.com</a>, zoek een font en klik op <em>Get font</em> → <em>Get embed code</em>. Je krijgt een <code>&lt;link&gt;</code>-tag zoals deze:</p>
+    <pre><code>&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"&gt;</code></pre>
+
+    <h3>Stap 2 — plak de link in index.html</h3>
+    <p>Voeg die regel toe in de <code>&lt;head&gt;</code> van <code>index.html</code>, vóór <code>style.css</code>:</p>
+    <pre><code>&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;</code></pre>
+
+    <h3>Stap 3 — gebruik het font in je sketch</h3>
+    <p>Roep het font aan met zijn exacte naam (zoals op Google Fonts vermeld) via <code>textFont()</code>:</p>
+    <pre><code>function setup() {
   createCanvas(600, 400);
-  textFont(mijnFont);
+  textFont('Press Start 2P');
+  textSize(16);
+}
+
+function draw() {
+  background(245);
+  fill(0);
+  text('Game Over', 160, 200);
 }</code></pre>
 
-    <p><strong>Tip:</strong> Download het font bestand en sla het op in je projectmap — dat is betrouwbaarder.</p>
+    <p><strong>Let op:</strong> het font moet geladen zijn vóór je sketch het gebruikt. Als je het font in <code>index.html</code> importeert, is het bij normaal gebruik al beschikbaar wanneer p5.js opstart. Als je werkt met een lokale schets (los HTML-bestand), voeg je de <code>&lt;link&gt;</code>-tag toe aan dat bestand.</p>
+
+    <h3>Welke fonts werken goed in p5.js?</h3>
+    <ul>
+        <li><strong>Press Start 2P</strong> — pixel-lettertype, retro game-stijl</li>
+        <li><strong>Oswald</strong> — smal en krachtig, goed leesbaar op canvas</li>
+        <li><strong>Space Mono</strong> — monospace met karakter</li>
+        <li><strong>Bebas Neue</strong> — brede kapitalen, sterk voor titels</li>
+        <li><strong>DM Serif Display</strong> — elegant serif voor poëtische sketches</li>
+    </ul>
 </section>
 
 <section>

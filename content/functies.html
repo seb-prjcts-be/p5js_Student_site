@@ -12,7 +12,7 @@ function tekenCirkel() {
 
 // Aanroepen — doe dit in draw() of setup()
 function draw() {
-  background(220);
+  background(245);
   tekenCirkel();  // Voer de functie uit
   tekenCirkel();  // Nog een keer — code hoef je niet te herhalen
 }</code></pre>
@@ -26,7 +26,7 @@ function draw() {
 }
 
 function draw() {
-  background(220);
+  background(245);
   tekenCirkel(100, 150, 50);   // x=100, y=150, diameter=50
   tekenCirkel(300, 200, 80);   // Zelfde functie, andere waarden
   tekenCirkel(450, 100, 30);
@@ -41,9 +41,9 @@ function draw() {
 
 function draw() {
   background(30);
-  tekenBal(150, 200, 60, 255, 100,  50);  // rood
-  tekenBal(300, 200, 80, 50,  200, 255);  // blauw
-  tekenBal(450, 200, 40, 100, 255, 100);  // groen
+  tekenBal(150, 200, 60, 255, 0,   0);    // rood
+  tekenBal(300, 200, 80, 0,   0,   255);  // blauw
+  tekenBal(450, 200, 40, 0,   255, 0);    // groen
 }</code></pre>
 </section>
 
@@ -97,7 +97,7 @@ function draw() {
     translate(x, y);
     rotate(hoek);
     noStroke();
-    fill(255, 180, 200, 180);
+    fill(255, 0, 125, 180);
     ellipse(grootte * 0.6, 0, grootte * 1.2, grootte * 0.6);
   pop();
 }
@@ -109,7 +109,7 @@ function tekenBloem(x, y, grootte) {
     tekenBloemblaadje(x, y, hoek, grootte);
   }
   // Midden
-  fill(255, 220, 50);
+  fill(255, 255, 0);
   noStroke();
   ellipse(x, y, grootte * 0.5, grootte * 0.5);
 }
@@ -159,12 +159,12 @@ function tekenBloem(x, y, grootte) {
     push();
       translate(x, y);
       rotate(hoek);
-      fill(255, 160, 200, 180);
+      fill(255, 0, 125, 180);
       ellipse(grootte * 0.6, 0, grootte, grootte * 0.5);
     pop();
   }
   // Middelpunt
-  fill(255, 220, 50);
+  fill(255, 255, 0);
   circle(x, y, grootte * 0.5);
 }
 
