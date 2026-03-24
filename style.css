@@ -73,6 +73,12 @@ header {
     flex: 1;
 }
 
+.site-title-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
 header h1 {
     font-size: 2em;
     margin-bottom: 0.5rem;
@@ -396,6 +402,25 @@ main {
     font-size: 1rem;
     color: var(--text-color);
     line-height: 1.7;
+}
+
+.welcome-quote {
+    margin: 2rem 0;
+    padding: 0;
+    margin-left: 0;
+    font-family: var(--font-body);
+    font-style: normal;
+}
+
+.welcome-quote p {
+    margin-bottom: 0.75rem;
+}
+
+.welcome-quote footer {
+    margin-top: 1rem;
+    font-style: normal;
+    font-size: 0.9rem;
+    color: var(--text-light);
 }
 
 /* Onderwerp pagina styling */

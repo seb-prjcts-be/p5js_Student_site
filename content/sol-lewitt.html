@@ -1,0 +1,238 @@
+<div class="intro">
+    <p>Sol LeWitt (1928–2007) was een Amerikaanse conceptueel kunstenaar die beroemd werd om zijn <em>Wall Drawings</em>: kunstwerken die bestaan uit geschreven instructies. Hij stuurde die instructies naar musea, die ze dan ter plekke lieten uitvoeren door medewerkers of bezoekers. De tekening zelf was bijzaak — de instructie was het werk.</p>
+</div>
+
+<section>
+    <h2>De instructie als kunstwerk</h2>
+    <p>LeWitt geloofde dat het idee achter een kunstwerk belangrijker is dan de uitvoering ervan. Zijn instructies waren soms één zin, soms meerdere pagina's. Elke uitvoering was anders, maar de instructie bleef dezelfde.</p>
+    <p>Een bekende instructie:</p>
+    <blockquote style="border-left: 2px solid var(--accent-color); padding-left: 1rem; margin: 1rem 0; font-style: italic;">
+        "Lines from corners, sides, and center of the canvas to random points on the wall."
+    </blockquote>
+    <p>Dit is niets anders dan een algoritme. Code <em>is</em> een instructie. Wanneer je een p5.js-sketch schrijft, doe je precies wat LeWitt deed: je beschrijft een systeem dat iemand anders — in dit geval de computer — uitvoert.</p>
+</section>
+
+<section>
+    <h2>Instructie → code</h2>
+    <p>Neem deze instructie: <em>"Verbind 40 willekeurig geplaatste punten met rechte lijnen naar hun drie dichtstbijzijnde buren."</em></p>
+    <p>Stap voor stap vertaald naar code:</p>
+
+    <pre><code>// Stap 1: genereer willekeurige punten
+let punten = [];
+for (let i = 0; i &lt; 40; i++) {
+  punten.push({ x: random(width), y: random(height) });
+}
+
+// Stap 2: voor elk punt — zoek de 3 dichtstbijzijnde
+for (let a of punten) {
+  let gesorteerd = punten
+    .filter(b => b !== a)
+    .sort((b, c) => dist(a.x, a.y, b.x, b.y) - dist(a.x, a.y, c.x, c.y));
+
+  // Stap 3: teken een lijn naar elk van de 3 dichtste buren
+  for (let i = 0; i &lt; 3; i++) {
+    line(a.x, a.y, gesorteerd[i].x, gesorteerd[i].y);
+  }
+}</code></pre>
+
+    <p>Probeer het hieronder. Klik om een nieuwe uitvoering te genereren — elke klik is een nieuwe "uitvoering" van dezelfde instructie:</p>
+
+    <div class="p5-editor" data-width="600" data-height="380" data-autorun="true">
+        <script type="text/p5">
+// Instructie: verbind 40 punten met hun 3 dichtstbijzijnde buren.
+// Klik voor een nieuwe uitvoering.
+
+let punten = [];
+
+function setup() {
+  createCanvas(600, 380);
+  genereer();
+  noLoop();
+}
+
+function genereer() {
+  punten = [];
+  for (let i = 0; i < 40; i++) {
+    punten.push({ x: random(20, width - 20), y: random(20, height - 20) });
+  }
+}
+
+function draw() {
+  background(245);
+  stroke(30);
+  strokeWeight(0.6);
+  noFill();
+
+  for (let a of punten) {
+    let gesorteerd = punten
+      .filter(b => b !== a)
+      .sort((b, c) => dist(a.x, a.y, b.x, b.y) - dist(a.x, a.y, c.x, c.y));
+
+    for (let i = 0; i < 3; i++) {
+      line(a.x, a.y, gesorteerd[i].x, gesorteerd[i].y);
+    }
+  }
+
+  // Punten tekenen
+  fill(30);
+  noStroke();
+  for (let p of punten) {
+    circle(p.x, p.y, 4);
+  }
+}
+
+function mousePressed() {
+  genereer();
+  redraw();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Wall Drawing #118 — hoeken en zijden</h2>
+    <p>LeWitt's <em>Wall Drawing #118</em> (1971): <em>"Vijftig willekeurig geplaatste punten, verbonden door rechte lijnen."</em> Alle punten zijn met elkaar verbonden — dat geeft n×(n-1)/2 lijnen. Met 50 punten zijn dat 1225 lijnen:</p>
+
+    <div class="p5-editor" data-width="600" data-height="380" data-autorun="true">
+        <script type="text/p5">
+// Wall Drawing #118 — alle punten verbonden met alle anderen.
+// Klik voor een nieuwe uitvoering.
+
+let punten = [];
+let aantalPunten = 22; // Probeer dit aan te passen!
+
+function setup() {
+  createCanvas(600, 380);
+  genereer();
+  noLoop();
+}
+
+function genereer() {
+  punten = [];
+  for (let i = 0; i < aantalPunten; i++) {
+    punten.push({ x: random(20, width - 20), y: random(20, height - 20) });
+  }
+}
+
+function draw() {
+  background(245);
+  stroke(30, 80);
+  strokeWeight(0.5);
+
+  for (let i = 0; i < punten.length; i++) {
+    for (let j = i + 1; j < punten.length; j++) {
+      line(punten[i].x, punten[i].y, punten[j].x, punten[j].y);
+    }
+  }
+
+  fill(30);
+  noStroke();
+  for (let p of punten) {
+    circle(p.x, p.y, 5);
+  }
+}
+
+function mousePressed() {
+  genereer();
+  redraw();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Raster met willekeurige diagonalen</h2>
+    <p>Veel van LeWitts werken zijn gebaseerd op rasterverdeling met een simpele variabele: de richting van een diagonaal. De instructie: <em>"Verdeel het canvas in een raster. Teken in elke cel een diagonale lijn in een willekeurig gekozen richting."</em></p>
+
+    <div class="p5-editor" data-width="600" data-height="380" data-autorun="true">
+        <script type="text/p5">
+// Instructie: raster met willekeurige diagonalen.
+// Klik voor een nieuwe uitvoering.
+
+let celGrootte = 40; // Probeer dit aan te passen!
+
+function setup() {
+  createCanvas(600, 380);
+  noLoop();
+}
+
+function draw() {
+  background(245);
+  stroke(30);
+  strokeWeight(1);
+
+  let kolommen = floor(width / celGrootte);
+  let rijen = floor(height / celGrootte);
+
+  for (let ry = 0; ry < rijen; ry++) {
+    for (let kol = 0; kol < kolommen; kol++) {
+      let x = kol * celGrootte;
+      let y = ry * celGrootte;
+
+      // Willekeurig: links-naar-rechts of rechts-naar-links
+      if (random() > 0.5) {
+        line(x, y, x + celGrootte, y + celGrootte);
+      } else {
+        line(x + celGrootte, y, x, y + celGrootte);
+      }
+    }
+  }
+}
+
+function mousePressed() {
+  redraw();
+}
+        </script>
+    </div>
+</section>
+
+<div class="p5-example">
+    <h3>Vanuit de hoeken</h3>
+    <p>Geïnspireerd op LeWitt: lijnen vanuit de vier hoeken naar willekeurige punten, opgebouwd over tijd. Klik om opnieuw te starten.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-sol-lewitt"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Schrijf je eigen instructie</h2>
+    <p>LeWitt zei: <em>"The idea becomes a machine that makes the art."</em> Schrijf hieronder je eigen instructie als code. Begin met een zin als commentaar die beschrijft wat je systeem doet:</p>
+
+    <div class="p5-editor" data-width="600" data-height="380" data-autorun="true">
+        <script type="text/p5">
+// Mijn instructie:
+// "Trek vanuit het middelpunt lijnen naar willekeurige punten op de rand."
+// Pas de instructie aan en herschrijf de code!
+
+function setup() {
+  createCanvas(600, 380);
+  background(245);
+  stroke(30);
+  strokeWeight(0.6);
+
+  let cx = width / 2;
+  let cy = height / 2;
+  let aantalLijnen = 120;
+
+  for (let i = 0; i < aantalLijnen; i++) {
+    // Kies een willekeurige zijde
+    let kant = floor(random(4));
+    let x, y;
+
+    if (kant === 0) { x = random(width);  y = 0; }           // boven
+    if (kant === 1) { x = random(width);  y = height; }      // onder
+    if (kant === 2) { x = 0;              y = random(height); } // links
+    if (kant === 3) { x = width;          y = random(height); } // rechts
+
+    line(cx, cy, x, y);
+  }
+}
+
+function draw() {}
+
+function mousePressed() {
+  setup();
+}
+        </script>
+    </div>
+</section>

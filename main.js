@@ -6,7 +6,7 @@ const onderwerpen = [
         samenvatting: "Ontdek de geschiedenis van generative design, van John Whitney tot moderne creative coding.",
         tags: ["geschiedenis", "generative design", "Whitney", "fractals", "DEMO", "BYOB", "creative coding"],
         contentFile: "content/generative-design.html",
-        categorie: "Generative design"
+        categorie: "Introductie"
     },
     {
         id: "over-p5js",
@@ -14,7 +14,7 @@ const onderwerpen = [
         samenvatting: "Wat is p5.js, waar komt het vandaan, en hoe gebruik je het?",
         tags: ["p5.js", "Processing", "editor", "reference", "projectstructuur", "introductie"],
         contentFile: "content/over-p5js.html",
-        categorie: "Processing"
+        categorie: "Introductie"
     },
     {
         id: "setup-draw",
@@ -22,7 +22,7 @@ const onderwerpen = [
         samenvatting: "Leer de twee belangrijkste functies: setup() voor initialisatie en draw() voor animatie.",
         tags: ["setup", "draw", "basis", "fundamenten", "canvas"],
         contentFile: "content/setup-draw.html",
-        categorie: "p5.js"
+        categorie: "p5.js basis"
     },
     {
         id: "vormen",
@@ -30,7 +30,7 @@ const onderwerpen = [
         samenvatting: "Leer hoe je basisvormen tekent: cirkels, rechthoeken, lijnen en meer.",
         tags: ["vormen", "ellipse", "rect", "line", "triangle", "basis"],
         contentFile: "content/vormen.html",
-        categorie: "p5.js"
+        categorie: "p5.js basis"
     },
     {
         id: "kleur",
@@ -38,7 +38,7 @@ const onderwerpen = [
         samenvatting: "Ontdek hoe je kleuren gebruikt in p5.js: RGB, HSB, transparantie en meer.",
         tags: ["kleur", "fill", "stroke", "background", "RGB", "HSB"],
         contentFile: "content/kleur.html",
-        categorie: "p5.js"
+        categorie: "p5.js basis"
     },
     {
         id: "variabelen",
@@ -46,7 +46,7 @@ const onderwerpen = [
         samenvatting: "Leer hoe je variabelen gebruikt om waarden op te slaan en je code flexibel te maken.",
         tags: ["variabelen", "let", "const", "data", "basis"],
         contentFile: "content/variabelen.html",
-        categorie: "p5.js"
+        categorie: "p5.js basis"
     },
     {
         id: "if-statements",
@@ -54,7 +54,7 @@ const onderwerpen = [
         samenvatting: "Maak beslissingen in je code met if-statements en voorwaarden.",
         tags: ["if", "else", "voorwaarden", "logica", "beslissingen"],
         contentFile: "content/if-statements.html",
-        categorie: "p5.js"
+        categorie: "p5.js basis"
     },
     {
         id: "loops",
@@ -62,7 +62,7 @@ const onderwerpen = [
         samenvatting: "Herhaal code met for-loops en while-loops om patronen te maken.",
         tags: ["loops", "for", "while", "herhalen", "patronen"],
         contentFile: "content/loops.html",
-        categorie: "p5.js"
+        categorie: "p5.js basis"
     },
     {
         id: "functies",
@@ -70,7 +70,7 @@ const onderwerpen = [
         samenvatting: "Maak herbruikbare code met functies. Organiseer je code en maak het overzichtelijker.",
         tags: ["functies", "function", "herbruikbaar", "organisatie"],
         contentFile: "content/functies.html",
-        categorie: "p5.js"
+        categorie: "p5.js basis"
     },
     {
         id: "muis-interactie",
@@ -78,7 +78,7 @@ const onderwerpen = [
         samenvatting: "Leer hoe je reageert op muisbewegingen en klikken.",
         tags: ["muis", "mouseX", "mouseY", "interactie", "events"],
         contentFile: "content/muis-interactie.html",
-        categorie: "p5.js"
+        categorie: "p5.js basis"
     },
     {
         id: "toetsenbord",
@@ -86,7 +86,7 @@ const onderwerpen = [
         samenvatting: "Gebruik toetsenbord input om je sketches te besturen.",
         tags: ["toetsenbord", "keyboard", "keyPressed", "input"],
         contentFile: "content/toetsenbord.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "animatie",
@@ -94,7 +94,7 @@ const onderwerpen = [
         samenvatting: "Maak animaties door waarden te veranderen in draw(). Leer over tijd, beweging en sinus/cosinus.",
         tags: ["animatie", "beweging", "tijd", "millis", "sin", "cos"],
         contentFile: "content/animatie.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "arrays",
@@ -102,7 +102,7 @@ const onderwerpen = [
         samenvatting: "Gebruik arrays om meerdere waarden op te slaan en door te lopen.",
         tags: ["arrays", "lijsten", "data", "opslag"],
         contentFile: "content/arrays.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "3d-basis",
@@ -110,7 +110,7 @@ const onderwerpen = [
         samenvatting: "Ontdek 3D graphics met WEBGL. Leer 3D vormen tekenen en transformeren.",
         tags: ["3D", "WEBGL", "box", "sphere", "rotatie", "transformatie"],
         contentFile: "content/3d-basis.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "objecten",
@@ -118,7 +118,7 @@ const onderwerpen = [
         samenvatting: "Leer hoe je classes gebruikt om objecten te maken met eigen eigenschappen en gedrag. De basis van object-georiënteerd programmeren in p5.js.",
         tags: ["class", "object", "constructor", "OOP", "this", "instantie", "methoden"],
         contentFile: "content/objecten.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "noise",
@@ -126,7 +126,7 @@ const onderwerpen = [
         samenvatting: "Ontdek noise(): een functie voor vloeiende, organische willekeur. Maak bewegende landschappen, texturen en flow fields.",
         tags: ["noise", "Perlin noise", "willekeur", "organisch", "textuur", "flow field", "landschap"],
         contentFile: "content/noise.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "afbeeldingen",
@@ -134,7 +134,7 @@ const onderwerpen = [
         samenvatting: "Leer afbeeldingen laden en tekenen met loadImage() en image(). Ontdek ook pixelmanipulatie en filters.",
         tags: ["afbeelding", "loadImage", "image", "pixels", "filter", "tint", "pixelArray"],
         contentFile: "content/afbeeldingen.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "text-typografie",
@@ -142,7 +142,7 @@ const onderwerpen = [
         samenvatting: "Teken tekst op het canvas met text(), stel grootte en stijl in, en laad custom fonts met loadFont().",
         tags: ["tekst", "text", "font", "typografie", "textSize", "textFont", "loadFont", "textAlign"],
         contentFile: "content/text-typografie.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "geluid",
@@ -150,7 +150,7 @@ const onderwerpen = [
         samenvatting: "Voeg geluid toe aan je sketch met de p5.sound library: speel geluiden af, analyseer audio en maak visualisaties.",
         tags: ["geluid", "sound", "audio", "p5.sound", "loadSound", "SoundFile", "Amplitude", "FFT", "muziek"],
         contentFile: "content/geluid.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "p5js-2.0",
@@ -158,7 +158,7 @@ const onderwerpen = [
         samenvatting: "Werk met de standaard p5.js-aanpak van deze cursus: async assets, pointer input, typografie, curves en shaders.",
         tags: ["moderne p5.js", "async", "loadImage", "loadFont", "pointer", "curves", "shaders", "preload"],
         contentFile: "content/p5js-2.0.html",
-        categorie: "p5.js"
+        categorie: "p5.js +"
     },
     {
         id: "strudel",
@@ -167,14 +167,6 @@ const onderwerpen = [
         tags: ["strudel", "live coding", "muziek", "samples", "ritme", "notes", "stack"],
         contentFile: "content/strudel.html",
         categorie: "Strudel"
-    },
-    {
-        id: "vera-molnar",
-        titel: "Vera Molnar",
-        samenvatting: "Pionier van digitale esthetiek en generatieve kunst met een focus op raster, regels en variatie.",
-        tags: ["inspiratie", "generative art", "plotter", "raster", "algoritmes", "kunstgeschiedenis"],
-        contentFile: "content/vera-molnar.html",
-        categorie: "Inspiratie"
     },
     {
         id: "inspiratie-links",
@@ -265,16 +257,40 @@ const onderwerpen = [
         categorie: "Code concepten"
     },
     {
+        id: "vera-molnar",
+        titel: "Vera Molnar",
+        samenvatting: "Pionier van digitale esthetiek en generatieve kunst met een focus op raster, regels en variatie.",
+        tags: ["generative art", "plotter", "raster", "algoritmes", "disorder", "kunstgeschiedenis"],
+        contentFile: "content/vera-molnar.html",
+        categorie: "Inspiratie"
+    },
+    {
+        id: "sol-lewitt",
+        titel: "Sol LeWitt — instructies als kunst",
+        samenvatting: "Sol LeWitt schreef instructies naar musea in plaats van werken te maken. Code is ook een instructie — ontdek conceptuele kunst als algoritme.",
+        tags: ["sol lewitt", "instructie", "conceptuele kunst", "wall drawing", "algoritme", "lijnen", "systeem"],
+        contentFile: "content/sol-lewitt.html",
+        categorie: "Inspiratie"
+    },
+    {
+        id: "circle-packing",
+        titel: "Circle packing",
+        samenvatting: "Vul een canvas met zo veel mogelijk niet-overlappende cirkels die groeien tot ze elkaar of de rand raken.",
+        tags: ["circle packing", "cirkels", "overlapping", "dist", "groeien", "generative", "algoritme"],
+        contentFile: "content/circle-packing.html",
+        categorie: "Code concepten"
+    },
+    {
         id: "ai-ecologische-kost",
         titel: "AI & ecologische kost",
         samenvatting: "Hoeveel energie kost AI eigenlijk? Vergelijk AI-gesprekken met koffie, Netflix en meer — en ontdek waarom het verhaal genuanceerder is dan je denkt.",
         tags: ["AI", "energie", "ecologie", "klimaat", "datacenter", "GPU", "duurzaamheid", "training", "koffie"],
         contentFile: "content/ai-ecologische-kost.html",
-        categorie: "Artificiële intelligentie"
+        categorie: "Inspiratie"
     }
 ];
 
-const navCategories = ["Generative design", "Processing", "p5.js", "Code concepten", "Strudel", "Inspiratie", "Artificiële intelligentie"];
+const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie"];
 const MAX_IN_PAGE_RELATIONS = 5;
 const MAX_RELATED_TAGS = 6;
 const MAX_RELATED_TOPICS = 5;
@@ -791,14 +807,11 @@ function renderWelcome() {
     const content = document.getElementById('content');
     content.innerHTML = `
         <div class="welcome">
-            <h2>Welkom bij de p5.js Cursus</h2>
-            <p>Deze cursus helpt je stap voor stap creative coding leren met p5.js. Kies een onderwerp uit het menu om te beginnen, of gebruik de zoekfunctie om specifieke onderwerpen te vinden.</p>
-            <p>p5.js is een JavaScript bibliotheek die creative coding toegankelijk maakt. Je kunt er interactieve animaties, visuele kunst, games en meer mee maken.</p>
-            
-            <h3>Onderwerpen</h3>
-            <ul>
-                ${onderwerpen.map(o => `<li><a href="#${o.id}">${o.titel}</a></li>`).join('')}
-            </ul>
+            <blockquote class="welcome-quote">
+                <p>Creative coding is vandaag een vorm van geletterdheid: je leert niet alleen tools gebruiken, je leert systemen begrijpen, sturen en verbeelden. In een tijd waarin alles software wordt, van beeld tot beleid, geeft creative coding je agency: je kan experimenteren, kritisch kijken naar algoritmes, en je eigen taal bouwen om ideeën zichtbaar te maken.</p>
+                <p>En net als in de allegorie met de boeken is "alles begrijpen" niet het punt. Elke schets, elke mislukte iteratie en elke kleine tweak spoelt iets door je denken: patronen, timing, gevoel voor structuur, en het vertrouwen dat je een complex probleem kan kneden tot iets dat werkt, of op z'n minst iets dat spreekt. De langetermijnwinst zit in die herhaalde aha's: een brein dat wendbaar wordt, dat verbanden ziet, en dat met onzekerheid kan spelen, precies de spier die je nodig hebt in een wereld die blijft veranderen.</p>
+                <footer><cite>Frederick De Bleser — Luca Gent</cite></footer>
+            </blockquote>
         </div>
     `;
 }

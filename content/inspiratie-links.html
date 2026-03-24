@@ -4,7 +4,6 @@
 
 <section>
     <h2>Inspirerende projecten</h2>
-    <p>Creative coding die de grens tussen technologie en kunst verlegt.</p>
     <ul>
         <li>
             <strong><a href="http://listen.hatnote.com/" target="_blank" rel="noopener">Listen to Wikipedia</a></strong> — Hatnote<br>
@@ -15,7 +14,7 @@
             Het metronet van New York City als interactief snaarinstrument.
         </li>
         <li>
-            <strong><a href="https://lines.chromeexperiments.com/" target="_blank" rel="noopener">Land Lines</a></strong> — Zach Lieberman & Matt Felsen<br>
+            <strong><a href="https://lines.chromeexperiments.com/" target="_blank" rel="noopener">Land Lines</a></strong> — Zach Lieberman &amp; Matt Felsen<br>
             Satellietbeelden van Google Maps gekoppeld aan gebarenherkenning. Teken een lijn en vind die terug in het landschap.
         </li>
         <li>
@@ -47,6 +46,92 @@
 </section>
 
 <section>
+    <h2>John Whitney — harmonische beweging</h2>
+    <p>John Whitney (1917–1995) is de grondlegger van computergegenereerde animatie. Hij maakte in de jaren 60 films door punten te laten bewegen op basis van sinusgolven met verschillende frequenties. Het resultaat: abstracte patronen die adem lijken te halen. Probeer het zelf:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Geïnspireerd op John Whitney — harmonische beweging
+// Elk punt heeft een eigen snelheid; samen vormen ze steeds nieuwe patronen.
+
+let punten = 64;
+
+function setup() {
+  createCanvas(600, 400);
+  colorMode(RGB);
+  strokeWeight(3);
+  noFill();
+}
+
+function draw() {
+  background(10, 10);
+
+  let t = frameCount * 0.008;
+  let cx = width / 2;
+  let cy = height / 2;
+  let straal = min(width, height) * 0.42;
+
+  for (let i = 0; i < punten; i++) {
+    let freq = i + 1;
+    let hoek = t * freq;
+    let x = cx + cos(hoek) * straal * (i / punten);
+    let y = cy + sin(hoek * 0.5) * straal * (i / punten);
+
+    let helderheid = map(i, 0, punten, 80, 255);
+    stroke(helderheid);
+    point(x, y);
+  }
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Audience — spiegels die volgen</h2>
+    <p>Random Internationals <em>Audience</em> bestaat uit honderden kleine spiegeltjes die elk individueel naar de bezoeker draaien. Zo simpel als het principe is, zo fascinerend is het effect. Hieronder een versie met lijnen die richting je muis draaien:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Geïnspireerd op Audience (2008) — Random International
+// Elke streep draait naar de muispositie, net als een spiegel.
+
+let rijen = 10;
+let kolommen = 16;
+
+function setup() {
+  createCanvas(600, 400);
+  stroke(220);
+  strokeWeight(1.5);
+}
+
+function draw() {
+  background(10);
+
+  let stapX = width / kolommen;
+  let stapY = height / rijen;
+
+  for (let ry = 0; ry < rijen; ry++) {
+    for (let kol = 0; kol < kolommen; kol++) {
+      let x = kol * stapX + stapX / 2;
+      let y = ry * stapY + stapY / 2;
+
+      let hoek = atan2(mouseY - y, mouseX - x);
+      let len = stapX * 0.35;
+
+      let x1 = x - cos(hoek) * len;
+      let y1 = y - sin(hoek) * len;
+      let x2 = x + cos(hoek) * len;
+      let y2 = y + sin(hoek) * len;
+
+      line(x1, y1, x2, y2);
+    }
+  }
+}
+        </script>
+    </div>
+</section>
+
+<section>
     <h2>Video's &amp; documentaires</h2>
     <ul>
         <li>
@@ -70,6 +155,74 @@
             Tien minuten live coderen: een p5.js sketch van nul opbouwen voor een publiek.
         </li>
     </ul>
+</section>
+
+<section>
+    <h2>Data als beeld — meteorietenlandingen</h2>
+    <p>Elke stip hieronder stelt een meteoriet voor die ooit op aarde landde. Grootte en helderheid reflecteren de massa. Beweeg de muis om de kaart te verkennen — klik om alles opnieuw te laten landen:</p>
+
+    <div class="p5-editor" data-width="600" data-height="360" data-autorun="true">
+        <script type="text/p5">
+// Geïnspireerd op data-sonificatie en NASA open data
+// Gesimuleerde meteorietenlandingen — elke stip is een inslag.
+
+let meteorieten = [];
+let aantalMeteorieten = 120;
+
+function setup() {
+  createCanvas(600, 360);
+  genereer();
+  noStroke();
+}
+
+function genereer() {
+  meteorieten = [];
+  for (let i = 0; i < aantalMeteorieten; i++) {
+    meteorieten.push({
+      x: random(width),
+      y: random(height),
+      massa: random(1, 6),
+      leeftijd: random(255),
+      snelheid: random(0.3, 1.5)
+    });
+  }
+}
+
+function draw() {
+  background(10, 15);
+
+  // Lichte rasterlijnen als aardoppervlak
+  stroke(40);
+  strokeWeight(0.3);
+  for (let x = 0; x < width; x += 40) line(x, 0, x, height);
+  for (let y = 0; y < height; y += 40) line(0, y, width, y);
+  noStroke();
+
+  let muisPX = mouseX / width;
+
+  for (let m of meteorieten) {
+    let afstand = dist(mouseX, mouseY, m.x, m.y);
+    let gloed = map(afstand, 0, 200, 255, m.leeftijd);
+    gloed = constrain(gloed, 30, 255);
+
+    fill(gloed);
+    circle(m.x, m.y, m.massa * 2);
+
+    // Kleine sliert bij bewegende muis
+    if (afstand < 80) {
+      stroke(gloed, 80);
+      strokeWeight(0.5);
+      line(m.x, m.y, mouseX + random(-2, 2), mouseY + random(-2, 2));
+      noStroke();
+    }
+  }
+}
+
+function mousePressed() {
+  genereer();
+}
+        </script>
+    </div>
 </section>
 
 <section>
