@@ -20,7 +20,7 @@ const onderwerpen = [
         id: "setup-draw",
         titel: "setup() en draw()",
         samenvatting: "Leer de twee belangrijkste functies: setup() voor initialisatie en draw() voor animatie.",
-        tags: ["setup", "draw", "basis", "fundamenten", "canvas"],
+        tags: ["setup", "draw", "createCanvas", "frameRate", "background", "basis", "fundamenten", "canvas"],
         contentFile: "content/setup-draw.html",
         categorie: "p5.js basis"
     },
@@ -28,7 +28,7 @@ const onderwerpen = [
         id: "vormen",
         titel: "Vormen tekenen",
         samenvatting: "Leer hoe je basisvormen tekent: cirkels, rechthoeken, lijnen en meer.",
-        tags: ["vormen", "ellipse", "rect", "line", "triangle", "basis"],
+        tags: ["vormen", "ellipse", "rect", "line", "triangle", "arc", "quad", "beginShape", "vertex", "endShape", "splineVertex", "bezierVertex", "quadraticVertex", "basis"],
         contentFile: "content/vormen.html",
         categorie: "p5.js basis"
     },
@@ -44,7 +44,7 @@ const onderwerpen = [
         id: "variabelen",
         titel: "Variabelen",
         samenvatting: "Leer hoe je variabelen gebruikt om waarden op te slaan en je code flexibel te maken.",
-        tags: ["variabelen", "let", "const", "data", "basis"],
+        tags: ["variabelen", "let", "const", "width", "height", "windowWidth", "windowHeight", "windowResized", "data", "basis"],
         contentFile: "content/variabelen.html",
         categorie: "p5.js basis"
     },
@@ -52,7 +52,7 @@ const onderwerpen = [
         id: "berekeningen",
         titel: "Berekeningen",
         samenvatting: "Leer rekenen in p5.js: de vier basisoperatoren, modulo %, samengestelde operatoren en handige functies zoals map(), constrain() en dist().",
-        tags: ["berekeningen", "operatoren", "modulo", "map", "constrain", "dist", "floor", "round", "abs", "%", "rekenen"],
+        tags: ["berekeningen", "operatoren", "modulo", "map", "constrain", "dist", "floor", "ceil", "round", "abs", "random", "%", "rekenen"],
         contentFile: "content/berekeningen.html",
         categorie: "p5.js basis"
     },
@@ -84,7 +84,7 @@ const onderwerpen = [
         id: "muis-interactie",
         titel: "Muis interactie",
         samenvatting: "Leer hoe je reageert op muisbewegingen en klikken.",
-        tags: ["muis", "mouseX", "mouseY", "interactie", "events"],
+        tags: ["muis", "mouseX", "mouseY", "pmouseX", "pmouseY", "mousePressed", "mouseDragged", "mouseReleased", "pointerPressed", "interactie", "events"],
         contentFile: "content/muis-interactie.html",
         categorie: "p5.js basis"
     },
@@ -100,7 +100,7 @@ const onderwerpen = [
         id: "animatie",
         titel: "Animatie",
         samenvatting: "Maak animaties door waarden te veranderen in draw(). Leer over tijd, beweging en sinus/cosinus.",
-        tags: ["animatie", "beweging", "tijd", "millis", "sin", "cos"],
+        tags: ["animatie", "frameCount", "translate", "rotate", "angleMode", "beweging", "tijd", "millis", "sin", "cos", "tan"],
         contentFile: "content/animatie.html",
         categorie: "p5.js +"
     },
@@ -169,28 +169,12 @@ const onderwerpen = [
         categorie: "p5.js +"
     },
     {
-        id: "p5js-2.0",
-        titel: "Moderne p5.js",
-        samenvatting: "Werk met de standaard p5.js-aanpak van deze cursus: async assets, pointer input, typografie, curves en shaders.",
-        tags: ["moderne p5.js", "async", "loadImage", "loadFont", "pointer", "curves", "shaders", "preload"],
-        contentFile: "content/p5js-2.0.html",
-        categorie: "p5.js +"
-    },
-    {
         id: "strudel",
         titel: "Strudel: live coding muziek",
         samenvatting: "Leer live-coding muziek maken in je browser met Strudel: ritme, samples, noten en stack.",
         tags: ["strudel", "live coding", "muziek", "samples", "ritme", "notes", "stack"],
         contentFile: "content/strudel.html",
         categorie: "Strudel"
-    },
-    {
-        id: "inspiratie-links",
-        titel: "Links & bronnen",
-        samenvatting: "Alle links uit de cursus: inspirerende projecten, video's, boeken, bibliotheken, tools en datasets.",
-        tags: ["links", "bronnen", "inspiratie", "boeken", "video", "community", "datasets", "bibliotheken"],
-        contentFile: "content/inspiratie-links.html",
-        categorie: "Inspiratie"
     },
     {
         id: "1d-automaten",
@@ -290,7 +274,7 @@ const onderwerpen = [
     },
     {
         id: "vera-molnar",
-        titel: "Vera Molnar",
+        titel: "Vera Molnar — code zonder computer",
         samenvatting: "Pionier van digitale esthetiek en generatieve kunst met een focus op raster, regels en variatie.",
         tags: ["generative art", "plotter", "raster", "algoritmes", "disorder", "kunstgeschiedenis"],
         contentFile: "content/vera-molnar.html",
@@ -302,6 +286,14 @@ const onderwerpen = [
         samenvatting: "Sol LeWitt schreef instructies naar musea in plaats van werken te maken. Code is ook een instructie — ontdek conceptuele kunst als algoritme.",
         tags: ["sol lewitt", "instructie", "conceptuele kunst", "wall drawing", "algoritme", "lijnen", "systeem"],
         contentFile: "content/sol-lewitt.html",
+        categorie: "Inspiratie"
+    },
+    {
+        id: "inspiratie-links",
+        titel: "Links & bronnen",
+        samenvatting: "Alle links uit de cursus: inspirerende projecten, video's, boeken, bibliotheken, tools en datasets.",
+        tags: ["links", "bronnen", "inspiratie", "boeken", "video", "community", "datasets", "bibliotheken"],
+        contentFile: "content/inspiratie-links.html",
         categorie: "Inspiratie"
     },
     {
@@ -338,7 +330,7 @@ const onderwerpen = [
     }
 ];
 
-const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie", "AI"];
+const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "AI", "Inspiratie"];
 
 const MAX_IN_PAGE_RELATIONS = 5;
 const MAX_RELATED_TAGS = 6;

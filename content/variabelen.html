@@ -17,21 +17,44 @@ let diameter = 50;  // Diameter van cirkel</code></pre>
 </section>
 
 <section>
-    <h2>Types Variabelen</h2>
-    <p>JavaScript heeft verschillende datatypes:</p>
-    
-    <h3>Numbers (Getallen)</h3>
+    <h2>Types variabelen</h2>
+    <p>JavaScript kent verschillende soorten waarden. In p5.js steekt het meestal niet zo nauw, maar het is goed om de types te kennen:</p>
+
+    <h3>Integer (geheel getal)</h3>
+    <pre><code>let leeftijd = 25;
+let x = -5;</code></pre>
+
+    <h3>Float (kommagetal)</h3>
+    <p>Gebruik een punt voor decimalen, geen komma:</p>
+    <pre><code>let snelheid = 2.5;
+let gewicht = 68.5;</code></pre>
+
+    <h3>String (tekst)</h3>
+    <p>Tekst staat altijd tussen aanhalingstekens — enkel of dubbel:</p>
+    <pre><code>let naam = "Jan";
+let geboortedatum = "10/04/1984";
+let bericht = 'Hello World';</code></pre>
+
+    <h3>String samenvoegen (concateneren)</h3>
+    <p>Tekst en variabelen kun je samenvoegen met een <code>+</code>-teken:</p>
+    <pre><code>let naam = "Els";
+let x = 100;
+let zin = naam + " heeft " + x + " appels.";
+console.log(zin);
+// → Els heeft 100 appels.</code></pre>
+    <p>Let op: het totale aantal aanhalingstekens moet altijd even zijn.</p>
+
+    <h3>Boolean (waar/onwaar)</h3>
+    <p>Een boolean heeft maar twee mogelijke waarden: <code>true</code> of <code>false</code>. Met een uitroepteken <code>!</code> kun je de waarde omdraaien:</p>
+    <pre><code>let isActief = true;
+let isGepauzeerd = false;
+
+isActief = !isActief;  // Nu false</code></pre>
+
+    <h3>Numbers (getallen)</h3>
     <pre><code>let x = 100;
 let snelheid = 2.5;
 let percentage = 0.75;</code></pre>
-    
-    <h3>Strings (Tekst)</h3>
-    <pre><code>let naam = "p5.js";
-let bericht = 'Hello World';</code></pre>
-    
-    <h3>Booleans (True/False)</h3>
-    <pre><code>let isActief = true;
-let isGepauzeerd = false;</code></pre>
 </section>
 
 <section>
@@ -46,6 +69,69 @@ function draw() {
   
   // Verander waarden
   x += 1;  // Beweeg naar rechts
+}</code></pre>
+</section>
+
+<section>
+    <h2>Waar leeft een variabele?</h2>
+    <p>Niet elke variabele is overal beschikbaar. Dat hangt af van waar je hem declareert:</p>
+    <ul>
+        <li>Buiten alle functies → <strong>globaal</strong>: beschikbaar in heel je sketch</li>
+        <li>Binnen een functie → <strong>lokaal</strong>: bestaat alleen zolang die functie loopt</li>
+    </ul>
+    <pre><code>let globaleX = 0;  // Beschikbaar in setup(), draw(), en overal
+
+function draw() {
+  let lokaalY = 100;  // Bestaat alleen binnen draw()
+  globaleX += 1;      // Werkt — globaleX is van buiten
+
+  // lokaalY is hier nog beschikbaar...
+}
+// ...maar hier niet meer
+
+// globaleX bestaat nog steeds</code></pre>
+
+    <figure>
+        <img src="assets/variabelen/scope-fout.png" alt="Foutmelding in de p5.js editor: ReferenceError x is not defined door een niet-gedeclareerde variabele">
+        <figcaption>Een variabele die niet gedeclareerd is geeft meteen een foutmelding in de console.</figcaption>
+    </figure>
+
+    <p>In p5.js declareer je variabelen die je in meerdere functies nodig hebt — zoals posities, snelheden of tellers — altijd <strong>buiten</strong> <code>setup()</code> en <code>draw()</code>. Dan onthouden ze hun waarde van frame tot frame.</p>
+
+    <pre><code>let x = 0;          // Onthouden tussen frames
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+  circle(x, 200, 40);
+  x += 2;           // x groeit elk frame
+}</code></pre>
+</section>
+
+<section>
+    <h2>Ingebouwde systeemvariabelen</h2>
+    <p>p5.js beheert een aantal variabelen automatisch voor jou. Je hoeft ze niet zelf aan te maken — ze zijn altijd beschikbaar:</p>
+
+    <h3>width en height</h3>
+    <p>De breedte en hoogte van het canvas dat je in <code>createCanvas()</code> hebt ingesteld:</p>
+    <pre><code>function draw() {
+  let middenX = width / 2;   // Horizontaal midden van het canvas
+  let middenY = height / 2;  // Verticaal midden
+  circle(middenX, middenY, 100);
+}</code></pre>
+
+    <h3>windowWidth en windowHeight</h3>
+    <p>De breedte en hoogte van het browservenster (niet het canvas). Handig om een canvas te maken dat het hele venster vult:</p>
+    <pre><code>function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+// Aanpassen als het venster vergroot of verkleind wordt:
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }</code></pre>
 </section>
 

@@ -43,6 +43,41 @@
 </section>
 
 <section>
+    <h2>Pointer input: muis én touch</h2>
+    <p>Pointer variabelen werken op zowel muis als touchscreen. Handig als een sketch op laptop én tablet moet werken.</p>
+
+    <h3>Pointer variabelen</h3>
+    <ul>
+        <li><code>pointerX</code> / <code>pointerY</code> — huidige positie</li>
+        <li><code>ppointerX</code> / <code>ppointerY</code> — vorige positie</li>
+        <li><code>pointerIsDown</code> — true zolang er gedrukt wordt</li>
+    </ul>
+    <pre><code>function draw() {
+  background(245);
+  fill(255, 120, 0);
+  circle(pointerX, pointerY, 60);
+
+  if (pointerIsDown) {
+    fill(0, 180, 120);
+    circle(pointerX, pointerY, 100);
+  }
+}</code></pre>
+
+    <h3>Pointer events</h3>
+    <pre><code>function pointerPressed() {
+  fill(random(255), random(255), random(255));
+  circle(pointerX, pointerY, 40);
+}
+
+function pointerMoved() {
+  stroke(0, 140, 255);
+  strokeWeight(3);
+  line(ppointerX, ppointerY, pointerX, pointerY);
+}</code></pre>
+    <p>Je zult <code>mousePressed()</code> en <code>touchStarted()</code> nog veel tegenkomen in bestaand lesmateriaal. Voor nieuwe sketches die op meerdere toestellen moeten werken, zijn pointer events de eerste keuze.</p>
+</section>
+
+<section>
     <h2>Trails Maken</h2>
     <p>Met <code>pmouseX</code> en <code>pmouseY</code> kun je trails maken:</p>
     <pre><code>function draw() {

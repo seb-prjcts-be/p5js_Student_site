@@ -36,7 +36,7 @@ function draw() {
 
 <section>
     <h2>Sinus en Cosinus</h2>
-    <p><code>sin()</code> en <code>cos()</code> geven een waarde tussen -1 en 1 terug die vloeiend op en neer gaat. Ideaal voor organische beweging.</p>
+    <p><code>sin()</code> en <code>cos()</code> geven een waarde tussen -1 en 1 terug die vloeiend op en neer gaat. Ideaal voor organische beweging. Met <code>map()</code> zet je die waarden om naar een handig bereik:</p>
     <pre><code>let hoek = 0;
 
 function draw() {
@@ -48,6 +48,18 @@ function draw() {
 
   circle(x, y, 50);
   hoek += 0.03;  // Langzamer = kleinere stap
+}</code></pre>
+
+    <h3>Tangens</h3>
+    <p><code>tan()</code> is de derde trigonometrische functie. In tegenstelling tot sin/cos loopt tan() naar oneindig — het schiet door het canvas heen en komt aan de andere kant terug. Dat levert grillige, energieke patronen op:</p>
+    <pre><code>let hoek = 0;
+
+function draw() {
+  background(245);
+  let x = width / 2 + tan(hoek) * 50;
+  let y = height / 2;
+  circle(x, y, 20);
+  hoek += 0.03;
 }</code></pre>
 
     <h3>Lissajous-figuur</h3>
@@ -81,6 +93,31 @@ function draw() {
 function mousePressed() {
   doelX = mouseX;  // Nieuw doel instellen
 }</code></pre>
+</section>
+
+<section>
+    <h2>translate() en rotate()</h2>
+    <p><code>translate(x, y)</code> verschuift het assenstelsel — alsof je het papier onder de pen verplaatst. Daarna teken je gewoon op (0, 0):</p>
+    <pre><code>function draw() {
+  background(245);
+  translate(mouseX, mouseY);  // Assenstelsel naar muispositie
+  rect(-25, -25, 50, 50);     // Tekent gecentreerd op muispositie
+}</code></pre>
+
+    <p><code>rotate(hoek)</code> draait het assenstelsel. p5.js werkt standaard in <strong>radialen</strong>. Wil je liever graden, zet dan <code>angleMode(DEGREES)</code> in <code>setup()</code>:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  angleMode(DEGREES);  // Werk voortaan in graden
+}
+
+function draw() {
+  background(245);
+  translate(width / 2, height / 2);  // Draai om het midden
+  rotate(frameCount);                  // 1 graad per frame
+  rect(-40, -40, 80, 80);
+}</code></pre>
+
+    <p>Gebruik <code>translate()</code> altijd <em>vóór</em> <code>rotate()</code> om een object om zijn eigen middelpunt te draaien, niet om de linkerbovenhoek.</p>
 </section>
 
 <section>

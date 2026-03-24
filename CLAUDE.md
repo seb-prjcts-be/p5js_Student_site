@@ -62,7 +62,6 @@ p5_cursus_site/
 │   ├── afbeeldingen.html
 │   ├── text-typografie.html
 │   ├── geluid.html
-│   ├── p5js-2.0.html
 │   ├── strudel.html
 │   ├── vera-molnar.html
 │   ├── sol-lewitt.html
@@ -97,7 +96,6 @@ p5_cursus_site/
 │   ├── example-objecten.js
 │   ├── example-noise.js
 │   ├── example-3d.js
-│   ├── example-p5js2.js
 │   ├── example-ai-ecologische-kost.js
 │   ├── example-afbeeldingen.js
 │   ├── example-text-typografie.js
@@ -158,7 +156,7 @@ Flow:
 
 Topics are grouped by `categorie`. Categories are defined in:
 ```javascript
-const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie"];
+const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "AI", "Inspiratie"];
 ```
 
 Each group renders as a collapsible `<li class="nav-group">` in a click-to-toggle accordion. The active topic's group auto-opens; opening another group closes the others. The menu shows the category title and expand/collapse icon only; there is no per-group counter badge.
@@ -382,7 +380,15 @@ This is intentional: editors run in iframes (global mode is safe there), example
 
 ## PDF Integration: Source Material
 
-The PDFs in `data/` are the authoritative curriculum source. All topic content **must** be derived from and consistent with these documents.
+The PDFs in `data/` are the original curriculum source. The PDF has been split into per-section HTML pages for easy reading:
+
+```
+data/Lab44_EDU - p5.js_FULL_def_Update_25/pages/
+```
+
+Open `pages/index.html` to browse sections, or read a specific page directly (e.g. `pages/15_kleur.html`).
+
+**Important:** The site content may already be ahead of the PDF. Always check the existing `content/*.html` file first. Use the PDF pages as a basis and reference — not as a replacement for what's already been written. Only fill gaps or correct errors relative to the current site content.
 
 ### Lab44_EDU - p5.js_FULL_def_Update_25.pdf (15 MB)
 
@@ -406,14 +412,11 @@ Full curriculum. Topics it covers that must be reflected in the site:
 
 ### p5js2_handleiding.pdf (190 KB)
 
-p5.js 2.x features — must be taught as the default approach across the site, with `content/p5js-2.0.html` as a consolidation lesson:
+p5.js 2.x features — taught as the default approach, distributed across relevant topic pages:
 
-- Async asset loading (`loadImage`, `loadFont`, `loadShader` met await)
-- Pointer events voor muis en touch
-- Moderne typografie API
-- Improved curves en splines
-- WebGL shader verbeteringen
-- `beginShape`/`endShape` verbeteringen
+- Async asset loading (`loadImage`, `loadFont`, `loadShader` met await) → `afbeeldingen.html`, `text-typografie.html`, `3d-basis.html`
+- Pointer events voor muis en touch → `muis-interactie.html`
+- Curves en splines (`splineVertex`, `bezierVertex`, `quadraticVertex`) → `vormen.html`
 - Oudere 1.x-patronen zoals `preload()` alleen als context bij bestaand materiaal
 
 **When writing content:** read the relevant PDF sections, translate concepts into student-friendly Dutch, provide working code examples at each concept.
@@ -558,8 +561,7 @@ p5.js +
   ├── Noise & Perlin noise               (noise)
   ├── Afbeeldingen                       (afbeeldingen)
   ├── Text & typografie                  (text-typografie)
-  ├── Geluid                             (geluid)
-  └── Moderne p5.js                      (p5js-2.0)
+  └── Geluid                             (geluid)
 
 Code concepten
   ├── 1D cellulaire automaten            (1d-automaten)
@@ -578,19 +580,19 @@ Code concepten
 Strudel
   └── Strudel: live coding muziek        (strudel)
 
-Inspiratie
-  ├── Vera Molnar                        (vera-molnar)
-  ├── Sol LeWitt — instructies als kunst (sol-lewitt)
-  └── Links & bronnen                    (inspiratie-links)
-
 AI
   ├── AI & ecologische kost              (ai-ecologische-kost)
   ├── AI-tools en playgrounds            (ai-tools)
   ├── AI-modellen vergelijken            (ai-modellen)
   └── Vibe coding                        (vibe-coding)
+
+Inspiratie
+  ├── Vera Molnar — code zonder computer  (vera-molnar)
+  ├── Sol LeWitt — instructies als kunst (sol-lewitt)
+  └── Links & bronnen                    (inspiratie-links)
 ```
 
-To add a new category: add its name to `navCategories[]` in `main.js`. Current order: `["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "Inspiratie", "AI"]`.
+To add a new category: add its name to `navCategories[]` in `main.js`. Current order: `["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "AI", "Inspiratie"]`.
 
 ---
 
@@ -651,8 +653,17 @@ The site uses `fetch()` to load content files. This requires HTTP — opening `i
 
 - **Vera Molnar** — deepen with practical generative art exercises
 - **Strudel** — add more examples: polyrhythm, samples, effects
+- **Camera/webcam** — `createCapture()`, pixel arrays; no page yet (source: `25_camera_en_createcapture.html`)
+- **Externe data** — JSON/CSV laden via fetch; geen pagina (source: `37_werken_met_externe_data_in_p5_js.html`)
+- **DOM-elementen** — `createButton()`, `createInput()`, sliders; geen pagina (source: `32_dom-elementen.html`)
 
-All core p5.js topics are complete as of 2026-03-24. New Inspiratie topics added: ai-tools, ai-modellen (2026-03-24).
+All core p5.js topics are complete as of 2026-03-24. New Inspiratie topics added: ai-tools, ai-modellen (2026-03-24). Moderne p5.js topic removed 2026-03-24 — content verdeeld over vormen, muis-interactie en 3d-basis.
+
+Content gap-fill pass completed 2026-03-24 against `data/Lab44_EDU - p5.js_FULL_def_Update_25/pages/`. Updates made:
+- `animatie.html` — toegevoegd: `translate()`, `rotate()`, `angleMode(DEGREES)`, `tan()`
+- `berekeningen.html` — toegevoegd: `random()` sectie incl. `floor(random())` voor integers
+- `variabelen.html` — toegevoegd: `windowWidth`/`windowHeight`, `windowResized()`
+- `vormen.html` — toegevoegd: `arc()`, `quad()`, `beginShape()`/`vertex()`/`endShape(CLOSE)`, `LINES`/`POINTS` modi
 
 ---
 

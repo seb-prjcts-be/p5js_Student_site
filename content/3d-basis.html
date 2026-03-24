@@ -14,6 +14,10 @@ function draw() {
   box(100);  // Standaard kubus in het midden
 }</code></pre>
     <p>In WEBGL-mode staat het middelpunt van het canvas op coördinaat (0, 0, 0). Gebruik <code>translate()</code> om objecten te verplaatsen.</p>
+    <figure>
+        <img src="assets/3d-basis/webgl-coordinaten.png" alt="Coördinatenraster in WEBGL-mode: midden is 0,0 — negatieve x-waarden gaan naar links, negatieve y-waarden naar boven">
+        <figcaption>In WEBGL staat (0, 0) in het midden. Links en boven zijn negatief, rechts en onder positief.</figcaption>
+    </figure>
 </section>
 
 <section>
@@ -167,6 +171,25 @@ function draw() {
   orbitControl();  // Klik + sleep om te roteren, scroll om in/uit te zoomen
   box(100);
 }</code></pre>
+</section>
+
+<section>
+    <h2>Shaders laden</h2>
+    <p>Shaders zijn programma's die rechtstreeks op de GPU draaien. Laad ze met <code>await loadShader()</code> in <code>async function setup()</code>:</p>
+
+    <pre><code>let mijnShader;
+
+async function setup() {
+  createCanvas(600, 400, WEBGL);
+  mijnShader = await loadShader('shader.vert', 'shader.frag');
+}
+
+function draw() {
+  shader(mijnShader);
+  mijnShader.setUniform('uTime', millis() / 1000);
+  rect(-width / 2, -height / 2, width, height);
+}</code></pre>
+    <p>Dit is een geavanceerde functie — handig als je WEBGL volledig wilt aansturen. Shaders zijn kleine programmaatjes (GLSL) die bepalen hoe elk pixel eruitziet.</p>
 </section>
 
 <div class="p5-example">

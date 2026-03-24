@@ -75,21 +75,6 @@ function mousePressed() {
 </section>
 
 <section>
-    <h2>Scope: Waar Leven Variabelen?</h2>
-    <p>Variabelen gedeclareerd <em>in</em> een functie bestaan alleen daarbinnen. Variabelen <em>buiten</em> alle functies zijn globaal beschikbaar:</p>
-    <pre><code>let globaleX = 0;  // Beschikbaar overal
-
-function draw() {
-  let lokaalY = 100;  // Alleen beschikbaar in draw()
-  globaleX += 1;
-
-  // lokaalY bestaat niet meer na deze accolade
-}
-
-// globaleX is hier nog steeds beschikbaar</code></pre>
-</section>
-
-<section>
     <h2>Complex Voorbeeld: Bloem Tekenen</h2>
     <p>Door functies samen te gebruiken kun je complexe vormen eenvoudig hergebruiken:</p>
     <pre><code>function tekenBloemblaadje(x, y, hoek, grootte) {

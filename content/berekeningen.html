@@ -70,6 +70,24 @@ function draw() {
 </section>
 
 <section>
+    <h2>random() — willekeurige getallen</h2>
+    <p><code>random()</code> geeft elke keer een ander kommagetal terug. Daardoor krijg je steeds een ander resultaat — essentieel voor generatieve kunst.</p>
+    <pre><code>random(100)       // getal van 0 tot 99.99...  (nooit precies 100!)
+random(50, 101)   // getal van 50 tot 100.99...
+
+fill(random(255), random(255), random(255));  // Willekeurige kleur</code></pre>
+
+    <h3>Geheel getal nodig?</h3>
+    <p>Wil je een willekeurig <em>geheel</em> getal, gebruik dan <code>floor()</code> om het naar beneden af te ronden:</p>
+    <pre><code>// Willekeurig getal van 0 t/m 100 (inclusief 100)
+let n = floor(random(101));
+
+// Muntje opgooien: 0 of 1
+let kant = floor(random(2));  // 0 = kop, 1 = munt</code></pre>
+    <p>Let op: <code>random(100)</code> kan nooit precies 100 teruggeven, dus schrijf <code>floor(random(101))</code> als je ook 100 wilt kunnen krijgen.</p>
+</section>
+
+<section>
     <h2>Rekenfuncties in p5.js</h2>
     <p>p5.js heeft een reeks ingebouwde functies die je veel schrijfwerk besparen.</p>
 

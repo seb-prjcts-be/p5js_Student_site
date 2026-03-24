@@ -32,14 +32,27 @@
 </section>
 
 <section>
-    <h2>Geneste Loops</h2>
-    <p>Je kunt loops binnen loops gebruiken voor 2D patronen:</p>
+    <h2>Geneste loops</h2>
+    <p>Je kunt loops <em>in</em> loops gebruiken voor 2D patronen — een loop voor de rijen (y), een loop voor de kolommen (x):</p>
     <pre><code>for (let x = 0; x < 10; x++) {
   for (let y = 0; y < 10; y++) {
     ellipse(x * 50, y * 50, 30, 30);
   }
 }</code></pre>
-    <p>Dit tekent een grid van 10x10 cirkels.</p>
+    <p>Dit tekent een grid van 10×10 cirkels.</p>
+
+    <h3>Voorbeeld met celgrootte</h3>
+    <p>Een handige techniek is werken met een variabele <code>celgrootte</code> in plaats van vaste afstanden:</p>
+    <pre><code>let celgrootte = 40;
+let grootte = 400;
+
+for (let j = 0; j < grootte; j += celgrootte) {
+  for (let i = 0; i < grootte; i += celgrootte) {
+    rect(i, j, celgrootte);  // Vierkantje op positie (i, j)
+  }
+}</code></pre>
+    <p>De <code>i</code> staat voor alle x-posities, de <code>j</code> voor alle y-posities — zo is de afspraak onder programmeurs.</p>
+    <p>Kunstenares <strong>Vera Molnár</strong> gebruikte precies dit principe (raster van cellen) om haar tekenrobot aan te sturen. Bekijk de <a href="#vera-molnar">Vera Molnár pagina</a> voor voorbeelden.</p>
 </section>
 
 <section>

@@ -53,13 +53,49 @@ if (snelheid != 0) { }</code></pre>
 
 <section>
     <h2>Logische Operatoren</h2>
-    <p>Combineer voorwaarden met <code>&&</code> (en) en <code>||</code> (of):</p>
+    <p>Combineer voorwaarden met <code>&&</code> (en) en <code>||</code> (of), of draai een voorwaarde om met <code>!</code> (niet):</p>
     <pre><code>if (x > 100 && x < 300) {
   // x is tussen 100 en 300
 }
 
 if (x < 50 || x > 350) {
   // x is kleiner dan 50 OF groter dan 350
+}
+
+// ! draait een boolean om
+if (!mouseIsPressed) {
+  background(245);  // Alleen wissen als muis NIET ingedrukt
+}</code></pre>
+</section>
+
+<section>
+    <h2>Korte notatie</h2>
+    <p>Als je maar één opdracht wilt uitvoeren, mogen de accolades weg:</p>
+    <pre><code>// Met accolades (standaard)
+if (x > width) {
+  x = 0;
+}
+
+// Korte notatie (één opdracht)
+if (x > width) x = 0;</code></pre>
+
+    <h3>Boolean als voorwaarde</h3>
+    <p>Als een variabele al een boolean is (<code>true</code>/<code>false</code>), hoef je niet te vergelijken:</p>
+    <pre><code>let isStudent = true;
+
+// Uitgebreid
+if (isStudent == true) {
+  fill(0, 255, 0);
+}
+
+// Korter — hetzelfde effect
+if (isStudent) {
+  fill(0, 255, 0);
+}
+
+// Omgekeerd met !
+if (!isStudent) {
+  fill(255, 0, 0);  // Als GEEN student
 }</code></pre>
 </section>
 
