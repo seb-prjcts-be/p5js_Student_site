@@ -40,8 +40,12 @@ p5_cursus_site/
 ├── strudel-mini.js     ← Strudel live-coding module (ES module)
 ├── CLAUDE.md           ← This file
 ├── README.md
-├── knowledge_base.md
-├── strategy.md
+├── docs/               ← Projectdocumentatie (niet geserveerd door Apache)
+│   ├── knowledge_base.md
+│   ├── strategy.md
+│   └── editor/         ← Editor technische docs & prompts
+│       ├── PROMPT.md
+│       └── README.md
 ├── content/            ← One HTML fragment per topic (no <html>/<body> tags)
 │   ├── generative-design.html
 │   ├── over-p5js.html
@@ -119,9 +123,13 @@ p5_cursus_site/
 │   ├── generative-design/   (generative-byob.jpg, generative-demo.jpg, generative-fractal.jpg, generative-lines.png)
 │   ├── inspiratie/          (vera-molnar-desordres.png, vera-molnar-hero.jpg, vera-molnar-interruptions.png)
 │   └── strudel/             (strudel-drums.png, strudel-sounds.png)
-├── data/               ← Source PDFs (read-only reference material)
-│   ├── Lab44_EDU - p5.js_FULL_def_Update_25.pdf   (15 MB — full curriculum)
-│   └── p5js2_handleiding.pdf                       (190 KB — p5.js 2.0 guide)
+├── data/               ← Bronmateriaal (read-only)
+│   └── pdf/            ← Source PDFs en gesplitste HTML-pagina's
+│       ├── Lab44_EDU - p5.js_FULL_def_Update_25.pdf   (15 MB — full curriculum)
+│       ├── Lab44_EDU - p5.js_FULL_def_Update_25/      (gesplitste pagina's + images)
+│       ├── Lab44 - Strudel.pdf
+│       ├── Inspiratiemap- Vera Molnár...pdf
+│       └── AI_Fluency__Key_Terminology_Cheat_Sheet.pdf
 └── backup/             ← Manual backups (do not edit)
 ```
 
@@ -380,10 +388,10 @@ This is intentional: editors run in iframes (global mode is safe there), example
 
 ## PDF Integration: Source Material
 
-The PDFs in `data/` are the original curriculum source. The PDF has been split into per-section HTML pages for easy reading:
+The PDFs in `data/pdf/` are the original curriculum source. The PDF has been split into per-section HTML pages for easy reading:
 
 ```
-data/Lab44_EDU - p5.js_FULL_def_Update_25/pages/
+data/pdf/Lab44_EDU - p5.js_FULL_def_Update_25/pages/
 ```
 
 Open `pages/index.html` to browse sections, or read a specific page directly (e.g. `pages/15_kleur.html`).
@@ -659,7 +667,7 @@ The site uses `fetch()` to load content files. This requires HTTP — opening `i
 
 All core p5.js topics are complete as of 2026-03-24. New Inspiratie topics added: ai-tools, ai-modellen (2026-03-24). Moderne p5.js topic removed 2026-03-24 — content verdeeld over vormen, muis-interactie en 3d-basis.
 
-Content gap-fill pass completed 2026-03-24 against `data/Lab44_EDU - p5.js_FULL_def_Update_25/pages/`. Updates made:
+Content gap-fill pass completed 2026-03-24 against `data/pdf/Lab44_EDU - p5.js_FULL_def_Update_25/pages/`. Updates made:
 - `animatie.html` — toegevoegd: `translate()`, `rotate()`, `angleMode(DEGREES)`, `tan()`
 - `berekeningen.html` — toegevoegd: `random()` sectie incl. `floor(random())` voor integers
 - `variabelen.html` — toegevoegd: `windowWidth`/`windowHeight`, `windowResized()`
