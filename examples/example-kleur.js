@@ -1,39 +1,41 @@
-// Kleur: HSB-kleurwiel met muisinteractie
-window.sketch_example_kleur = function (p) {
+// Kleur voorbeeld — statische vormen met verschillende kleuren en transparantie
+// Beschikbare concepten: vormen + fill(), stroke(), noFill(), noStroke(), RGB, alpha
+window.sketch_example_kleur = function(p) {
 
-    p.setup = function () {
+    p.setup = function() {
         p.createCanvas(600, 400);
-        p.colorMode(p.HSB, 360, 100, 100, 100);
-        p.noStroke();
+        p.noLoop();
     };
 
-    p.draw = function () {
-        p.background(0, 0, 12);
+    p.draw = function() {
+        p.background(245);
 
-        let aantalCirkels = 12;
-        let r = 140;
-        let cx = p.width / 2;
-        let cy = p.height / 2;
+        p.noStroke();
 
-        // Kleurwiel van cirkels
-        for (let i = 0; i < aantalCirkels; i++) {
-            let hoek = p.map(i, 0, aantalCirkels, 0, p.TWO_PI);
-            let x = cx + p.cos(hoek) * r;
-            let y = cy + p.sin(hoek) * r;
-            let hue = p.map(i, 0, aantalCirkels, 0, 360);
+        // Drie overlappende cirkels — RGB primaire kleuren met transparantie
+        p.fill(255, 0, 0, 120);
+        p.ellipse(250, 170, 180, 180);
 
-            // Transparantie reageert op afstand tot muis
-            let d = p.dist(p.mouseX, p.mouseY, x, y);
-            let alpha = p.map(d, 0, 200, 100, 40);
+        p.fill(0, 255, 0, 120);
+        p.ellipse(350, 170, 180, 180);
 
-            p.fill(hue, 80, 95, alpha);
-            p.circle(x, y, 70);
-        }
+        p.fill(0, 0, 255, 120);
+        p.ellipse(300, 260, 180, 180);
 
-        // Middelste cirkel toont mengkleur op basis van muispositie
-        let hMuis = p.map(p.mouseX, 0, p.width, 0, 360);
-        let sMuis = p.map(p.mouseY, 0, p.height, 20, 100);
-        p.fill(hMuis, sMuis, 90, 90);
-        p.circle(cx, cy, 80);
+        // Onderaan: reeks rechthoeken met variatie in kleur
+        p.fill(220, 80, 60);
+        p.rect(50, 360, 80, 30);
+
+        p.fill(60, 180, 120);
+        p.rect(150, 360, 80, 30);
+
+        p.fill(60, 120, 220);
+        p.rect(250, 360, 80, 30);
+
+        p.fill(220, 180, 40);
+        p.rect(350, 360, 80, 30);
+
+        p.fill(180, 60, 200);
+        p.rect(450, 360, 80, 30);
     };
 };

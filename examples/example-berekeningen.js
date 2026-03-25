@@ -1,37 +1,39 @@
-// Berekeningen: map() en dist() in een interactief cirkelraster
-window.sketch_example_berekeningen = function (p) {
+// Berekeningen voorbeeld — cirkel reageert op muisafstand
+// Beschikbare concepten: variabelen, mouseX, mouseY, map(), dist(), random()
+window.sketch_example_berekeningen = function(p) {
 
-    const COLS = 10;
-    const ROWS = 7;
-
-    p.setup = function () {
+    p.setup = function() {
         p.createCanvas(600, 400);
         p.noStroke();
     };
 
-    p.draw = function () {
+    p.draw = function() {
         p.background(18);
 
-        let stapX = p.width / COLS;
-        let stapY = p.height / ROWS;
+        let cx = p.width / 2;
+        let cy = p.height / 2;
 
-        for (let kolom = 0; kolom < COLS; kolom++) {
-            for (let rij = 0; rij < ROWS; rij++) {
-                let x = kolom * stapX + stapX / 2;
-                let y = rij * stapY + stapY / 2;
+        // Afstand van muis tot het midden
+        let d = p.dist(p.mouseX, p.mouseY, cx, cy);
 
-                // dist() — afstand van dit rasterpunt tot de muis
-                let d = p.dist(p.mouseX, p.mouseY, x, y);
+        // map() — afstand omzetten naar grootte en kleur
+        let grootte = p.map(d, 0, 350, 200, 20);
+        let rood = p.map(d, 0, 350, 255, 30);
+        let blauw = p.map(d, 0, 350, 30, 255);
 
-                // map() — afstand omzetten naar grootte en kleur
-                let grootte  = p.map(d, 0, 350, stapX * 0.95, 4);
-                let tint     = p.map(d, 0, 350, 260, 30);   // blauw → donker
-                let verzadig = p.map(d, 0, 350, 90, 20);
+        // Hoofdcirkel in het midden
+        p.fill(rood, 80, blauw);
+        p.ellipse(cx, cy, grootte, grootte);
 
-                p.colorMode(p.HSB, 360, 100, 100);
-                p.fill(tint, verzadig, p.map(d, 0, 350, 95, 25));
-                p.circle(x, y, grootte);
-            }
-        }
+        // Kleine cirkel bij de muis
+        let muisGrootte = p.map(d, 0, 350, 10, 60);
+        p.fill(blauw, 80, rood, 180);
+        p.ellipse(p.mouseX, p.mouseY, muisGrootte, muisGrootte);
+
+        // Verbindingslijn
+        p.stroke(255, 60);
+        p.strokeWeight(1);
+        p.line(cx, cy, p.mouseX, p.mouseY);
+        p.noStroke();
     };
 };

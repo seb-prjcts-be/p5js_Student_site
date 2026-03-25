@@ -1,50 +1,41 @@
-// Animatie voorbeeld: Lissajous-figuur met easing en kleurverloop
-window.sketch_example_animatie = function (p) {
+// Animatie voorbeeld — roterende vormen met translate/rotate
+// Beschikbare concepten: alles t/m animatie (#12), incl. sin/cos, translate, rotate, push/pop
+// Geen arrays, geen objecten
+window.sketch_example_animatie = function(p) {
     let hoek = 0;
-    let huidigeX, huidigeY;
-    let history = [];
-    const MAX_HISTORY = 200;
 
-    p.setup = function () {
+    p.setup = function() {
         p.createCanvas(600, 400);
-        p.colorMode(p.HSB, 360, 100, 100, 100);
-        huidigeX = p.width / 2;
-        huidigeY = p.height / 2;
+        p.noStroke();
     };
 
-    p.draw = function () {
-        p.background(230, 20, 12);
+    p.draw = function() {
+        p.background(20, 20, 40);
 
-        // Lissajous doelpositie (frequentie 3:2)
-        let doelX = p.width / 2 + p.cos(hoek * 3) * 200;
-        let doelY = p.height / 2 + p.sin(hoek * 2) * 170;
+        // Roterende ring van rechthoeken in het midden
+        p.push();
+        p.translate(p.width / 2, p.height / 2);
 
-        // Easing naar doelpositie
-        huidigeX += (doelX - huidigeX) * 0.07;
-        huidigeY += (doelY - huidigeY) * 0.07;
+        for (let i = 0; i < 12; i++) {
+            p.push();
+            p.rotate(hoek + (p.TWO_PI / 12) * i);
 
-        // Bewaar geschiedenis
-        history.push({ x: huidigeX, y: huidigeY, hue: (hoek * 30) % 360 });
-        if (history.length > MAX_HISTORY) history.shift();
+            // Kleur varieert per rechthoek
+            let r = p.map(p.sin(hoek + i), -1, 1, 80, 255);
+            let b = p.map(p.cos(hoek + i), -1, 1, 80, 255);
+            p.fill(r, 100, b, 200);
 
-        // Teken spoor
-        p.strokeWeight(2.5);
-        for (let i = 0; i < history.length - 1; i++) {
-            let alpha = p.map(i, 0, history.length, 0, 90);
-            p.stroke(history[i].hue, 80, 100, alpha);
-            p.line(history[i].x, history[i].y, history[i + 1].x, history[i + 1].y);
+            p.rect(80, -10, 50, 20, 5);
+            p.pop();
         }
+        p.pop();
 
-        // Gloeiend punt
-        p.noStroke();
-        let h = (hoek * 30) % 360;
-        p.fill(h, 60, 100, 40);
-        p.circle(huidigeX, huidigeY, 30);
-        p.fill(h, 80, 100, 80);
-        p.circle(huidigeX, huidigeY, 16);
-        p.fill(0, 0, 100, 100);
-        p.circle(huidigeX, huidigeY, 6);
+        // Kleine draaiende cirkel die rond het midden beweegt
+        let bx = p.width / 2 + p.cos(hoek * 2) * 160;
+        let by = p.height / 2 + p.sin(hoek * 2) * 120;
+        p.fill(255, 220, 60);
+        p.ellipse(bx, by, 20, 20);
 
-        hoek += 0.018;
+        hoek += 0.02;
     };
 };
