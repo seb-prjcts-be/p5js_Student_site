@@ -468,7 +468,7 @@ main {
 
 .onderwerp-page h2 {
     color: var(--text-color);
-    font-size: 1.3em;
+    font-size: 1.5em;
     margin-bottom: 1rem;
     margin-top: 2rem;
     font-weight: var(--font-title-regular);
@@ -880,4 +880,111 @@ footer {
     border-radius: 0;
     font-weight: normal;
 }
+
+/* === Leerdoelen & Oefeningen (JSON-rendered topics) === */
+
+.topic-leerdoelen details,
+.topic-oefeningen details {
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 6px;
+    padding: 0.75em 1em;
+    margin-top: 1em;
+}
+
+.topic-leerdoelen summary,
+.topic-oefeningen summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.topic-leerdoelen summary::-webkit-details-marker,
+.topic-oefeningen summary::-webkit-details-marker {
+    display: none;
+}
+
+.topic-leerdoelen summary::before,
+.topic-oefeningen summary::before {
+    content: '▸';
+    font-size: 0.9em;
+    transition: transform 0.2s;
+}
+
+.topic-leerdoelen details[open] > summary::before,
+.topic-oefeningen details[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.topic-leerdoelen summary h2,
+.topic-oefeningen summary h2 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.topic-leerdoelen ul {
+    margin-top: 0.75em;
+    padding-left: 1.5em;
+}
+
+.topic-leerdoelen li {
+    margin-bottom: 0.4em;
+}
+
+/* Oefening niveaus */
+.oefening-niveau {
+    margin-top: 1em;
+    padding-bottom: 0.5em;
+}
+
+.oefening-niveau h3 {
+    font-family: var(--font-title);
+    font-weight: var(--font-title-regular);
+    font-size: 1.1em;
+    margin-bottom: 0.25em;
+}
+
+.oefening-niveau-beschrijving {
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-bottom: 0.75em;
+}
+
+.oefening-kaart {
+    background: var(--hover-bg, #f8f8f8);
+    border-radius: 6px;
+    padding: 0.75em 1em;
+    margin-bottom: 0.5em;
+}
+
+.oefening-kaart h4 {
+    font-family: var(--font-title);
+    font-weight: var(--font-title-regular);
+    font-size: 1em;
+    margin-bottom: 0.3em;
+}
+
+.oefening-kaart p {
+    font-size: 0.95em;
+    margin-bottom: 0.4em;
+}
+
+.oefening-hint summary,
+.oefening-starter summary {
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-top: 0.3em;
+}
+
+.oefening-hint pre,
+.oefening-starter pre {
+    margin-top: 0.5em;
+}
+
+/* Niveau-indicatoren */
+.oefening-niveau[data-niveau="1"] h3::before { content: '● '; color: #4caf50; }
+.oefening-niveau[data-niveau="2"] h3::before { content: '●● '; color: #ff9800; }
+.oefening-niveau[data-niveau="3"] h3::before { content: '●●● '; color: #f44336; }
 

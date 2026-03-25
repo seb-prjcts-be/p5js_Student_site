@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "id": "variabelen",
+    "titel": "Variabelen",
+    "categorie": "p5.js basis",
+    "samenvatting": "Variabelen slaan waarden op die je later kunt gebruiken. Ze zijn essentieel voor dynamische en interactieve sketches.",
+    "tags": ["variabelen", "let", "const", "types", "scope", "systeemvariabelen"],
+    "bron": "16_variabelen.html",
+    "vereisten": ["setup-draw"],
+    "leidt_naar": ["berekeningen", "if-statements", "animatie"]
+  },
+
+  "leerdoelen": [
+    "Je kunt het verschil uitleggen tussen let en const",
+    "Je kent de basistypes: number, string, boolean",
+    "Je begrijpt het verschil tussen lokale en globale scope",
+    "Je kent de ingebouwde systeemvariabelen van p5.js"
+  ],
+
+  "secties": [
+    {
+      "type": "intro",
+      "content": [
+        { "type": "p", "tekst": "Variabelen slaan waarden op die je later kunt gebruiken. Ze zijn essentieel voor dynamische en interactieve sketches." }
+      ]
+    },
+    {
+      "type": "sectie",
+      "titel": "Variabelen aanmaken",
+      "content": [
+        { "type": "p", "tekst": "In JavaScript gebruik je `let` of `const` om variabelen aan te maken:" },
+        { "type": "code", "code": "let x = 100;        // Kan veranderen\nconst y = 200;      // Blijft constant\nlet diameter = 50;  // Diameter van cirkel" },
+        { "type": "h3", "tekst": "Wanneer gebruik je wat?" },
+        { "type": "lijst", "items": [
+          "`let` - Voor waarden die kunnen veranderen",
+          "`const` - Voor waarden die niet veranderen"
+        ]}
+      ]
+    },
+    {
+      "type": "sectie",
+      "titel": "Types variabelen",
+      "content": [
+        { "type": "p", "tekst": "JavaScript kent verschillende soorten waarden. In p5.js steekt het meestal niet zo nauw, maar het is goed om de types te kennen:" },
+        { "type": "h3", "tekst": "Integer (geheel getal)" },
+        { "type": "code", "code": "let leeftijd = 25;\nlet x = -5;" },
+        { "type": "h3", "tekst": "Float (kommagetal)" },
+        { "type": "p", "tekst": "Gebruik een punt voor decimalen, geen komma:" },
+        { "type": "code", "code": "let snelheid = 2.5;\nlet gewicht = 68.5;" },
+        { "type": "h3", "tekst": "String (tekst)" },
+        { "type": "p", "tekst": "Tekst staat altijd tussen aanhalingstekens — enkel of dubbel:" },
+        { "type": "code", "code": "let naam = \"Jan\";\nlet geboortedatum = \"10/04/1984\";\nlet bericht = 'Hello World';" },
+        { "type": "h3", "tekst": "String samenvoegen (concateneren)" },
+        { "type": "p", "tekst": "Tekst en variabelen kun je samenvoegen met een `+`-teken:" },
+        { "type": "code", "code": "let naam = \"Els\";\nlet x = 100;\nlet zin = naam + \" heeft \" + x + \" appels.\";\nconsole.log(zin);\n// → Els heeft 100 appels." },
+        { "type": "p", "tekst": "Let op: het totale aantal aanhalingstekens moet altijd even zijn." },
+        { "type": "h3", "tekst": "Boolean (waar/onwaar)" },
+        { "type": "p", "tekst": "Een boolean heeft maar twee mogelijke waarden: `true` of `false`. Met een uitroepteken `!` kun je de waarde omdraaien:" },
+        { "type": "code", "code": "let isActief = true;\nlet isGepauzeerd = false;\n\nisActief = !isActief;  // Nu false" },
+        { "type": "h3", "tekst": "Numbers (getallen)" },
+        { "type": "code", "code": "let x = 100;\nlet snelheid = 2.5;\nlet percentage = 0.75;" }
+      ]
+    },
+    {
+      "type": "sectie",
+      "titel": "Variabelen gebruiken",
+      "content": [
+        { "type": "p", "tekst": "Variabelen maken je code flexibel:" },
+        { "type": "code", "code": "let x = 100;\nlet y = 200;\nlet diameter = 50;\n\nfunction draw() {\n  ellipse(x, y, diameter, diameter);\n  \n  // Verander waarden\n  x += 1;  // Beweeg naar rechts\n}" }
+      ]
+    },
+    {
+      "type": "sectie",
+      "titel": "Waar leeft een variabele?",
+      "content": [
+        { "type": "p", "tekst": "Niet elke variabele is overal beschikbaar. Dat hangt af van waar je hem declareert:" },
+        { "type": "lijst", "items": [
+          "Buiten alle functies → **globaal**: beschikbaar in heel je sketch",
+          "Binnen een functie → **lokaal**: bestaat alleen zolang die functie loopt"
+        ]},
+        { "type": "code", "code": "let globaleX = 0;  // Beschikbaar in setup(), draw(), en overal\n\nfunction draw() {\n  let lokaalY = 100;  // Bestaat alleen binnen draw()\n  globaleX += 1;      // Werkt — globaleX is van buiten\n\n  // lokaalY is hier nog beschikbaar...\n}\n// ...maar hier niet meer\n\n// globaleX bestaat nog steeds" },
+        { "type": "afbeelding", "src": "assets/variabelen/scope-fout.png", "alt": "Foutmelding in de p5.js editor: ReferenceError x is not defined door een niet-gedeclareerde variabele", "caption": "Een variabele die niet gedeclareerd is geeft meteen een foutmelding in de console." },
+        { "type": "p", "tekst": "In p5.js declareer je variabelen die je in meerdere functies nodig hebt — zoals posities, snelheden of tellers — altijd **buiten** `setup()` en `draw()`. Dan onthouden ze hun waarde van frame tot frame." },
+        { "type": "code", "code": "let x = 0;          // Onthouden tussen frames\n\nfunction setup() {\n  createCanvas(600, 400);\n}\n\nfunction draw() {\n  background(245);\n  circle(x, 200, 40);\n  x += 2;           // x groeit elk frame\n}" }
+      ]
+    },
+    {
+      "type": "sectie",
+      "titel": "Ingebouwde systeemvariabelen",
+      "content": [
+        { "type": "p", "tekst": "p5.js beheert een aantal variabelen automatisch voor jou. Je hoeft ze niet zelf aan te maken — ze zijn altijd beschikbaar:" },
+        { "type": "h3", "tekst": "width en height" },
+        { "type": "p", "tekst": "De breedte en hoogte van het canvas dat je in `createCanvas()` hebt ingesteld:" },
+        { "type": "code", "code": "function draw() {\n  let middenX = width / 2;   // Horizontaal midden van het canvas\n  let middenY = height / 2;  // Verticaal midden\n  circle(middenX, middenY, 100);\n}" },
+        { "type": "h3", "tekst": "windowWidth en windowHeight" },
+        { "type": "p", "tekst": "De breedte en hoogte van het browservenster (niet het canvas). Handig om een canvas te maken dat het hele venster vult:" },
+        { "type": "code", "code": "function setup() {\n  createCanvas(windowWidth, windowHeight);\n}\n\n// Aanpassen als het venster vergroot of verkleind wordt:\nfunction windowResized() {\n  resizeCanvas(windowWidth, windowHeight);\n}" },
+        { "type": "h3", "tekst": "mouseX en mouseY" },
+        { "type": "p", "tekst": "De huidige positie van de muis op het canvas. Deze waarden veranderen automatisch wanneer de muis beweegt:" },
+        { "type": "code", "code": "function draw() {\n  background(245);\n  circle(mouseX, mouseY, 40);  // Cirkel volgt de muis\n}" },
+        { "type": "p", "tekst": "Meer over muisinteractie lees je op de pagina [Muis interactie](#muis-interactie)." },
+        { "type": "h3", "tekst": "frameCount en frameRate()" },
+        { "type": "p", "tekst": "`frameCount` telt het aantal frames sinds je sketch is gestart — het begint bij 0 en loopt elke keer dat `draw()` draait met 1 omhoog. Handig als timer of om geleidelijke veranderingen te maken:" },
+        { "type": "code", "code": "function draw() {\n  background(245);\n  let x = frameCount % width;  // Loopt steeds opnieuw over het scherm\n  circle(x, 200, 40);\n}" },
+        { "type": "p", "tekst": "Met `frameRate()` stel je in hoe vaak `draw()` per seconde wordt aangeroepen (standaard ~60 keer). Meer hierover op de pagina [Animatie](#animatie)." }
+      ]
+    },
+    {
+      "type": "sectie",
+      "titel": "Berekeningen",
+      "content": [
+        { "type": "p", "tekst": "Met variabelen kun je rekenen: optellen, aftrekken, vermenigvuldigen, delen. De vier basisoperatoren, de modulo `%`, en handige functies zoals `map()` en `dist()` worden uitgebreid behandeld op de pagina [Berekeningen](#berekeningen)." },
+        { "type": "code", "code": "let middenX = width / 2;\nlet middenY = height / 2;\nlet rood = map(mouseX, 0, width, 0, 255);  // schaal muis naar kleur" }
+      ]
+    },
+    {
+      "type": "voorbeeld",
+      "titel": "Voorbeeld: variabelen in actie",
+      "beschrijving": "Dit voorbeeld gebruikt variabelen voor beweging:",
+      "exampleId": "example-basis"
+    },
+    {
+      "type": "sectie",
+      "titel": "Probeer ook in de editor",
+      "content": [
+        { "type": "p", "tekst": "Bekijk deze sketches uit de cursus — open ze in de p5.js editor en experimenteer:" },
+        { "type": "links", "items": [
+          { "url": "https://editor.p5js.org/seb_prjcts.be/sketches/VbeBoHy-y", "label": "LES_Variabelen", "beschrijving": "de basisprincipes van variabelen stap voor stap" },
+          { "url": "https://editor.p5js.org/seb_prjcts.be/sketches/K9zGRZF0c", "label": "LES_Variabelen_hergebruiken", "beschrijving": "één variabele op meerdere plaatsen gebruiken" },
+          { "url": "https://editor.p5js.org/seb_prjcts.be/sketches/WolbjOYOS", "label": "LES_procent_teken", "beschrijving": "de modulo-operator % uitgelegd" }
+        ]}
+      ]
+    },
+    {
+      "type": "editor",
+      "titel": "Probeer het zelf!",
+      "beschrijving": "Pas de variabelen aan om de positie, grootte en kleur te veranderen. Experimenteer met berekeningen!",
+      "width": 600,
+      "height": 400,
+      "autorun": true,
+      "code": "let x = 100;\nlet y = 200;\nlet diameter = 50;\nlet kleurR = 255;\nlet kleurG = 0;\nlet kleurB = 0;\n\nfunction setup() {\n  createCanvas(600, 400);\n}\n\nfunction draw() {\n  background(245);\n  \n  fill(kleurR, kleurG, kleurB);\n  ellipse(x, y, diameter, diameter);\n  \n  // Beweeg naar rechts\n  x += 1;\n  \n  // Als buiten scherm, begin opnieuw\n  if (x > width) {\n    x = 0;\n  }\n}"
+    }
+  ],
+
+  "oefeningen": [
+    {
+      "niveau": 1,
+      "titel": "Verander de startpositie",
+      "beschrijving": "Open de editor hierboven. Verander de waarde van `x` naar 300 en `y` naar 100. Wat verandert er?",
+      "concept": "variabelen toekennen"
+    },
+    {
+      "niveau": 1,
+      "titel": "Kleur aanpassen",
+      "beschrijving": "Verander `kleurR`, `kleurG` en `kleurB` zodat de cirkel groen wordt. Welke waarden heb je nodig?",
+      "concept": "RGB-waarden via variabelen"
+    },
+    {
+      "niveau": 2,
+      "titel": "Twee cirkels",
+      "beschrijving": "Maak een tweede set variabelen (`x2`, `y2`, `diameter2`) en teken een tweede cirkel die naar links beweegt (`x2 -= 1`).",
+      "concept": "meerdere variabelen combineren",
+      "starterCode": "let x = 100;\nlet x2 = 500;\n\nfunction setup() {\n  createCanvas(600, 400);\n}\n\nfunction draw() {\n  background(245);\n  circle(x, 200, 50);\n  x += 1;\n  // Voeg hier de tweede cirkel toe\n}"
+    },
+    {
+      "niveau": 3,
+      "titel": "Stuiterende bal",
+      "beschrijving": "Maak een cirkel die heen en weer stuitert over het canvas. Gebruik een variabele `snelheid` die van teken wisselt wanneer de cirkel de rand raakt.",
+      "concept": "variabelen voor richting en snelheid",
+      "hint": "Als `x > width` of `x < 0`, dan `snelheid = -snelheid`"
+    }
+  ]
+}

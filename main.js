@@ -45,7 +45,7 @@ const onderwerpen = [
         titel: "Variabelen",
         samenvatting: "Leer hoe je variabelen gebruikt om waarden op te slaan en je code flexibel te maken.",
         tags: ["variabelen", "let", "const", "width", "height", "windowWidth", "windowHeight", "windowResized", "data", "basis"],
-        contentFile: "content/variabelen.html",
+        dataFile: "data/topics/variabelen.json",
         categorie: "p5.js basis"
     },
     {
@@ -391,14 +391,32 @@ function getOnderwerpText(onderwerp) {
 
     const fallbackText = `${onderwerp.titel} ${onderwerp.samenvatting} ${getOnderwerpTags(onderwerp).join(' ')}`;
     const textPromise = (async () => {
-        if (!onderwerp.contentFile) {
+        const fetchUrl = onderwerp.dataFile || onderwerp.contentFile;
+        if (!fetchUrl) {
             return fallbackText;
         }
 
         try {
-            const response = await fetch(onderwerp.contentFile);
+            const response = await fetch(fetchUrl);
             if (!response.ok) {
                 return fallbackText;
+            }
+
+            if (onderwerp.dataFile) {
+                // JSON: extract plain text from all tekst/code/beschrijving fields
+                const topic = await response.json();
+                const texts = [];
+                for (const sectie of (topic.secties || [])) {
+                    if (sectie.titel) texts.push(sectie.titel);
+                    if (sectie.beschrijving) texts.push(sectie.beschrijving);
+                    if (sectie.code) texts.push(sectie.code);
+                    for (const block of (sectie.content || [])) {
+                        if (block.tekst) texts.push(block.tekst);
+                        if (block.code) texts.push(block.code);
+                        if (block.items) texts.push(block.items.join(' '));
+                    }
+                }
+                return texts.join(' ');
             }
 
             const html = await response.text();
@@ -701,6 +719,127 @@ function initRouter() {
     loadOnderwerp();
 }
 
+// === JSON Topic Renderer ===
+// Rendert een topic-JSON naar HTML-fragmenten, identiek aan de hand-geschreven content/*.html structuur.
+
+function renderInlineMarkdown(tekst) {
+    // Converteer inline markdown naar HTML: `code`, **bold**, [link](#hash)
+    return tekst
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+}
+
+function renderContentBlock(block) {
+    switch (block.type) {
+        case 'p':
+            return `<p>${renderInlineMarkdown(block.tekst)}</p>`;
+        case 'code':
+            return `<pre><code>${escapeHtml(block.code)}</code></pre>`;
+        case 'h3':
+            return `<h3>${renderInlineMarkdown(block.tekst)}</h3>`;
+        case 'lijst':
+            return `<ul>${block.items.map(item => `<li>${renderInlineMarkdown(item)}</li>`).join('\n')}</ul>`;
+        case 'afbeelding':
+            return `<figure>
+    <img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt)}">
+    ${block.caption ? `<figcaption>${renderInlineMarkdown(block.caption)}</figcaption>` : ''}
+</figure>`;
+        case 'links':
+            return `<ul>${block.items.map(item =>
+                `<li><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.label)}</a>${item.beschrijving ? ` — ${renderInlineMarkdown(item.beschrijving)}` : ''}</li>`
+            ).join('\n')}</ul>`;
+        default:
+            return '';
+    }
+}
+
+function renderTopicFromJson(topic) {
+    const parts = [];
+
+    for (const sectie of topic.secties) {
+        switch (sectie.type) {
+            case 'intro':
+                parts.push(`<div class="intro">\n${sectie.content.map(renderContentBlock).join('\n')}\n</div>`);
+                break;
+            case 'sectie':
+                parts.push(`<section>\n<h2>${renderInlineMarkdown(sectie.titel)}</h2>\n${sectie.content.map(renderContentBlock).join('\n')}\n</section>`);
+                break;
+            case 'voorbeeld':
+                parts.push(`<div class="p5-example">
+    <h3>${renderInlineMarkdown(sectie.titel)}</h3>
+    ${sectie.beschrijving ? `<p>${renderInlineMarkdown(sectie.beschrijving)}</p>` : ''}
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="${escapeHtml(sectie.exampleId)}"></div>
+    </div>
+</div>`);
+                break;
+            case 'editor':
+                parts.push(`<section>
+    <h2>${renderInlineMarkdown(sectie.titel)}</h2>
+    ${sectie.beschrijving ? `<p>${renderInlineMarkdown(sectie.beschrijving)}</p>` : ''}
+    <div class="p5-editor" data-width="${sectie.width || 600}" data-height="${sectie.height || 400}" data-autorun="${sectie.autorun !== false ? 'true' : 'false'}">
+        <script type="text/p5">\n${sectie.code}\n        </script>
+    </div>
+</section>`);
+                break;
+        }
+    }
+
+    // Leerdoelen als uitklapbare sectie
+    if (topic.leerdoelen && topic.leerdoelen.length > 0) {
+        parts.push(`<section class="topic-leerdoelen">
+    <details>
+        <summary><h2>Leerdoelen</h2></summary>
+        <ul>${topic.leerdoelen.map(doel => `\n            <li>${renderInlineMarkdown(doel)}</li>`).join('')}
+        </ul>
+    </details>
+</section>`);
+    }
+
+    // Oefeningen als uitklapbare sectie per niveau
+    if (topic.oefeningen && topic.oefeningen.length > 0) {
+        const niveauLabels = { 1: 'Nabootsen', 2: 'Variëren', 3: 'Creëren' };
+        const niveauBeschrijvingen = {
+            1: 'Pas bestaande code aan — verander één waarde en bekijk het resultaat.',
+            2: 'Breid een voorbeeld uit met eigen aanpassingen.',
+            3: 'Bouw iets nieuws met de concepten die je hebt geleerd.'
+        };
+
+        let oefeningenHtml = '';
+        for (const niveau of [1, 2, 3]) {
+            const items = topic.oefeningen.filter(o => o.niveau === niveau);
+            if (items.length === 0) continue;
+
+            oefeningenHtml += `\n            <div class="oefening-niveau" data-niveau="${niveau}">
+                <h3>${niveauLabels[niveau] || 'Niveau ' + niveau}</h3>
+                <p class="oefening-niveau-beschrijving">${niveauBeschrijvingen[niveau] || ''}</p>`;
+
+            for (const oef of items) {
+                oefeningenHtml += `\n                <div class="oefening-kaart">
+                    <h4>${renderInlineMarkdown(oef.titel)}</h4>
+                    <p>${renderInlineMarkdown(oef.beschrijving)}</p>`;
+                if (oef.hint) {
+                    oefeningenHtml += `\n                    <details class="oefening-hint"><summary>Hint</summary><p>${renderInlineMarkdown(oef.hint)}</p></details>`;
+                }
+                if (oef.starterCode) {
+                    oefeningenHtml += `\n                    <details class="oefening-starter"><summary>Startcode</summary><pre><code>${escapeHtml(oef.starterCode)}</code></pre></details>`;
+                }
+                oefeningenHtml += `\n                </div>`;
+            }
+            oefeningenHtml += `\n            </div>`;
+        }
+
+        parts.push(`<section class="topic-oefeningen">
+    <details>
+        <summary><h2>Oefeningen</h2></summary>${oefeningenHtml}
+    </details>
+</section>`);
+    }
+
+    return parts.join('\n\n');
+}
+
 // Render functie voor onderwerp pagina
 async function renderOnderwerp(onderwerp) {
     const content = document.getElementById('content');
@@ -714,9 +853,19 @@ async function renderOnderwerp(onderwerp) {
     `;
     
     try {
-        // Laad HTML content uit bestand
+        // Laad content: JSON (nieuw) of HTML (legacy)
         let htmlContent = '';
-        if (onderwerp.contentFile) {
+        if (onderwerp.dataFile) {
+            // JSON-pad: fetch JSON, render naar HTML
+            const response = await fetch(onderwerp.dataFile);
+            if (response.ok) {
+                const topic = await response.json();
+                htmlContent = renderTopicFromJson(topic);
+                cacheOnderwerpText(onderwerp.id, extractPlainText(htmlContent));
+            } else {
+                htmlContent = '<p>Topic data niet gevonden. Controleer of het JSON-bestand bestaat.</p>';
+            }
+        } else if (onderwerp.contentFile) {
             const response = await fetch(onderwerp.contentFile);
             if (response.ok) {
                 htmlContent = await response.text();
