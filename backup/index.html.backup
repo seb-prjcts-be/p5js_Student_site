@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>p5.js Cursus - Leer Creative Coding</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.7.0/p5.js"></script>
+</head>
+<body>
+    <header>
+        <h1>p5.js Cursus</h1>
+        <p class="subtitle">Creative coding voor leerlingen</p>
+    </header>
+
+    <nav id="main-nav">
+        <h2>Onderwerpen</h2>
+        <ul id="nav-list"></ul>
+    </nav>
+
+    <div class="search-container">
+        <input type="text" id="search-input" placeholder="Zoek op trefwoord...">
+        <div id="search-results"></div>
+    </div>
+
+    <main id="content">
+        <div class="welcome">
+            <h2>Welkom bij de p5.js Cursus</h2>
+            <p>Deze cursus helpt je stap voor stap creative coding leren met p5.js. Kies een onderwerp uit het menu om te beginnen, of gebruik de zoekfunctie om specifieke onderwerpen te vinden.</p>
+            <p>p5.js is een JavaScript bibliotheek die creative coding toegankelijk maakt. Je kunt er interactieve animaties, visuele kunst, games en meer mee maken.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>p5.js Cursus - Lab44</p>
+    </footer>
+
+    <script src="main.js"></script>
+</body>
+</html>
+

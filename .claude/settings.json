@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Read(//c/server/htdocs/p5_cursus_site/**)",
+      "Bash(grep -l \"p5-canvas-wrapper\" \"c:/server/htdocs/p5_cursus_site - WIP/content/\"*.html)",
+      "Bash(grep -h \"p5-canvas-wrapper\" \"c:/server/htdocs/p5_cursus_site - WIP/content/\"*.html)",
+      "Bash(python3 -c \":*)"
+    ]
+  }
+}
