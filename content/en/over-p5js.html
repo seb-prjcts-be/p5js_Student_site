@@ -1,0 +1,130 @@
+<div class="intro">
+    <p>p5.js is a JavaScript library that makes creative coding accessible. It's based on Processing, but works entirely in the browser without extra software.</p>
+</div>
+
+<section>
+    <h2>What is Processing?</h2>
+    <p>Processing is a programming language and development environment created in 2001 by Casey Reas and Ben Fry at the MIT Media Lab. The goal was to make programming accessible to artists, designers, and beginners.</p>
+    <p>Processing uses Java and has its own editor. It's powerful, but requires you to install software.</p>
+</section>
+
+<section>
+    <h2>From Processing to p5.js</h2>
+    <p>p5.js is the JavaScript version of Processing. It was developed by Lauren McCarthy and a community of developers. The key difference:</p>
+    <ul>
+        <li><strong>Processing:</strong> Java-based, desktop application</li>
+        <li><strong>p5.js:</strong> JavaScript-based, works in the browser</li>
+    </ul>
+    <p>With p5.js you don't need to install anything — you write code in an editor and open it in your browser!</p>
+</section>
+
+<section>
+    <h2>The p5.js Editor</h2>
+    <p>The official p5.js editor (editor.p5js.org) is an online development environment where you can start coding right away. Advantages:</p>
+    <ul>
+        <li>No installation needed</li>
+        <li>Auto-save</li>
+        <li>Sharing sketches is easy</li>
+        <li>Works on any computer with a browser</li>
+    </ul>
+    <p>You can also create your own HTML file and load p5.js via a CDN (like we do in this course).</p>
+</section>
+
+<section>
+    <h2>The console</h2>
+    <p>Below the code window in the editor you'll see the <strong>console</strong>. That's your information screen: you can print values to it, and error messages appear there automatically.</p>
+    <pre><code>// Show a value in the console:
+console.log("Hello!");
+console.log(mouseX);  // Shows the mouse position</code></pre>
+    <p>You can also use the console as a calculator: type a calculation and press Enter.</p>
+
+    <h3>Friendly error messages</h3>
+    <p>The <strong>Friendly Error System</strong> of p5.js gives understandable error messages in simple language — including a hint about what's wrong and how you can fix it. If there's an error in your code, read the console carefully!</p>
+    <p>Want to see the real browser developer console? Press <kbd>F12</kbd> or <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd>.</p>
+</section>
+
+<section>
+    <h2>The Reference</h2>
+    <p>The <a href="https://p5js.org/reference/" target="_blank" rel="noopener">p5.js Reference</a> is your dictionary for everything p5.js can do. For every function you'll find:</p>
+    <ul>
+        <li>Explanation of what a function does</li>
+        <li>What parameters you can use</li>
+        <li>Working examples</li>
+    </ul>
+    <p><strong>Tip:</strong> If you don't know how something works, look it up in the Reference. You don't need to memorize everything!</p>
+</section>
+
+<section>
+    <h2>Saving and organizing sketches</h2>
+    <p>In the online editor your sketches are automatically saved when you're logged in. Still, it's worth developing good habits:</p>
+    <ul>
+        <li><strong>Use clear names</strong> — not "sketch_01" but something like "LES_color_rainbow"</li>
+        <li><strong>No spaces</strong> in file names — use an underscore <code>_</code> or hyphen <code>-</code></li>
+        <li><strong>Use version numbers</strong> when tracking experiments: <code>_v01</code>, <code>_v02</code></li>
+        <li><strong>Organize in collections</strong> — the editor supports folders per project or theme</li>
+        <li><strong>Make regular backups</strong> — download the files locally for long-term projects</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Project structure</h2>
+    <p>A simple p5.js project looks like this:</p>
+    <pre><code>my-project/
+  ├── index.html
+  ├── sketch.js
+  └── style.css (optional)</code></pre>
+
+    <h3>index.html</h3>
+    <pre><code>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js"&gt;&lt;/script&gt;
+  &lt;script src="sketch.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+
+    <h3>sketch.js</h3>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(245);
+  ellipse(200, 200, 50, 50);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Your First p5.js Sketch</h3>
+    <p>This is a simple example showing how p5.js works:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-over-p5js"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Create your first p5.js sketch! Modify the code, add shapes, or make it interactive with mouseX and mouseY.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+
+  // Circle that follows the mouse
+  fill(0, 0, 255);
+  ellipse(mouseX, mouseY, 50, 50);
+
+  // Fixed rectangle
+  fill(255, 0, 0);
+  rect(200, 150, 100, 100);
+}
+        </script>
+    </div>
+</section>

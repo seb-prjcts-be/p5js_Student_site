@@ -1,0 +1,114 @@
+<div class="intro">
+    <p>A random walk is a path that emerges step by step from chance. A point chooses a random direction each time and leaves a trail behind.</p>
+</div>
+
+<section>
+    <h2>Why this concept is powerful</h2>
+    <p>The rule is almost ridiculously simple, yet patterns, tangles, and zones of varying density emerge. This makes random walk ideal for thinking about chance and structure.</p>
+    <p><strong>Think about it:</strong> is randomness truly fully chaotic, or does it develop a character after many steps?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>letting a system evolve step by step</li>
+        <li>making randomness visible as a trail</li>
+        <li>working with state: current position and previous position</li>
+        <li>seeing how repetition and time build up an image</li>
+    </ul>
+</section>
+
+<section>
+    <h2>The basic rule</h2>
+    <p>At each step you choose a direction and move the point. That's all there is to it:</p>
+    <pre><code>let x = width / 2;
+let y = height / 2;
+
+function step() {
+  let choice = floor(random(4));
+
+  if (choice === 0) x += 10;
+  if (choice === 1) x -= 10;
+  if (choice === 2) y += 10;
+  if (choice === 3) y -= 10;
+}</code></pre>
+    <p>By drawing a line after each step, the path becomes visible.</p>
+</section>
+
+<section>
+    <h2>Variations on the same idea</h2>
+    <ul>
+        <li><strong>biased walk</strong> - one direction gets a higher chance</li>
+        <li><strong>self-avoiding walk</strong> - the line cannot touch itself</li>
+        <li><strong>multiple walkers</strong> - different points build an image together</li>
+        <li><strong>color as memory</strong> - each step also changes hue or thickness</li>
+    </ul>
+    <p>This shows that a system often isn't about great complexity, but about a small rule plus a few clever variations.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>First create a regular random walk. Then add a bias, for example a higher chance of moving right. Compare both trails and describe which image feels more like wandering and which feels more like purposeful movement.</p>
+</section>
+
+<section>
+    <h2>Try It Yourself</h2>
+    <p>This walker starts in the center and takes multiple steps per frame. Change the step size, color, or probability distribution and see how the character of the trail changes.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let x, y;
+let stepSize = 8;
+
+function setup() {
+  createCanvas(600, 400);
+  clearBackground();
+  resetWalker();
+}
+
+function clearBackground() {
+  background(248, 246, 241);
+}
+
+function resetWalker() {
+  x = width / 2;
+  y = height / 2;
+}
+
+function draw() {
+  stroke(20, 40, 80, 25);
+  strokeWeight(1.5);
+
+  for (let i = 0; i < 10; i++) {
+    let oldX = x;
+    let oldY = y;
+    let choice = floor(random(4));
+
+    if (choice === 0) x += stepSize;
+    if (choice === 1) x -= stepSize;
+    if (choice === 2) y += stepSize;
+    if (choice === 3) y -= stepSize;
+
+    x = constrain(x, 0, width);
+    y = constrain(y, 0, height);
+
+    line(oldX, oldY, x, y);
+  }
+}
+
+function mousePressed() {
+  clearBackground();
+  resetWalker();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Click the canvas to switch between different random walk modes.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-random-walk"></div>
+        </div>
+    </div>
+</section>

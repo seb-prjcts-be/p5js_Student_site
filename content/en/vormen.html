@@ -1,0 +1,180 @@
+<div class="intro">
+    <p>p5.js has built-in functions for basic shapes. With these functions you can quickly start drawing.</p>
+</div>
+
+<section>
+    <h2>Basic elements: point and line</h2>
+    <p>The simplest shapes in p5.js are a point and a line.</p>
+
+    <h3>point() — Point</h3>
+    <p>A point is the simplest shape, defined only by its x and y coordinates.</p>
+    <pre><code>point(x, y);
+point(100, 100);</code></pre>
+
+    <h3>line() — Line</h3>
+    <p>A line has two endpoints, each with an x and y coordinate.</p>
+    <pre><code>line(x1, y1, x2, y2);
+line(0, 100, 400, 100);</code></pre>
+    <figure>
+        <img src="assets/vormen/line-preview.png" alt="p5.js editor with line(0,100,400,100) and the horizontal line in the preview window">
+        <figcaption>A horizontal line from left to right: the four numbers are x1, y1, x2, y2.</figcaption>
+    </figure>
+</section>
+
+<section>
+    <h2>Round shapes: circle() and ellipse()</h2>
+
+    <h3>circle() — Circle</h3>
+    <p>Use a circle when width and height are equal. You specify the center point and the diameter:</p>
+    <pre><code>circle(x, y, diameter);
+circle(200, 200, 150);  // Circle with diameter 150</code></pre>
+
+    <h3>ellipse() — Oval</h3>
+    <p>An ellipse has a separate width and height. If they're equal you also get a circle:</p>
+    <pre><code>ellipse(x, y, width, height);
+ellipse(200, 200, 100, 100);  // Circle via ellipse
+ellipse(200, 200, 150, 100);  // Oval</code></pre>
+</section>
+
+<section>
+    <h2>Rectangular shapes: square() and rect()</h2>
+
+    <h3>square() — Square</h3>
+    <p>Use a square when all sides are equal length. You specify the top-left corner and the side length:</p>
+    <pre><code>square(x, y, side);
+square(100, 100, 80);  // Square of 80x80</code></pre>
+    <figure>
+        <img src="assets/vormen/square-diagram.png" alt="Diagram of a square in p5.js with coordinate at top-left and side length">
+        <figcaption>With <code>square()</code> and <code>rect()</code>, <code>(x, y)</code> is the <strong>top-left corner</strong>, not the center.</figcaption>
+    </figure>
+
+    <h3>rect() — Rectangle</h3>
+    <p>A rectangle has a separate width and height. Just like <code>square()</code>, <code>(x, y)</code> is the top-left corner:</p>
+    <pre><code>rect(x, y, width, height);
+rect(100, 100, 200, 150);</code></pre>
+
+    <h3>rectMode(CENTER) — Center as anchor point</h3>
+    <p>Would you rather use the <em>center</em> of the rectangle as the coordinate? Then set <code>rectMode(CENTER)</code> in <code>setup()</code>:</p>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  rectMode(CENTER);  // Coordinate = center of the rectangle
+}
+
+function draw() {
+  rect(200, 200, 100, 60);  // Center at (200,200)
+}</code></pre>
+
+    <h3>triangle() — Triangle</h3>
+    <p>A triangle has three corner points, each with an x and y coordinate:</p>
+    <pre><code>triangle(x1, y1, x2, y2, x3, y3);
+triangle(200, 50, 100, 200, 300, 200);</code></pre>
+</section>
+
+<section>
+    <h2>Coordinates</h2>
+    <p>The canvas uses a coordinate system where:</p>
+    <ul>
+        <li><strong>(0,0)</strong> is the top-left</li>
+        <li><strong>X</strong> goes to the right</li>
+        <li><strong>Y</strong> goes downward</li>
+    </ul>
+    <p>This is different from math where Y goes upward!</p>
+</section>
+
+<section>
+    <h2>Combining Shapes</h2>
+    <p>You can draw multiple shapes in a single <code>draw()</code> function:</p>
+    <pre><code>function draw() {
+  background(245);
+  ellipse(200, 200, 100, 100);  // Circle
+  rect(150, 150, 100, 100);     // Rectangle
+  line(0, 0, 400, 400);         // Line
+}</code></pre>
+    <p>The order determines what's on top — the last shape is on top.</p>
+</section>
+
+<section>
+    <h2>arc() and quad()</h2>
+
+    <h3>arc() — Arc or Pie Slice</h3>
+    <p>An arc is a portion of an ellipse. You specify the center, dimensions, and two angles (in radians):</p>
+    <pre><code>// arc(x, y, width, height, startAngle, endAngle)
+arc(200, 200, 150, 150, 0, PI);          // Half circle (bottom)
+arc(200, 200, 150, 150, 0, PI, PIE);     // Pie slice
+arc(200, 200, 150, 150, 0, PI, CHORD);   // Closed chord</code></pre>
+    <p>Options for the close type: <code>OPEN</code> (default), <code>CHORD</code> (straight line between endpoints), <code>PIE</code> (pie slice).</p>
+
+    <h3>quad() — Quadrilateral</h3>
+    <p>A quadrilateral with four corner points — not necessarily a rectangle:</p>
+    <pre><code>// quad(x1, y1, x2, y2, x3, y3, x4, y4)
+quad(100, 50, 300, 20, 350, 200, 80, 230);</code></pre>
+</section>
+
+<section>
+    <h2>Custom shapes with beginShape()</h2>
+    <p>With <code>beginShape()</code> and <code>vertex()</code> you can draw any polygon you want:</p>
+    <pre><code>beginShape();
+  vertex(50, 150);
+  vertex(100, 50);   // Peak 1
+  vertex(150, 120);
+  vertex(200, 40);   // Peak 2
+  vertex(300, 150);
+endShape(CLOSE);     // CLOSE closes the shape automatically</code></pre>
+
+    <h3>LINES and POINTS as argument</h3>
+    <pre><code>// Every two vertices form a line
+beginShape(LINES);
+  vertex(50, 50);  vertex(200, 50);
+  vertex(50, 100); vertex(200, 100);
+endShape();
+
+// Draw only points
+beginShape(POINTS);
+  vertex(100, 100);
+  vertex(200, 150);
+  vertex(300, 100);
+endShape();</code></pre>
+</section>
+
+<section>
+    <h2>Smooth curves</h2>
+    <p>For smooth lines through multiple points, use <code>beginShape()</code> with <code>splineVertex()</code>:</p>
+    <pre><code>beginShape();
+splineVertex(80, 260);
+splineVertex(180, 120);
+splineVertex(320, 300);
+splineVertex(460, 140);
+splineVertex(540, 250);
+endShape();</code></pre>
+
+    <h3>Bezier and quadratic curves</h3>
+    <p>You can also mix Bezier curves and quadratic curves within a single shape:</p>
+    <pre><code>beginShape();
+vertex(60, 220);
+bezierVertex(140, 40, 260, 40, 320, 220);
+quadraticVertex(430, 360, 540, 180);
+endShape();</code></pre>
+</section>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Edit the code below to create different shapes. Click "Run" to execute your code, or modify the code and experiment!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+  ellipse(200, 200, 100, 100);  // Circle
+  rect(150, 150, 100, 100);     // Rectangle
+  line(0, 0, 400, 400);         // Line
+}
+        </script>
+    </div>
+
+    <p><strong>Tip:</strong> Try modifying the code! For example, add colors with <code>fill()</code>, change the positions, or add more shapes like a triangle with <code>triangle()</code>.</p>
+</section>
+

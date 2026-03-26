@@ -1,0 +1,105 @@
+<figure>
+    <img src="assets/generative-design/generative-hero.jpg" alt="Generative art: thousands of fine black lines radiate from the center, like an organic cloud of lines">
+</figure>
+
+<div class="intro">
+    <p>Generative design, or creative coding, is making art and visual patterns with the help of algorithms and code. It is not about AI-generated images, but about designing systems yourself that produce imagery, form, and variation. This form of creativity has a rich history going back to the 1960s.</p>
+</div>
+
+
+<section>
+    <h2>The Origins</h2>
+    <p>Generative design began with pioneers like <strong>John Whitney</strong>, who in the 1960s experimented with computer animation and mathematical patterns. He used analog computers to create abstract animations that laid the foundation for what we now call creative coding.</p>
+
+    <h3>Key Moments</h3>
+    <ul>
+        <li><strong>1960s:</strong> John Whitney creates the first computer-generated animations</li>
+        <li><strong>1970s:</strong> Fractals are discovered and used in art (Mandelbrot set)</li>
+        <li><strong>1980s:</strong> The DEMO scene emerges — programmers create visual art with code</li>
+        <li><strong>2000s:</strong> Processing is developed, making creative coding accessible</li>
+        <li><strong>2010s:</strong> p5.js brings Processing to the web</li>
+    </ul>
+</section>
+
+<section>
+    <h2>What is Generative Design?</h2>
+    <p>Generative Design is a fusion of art and technology, where you use algorithms and code to create visual compositions. You don't draw image by image, but instead design a system that produces images.</p>
+    <p>Unlike traditional art, where you determine every detail yourself, here you define rules, parameters, and variation. Those rules produce the work: you no longer make a single poster, but a system to generate thousands of unique posters.</p>
+    <p>By allowing repetition, chance, and controlled disruption, patterns emerge that you could never have drawn one by one. That is precisely the power of generative art: you design the process, the computer explores the possibilities.</p>
+    <figure>
+        <img src="assets/generative-design/generative-lines.png" alt="Generative design with diagonal lines and repetition">
+        <figcaption>A simple rule can lead to rich variation.</figcaption>
+    </figure>
+
+    <h3>Advantages</h3>
+    <p>Generative Design combines creativity with systems thinking. This yields several clear advantages:</p>
+    <ul>
+        <li>You create many variations in a short time and discover unexpected solutions.</li>
+        <li>Mathematical patterns are precise and repeatable, allowing you to experiment in a targeted way.</li>
+        <li>Interaction and animation feel natural because the system responds to time and input.</li>
+        <li>You learn to program in a creative way and build your own tools.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Examples from History</h2>
+    <h3>Fractals</h3>
+    <p>In the early 1980s, mathematician <strong>Benoit Mandelbrot</strong> brought the concepts of fractals to the forefront. Fractals are patterns that repeat themselves at different scales. Well-known examples include the Mandelbrot set and the Koch snowflake.</p>
+    <p>Fractals show how simple formulas can form complex structures. They immediately made generative art visible to a broad audience.</p>
+    <figure>
+        <img src="assets/generative-design/generative-fractal.jpg" alt="Mandelbrot fractal with deep zoom and complex patterns">
+        <figcaption>Fractals: complex shapes from simple rules.</figcaption>
+    </figure>
+
+    <h3>DEMO scene</h3>
+    <p>The demoscene is an international subculture of computer art that produces demos: small programs that generate audiovisual presentations. It's all about programming, visuals, music, and showmanship.</p>
+    <p>The annual <strong>DEMO festival</strong> (Design in Motion) claims public advertising screens as exhibition space and shows moving, colorful creations in the city.</p>
+    <figure>
+        <img src="assets/generative-design/generative-demo.jpg" alt="Public screens with moving generative visuals during DEMO festival">
+        <figcaption>DEMO festival (Design in Motion) brings generative imagery to the streets.</figcaption>
+    </figure>
+
+    <h3>BYOB (Bring Your Own Beamer)</h3>
+    <p>Bring Your Own Beamer is a format where artists show their work on their own projector. Many cities have a local version, and in Ghent, Nerdlab is a well-known organizer.</p>
+    <p>The result is a temporary exhibition where generative images, animations, and live visuals come together in a shared space.</p>
+    <figure>
+        <img src="assets/generative-design/generative-byob.jpg" alt="Projections during a Bring Your Own Beamer event">
+        <figcaption>BYOB events turn projections into a collective exhibition.</figcaption>
+    </figure>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Simple Generative Pattern</h3>
+    <p>This example shows a simple generative pattern with moving circles:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-generative"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try it Yourself!</h2>
+    <p>Create your own generative pattern! Adjust the parameters, add mathematical functions, or experiment with random() for variation.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+}
+
+function draw() {
+  background(220, 20);
+
+  // Generative pattern with sin/cos
+  for (let i = 0; i < 20; i++) {
+    let x = width/2 + sin(frameCount * 0.01 + i) * 150;
+    let y = height/2 + cos(frameCount * 0.01 + i) * 100;
+    let grootte = 20 + sin(frameCount * 0.02 + i) * 15;
+
+    fill(100 + i * 5, 150, 200);
+    ellipse(x, y, grootte, grootte);
+  }
+}
+        </script>
+    </div>
+</section>

@@ -1,0 +1,114 @@
+<div class="intro">
+    <p>Recursion means a function calls itself again. That sounds strange, but it's a powerful way to create branching, fractals, and repetition at multiple scales.</p>
+</div>
+
+<section>
+    <h2>Why this concept matters</h2>
+    <p>Recursion shows that a rich form doesn't always need many different rules. Sometimes a single rule is enough, as long as it's allowed to apply itself again.</p>
+    <p><strong>Think about it:</strong> how can something appear infinitely rich while repeating the same principle over and over?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>the difference between repetition with a loop and recursion with a function</li>
+        <li>working with a base case (stop condition)</li>
+        <li>drawing at multiple scales</li>
+        <li>seeing why fractals and trees often feel recursive</li>
+    </ul>
+</section>
+
+<section>
+    <h2>The base case</h2>
+    <p>A recursive function must know when to stop. Without a base case, you'll keep going forever.</p>
+    <pre><code>function countDown(n) {
+  if (n &lt;= 0) return;
+  print(n);
+  countDown(n - 1);
+}</code></pre>
+    <p>Here the function calls itself with a smaller value. That's the essence of recursion.</p>
+</section>
+
+<section>
+    <h2>A recursive tree</h2>
+    <p>With a tree, you first draw a trunk. Then from the end you draw two smaller branches. Each branch does the same thing again:</p>
+    <pre><code>function branch(length) {
+  if (length &lt; 12) return;
+
+  line(0, 0, 0, -length);
+  translate(0, -length);
+
+  push();
+  rotate(0.4);
+  branch(length * 0.7);
+  pop();
+
+  push();
+  rotate(-0.4);
+  branch(length * 0.7);
+  pop();
+}</code></pre>
+</section>
+
+<section>
+    <h2>Recursion versus loops</h2>
+    <p>A <code>for</code> loop is handy when you want to repeat something a fixed number of times. Recursion is powerful when a shape or idea needs to repeat itself at a smaller scale. That's why you often see recursion in trees, rivers, lightning, and fractals.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>First create a simple recursive tree. Then change just one thing at a time: the angle, the shrink factor, or the base case. Which version feels organic, and which feels more graphic or architectural?</p>
+</section>
+
+<section>
+    <h2>Try It Yourself</h2>
+    <p>Change the angle, shrink factor, or stop value. Small differences often produce completely different trees.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let angle = 0.42;
+
+function setup() {
+  createCanvas(600, 400);
+  noLoop();
+}
+
+function branch(length) {
+  if (length < 10) return;
+
+  strokeWeight(map(length, 10, 120, 1, 6));
+  line(0, 0, 0, -length);
+  translate(0, -length);
+
+  push();
+  rotate(angle);
+  branch(length * 0.72);
+  pop();
+
+  push();
+  rotate(-angle);
+  branch(length * 0.72);
+  pop();
+}
+
+function draw() {
+  background(248, 246, 241);
+  stroke(40, 28, 18);
+
+  push();
+  translate(width / 2, height - 20);
+  branch(120);
+  pop();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>The demo shows a recursive tree breathing. Click to change the depth of the structure.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-recursie"></div>
+        </div>
+    </div>
+</section>

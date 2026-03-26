@@ -1,0 +1,197 @@
+<div class="intro">
+    <p>Variables store values that you can use later. They are essential for dynamic and interactive sketches.</p>
+</div>
+
+<section>
+    <h2>Creating Variables</h2>
+    <p>In JavaScript you use <code>let</code> or <code>const</code> to create variables:</p>
+    <pre><code>let x = 100;        // Can change
+const y = 200;      // Stays constant
+let diameter = 50;  // Diameter of circle</code></pre>
+
+    <h3>When to use which?</h3>
+    <ul>
+        <li><code>let</code> - For values that can change</li>
+        <li><code>const</code> - For values that don't change</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Variable types</h2>
+    <p>JavaScript has different kinds of values. In p5.js it usually doesn't matter much, but it's good to know the types:</p>
+
+    <h3>Integer (whole number)</h3>
+    <pre><code>let age = 25;
+let x = -5;</code></pre>
+
+    <h3>Float (decimal number)</h3>
+    <p>Use a dot for decimals, not a comma:</p>
+    <pre><code>let speed = 2.5;
+let weight = 68.5;</code></pre>
+
+    <h3>String (text)</h3>
+    <p>Text is always placed between quotation marks — single or double:</p>
+    <pre><code>let name = "Jan";
+let birthdate = "10/04/1984";
+let message = 'Hello World';</code></pre>
+
+    <h3>String concatenation</h3>
+    <p>You can join text and variables together with a <code>+</code> sign:</p>
+    <pre><code>let name = "Els";
+let x = 100;
+let sentence = name + " has " + x + " apples.";
+console.log(sentence);
+// → Els has 100 apples.</code></pre>
+    <p>Note: the total number of quotation marks must always be even.</p>
+
+    <h3>Boolean (true/false)</h3>
+    <p>A boolean has only two possible values: <code>true</code> or <code>false</code>. With an exclamation mark <code>!</code> you can flip the value:</p>
+    <pre><code>let isActive = true;
+let isPaused = false;
+
+isActive = !isActive;  // Now false</code></pre>
+
+    <h3>Numbers</h3>
+    <pre><code>let x = 100;
+let speed = 2.5;
+let percentage = 0.75;</code></pre>
+</section>
+
+<section>
+    <h2>Using Variables</h2>
+    <p>Variables make your code flexible:</p>
+    <pre><code>let x = 100;
+let y = 200;
+let diameter = 50;
+
+function draw() {
+  ellipse(x, y, diameter, diameter);
+
+  // Change values
+  x += 1;  // Move to the right
+}</code></pre>
+</section>
+
+<section>
+    <h2>Where does a variable live?</h2>
+    <p>Not every variable is available everywhere. It depends on where you declare it:</p>
+    <ul>
+        <li>Outside all functions &rarr; <strong>global</strong>: available throughout your entire sketch</li>
+        <li>Inside a function &rarr; <strong>local</strong>: exists only while that function is running</li>
+    </ul>
+    <pre><code>let globalX = 0;  // Available in setup(), draw(), and everywhere
+
+function draw() {
+  let localY = 100;  // Only exists inside draw()
+  globalX += 1;      // Works — globalX is from outside
+
+  // localY is still available here...
+}
+// ...but not here anymore
+
+// globalX still exists</code></pre>
+
+    <figure>
+        <img src="assets/variabelen/scope-fout.png" alt="Error message in the p5.js editor: ReferenceError x is not defined due to an undeclared variable">
+        <figcaption>A variable that hasn't been declared immediately gives an error message in the console.</figcaption>
+    </figure>
+
+    <p>In p5.js, you always declare variables that you need in multiple functions — like positions, speeds, or counters — <strong>outside</strong> <code>setup()</code> and <code>draw()</code>. That way they keep their value from frame to frame.</p>
+
+    <pre><code>let x = 0;          // Remembered between frames
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+  circle(x, 200, 40);
+  x += 2;           // x grows each frame
+}</code></pre>
+</section>
+
+<section>
+    <h2>Built-in system variables</h2>
+    <p>p5.js manages a number of variables automatically for you. You don't need to create them yourself — they're always available:</p>
+
+    <h3>width and height</h3>
+    <p>The width and height of the canvas that you set in <code>createCanvas()</code>:</p>
+    <pre><code>function draw() {
+  let centerX = width / 2;   // Horizontal center of the canvas
+  let centerY = height / 2;  // Vertical center
+  circle(centerX, centerY, 100);
+}</code></pre>
+
+    <h3>windowWidth and windowHeight</h3>
+    <p>The width and height of the browser window (not the canvas). Useful for creating a canvas that fills the entire window:</p>
+    <pre><code>function setup() {
+  createCanvas(windowWidth, windowHeight);
+}
+
+// Adjust when the window is resized:
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Calculations</h2>
+    <p>With variables you can do math: addition, subtraction, multiplication, division. The four basic operators, the modulo <code>%</code>, and useful functions like <code>map()</code> and <code>dist()</code> are covered in detail on the <a href="#berekeningen">Calculations</a> page.</p>
+    <pre><code>let centerX = width / 2;
+let centerY = height / 2;
+let red = map(mouseX, 0, width, 0, 255);  // scale mouse to color</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Variables in Action</h3>
+    <p>This example uses variables for movement:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-basis"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try in the editor too</h2>
+    <p>Check out these sketches from the course — open them in the p5.js editor and experiment:</p>
+    <ul>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/VbeBoHy-y" target="_blank" rel="noopener">LES_Variabelen</a> — the basics of variables step by step</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/K9zGRZF0c" target="_blank" rel="noopener">LES_Variabelen_hergebruiken</a> — using one variable in multiple places</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/WolbjOYOS" target="_blank" rel="noopener">LES_procent_teken</a> — the modulo operator <code>%</code> explained</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Adjust the variables to change the position, size, and color. Experiment with calculations!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let x = 100;
+let y = 200;
+let diameter = 50;
+let colorR = 255;
+let colorG = 0;
+let colorB = 0;
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+
+  fill(colorR, colorG, colorB);
+  ellipse(x, y, diameter, diameter);
+
+  // Move to the right
+  x += 1;
+
+  // If off screen, start over
+  if (x > width) {
+    x = 0;
+  }
+}
+        </script>
+    </div>
+</section>

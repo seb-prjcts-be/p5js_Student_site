@@ -108,6 +108,41 @@ header h1 {
     text-transform: uppercase;
 }
 
+/* Taalknop */
+.lang-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+}
+
+.lang-btn {
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-light);
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 0.7rem;
+    line-height: 1;
+    padding: 0.25rem 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.lang-btn:hover {
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+.lang-btn.is-active {
+    color: var(--text-color);
+    border-color: var(--text-color);
+    border-bottom: 2px solid var(--text-color);
+}
+
 /* Lettergrootte knoppen */
 .font-size-controls {
     display: flex;

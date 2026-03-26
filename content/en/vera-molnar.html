@@ -1,0 +1,157 @@
+<div class="intro">
+    <p>Vera Molnar (1924-2023) was a French artist of Hungarian origin and one of the founders of digital and generative art. She worked with rules, systems, and minimal variation to create surprising visual results.</p>
+    <figure>
+        <img src="assets/inspiratie/vera-molnar-hero.jpg" alt="Vera Molnar and an example of her geometric work">
+        <figcaption>Vera Molnar: pioneer of digital aesthetics and generative art.</figcaption>
+    </figure>
+    <p><em>"I have no regrets. My life is squares, triangles, lines."</em></p>
+</div>
+
+<section>
+    <h2>Biography: from brush to punch card</h2>
+    <p>Molnar studied painting, art history, and aesthetics in Budapest (1942-1947). Early on she became fascinated by rules and systems, and was frustrated by the subjectivity of traditional art.</p>
+    <p>In 1947 she moved to Paris. There she resolutely chose abstract geometry: the grid and the rectangle became her basic motifs. She let go of nature as direct inspiration and sought a strict, almost mathematical visual language.</p>
+</section>
+
+<section>
+    <h2>Machine Imaginaire and the transition to computers</h2>
+    <p>Before she had access to computers, Molnar already worked algorithmically. In her "Machine Imaginaire" she wrote out rules and executed them step by step by hand. The goal was art driven not by intuition, but by logic and repetition.</p>
+    <p>From 1968 she gained access to a mainframe computer in Paris. She programmed on punch cards and waited for a plotter to put the drawings on paper. This made her one of the first artists to deliberately use the computer as an artistic medium.</p>
+</section>
+
+<section>
+    <h2>Important themes and series</h2>
+    <h3>The search for 1% disorder</h3>
+    <p>Molnar often started from a perfect grid and then introduced a minimal disturbance: a small shift, rotation, or deviation. This created tension between order and chaos.</p>
+
+    <h3>Lettres de ma mere</h3>
+    <p>In this series she translated her mother's handwriting into algorithms. The computer generated new, abstract letters and showed how data can also carry emotion.</p>
+
+    <h3>Homages to the masters</h3>
+    <p>Molnar analyzed compositions by artists such as Albrecht Durer and Paul Klee and reworked them into geometric and algorithmic structures, not as copies but as research.</p>
+</section>
+
+<section>
+    <h2>Key concepts</h2>
+    <ul>
+        <li><strong>Algorithmic art:</strong> art based on predetermined rules.</li>
+        <li><strong>Iteration:</strong> repeating a shape with small variations.</li>
+        <li><strong>Plotter art:</strong> physical drawings made by a machine with a pen.</li>
+        <li><strong>Humanizing the machine:</strong> technology as a carrier of poetry and emotion.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Iconic works</h2>
+    <figure>
+        <img src="assets/inspiratie/vera-molnar-desordres.png" alt="(Des)Ordres (1974) - concentric squares with deviations">
+        <figcaption><strong>(Des)Ordres (1974):</strong> a perfect grid with deliberately added deviations.</figcaption>
+    </figure>
+    <figure>
+        <img src="assets/inspiratie/vera-molnar-interruptions.png" alt="Interruptions (1968-1969) - parallel lines with disruptions">
+        <figcaption><strong>Interruptions (1968-1969):</strong> minimal interventions that produce maximum effect.</figcaption>
+    </figure>
+    <p><strong>Lettres de ma mere (1988):</strong> handwriting translated into algorithm, a bridge between data and emotion.</p>
+</section>
+
+<section>
+    <h2>Watch list</h2>
+    <ul>
+        <li>Vera Molnar - The Grandmother of Computer Art</li>
+        <li>Vera Molnar | Pionniers, Pionnieres | Centre Pompidou</li>
+        <li>The Art of Code - Dylan Beattie</li>
+        <li>Vera Molnar, interview | Paris | 11 July 2017</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Relevance today</h2>
+    <ul>
+        <li><strong>Freedom within rules:</strong> constraints as a driver for creativity.</li>
+        <li><strong>Pioneership:</strong> a woman in a strongly male-dominated tech world.</li>
+        <li><strong>Link with code:</strong> code as a brush, not just a technical tool.</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Interactive: (Des)Ordres — Order and Chaos</h3>
+    <p>Inspired by Molnar's work: concentric rectangles with an adjustable amount of deviation. Move the mouse to control the chaos:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-vera-molnar"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try in the editor too</h2>
+    <p>Check out these sketches from the course that are directly based on Molnar's work:</p>
+    <ul>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/QnkCHhFmb" target="_blank" rel="noopener">LES_Vera_Molnar_statisch</a> — a static grid with deviations, inspired by (Des)Ordres</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/zRO_dqFKg" target="_blank" rel="noopener">LES_Vera_Molnar_anim</a> — the same composition, now animated</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/aEEdxeWLB" target="_blank" rel="noopener">LES_geneste_for_loop / of \</a> — diagonal patterns with nested loops, closely related to her series</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Make Your Own Molnar</h2>
+    <p>Edit the code: change the number of rows, the size of the deviation, or the color of the lines.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Inspired by Vera Molnar — (Des)Ordres (1974)
+// Concentric squares with deliberate deviation
+
+function setup() {
+  createCanvas(600, 400);
+  background(250);
+  noFill();
+  stroke(30);
+  strokeWeight(1);
+}
+
+function draw() {
+  background(250);
+
+  let rows = 5;
+  let cols = 7;
+  let cellWidth = width / cols;
+  let cellHeight = height / rows;
+
+  // Deviation based on mouse position (0 = perfect, max = chaos)
+  let maxDeviation = map(mouseX, 0, width, 0, 20);
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      let cx = c * cellWidth + cellWidth / 2;
+      let cy = r * cellHeight + cellHeight / 2;
+
+      // 5 concentric squares per cell
+      for (let s = 5; s >= 1; s--) {
+        let w = cellWidth * 0.85 * (s / 5);
+        let h = cellHeight * 0.85 * (s / 5);
+
+        // Small random deviation per vertex
+        let dx1 = random(-maxDeviation, maxDeviation);
+        let dy1 = random(-maxDeviation, maxDeviation);
+        let dx2 = random(-maxDeviation, maxDeviation);
+        let dy2 = random(-maxDeviation, maxDeviation);
+
+        beginShape();
+          vertex(cx - w/2 + dx1, cy - h/2 + dy1);
+          vertex(cx + w/2 + dx2, cy - h/2 + dy2);
+          vertex(cx + w/2 - dx1, cy + h/2 - dy1);
+          vertex(cx - w/2 - dx2, cy + h/2 - dy2);
+        endShape(CLOSE);
+      }
+    }
+  }
+
+  // Label
+  noStroke();
+  fill(80);
+  textSize(12);
+  text("← Mouse left = order   Mouse right = chaos →", 10, height - 10);
+  stroke(30);
+}
+        </script>
+    </div>
+</section>

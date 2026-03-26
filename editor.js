@@ -84,8 +84,9 @@
             // Escape code voor gebruik in HTML
             const escapedCode = code.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\${/g, '\\${');
             
+            const currentLang = document.documentElement.getAttribute('data-lang') || 'nl';
             const html = `<!DOCTYPE html>
-<html>
+<html lang="${currentLang}">
 <head>
 <meta charset="UTF-8">
 <script src="https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js"></script>
@@ -98,7 +99,7 @@ body { margin: 0; padding: 0; overflow: hidden; }
 try {
 ${escapedCode}
 } catch(error) {
-  document.body.innerHTML = '<div style="padding: 20px; font-family: monospace; color: #e74c3c;"><strong>Fout:</strong><br>' + error.message + '</div>';
+  document.body.innerHTML = '<div style="padding: 20px; font-family: monospace; color: #e74c3c;"><strong>' + (document.documentElement.lang === 'en' ? 'Error:' : 'Fout:') + '</strong><br>' + error.message + '</div>';
   console.error(error);
 }
 <\/script>

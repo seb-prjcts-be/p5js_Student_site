@@ -1,0 +1,150 @@
+<div class="intro">
+    <p>Imagine: you're going to paint and you pick one paint pot as a starting point. After that you can only use colors that are close to it. This way you get a cohesive painting — not wild chaos. This code does the same thing, but digitally.</p>
+</div>
+
+<section>
+    <h2>How does color work in p5.js?</h2>
+    <p>Every color consists of three numbers between 0 and 255:</p>
+    <ul>
+        <li><strong>R</strong> — how much red</li>
+        <li><strong>G</strong> — how much green</li>
+        <li><strong>B</strong> — how much blue</li>
+    </ul>
+    <pre><code>fill(255, 0, 0)     // pure red
+fill(200, 180, 190) // soft pinkish</code></pre>
+    <p>If you pick all three channels completely at random, you get color chaos. The trick is to <em>limit</em> the randomness to a small window per channel.</p>
+</section>
+
+<section>
+    <h2>The trick in three steps</h2>
+
+    <h3>Step 1 — pick a starting point per color channel</h3>
+    <pre><code>let startR = floor(random(0, 155));
+let startG = floor(random(0, 155));
+let startB = floor(random(0, 155));</code></pre>
+    <p>Why up to 155 and not 255? Because we will add 100 later. 155 + 100 = 255 — this way we always stay within range.</p>
+
+    <h3>Step 2 — define the range</h3>
+    <pre><code>// The range goes from startR to startR + 100
+// Example: startR = 80 → red varies between 80 and 180</code></pre>
+
+    <h3>Step 3 — color each cell randomly, but within the range</h3>
+    <pre><code>fill(
+  random(startR, startR + 100),
+  random(startG, startG + 100),
+  random(startB, startB + 100)
+);</code></pre>
+    <p>Each cell gets a different color — but never too different. They all stay in the same <em>neighborhood</em>.</p>
+</section>
+
+<section>
+    <h2>Why is this clever?</h2>
+    <p>Compare the two approaches:</p>
+
+    <pre><code>// Without restriction — color chaos
+fill(random(255), random(255), random(255));
+
+// With restriction — color family
+fill(
+  random(startR, startR + 100),
+  random(startG, startG + 100),
+  random(startB, startB + 100)
+);</code></pre>
+
+    <p>With the restriction all colors stay in the same tonal neighborhood. This is exactly what textile designers do: they choose a palette of tones that are close together, so that each thread is slightly different but the fabric still looks harmonious. In the fashion industry this is called a <strong>colorway</strong>.</p>
+</section>
+
+<section>
+    <h2>Drawing a grid with a color family</h2>
+    <p>The double for-loop draws the grid: row by row, column by column. Each cell gets its own color, but always from the same family:</p>
+
+    <pre><code>let startR, startG, startB;
+let cellWidth = 60;
+let cellHeight = 60;
+
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+  newColorFamily();
+}
+
+function newColorFamily() {
+  startR = floor(random(0, 155));
+  startG = floor(random(0, 155));
+  startB = floor(random(0, 155));
+}
+
+function draw() {
+  for (let y = 0; y < height; y += cellHeight) {
+    for (let x = 0; x < width; x += cellWidth) {
+      fill(
+        random(startR, startR + 100),
+        random(startG, startG + 100),
+        random(startB, startB + 100)
+      );
+      rect(x, y, cellWidth, cellHeight);
+    }
+  }
+  noLoop(); // drawing once is enough
+}
+
+function mousePressed() {
+  newColorFamily();
+  loop(); // draw again
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Interactive example</h3>
+    <p>Click to generate a new color family.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-kleurenfamilie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experiment yourself</h2>
+    <p>Adjust the range from 100 to a smaller or larger value. What happens when you use 20? And when you use 250?</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Color family — click for a new family
+// Try adjusting the range (currently 100)!
+
+let startR, startG, startB;
+let bereik = 100; // Try adjusting this!
+let celGrootte = 50;
+
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+  nieuweKleurenfamilie();
+  noLoop();
+}
+
+function nieuweKleurenfamilie() {
+  startR = floor(random(0, 255 - bereik));
+  startG = floor(random(0, 255 - bereik));
+  startB = floor(random(0, 255 - bereik));
+}
+
+function draw() {
+  for (let y = 0; y < height; y += celGrootte) {
+    for (let x = 0; x < width; x += celGrootte) {
+      fill(
+        random(startR, startR + bereik),
+        random(startG, startG + bereik),
+        random(startB, startB + bereik)
+      );
+      rect(x, y, celGrootte, celGrootte);
+    }
+  }
+}
+
+function mousePressed() {
+  nieuweKleurenfamilie();
+  redraw();
+}
+        </script>
+    </div>
+</section>

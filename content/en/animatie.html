@@ -1,0 +1,226 @@
+<div class="intro">
+    <p>Animation happens because <code>draw()</code> is executed over and over — 60 times per second by default. By changing values slightly each frame, you get motion.</p>
+</div>
+
+<section>
+    <h2>Simple Movement</h2>
+    <p>The simplest animation: increment a variable each frame.</p>
+    <pre><code>let x = 0;
+
+function draw() {
+  background(245);
+  x += 2;         // Move 2 pixels to the right per frame
+  if (x > width) {
+    x = 0;        // Start over at the left side
+  }
+  circle(x, height / 2, 50);
+}</code></pre>
+</section>
+
+<section>
+    <h2>frameCount and millis()</h2>
+    <p><code>frameCount</code> counts the number of frames. <code>millis()</code> gives the elapsed time in milliseconds.</p>
+    <pre><code>function draw() {
+  // frameCount increases infinitely
+  let x = (frameCount * 2) % width;
+  circle(x, height / 2, 50);
+}
+
+// millis() is useful when framerate may vary
+function draw() {
+  let seconds = millis() / 1000;
+  let x = (seconds * 120) % width;  // 120 pixels per second
+  circle(x, height / 2, 50);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Sine and Cosine</h2>
+    <p><code>sin()</code> and <code>cos()</code> return a value between -1 and 1 that smoothly oscillates up and down. Ideal for organic movement. With <code>map()</code> you convert those values to a useful range:</p>
+    <pre><code>let angle = 0;
+
+function draw() {
+  background(245);
+
+  // Map sin/cos to a range with map()
+  let x = width / 2 + cos(angle) * 150;
+  let y = height / 2 + sin(angle) * 100;
+
+  circle(x, y, 50);
+  angle += 0.03;  // Slower = smaller step
+}</code></pre>
+
+    <h3>Tangent</h3>
+    <p><code>tan()</code> is the third trigonometric function. Unlike sin/cos, tan() goes to infinity — it shoots across the canvas and comes back on the other side. This produces erratic, energetic patterns:</p>
+    <pre><code>let angle = 0;
+
+function draw() {
+  background(245);
+  let x = width / 2 + tan(angle) * 50;
+  let y = height / 2;
+  circle(x, y, 20);
+  angle += 0.03;
+}</code></pre>
+
+    <h3>Lissajous figure</h3>
+    <p>By combining two different frequencies, you create beautiful Lissajous figures:</p>
+    <pre><code>let angle = 0;
+
+function draw() {
+  // No background() → trail remains visible
+  let x = width / 2 + cos(angle * 3) * 150;
+  let y = height / 2 + sin(angle * 2) * 150;
+  circle(x, y, 8);
+  angle += 0.02;
+}</code></pre>
+</section>
+
+<section>
+    <h2>Easing: Smooth Movement</h2>
+    <p>Easing makes an object move smoothly toward a target, instead of teleporting abruptly. The idea: move a fraction of the remaining distance each frame.</p>
+    <pre><code>let currentX = 0;
+let targetX = 0;
+
+function draw() {
+  background(245);
+
+  // Move 10% closer to the target
+  currentX += (targetX - currentX) * 0.1;
+
+  circle(currentX, height / 2, 50);
+}
+
+function mousePressed() {
+  targetX = mouseX;  // Set new target
+}</code></pre>
+</section>
+
+<section>
+    <h2>translate() and rotate()</h2>
+    <p><code>translate(x, y)</code> shifts the coordinate system — as if you're moving the paper under the pen. Then you simply draw at (0, 0):</p>
+    <pre><code>function draw() {
+  background(245);
+  translate(mouseX, mouseY);  // Move coordinate system to mouse position
+  rect(-25, -25, 50, 50);     // Draws centered at mouse position
+}</code></pre>
+
+    <p><code>rotate(angle)</code> rotates the coordinate system. p5.js works in <strong>radians</strong> by default. If you prefer degrees, set <code>angleMode(DEGREES)</code> in <code>setup()</code>:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  angleMode(DEGREES);  // Work in degrees from now on
+}
+
+function draw() {
+  background(245);
+  translate(width / 2, height / 2);  // Rotate around the center
+  rotate(frameCount);                  // 1 degree per frame
+  rect(-40, -40, 80, 80);
+}</code></pre>
+
+    <p>Always use <code>translate()</code> <em>before</em> <code>rotate()</code> to rotate an object around its own center, not around the top-left corner.</p>
+</section>
+
+<section>
+    <h2>push() and pop() for Transformations</h2>
+    <p><code>push()</code> and <code>pop()</code> isolate transformations so they don't affect other objects:</p>
+    <pre><code>function draw() {
+  background(245);
+
+  // Rotating square on the left
+  push();
+    translate(150, 200);
+    rotate(frameCount * 0.02);
+    rect(-40, -40, 80, 80);
+  pop();  // Rotation is reset here
+
+  // This block is NOT rotated along
+  push();
+    translate(400, 200);
+    rotate(frameCount * -0.03);
+    rect(-40, -40, 80, 80);
+  pop();
+}</code></pre>
+</section>
+
+<section>
+    <h2>frameRate()</h2>
+    <p>You can adjust the frame rate:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  frameRate(30);  // 30 frames per second (default: 60)
+}
+
+function draw() {
+  // frameRate() returns the current frame rate:
+  text("FPS: " + round(frameRate()), 10, 20);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Lissajous and Easing</h3>
+    <p>Move your mouse — the circle follows smoothly with easing:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-animatie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try these in the editor too</h2>
+    <p>Check out these sketches from the course — from simple to complex:</p>
+    <ul>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/OFEBVjDn7" target="_blank" rel="noopener">LES_animatie_draw_loop</a> — the basic principle of the draw loop</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/TzcmTQktg" target="_blank" rel="noopener">LES_animatie_bal</a> — bouncing ball built step by step</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/WLc8RICgG" target="_blank" rel="noopener">LES_Bounce_vector</a> — bouncing with vectors</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/mxpF1N6Da" target="_blank" rel="noopener">LES_DEMO_graden, hoeken, sin en cos</a> — visual explanation of angles and sine wave</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/HJA0O8-R-" target="_blank" rel="noopener">LES_SIN_simple_bounce</a> — sin() as bounce movement</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/ina1wx1Zz" target="_blank" rel="noopener">LES_sin_op_x</a> / <a href="https://editor.p5js.org/seb_prjcts.be/sketches/Affhp0IfB" target="_blank" rel="noopener">LES_sin_wave_op_y</a> — sine wave on X and Y axis</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/jts1Vr0Hu" target="_blank" rel="noopener">LES_sin_cos_cirkel</a> — circular motion via sin and cos</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/XPeXnrj7lo" target="_blank" rel="noopener">LES_vertex+sin</a> — animating vertex points with sin()</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/_0uCkHU-p" target="_blank" rel="noopener">LES_Lissajous</a> — Lissajous figure with adjustable frequencies</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/vUFjL_FMt" target="_blank" rel="noopener">LES_Lissajous_Spiraal</a> — Lissajous as a spiral shape</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Experiment Yourself!</h2>
+    <p>Change the sin/cos frequencies for different Lissajous patterns, or adjust the easing factor!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let angle = 0;
+let currentX, currentY;
+
+function setup() {
+  createCanvas(600, 400);
+  currentX = width / 2;
+  currentY = height / 2;
+  background(20);
+}
+
+function draw() {
+  // Let trail fade
+  background(20, 20, 20, 20);
+
+  // Lissajous figure
+  let lx = width / 2 + cos(angle * 3) * 180;
+  let ly = height / 2 + sin(angle * 2) * 160;
+
+  // Easing: follow the Lissajous position
+  currentX += (lx - currentX) * 0.08;
+  currentY += (ly - currentY) * 0.08;
+
+  // Draw trail
+  stroke(map(angle % TWO_PI, 0, TWO_PI, 0, 255), 150, 255);
+  strokeWeight(3);
+  point(lx, ly);
+
+  // Following ball
+  noStroke();
+  fill(255, 255, 0);
+  circle(currentX, currentY, 18);
+
+  angle += 0.02; // Try changing this!
+}
+        </script>
+    </div>
+</section>

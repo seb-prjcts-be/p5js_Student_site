@@ -1,0 +1,167 @@
+<div class="intro">
+    <p>Functions are reusable pieces of code. They make your code more organized, shorter, and easier to maintain. In p5.js you use them all the time: <code>setup()</code> and <code>draw()</code> are functions themselves!</p>
+</div>
+
+<section>
+    <h2>Defining and Calling Functions</h2>
+    <p>You define a function with the keyword <code>function</code>:</p>
+    <pre><code>// Definition
+function drawCircle() {
+  ellipse(200, 200, 50, 50);
+}
+
+// Calling — do this in draw() or setup()
+function draw() {
+  background(245);
+  drawCircle();  // Execute the function
+  drawCircle();  // Again — no need to repeat the code
+}</code></pre>
+</section>
+
+<section>
+    <h2>Parameters: Passing Values</h2>
+    <p>Parameters make functions flexible. You define them between the parentheses:</p>
+    <pre><code>function drawCircle(x, y, diameter) {
+  ellipse(x, y, diameter, diameter);
+}
+
+function draw() {
+  background(245);
+  drawCircle(100, 150, 50);   // x=100, y=150, diameter=50
+  drawCircle(300, 200, 80);   // Same function, different values
+  drawCircle(450, 100, 30);
+}</code></pre>
+
+    <h3>Multiple Parameters with Color</h3>
+    <pre><code>function drawBall(x, y, diameter, r, g, b) {
+  fill(r, g, b);
+  noStroke();
+  ellipse(x, y, diameter, diameter);
+}
+
+function draw() {
+  background(30);
+  drawBall(150, 200, 60, 255, 0,   0);    // red
+  drawBall(300, 200, 80, 0,   0,   255);  // blue
+  drawBall(450, 200, 40, 0,   255, 0);    // green
+}</code></pre>
+</section>
+
+<section>
+    <h2>Return Values</h2>
+    <p>A function can return a calculated value with <code>return</code>:</p>
+    <pre><code>function calculateDistance(x1, y1, x2, y2) {
+  let dx = x2 - x1;
+  let dy = y2 - y1;
+  return sqrt(dx * dx + dy * dy);  // Pythagoras
+}
+
+function draw() {
+  let distance = calculateDistance(mouseX, mouseY, width/2, height/2);
+  let diameter = map(distance, 0, 300, 10, 150);
+
+  ellipse(width/2, height/2, diameter, diameter);
+}</code></pre>
+
+    <h3>Another example: random color</h3>
+    <pre><code>function randomColor() {
+  return color(random(255), random(255), random(255));
+}
+
+function mousePressed() {
+  fill(randomColor());
+  ellipse(mouseX, mouseY, 40, 40);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Complex Example: Drawing a Flower</h2>
+    <p>By combining functions you can easily reuse complex shapes:</p>
+    <pre><code>function drawPetal(x, y, angle, size) {
+  push();
+    translate(x, y);
+    rotate(angle);
+    noStroke();
+    fill(255, 0, 125, 180);
+    ellipse(size * 0.6, 0, size * 1.2, size * 0.6);
+  pop();
+}
+
+function drawFlower(x, y, size) {
+  let petalCount = 8;
+  for (let i = 0; i < petalCount; i++) {
+    let angle = (TWO_PI / petalCount) * i;
+    drawPetal(x, y, angle, size);
+  }
+  // Center
+  fill(255, 255, 0);
+  noStroke();
+  ellipse(x, y, size * 0.5, size * 0.5);
+}
+
+function draw() {
+  background(200, 230, 200);
+  drawFlower(150, 200, 60);
+  drawFlower(350, 150, 80);
+  drawFlower(500, 250, 50);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Reusable Shapes</h3>
+    <p>Click to place flowers — the same function at every position:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-functies"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Also try in the editor</h2>
+    <p>Check out these sketches from the course:</p>
+    <ul>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/9RixXgn6d" target="_blank" rel="noopener">LES_animatie_2xbal=lijn functions</a> — two balls via functions with parameters, line between them</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/ryfLI2VHj" target="_blank" rel="noopener">LES_Lissajous_functies</a> — Lissajous figure built with reusable functions</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Experiment Yourself!</h2>
+    <p>Create your own function! Call it multiple times with different parameters.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  background(40, 60, 40);
+  noStroke();
+}
+
+// Function with parameters for position and size
+function tekenBloem(x, y, grootte) {
+  let blaadjes = 6;
+  for (let i = 0; i < blaadjes; i++) {
+    let hoek = (TWO_PI / blaadjes) * i;
+    push();
+      translate(x, y);
+      rotate(hoek);
+      fill(255, 0, 125, 180);
+      ellipse(grootte * 0.6, 0, grootte, grootte * 0.5);
+    pop();
+  }
+  // Center point
+  fill(255, 255, 0);
+  circle(x, y, grootte * 0.5);
+}
+
+function draw() {
+  background(40, 60, 40, 15); // Let the trail fade
+  tekenBloem(mouseX, mouseY, 60); // Try adjusting this!
+}
+
+function mousePressed() {
+  // Draw a permanent flower on click
+  tekenBloem(mouseX, mouseY, random(40, 100));
+}
+        </script>
+    </div>
+</section>

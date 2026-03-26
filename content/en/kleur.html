@@ -1,0 +1,144 @@
+<div class="intro">
+    <p>Color brings your sketches to life. p5.js offers several ways to use colors.</p>
+</div>
+
+<section>
+    <h2>Color functions</h2>
+    <p>You always set the color <em>before</em> you draw the shape. p5.js reads code from top to bottom:</p>
+    <ul>
+        <li><code>background(color)</code> — background color of the canvas</li>
+        <li><code>fill(color)</code> — fill color for shapes</li>
+        <li><code>stroke(color)</code> — line color (outline)</li>
+        <li><code>strokeWeight(thickness)</code> — thickness of the outline in pixels</li>
+        <li><code>noFill()</code> — no fill (transparent interior)</li>
+        <li><code>noStroke()</code> — no outline</li>
+    </ul>
+    <pre><code>stroke(255, 0, 0);       // Red outline
+strokeWeight(3);          // Line thickness 3 pixels
+fill(0, 200, 255);        // Light blue fill
+circle(200, 200, 100);
+
+noStroke();               // No outline for next shapes
+fill(255, 150, 0);
+rect(100, 50, 80, 80);</code></pre>
+</section>
+
+<section>
+    <h2>Color values</h2>
+    <p>Colors can be specified in different ways:</p>
+
+    <h3>Grayscale (0-255)</h3>
+    <pre><code>fill(255);        // White
+fill(128);        // Gray
+fill(0);          // Black</code></pre>
+
+    <h3>RGB (Red, Green, Blue)</h3>
+    <pre><code>fill(255, 0, 0);      // Red
+fill(0, 255, 0);      // Green
+fill(0, 0, 255);      // Blue
+fill(255, 255, 0);    // Yellow</code></pre>
+
+    <h3>RGBA (With Transparency)</h3>
+    <pre><code>fill(255, 0, 0, 128);  // Half transparent red
+fill(0, 0, 255, 200);  // Nearly opaque blue</code></pre>
+
+    <h3>Color names</h3>
+    <p>You can also use CSS color names as text:</p>
+    <pre><code>fill('red');
+rect(100, 100, 200, 100);
+
+fill('white');
+square(100, 200, 100);</code></pre>
+    <figure>
+        <img src="assets/kleur/kleur-namen.png" alt="p5.js editor with fill('red') and fill('white') — a red rectangle and a white square on the canvas">
+        <figcaption>CSS color names like <code>'red'</code>, <code>'white'</code>, <code>'blue'</code>, and <code>'gold'</code> work directly in <code>fill()</code> and <code>stroke()</code>.</figcaption>
+    </figure>
+</section>
+
+<section>
+    <h2>Other color notations</h2>
+    <p>Besides RGB you can also specify colors as a <strong>hexadecimal code</strong> (like in CSS) or as a <strong>CSS name</strong>:</p>
+    <pre><code>// Hexadecimal code (# + 6 digits)
+fill('#FF6600');    // Orange
+stroke('#003399'); // Dark blue
+
+// CSS color names
+fill('tomato');
+fill('steelblue');
+fill('gold');</code></pre>
+    <p>You can find hexadecimal codes using color pickers in Photoshop, Figma, or on websites like <a href="https://coolors.co" target="_blank" rel="noopener">coolors.co</a>.</p>
+
+    <h3>Random colors</h3>
+    <p>With <code>random(255)</code> you generate a random color value between 0 and 255:</p>
+    <pre><code>// Random color
+fill(random(255), random(255), random(255));
+
+// Random shade of gray
+let gray = random(255);
+fill(gray);
+
+// Random color with fixed transparency
+fill(random(255), random(255), random(255), 180);</code></pre>
+</section>
+
+<section>
+    <h2>Color mode</h2>
+    <p>By default p5.js uses RGB. You can also use HSB (Hue, Saturation, Brightness):</p>
+    <pre><code>colorMode(HSB);
+fill(0, 100, 100);    // Red (hue=0)
+fill(120, 100, 100);  // Green (hue=120)
+fill(240, 100, 100);  // Blue (hue=240)</code></pre>
+    <p>HSB is useful for color wheels and smooth color transitions.</p>
+</section>
+
+<section>
+    <h2>Color Variables</h2>
+    <p>You can store colors in variables:</p>
+    <pre><code>let red = color(255, 0, 0);
+let blue = color(0, 0, 255);
+
+function draw() {
+  fill(red);
+  ellipse(100, 200, 50, 50);
+
+  fill(blue);
+  ellipse(300, 200, 50, 50);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Using Color</h3>
+    <p>This example shows different color techniques:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-kleur"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try it Yourself!</h2>
+    <p>Experiment with colors! Adjust the RGB values, add transparency, or try HSB mode.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+
+  // Red circle
+  fill(255, 0, 0);
+  ellipse(150, 200, 100, 100);
+
+  // Green circle
+  fill(0, 255, 0);
+  ellipse(300, 200, 100, 100);
+
+  // Blue circle with transparency
+  fill(0, 0, 255, 128);
+  ellipse(450, 200, 100, 100);
+}
+        </script>
+    </div>
+</section>

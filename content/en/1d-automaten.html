@@ -1,0 +1,123 @@
+<div class="intro">
+    <p>In a 1D cellular automaton, everything starts with a single row of cells. Each new row is calculated from the previous one, based on a simple neighbor rule.</p>
+</div>
+
+<section>
+    <h2>Why this concept is powerful</h2>
+    <p>The system is almost minimalist: black or white, on or off. Yet you get patterns that can be textile-like, rhythmic, or surprisingly chaotic.</p>
+    <p><strong>Think about it:</strong> when does simplicity become unpredictable?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>using binary state as a building block</li>
+        <li>deriving new generations from neighbors</li>
+        <li>reading rule numbers like Rule 30 or Rule 110</li>
+        <li>comparing patterns based on their behavior</li>
+    </ul>
+</section>
+
+<section>
+    <h2>From three neighbors to a new cell</h2>
+    <p>Each cell looks at three values in the previous row: left, center, and right. This yields 8 possible patterns.</p>
+    <pre><code>111 110 101 100 011 010 001 000</code></pre>
+    <p>A rule specifies for each of those patterns whether the new cell becomes 0 or 1. For <strong>Rule 30</strong>, for example, that's:</p>
+    <pre><code>00011110</code></pre>
+</section>
+
+<section>
+    <h2>In code</h2>
+    <p>You can convert the three neighbors to a number between 0 and 7 and use that to read a bit from the rule number:</p>
+    <pre><code>let pattern = left * 4 + mid * 2 + right;
+let newCell = (rule >> pattern) &amp; 1;</code></pre>
+    <p>This way, a single number like 30 or 110 can describe an entire visual language.</p>
+</section>
+
+<section>
+    <h2>Well-known rules</h2>
+    <ul>
+        <li><strong>Rule 30</strong> — rough and chaotic</li>
+        <li><strong>Rule 90</strong> — symmetric and almost textile-like</li>
+        <li><strong>Rule 110</strong> — complex behavior from very simple rules</li>
+        <li><strong>Rule 184</strong> — sometimes used as a traffic model</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Compare at least three rules. Give each rule a character description: calm, architectural, rhythmic, chaotic, woven, or aggressive. Which rule would you use for a poster, fabric pattern, or game background?</p>
+</section>
+
+<section>
+    <h2>Experiment Yourself</h2>
+    <p>This sketch draws an automaton row by row. Change <code>ruleNumber</code> and see what visual behavior you get.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let cellSize = 8;
+let cols, rows;
+let ruleNumber = 30;
+let currentRow;
+let generation;
+
+function setup() {
+  createCanvas(600, 400);
+  startRule();
+}
+
+function startRule() {
+  cols = floor(width / cellSize);
+  rows = floor(height / cellSize);
+  currentRow = Array(cols).fill(0);
+  currentRow[floor(cols / 2)] = 1;
+  generation = 0;
+  background(247, 245, 239);
+  loop();
+}
+
+function nextRow(row) {
+  let next = Array(cols).fill(0);
+
+  for (let i = 0; i < cols; i++) {
+    let left = row[(i - 1 + cols) % cols];
+    let mid = row[i];
+    let right = row[(i + 1) % cols];
+    let pattern = left * 4 + mid * 2 + right;
+    next[i] = (ruleNumber >> pattern) & 1;
+  }
+
+  return next;
+}
+
+function draw() {
+  if (generation >= rows) {
+    noLoop();
+    return;
+  }
+
+  noStroke();
+  for (let i = 0; i < cols; i++) {
+    fill(currentRow[i] ? 30 : 247, currentRow[i] ? 45 : 245, currentRow[i] ? 75 : 239);
+    rect(i * cellSize, generation * cellSize, cellSize, cellSize);
+  }
+
+  currentRow = nextRow(currentRow);
+  generation++;
+}
+
+function mousePressed() {
+  startRule();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Click on the canvas to jump to a different rule.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-1d-automaten"></div>
+        </div>
+    </div>
+</section>

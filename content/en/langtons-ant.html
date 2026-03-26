@@ -1,0 +1,124 @@
+<div class="intro">
+    <p>Langton's Ant is a tiny rule system: an ant moves across a grid and turns left or right depending on the color of the tile beneath it.</p>
+</div>
+
+<section>
+    <h2>Why this concept is so strange</h2>
+    <p>The system starts simple, then becomes messy and chaotic, and after a while it can spontaneously build a kind of highway. This makes Langton's Ant a powerful example of emergence.</p>
+    <p><strong>Think about it:</strong> how can a simple local rule first cause chaos and then order?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>working with grid positions and directions</li>
+        <li>updating a system step by step</li>
+        <li>linking state to behavior</li>
+        <li>seeing how local rules can produce unexpected global behavior</li>
+    </ul>
+</section>
+
+<section>
+    <h2>The rules</h2>
+    <ul>
+        <li>on a white tile: turn right, color the tile black, step forward</li>
+        <li>on a black tile: turn left, color the tile white, step forward</li>
+    </ul>
+    <p>That's all there is to it. Yet the pattern can become very rich.</p>
+</section>
+
+<section>
+    <h2>The structure in code</h2>
+    <pre><code>let cell = grid[x][y];
+
+if (cell === 0) dir = (dir + 1) % 4;
+else            dir = (dir + 3) % 4;
+
+grid[x][y] = 1 - cell;
+stepForward();</code></pre>
+    <p>The ant only needs three things: a position, a direction, and a grid with states.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>First let a regular ant run. Then change the color rules or add a third tile state. Does the system become calmer, wilder, or less interesting?</p>
+</section>
+
+<section>
+    <h2>Try It Yourself</h2>
+    <p>This version performs multiple steps per frame. Change the number of steps or the tile size and see how the behavior changes.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let cellSize = 6;
+let cols, rows;
+let grid;
+let antX, antY, dir;
+
+function setup() {
+  createCanvas(600, 400);
+  cols = floor(width / cellSize);
+  rows = floor(height / cellSize);
+  resetWorld();
+}
+
+function resetWorld() {
+  grid = Array.from({length: cols}, () => Array(rows).fill(0));
+  antX = floor(cols / 2);
+  antY = floor(rows / 2);
+  dir = 0;
+}
+
+function stepAnt() {
+  let cell = grid[antX][antY];
+
+  if (cell === 0) dir = (dir + 1) % 4;
+  else dir = (dir + 3) % 4;
+
+  grid[antX][antY] = 1 - cell;
+
+  if (dir === 0) antY--;
+  if (dir === 1) antX++;
+  if (dir === 2) antY++;
+  if (dir === 3) antX--;
+
+  antX = (antX + cols) % cols;
+  antY = (antY + rows) % rows;
+}
+
+function draw() {
+  for (let i = 0; i < 40; i++) {
+    stepAnt();
+  }
+
+  background(246, 244, 240);
+  noStroke();
+
+  for (let x = 0; x < cols; x++) {
+    for (let y = 0; y < rows; y++) {
+      if (grid[x][y] === 1) {
+        fill(30, 40, 65);
+        rect(x * cellSize, y * cellSize, cellSize, cellSize);
+      }
+    }
+  }
+
+  fill(210, 40, 35);
+  rect(antX * cellSize, antY * cellSize, cellSize, cellSize);
+}
+
+function mousePressed() {
+  resetWorld();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Click to restart and watch how the ant rebuilds order, noise, and often a direction over time.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-langtons-ant"></div>
+        </div>
+    </div>
+</section>

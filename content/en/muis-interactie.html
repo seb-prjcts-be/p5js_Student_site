@@ -1,0 +1,128 @@
+<div class="intro">
+    <p>Mouse interaction makes your sketches responsive. p5.js has built-in variables and functions for mouse input.</p>
+</div>
+
+<section>
+    <h2>Mouse Position</h2>
+    <p>p5.js has built-in variables for mouse position:</p>
+    <ul>
+        <li><code>mouseX</code> - X position of the mouse</li>
+        <li><code>mouseY</code> - Y position of the mouse</li>
+        <li><code>pmouseX</code> - Previous X position</li>
+        <li><code>pmouseY</code> - Previous Y position</li>
+    </ul>
+
+    <h3>Example</h3>
+    <pre><code>function draw() {
+  background(245);
+  ellipse(mouseX, mouseY, 50, 50);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Mouse Events</h2>
+    <p>You can respond to mouse clicks and movements:</p>
+
+    <h3>mousePressed()</h3>
+    <pre><code>function mousePressed() {
+  // Runs on mouse click
+  fill(random(255), random(255), random(255));
+}</code></pre>
+
+    <h3>mouseDragged()</h3>
+    <pre><code>function mouseDragged() {
+  // Runs while dragging
+  ellipse(mouseX, mouseY, 20, 20);
+}</code></pre>
+
+    <h3>mouseReleased()</h3>
+    <pre><code>function mouseReleased() {
+  // Runs on release
+  background(245);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Pointer input: mouse and touch</h2>
+    <p>Pointer variables work on both mouse and touchscreen. Handy when a sketch needs to work on laptop and tablet.</p>
+
+    <h3>Pointer variables</h3>
+    <ul>
+        <li><code>pointerX</code> / <code>pointerY</code> — current position</li>
+        <li><code>ppointerX</code> / <code>ppointerY</code> — previous position</li>
+        <li><code>pointerIsDown</code> — true while pressed</li>
+    </ul>
+    <pre><code>function draw() {
+  background(245);
+  fill(255, 120, 0);
+  circle(pointerX, pointerY, 60);
+
+  if (pointerIsDown) {
+    fill(0, 180, 120);
+    circle(pointerX, pointerY, 100);
+  }
+}</code></pre>
+
+    <h3>Pointer events</h3>
+    <pre><code>function pointerPressed() {
+  fill(random(255), random(255), random(255));
+  circle(pointerX, pointerY, 40);
+}
+
+function pointerMoved() {
+  stroke(0, 140, 255);
+  strokeWeight(3);
+  line(ppointerX, ppointerY, pointerX, pointerY);
+}</code></pre>
+    <p>You'll still encounter <code>mousePressed()</code> and <code>touchStarted()</code> a lot in existing learning materials. For new sketches that need to work on multiple devices, pointer events are the first choice.</p>
+</section>
+
+<section>
+    <h2>Creating Trails</h2>
+    <p>With <code>pmouseX</code> and <code>pmouseY</code> you can create trails:</p>
+    <pre><code>function draw() {
+  // Draw line from previous to current mouse position
+  line(pmouseX, pmouseY, mouseX, mouseY);
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Mouse Interaction</h3>
+    <p>Move and click your mouse:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-interactie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Experiment with mouse interaction! Add mousePressed(), create trails with pmouseX/Y, or combine different mouse events.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let clickColor = 255;
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+
+  // Circle follows mouse
+  fill(clickColor, 0, 255);
+  ellipse(mouseX, mouseY, 50, 50);
+
+  // Draw line from previous to current position
+  stroke(0);
+  strokeWeight(2);
+  line(pmouseX, pmouseY, mouseX, mouseY);
+}
+
+function mousePressed() {
+  // Change color on click
+  clickColor = random(255);
+}
+        </script>
+    </div>
+</section>

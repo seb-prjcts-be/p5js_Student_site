@@ -1,0 +1,134 @@
+<div class="intro">
+    <p>An L-system is a rule system that rewrites text. By reading that text as a drawing afterwards, you get growth forms like plants, branches, and fractals.</p>
+</div>
+
+<section>
+    <h2>Why this concept is fascinating</h2>
+    <p>With an L-system, you don't draw a plant step by step by hand. You only describe how it grows. The image emerges from a grammar.</p>
+    <p><strong>Think about it:</strong> can an image have a kind of language?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>thinking in rules and rewriting</li>
+        <li>describing growth instead of drawing directly</li>
+        <li>working with turtle geometry, <code>push()</code> and <code>pop()</code></li>
+        <li>seeing the connection between text structure and image structure</li>
+    </ul>
+</section>
+
+<section>
+    <h2>How does it work?</h2>
+    <p>You start with an <strong>axiom</strong>, a starting string, and repeatedly replace each letter using rules.</p>
+    <pre><code>Axiom:     F
+Rule:      F -&gt; F+F-F-F+F
+
+Iteration 0: F
+Iteration 1: F+F-F-F+F
+Iteration 2: F+F-F-F+F + F+F-F-F+F - ...</code></pre>
+    <p>Then you read the string with turtle commands:</p>
+    <ul>
+        <li><code>F</code> - move forward and draw</li>
+        <li><code>+</code> - turn right</li>
+        <li><code>-</code> - turn left</li>
+        <li><code>[</code> - save position and direction</li>
+        <li><code>]</code> - restore position and direction</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Plant model</h2>
+    <p>With <code>[</code> and <code>]</code> you can create branches:</p>
+    <pre><code>Axiom: X
+Rules: X -&gt; F+[[X]-X]-F[-FX]+X
+       F -&gt; FF
+Angle: 25</code></pre>
+    <pre><code>for (let c of sentence) {
+  if (c === "F") { line(0, 0, len, 0); translate(len, 0); }
+  else if (c === "+") rotate(radians(angle));
+  else if (c === "-") rotate(radians(-angle));
+  else if (c === "[") push();
+  else if (c === "]") pop();
+}</code></pre>
+    <p>This way you get something that feels like growth: each iteration builds on the previous structure.</p>
+</section>
+
+<section>
+    <h2>What does a rule change?</h2>
+    <p>A small change in a rule or angle can make a plant elegant, compact, chaotic, or almost architectural.</p>
+    <ul>
+        <li>more iterations - more detail</li>
+        <li>larger angle - wider branching</li>
+        <li>different replacement rule - different growth behavior</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Change only one thing at a time: first the angle, then the number of iterations, then the rule for <code>X</code>. Each time, describe whether your result looks more like a plant, a network, an ornament, or an abstract pattern.</p>
+</section>
+
+<section>
+    <h2>Try It Yourself</h2>
+    <p>Adjust <code>angle</code>, or change the number of iterations. Find a version that feels natural, and then one that looks artificial or mechanical.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let sentence = "X";
+let len = 90;
+const angle = 25;
+
+function setup() {
+  createCanvas(600, 400);
+  noLoop();
+
+  for (let i = 0; i < 5; i++) {
+    let next = "";
+    for (let c of sentence) {
+      if (c === "X") next += "F+[[X]-X]-F[-FX]+X";
+      else if (c === "F") next += "FF";
+      else next += c;
+    }
+    sentence = next;
+    len *= 0.5;
+  }
+}
+
+function draw() {
+  background(250);
+  stroke(40, 110, 40);
+  strokeWeight(1);
+
+  push();
+  translate(width / 2, height - 5);
+  rotate(-HALF_PI);
+
+  for (let c of sentence) {
+    if (c === "F") {
+      line(0, 0, len, 0);
+      translate(len, 0);
+    } else if (c === "+") {
+      rotate(radians(angle));
+    } else if (c === "-") {
+      rotate(radians(-angle));
+    } else if (c === "[") {
+      push();
+    } else if (c === "]") {
+      pop();
+    }
+  }
+  pop();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Click the canvas to generate a new growth form.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-l-systems"></div>
+        </div>
+    </div>
+</section>

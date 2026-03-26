@@ -1,0 +1,91 @@
+<div class="intro">
+    <p>With keyboard input you can control your sketches. p5.js has functions to detect key presses.</p>
+</div>
+
+<section>
+    <h2>keyPressed()</h2>
+    <p>The <code>keyPressed()</code> function is called when a key is pressed:</p>
+    <pre><code>let colour = 0;
+
+function keyPressed() {
+  if (key === 'r' || key === 'R') {
+    colour = color(255, 0, 0);  // Red
+  } else if (key === 'g' || key === 'G') {
+    colour = color(0, 255, 0);  // Green
+  }
+}
+
+function draw() {
+  fill(colour);
+  ellipse(200, 200, 100, 100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Key Variables</h2>
+    <p>p5.js has variables for keys:</p>
+    <ul>
+        <li><code>key</code> - The pressed key (as a character)</li>
+        <li><code>keyCode</code> - For special keys</li>
+    </ul>
+
+    <h3>Special Keys</h3>
+    <pre><code>if (keyCode === UP_ARROW) { }
+if (keyCode === DOWN_ARROW) { }
+if (keyCode === LEFT_ARROW) { }
+if (keyCode === RIGHT_ARROW) { }
+if (keyCode === ENTER) { }
+if (keyCode === BACKSPACE) { }</code></pre>
+</section>
+
+<section>
+    <h2>keyIsPressed</h2>
+    <p>You can check if a key is being held down:</p>
+    <pre><code>function draw() {
+  if (keyIsPressed) {
+    if (key === 'w' || key === 'W') {
+      y -= 2;  // Move up
+    }
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Keyboard Control</h3>
+    <p>Press keys to see how it works:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-interactie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Add your own keys! Press 'r', 'g', or 'b' to change the color. Experiment with different keys!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let circleColor = [255, 100, 100];
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+
+  fill(circleColor[0], circleColor[1], circleColor[2]);
+  ellipse(width/2, height/2, 100, 100);
+}
+
+function keyPressed() {
+  if (key === 'r' || key === 'R') {
+    circleColor = [255, 0, 0];  // Red
+  } else if (key === 'g' || key === 'G') {
+    circleColor = [0, 255, 0];  // Green
+  } else if (key === 'b' || key === 'B') {
+    circleColor = [0, 0, 255];  // Blue
+  }
+}
+        </script>
+    </div>
+</section>

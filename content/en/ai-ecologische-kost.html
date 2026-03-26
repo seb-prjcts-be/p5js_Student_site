@@ -1,0 +1,200 @@
+<div class="intro">
+    <p>Students often ask: "Is AI bad for the environment?" That's a very valid question. AI does have an ecological cost — but the story is more nuanced than it might seem at first glance.</p>
+</div>
+
+<section>
+    <h2>Training vs. usage</h2>
+    <p>The biggest environmental impact of AI lies in <strong>training</strong> a model — not in daily usage.</p>
+
+    <h3>What is training?</h3>
+    <p>When an AI model is created, computers must process enormous amounts of data to learn patterns. This happens on large clusters of specialized chips (GPUs) in data centers, which sometimes run continuously for weeks or months.</p>
+
+    <pre><code>Training a large model:
+→ thousands of GPUs
+→ running for weeks or months
+→ costs a lot of electricity and cooling</code></pre>
+
+    <h3>But — training is a one-time event</h3>
+    <p>After training, <strong>millions of people use the same model</strong>. The training cost is thus spread across an enormous number of conversations. The energy per user becomes very small.</p>
+
+    <ul>
+        <li>Training: happens occasionally, costs a lot of energy</li>
+        <li>Usage: daily, by millions of people, relatively little energy per query</li>
+    </ul>
+</section>
+
+<section>
+    <h2>How much energy does an AI query cost?</h2>
+    <p>An AI conversation costs energy, but less than most people think. Here's a comparison:</p>
+
+    <table style="width:100%; border-collapse: collapse; margin: 1rem 0;">
+        <thead>
+            <tr style="background: var(--kleur-accent, #444); color: #fff;">
+                <th style="padding: 0.6rem 1rem; text-align: left;">Activity</th>
+                <th style="padding: 0.6rem 1rem; text-align: right;">Estimated energy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 0.6rem 1rem;">Google search</td>
+                <td style="padding: 0.6rem 1rem; text-align: right;">~0.3 Wh</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 0.6rem 1rem;">One AI query</td>
+                <td style="padding: 0.6rem 1rem; text-align: right;">~1–5 Wh</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 0.6rem 1rem;">AI conversation (~20 messages)</td>
+                <td style="padding: 0.6rem 1rem; text-align: right;">~20–100 Wh</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd;">
+                <td style="padding: 0.6rem 1rem;">1 hour of Netflix streaming</td>
+                <td style="padding: 0.6rem 1rem; text-align: right;">~80–100 Wh</td>
+            </tr>
+            <tr style="border-bottom: 1px solid #ddd; font-weight: bold;">
+                <td style="padding: 0.6rem 1rem;">Cup of coffee (full chain)</td>
+                <td style="padding: 0.6rem 1rem; text-align: right;">~100–200 Wh</td>
+            </tr>
+            <tr>
+                <td style="padding: 0.6rem 1rem;">Boiling water</td>
+                <td style="padding: 0.6rem 1rem; text-align: right;">~1000 Wh</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p>The surprising result: <strong>a cup of coffee costs as much or even more energy than a complete AI conversation.</strong></p>
+
+    <p>The energy cost of coffee doesn't come from brewing it, but from the production chain of the bean: agriculture, water, transportation across continents, roasting, and grinding. Research from University College London, among others, estimates this at 100–200 Wh per cup.</p>
+</section>
+
+<section>
+    <h2>Data centers are going green</h2>
+    <p>Many AI data centers already run on renewable energy:</p>
+    <ul>
+        <li>Hydropower, wind energy, and solar energy</li>
+        <li>Companies like Google, Microsoft, and OpenAI invest heavily in green power</li>
+        <li>New AI chips become more efficient per computation every year</li>
+    </ul>
+
+    <p>The efficiency of AI hardware improves approximately <strong>2x every 1–1.5 years</strong> — faster than the classic Moore's Law. The same AI training may cost a fraction of the current energy in just a few years.</p>
+
+    <p>Some data centers use their <strong>waste heat to warm neighborhoods</strong>. In Scandinavia and Finland, servers are connected to district heating — the heat from AI computations doesn't go to waste but heats homes.</p>
+</section>
+
+<section>
+    <h2>The real question: what do we use AI for?</h2>
+    <p>The most important ecological question isn't really how much energy AI uses, but <strong>what</strong> we use it for.</p>
+
+    <p>AI can cost energy, but also <em>save</em> energy:</p>
+    <ul>
+        <li>Optimizing energy consumption in buildings</li>
+        <li>Making transport and logistics more efficient</li>
+        <li>Reducing material usage in production</li>
+        <li>Accelerating scientific research (climate, medicine, materials)</li>
+    </ul>
+
+    <p>A good frame of reference:</p>
+    <blockquote style="border-left: 4px solid var(--kleur-accent, #888); padding: 0.5rem 1rem; margin: 1rem 0; font-style: italic;">
+        "AI is like electricity in the 20th century. It costs energy, but the question is: are we using it for useful things?"
+    </blockquote>
+
+    <p>This opens a good conversation about ethics, technology, and responsibility — and whether the environmental problem is AI itself, or our <em>lifestyle</em> around it.</p>
+</section>
+
+<section>
+    <h2>Did you know that...</h2>
+
+    <div style="background: #1a1a2e; border-left: 4px solid #4a9eff; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 0 6px 6px 0;">
+        <p style="margin: 0; color: #ccc;">The energy consumption of AI training is measured in <strong style="color: #4a9eff;">"GPU-years"</strong>. One GPU-year means a powerful GPU computes non-stop for a full year. Some models use thousands of GPU-years — but the efficiency of AI chips improves 2x per year, faster than Moore's Law.</p>
+    </div>
+
+    <div style="background: #1a1a2e; border-left: 4px solid #4aff9e; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 0 6px 6px 0;">
+        <p style="margin: 0; color: #ccc;">Researchers are working on <strong style="color: #4aff9e;">"tiny AI models"</strong> that are thousands of times smaller than large models. Some run entirely on a microcontroller using just a few milliwatts — which becomes particularly interesting for generative art and interactive installations.</p>
+    </div>
+
+    <div style="background: #1a1a2e; border-left: 4px solid #ff9e4a; padding: 1rem 1.2rem; margin: 1rem 0; border-radius: 0 6px 6px 0;">
+        <p style="margin: 0; color: #ccc;">Some new server racks are <strong style="color: #ff9e4a;">submerged in cooling liquid</strong>. This can reduce cooling energy by up to 90%. The most modern data centers achieve a PUE (Power Usage Effectiveness) of nearly 1.1 — almost all energy goes to the computations themselves.</p>
+    </div>
+</section>
+
+<div class="p5-example">
+    <h3>Interactive: Energy Comparison</h3>
+    <p>Move your mouse over the bars to compare energy values.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-ai-ecologische-kost"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Class Discussion</h2>
+    <p>Good questions to discuss with students:</p>
+    <ul>
+        <li>Is the environmental problem AI — or our lifestyle around it?</li>
+        <li>Streaming video, meat consumption, cars, and coffee often turn out to be bigger energy costs than digital interaction. How does that work?</li>
+        <li>If AI <em>saves</em> energy in other sectors, how do you add that up?</li>
+        <li>Who is responsible for the ecological cost of technology — the maker or the user?</li>
+    </ul>
+
+    <div class="p5-editor" data-width="600" data-height="350" data-autorun="true">
+        <script type="text/p5">
+// Energy comparison visualization — adjust the values!
+let activities = [
+  { name: 'Google search',    wh: 0.3,  color: [100, 180, 255] },
+  { name: 'AI query',         wh: 3,    color: [80,  220, 160] },
+  { name: 'AI conversation',  wh: 60,   color: [60,  200, 120] },
+  { name: '1h Netflix',       wh: 90,   color: [255, 180, 60]  },
+  { name: 'Cup of coffee',    wh: 150,  color: [255, 100, 80]  },
+  { name: 'Boiling water',    wh: 1000, color: [200, 60,  60]  }
+];
+
+let maxWh = 1000;
+
+function setup() {
+  createCanvas(600, 350);
+  textFont('monospace');
+}
+
+function draw() {
+  background(18, 18, 30);
+
+  let margin = 20;
+  let labelWidth = 130;
+  let chartWidth = width - labelWidth - margin * 2;
+  let rowHeight = (height - margin * 2) / activities.length;
+
+  for (let i = 0; i < activities.length; i++) {
+    let act = activities[i];
+    let y = margin + i * rowHeight;
+    let barWidth = map(act.wh, 0, maxWh, 0, chartWidth);
+    let hovered = mouseY > y && mouseY < y + rowHeight - 4;
+
+    // Bar
+    let alpha = hovered ? 255 : 180;
+    fill(act.color[0], act.color[1], act.color[2], alpha);
+    noStroke();
+    rect(labelWidth, y + 4, barWidth, rowHeight - 10, 3);
+
+    // Label
+    fill(200);
+    textSize(11);
+    textAlign(RIGHT, CENTER);
+    text(act.name, labelWidth - 6, y + rowHeight / 2);
+
+    // Value
+    if (hovered) {
+      fill(255);
+      textAlign(LEFT, CENTER);
+      textSize(12);
+      text(act.wh + ' Wh', labelWidth + barWidth + 6, y + rowHeight / 2);
+    }
+  }
+
+  // Title
+  fill(180);
+  textSize(11);
+  textAlign(LEFT);
+  text('Energy (Wh) — hover over a bar', margin, height - 6);
+}
+        </script>
+    </div>
+</section>
