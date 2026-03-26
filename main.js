@@ -1817,8 +1817,8 @@ function initBalls() {
 
             // Duw ballen uit elkaar zodat ze niet overlappen
             let overlap = (minDist - dist) / 2;
-            a.x - = nx * overlap;
-            a.y - = ny * overlap;
+            a.x -= nx * overlap;
+            a.y -= ny * overlap;
             b.x += nx * overlap;
             b.y += ny * overlap;
 
@@ -1835,8 +1835,8 @@ function initBalls() {
             let mb = b.r * b.r;
             let impuls = (2 * dot) / (ma + mb);
 
-            a.vx - = impuls * mb * nx;
-            a.vy - = impuls * mb * ny;
+            a.vx -= impuls * mb * nx;
+            a.vy -= impuls * mb * ny;
             b.vx += impuls * ma * nx;
             b.vy += impuls * ma * ny;
         }

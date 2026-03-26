@@ -28,10 +28,19 @@
 
 <section>
     <h2>In code</h2>
-    <p>You can convert the three neighbors to a number between 0 and 7 and use that to read a bit from the rule number:</p>
-    <pre><code>let pattern = left * 4 + mid * 2 + right;
-let newCell = (rule >> pattern) &amp; 1;</code></pre>
-    <p>This way, a single number like 30 or 110 can describe an entire visual language.</p>
+    <p>You make a string from the three neighbor cells and check what the rule says. This is Rule 30:</p>
+    <pre><code>let pattern = "" + left + mid + right;
+let newCell = 0;
+
+if (pattern == "111") newCell = 0;
+else if (pattern == "110") newCell = 0;
+else if (pattern == "101") newCell = 0;
+else if (pattern == "100") newCell = 1;
+else if (pattern == "011") newCell = 1;
+else if (pattern == "010") newCell = 1;
+else if (pattern == "001") newCell = 1;
+else if (pattern == "000") newCell = 0;</code></pre>
+    <p>Change the zeros and ones after <code>newCell =</code> and you create your own rule. Each pattern of eight outcomes describes an entire visual language.</p>
 </section>
 
 <section>
@@ -51,12 +60,11 @@ let newCell = (rule >> pattern) &amp; 1;</code></pre>
 
 <section>
     <h2>Experiment Yourself</h2>
-    <p>This sketch draws an automaton row by row. Change <code>ruleNumber</code> and see what visual behavior you get.</p>
+    <p>This sketch draws an automaton row by row. Change the outcomes (0 or 1) in <code>determineCell()</code> and see what visual behavior you get.</p>
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
 let cellSize = 8;
 let cols, rows;
-let ruleNumber = 30;
 let currentRow;
 let generation;
 
@@ -75,6 +83,23 @@ function startRule() {
   loop();
 }
 
+// Rule 30 - change the zeros and ones!
+function determineCell(left, mid, right) {
+  let pattern = "" + left + mid + right;
+  let newCell = 0;
+
+  if (pattern == "111") newCell = 0;
+  else if (pattern == "110") newCell = 0;
+  else if (pattern == "101") newCell = 0;
+  else if (pattern == "100") newCell = 1;
+  else if (pattern == "011") newCell = 1;
+  else if (pattern == "010") newCell = 1;
+  else if (pattern == "001") newCell = 1;
+  else if (pattern == "000") newCell = 0;
+
+  return newCell;
+}
+
 function nextRow(row) {
   let next = Array(cols).fill(0);
 
@@ -82,8 +107,7 @@ function nextRow(row) {
     let left = row[(i - 1 + cols) % cols];
     let mid = row[i];
     let right = row[(i + 1) % cols];
-    let pattern = left * 4 + mid * 2 + right;
-    next[i] = (ruleNumber >> pattern) & 1;
+    next[i] = determineCell(left, mid, right);
   }
 
   return next;

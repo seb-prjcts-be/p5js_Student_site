@@ -28,10 +28,19 @@
 
 <section>
     <h2>In code</h2>
-    <p>Je kunt de drie buren omzetten naar een getal tussen 0 en 7 en daarmee een bit uit het regelnummer lezen:</p>
-    <pre><code>let patroon = left * 4 + mid * 2 + right;
-let nieuweCel = (regel >> patroon) &amp; 1;</code></pre>
-    <p>Zo kan een enkel getal zoals 30 of 110 een volledige beeldtaal beschrijven.</p>
+    <p>Je maakt een string van de drie buurcellen en kijkt wat de regel zegt. Dit is Rule 30:</p>
+    <pre><code>let patroon = "" + left + mid + right;
+let nieuweCel = 0;
+
+if (patroon == "111") nieuweCel = 0;
+else if (patroon == "110") nieuweCel = 0;
+else if (patroon == "101") nieuweCel = 0;
+else if (patroon == "100") nieuweCel = 1;
+else if (patroon == "011") nieuweCel = 1;
+else if (patroon == "010") nieuweCel = 1;
+else if (patroon == "001") nieuweCel = 1;
+else if (patroon == "000") nieuweCel = 0;</code></pre>
+    <p>Verander de nullen en enen achter <code>nieuweCel =</code> en je maakt je eigen regel. Zo beschrijft elk patroon van acht uitkomsten een volledige beeldtaal.</p>
 </section>
 
 <section>
@@ -51,12 +60,11 @@ let nieuweCel = (regel >> patroon) &amp; 1;</code></pre>
 
 <section>
     <h2>Experimenteer Zelf</h2>
-    <p>Deze sketch tekent rij per rij een automaat. Verander <code>regelNummer</code> en kijk welk visueel gedrag je krijgt.</p>
+    <p>Deze sketch tekent rij per rij een automaat. Verander de uitkomsten (0 of 1) in <code>bepaalCel()</code> en kijk welk visueel gedrag je krijgt.</p>
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
 let cellSize = 8;
 let cols, rows;
-let regelNummer = 30;
 let huidigeRij;
 let generatie;
 
@@ -75,6 +83,23 @@ function startRegel() {
   loop();
 }
 
+// Rule 30 - verander de nullen en enen!
+function bepaalCel(left, mid, right) {
+  let patroon = "" + left + mid + right;
+  let nieuweCel = 0;
+
+  if (patroon == "111") nieuweCel = 0;
+  else if (patroon == "110") nieuweCel = 0;
+  else if (patroon == "101") nieuweCel = 0;
+  else if (patroon == "100") nieuweCel = 1;
+  else if (patroon == "011") nieuweCel = 1;
+  else if (patroon == "010") nieuweCel = 1;
+  else if (patroon == "001") nieuweCel = 1;
+  else if (patroon == "000") nieuweCel = 0;
+
+  return nieuweCel;
+}
+
 function volgendeRij(rij) {
   let next = Array(cols).fill(0);
 
@@ -82,8 +107,7 @@ function volgendeRij(rij) {
     let left = rij[(i - 1 + cols) % cols];
     let mid = rij[i];
     let right = rij[(i + 1) % cols];
-    let patroon = left * 4 + mid * 2 + right;
-    next[i] = (regelNummer >> patroon) & 1;
+    next[i] = bepaalCel(left, mid, right);
   }
 
   return next;
