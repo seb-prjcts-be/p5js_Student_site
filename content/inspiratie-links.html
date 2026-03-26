@@ -22,6 +22,51 @@
             Een installatie van honderden spiegeltjes die reageren op bezoekers - als een zwerm die je volgt.
             <a href="https://www.chrisoshea.org/portfolio/audience" target="_blank" rel="noopener">Technisch overzicht door Chris O'Shea</a>.
         </li>
+    </ul>
+
+    <p>Hieronder een versie met lijnen die richting je muis draaien:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Geïnspireerd op Audience (2008) - Random International
+// Elke streep draait naar de muispositie, net als een spiegel.
+
+let rijen = 10;
+let kolommen = 16;
+
+function setup() {
+  createCanvas(600, 400);
+  stroke(220);
+  strokeWeight(1.5);
+}
+
+function draw() {
+  background(10);
+
+  let stapX = width / kolommen;
+  let stapY = height / rijen;
+
+  for (let ry = 0; ry < rijen; ry++) {
+    for (let kol = 0; kol < kolommen; kol++) {
+      let x = kol * stapX + stapX / 2;
+      let y = ry * stapY + stapY / 2;
+
+      let hoek = atan2(mouseY - y, mouseX - x) + HALF_PI;
+      let len = stapX * 0.35;
+
+      let x1 = x - cos(hoek) * len;
+      let y1 = y - sin(hoek) * len;
+      let x2 = x + cos(hoek) * len;
+      let y2 = y + sin(hoek) * len;
+
+      line(x1, y1, x2, y2);
+    }
+  }
+}
+        </script>
+    </div>
+
+    <ul>
         <li>
             <strong><a href="https://www.fuseworks.it/works/everything-in-existence/" target="_blank" rel="noopener">Everything in Existence</a></strong> - fuse* studio<br>
             Een meeslepende solotentoonstelling die data, beeld en ruimte samensmelt.
@@ -134,50 +179,6 @@ function draw() {
     </div>
 </section>
 
-<section>
-    <h2>Audience - spiegels die volgen</h2>
-    <p>Random Internationals <em>Audience</em> bestaat uit honderden kleine spiegeltjes die elk individueel naar de bezoeker draaien. Zo simpel als het principe is, zo fascinerend is het effect. Hieronder een versie met lijnen die richting je muis draaien:</p>
-
-    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
-        <script type="text/p5">
-// Geïnspireerd op Audience (2008) - Random International
-// Elke streep draait naar de muispositie, net als een spiegel.
-
-let rijen = 10;
-let kolommen = 16;
-
-function setup() {
-  createCanvas(600, 400);
-  stroke(220);
-  strokeWeight(1.5);
-}
-
-function draw() {
-  background(10);
-
-  let stapX = width / kolommen;
-  let stapY = height / rijen;
-
-  for (let ry = 0; ry < rijen; ry++) {
-    for (let kol = 0; kol < kolommen; kol++) {
-      let x = kol * stapX + stapX / 2;
-      let y = ry * stapY + stapY / 2;
-
-      let hoek = atan2(mouseY - y, mouseX - x) + HALF_PI;
-      let len = stapX * 0.35;
-
-      let x1 = x - cos(hoek) * len;
-      let y1 = y - sin(hoek) * len;
-      let x2 = x + cos(hoek) * len;
-      let y2 = y + sin(hoek) * len;
-
-      line(x1, y1, x2, y2);
-    }
-  }
-}
-        </script>
-    </div>
-</section>
 
 <section>
     <h2>Video's &amp; documentaires</h2>

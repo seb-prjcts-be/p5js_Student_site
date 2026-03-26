@@ -22,6 +22,51 @@
             An installation of hundreds of small mirrors that respond to visitors - like a swarm that follows you.
             <a href="https://www.chrisoshea.org/portfolio/audience" target="_blank" rel="noopener">Technical overview by Chris O'Shea</a>.
         </li>
+    </ul>
+
+    <p>Below is a version with lines that rotate toward your mouse:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Inspired by Audience (2008) - Random International
+// Each line rotates toward the mouse position, like a mirror.
+
+let rijen = 10;
+let kolommen = 16;
+
+function setup() {
+  createCanvas(600, 400);
+  stroke(220);
+  strokeWeight(1.5);
+}
+
+function draw() {
+  background(10);
+
+  let stapX = width / kolommen;
+  let stapY = height / rijen;
+
+  for (let ry = 0; ry < rijen; ry++) {
+    for (let kol = 0; kol < kolommen; kol++) {
+      let x = kol * stapX + stapX / 2;
+      let y = ry * stapY + stapY / 2;
+
+      let hoek = atan2(mouseY - y, mouseX - x) + HALF_PI;
+      let len = stapX * 0.35;
+
+      let x1 = x - cos(hoek) * len;
+      let y1 = y - sin(hoek) * len;
+      let x2 = x + cos(hoek) * len;
+      let y2 = y + sin(hoek) * len;
+
+      line(x1, y1, x2, y2);
+    }
+  }
+}
+        </script>
+    </div>
+
+    <ul>
         <li>
             <strong><a href="https://www.fuseworks.it/works/everything-in-existence/" target="_blank" rel="noopener">Everything in Existence</a></strong> - fuse* studio<br>
             An immersive solo exhibition that merges data, imagery, and space.
@@ -134,50 +179,6 @@ function draw() {
     </div>
 </section>
 
-<section>
-    <h2>Audience - mirrors that follow</h2>
-    <p>Random International's <em>Audience</em> consists of hundreds of small mirrors that each individually turn toward the visitor. As simple as the principle is, the effect is fascinating. Below is a version with lines that rotate toward your mouse:</p>
-
-    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
-        <script type="text/p5">
-// Inspired by Audience (2008) - Random International
-// Each line rotates toward the mouse position, like a mirror.
-
-let rijen = 10;
-let kolommen = 16;
-
-function setup() {
-  createCanvas(600, 400);
-  stroke(220);
-  strokeWeight(1.5);
-}
-
-function draw() {
-  background(10);
-
-  let stapX = width / kolommen;
-  let stapY = height / rijen;
-
-  for (let ry = 0; ry < rijen; ry++) {
-    for (let kol = 0; kol < kolommen; kol++) {
-      let x = kol * stapX + stapX / 2;
-      let y = ry * stapY + stapY / 2;
-
-      let hoek = atan2(mouseY - y, mouseX - x) + HALF_PI;
-      let len = stapX * 0.35;
-
-      let x1 = x - cos(hoek) * len;
-      let y1 = y - sin(hoek) * len;
-      let x2 = x + cos(hoek) * len;
-      let y2 = y + sin(hoek) * len;
-
-      line(x1, y1, x2, y2);
-    }
-  }
-}
-        </script>
-    </div>
-</section>
 
 <section>
     <h2>Videos &amp; documentaries</h2>
