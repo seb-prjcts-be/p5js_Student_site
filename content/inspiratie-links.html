@@ -162,7 +162,7 @@ function draw() {
       let x = kol * stapX + stapX / 2;
       let y = ry * stapY + stapY / 2;
 
-      let hoek = atan2(mouseY - y, mouseX - x);
+      let hoek = atan2(mouseY - y, mouseX - x) + HALF_PI;
       let len = stapX * 0.35;
 
       let x1 = x - cos(hoek) * len;
