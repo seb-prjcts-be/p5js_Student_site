@@ -14,8 +14,36 @@
     <ul>
         <li><strong>Processing:</strong> Java-based, desktop application</li>
         <li><strong>p5.js:</strong> JavaScript-based, works in the browser</li>
+        <li><strong>Processing Python:</strong> Python-based, alternative syntax</li>
     </ul>
     <p>With p5.js you don't need to install anything - you write code in an editor and open it in your browser!</p>
+    <p>Processing is <strong>free</strong> and <strong>open source</strong>. Anyone can contribute to the software. You can see Processing as an extra layer on top of a programming language - a library of functions that lets you easily create creative projects.</p>
+
+    <h3>Compare the three languages</h3>
+    <p>The languages are related - you can fairly easily move from one to another:</p>
+    <table>
+        <tr><th>Processing (Java)</th><th>p5.js (JavaScript)</th><th>Processing (Python)</th></tr>
+        <tr>
+            <td><pre><code>void setup() {
+  size(400, 400);
+}
+void draw() {
+  background(245);
+}</code></pre></td>
+            <td><pre><code>function setup() {
+  createCanvas(400, 400);
+}
+function draw() {
+  background(245);
+}</code></pre></td>
+            <td><pre><code>def setup():
+    size(400, 400)
+
+def draw():
+    background(245)</code></pre></td>
+        </tr>
+    </table>
+    <p>In this course we focus on <strong>p5.js</strong>.</p>
 </section>
 
 <section>
@@ -40,7 +68,13 @@ console.log(mouseX);  // Shows the mouse position</code></pre>
 
     <h3>Friendly error messages</h3>
     <p>The <strong>Friendly Error System</strong> of p5.js gives understandable error messages in simple language - including a hint about what's wrong and how you can fix it. If there's an error in your code, read the console carefully!</p>
-    <p>Want to see the real browser developer console? Press <kbd>F12</kbd> or <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd>.</p>
+    <h3>Browser DevTools</h3>
+    <p>Press <kbd>F12</kbd> or <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd> to open the developer tools. Three useful tabs:</p>
+    <ul>
+        <li><strong>Console:</strong> error messages and <code>console.log()</code> output appear here. You can also try out JavaScript.</li>
+        <li><strong>Elements:</strong> inspect the HTML structure of your page and canvas. Useful to see how p5.js adds elements.</li>
+        <li><strong>Sources:</strong> you can set breakpoints here to step through your code line by line when something isn't working.</li>
+    </ul>
 </section>
 
 <section>
@@ -94,6 +128,25 @@ function draw() {
   background(245);
   ellipse(200, 200, 50, 50);
 }</code></pre>
+</section>
+
+<section>
+    <h2>Saving the canvas</h2>
+    <p>With <code>saveCanvas()</code> you save the current canvas as an image (PNG or JPG):</p>
+    <pre><code>function keyPressed() {
+  if (key === 's') {
+    saveCanvas('my-sketch', 'png');
+  }
+}</code></pre>
+    <p>For an animation you can save each frame with a sequence number:</p>
+    <pre><code>function draw() {
+  background(220);
+  circle(frameCount % width, height/2, 40);
+
+  // Save each frame with numbered name: frame-0001.png, frame-0002.png, ...
+  saveCanvas('frame-' + nf(frameCount, 4), 'png');
+}</code></pre>
+    <p>The function <code>nf(number, digits)</code> adds leading zeros so files sort correctly. During export, set <code>frameRate()</code> lower (e.g. 5) so your computer has time to save each frame.</p>
 </section>
 
 <div class="p5-example">

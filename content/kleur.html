@@ -68,6 +68,28 @@ fill('steelblue');
 fill('gold');</code></pre>
     <p>Hexadecimale codes vind je via kleurpickers in Photoshop, Figma of op websites zoals <a href="https://coolors.co" target="_blank" rel="noopener">coolors.co</a>.</p>
 
+    <h3>Kleurnamen referentietabel</h3>
+    <p>Een selectie van bruikbare CSS-kleurnamen met hun hex- en RGB-waarden:</p>
+    <table>
+        <tr><th>Naam</th><th>Hex</th><th>RGB</th></tr>
+        <tr><td><code>'lime'</code></td><td>#A4C400</td><td>(164, 196, 0)</td></tr>
+        <tr><td><code>'emerald'</code></td><td>#008A00</td><td>(0, 138, 0)</td></tr>
+        <tr><td><code>'teal'</code></td><td>#00ABA9</td><td>(0, 171, 169)</td></tr>
+        <tr><td><code>'cyan'</code></td><td>#1BA1E2</td><td>(27, 161, 226)</td></tr>
+        <tr><td><code>'indigo'</code></td><td>#6A00FF</td><td>(106, 0, 255)</td></tr>
+        <tr><td><code>'magenta'</code></td><td>#D80073</td><td>(216, 0, 115)</td></tr>
+        <tr><td><code>'crimson'</code></td><td>#A20025</td><td>(162, 0, 37)</td></tr>
+        <tr><td><code>'orange'</code></td><td>#FA6800</td><td>(250, 104, 0)</td></tr>
+        <tr><td><code>'gold'</code></td><td>#E3C800</td><td>(227, 200, 0)</td></tr>
+        <tr><td><code>'brown'</code></td><td>#825A2C</td><td>(130, 90, 44)</td></tr>
+    </table>
+    <p>Met de functie <code>color()</code> kun je kleuren ook opslaan via hex-notatie:</p>
+    <pre><code>let oranje = color('#FF6600');
+let donkerblauw = color('#003399');
+
+fill(oranje);
+circle(200, 200, 80);</code></pre>
+
     <h3>Willekeurige kleuren</h3>
     <p>Met <code>random(255)</code> genereer je een willekeurige kleurwaarde tussen 0 en 255:</p>
     <pre><code>// Willekeurige kleur

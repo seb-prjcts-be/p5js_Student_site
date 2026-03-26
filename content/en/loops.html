@@ -53,6 +53,41 @@ for (let j = 0; j < size; j += cellSize) {
 }</code></pre>
     <p>The <code>i</code> represents all x-positions, the <code>j</code> represents all y-positions - this is a convention among programmers.</p>
     <p>Artist <strong>Vera Molnar</strong> used exactly this principle (grid of cells) to control her drawing robot. Check the <a href="#vera-molnar">Vera Molnar page</a> for examples.</p>
+
+    <h3>Example: Desordres style</h3>
+    <p>Molnar's famous work <em>(Des)Ordres</em> (1974) uses a nested loop to draw concentric squares, with a small random deviation per corner. The result: order with just enough chaos.</p>
+    <pre><code>let cellSize = 80;
+
+function setup() {
+  createCanvas(400, 400);
+  noFill();
+  stroke(0);
+  noLoop();
+}
+
+function draw() {
+  background(255);
+  for (let y = 0; y < height; y += cellSize) {
+    for (let x = 0; x < width; x += cellSize) {
+      // 4 concentric squares per cell
+      for (let k = 0; k < 4; k++) {
+        let deviation = k * 1.5;  // More deviation for inner squares
+        let margin = k * 10;
+        beginShape();
+        vertex(x + margin + random(-deviation, deviation),
+               y + margin + random(-deviation, deviation));
+        vertex(x + cellSize - margin + random(-deviation, deviation),
+               y + margin + random(-deviation, deviation));
+        vertex(x + cellSize - margin + random(-deviation, deviation),
+               y + cellSize - margin + random(-deviation, deviation));
+        vertex(x + margin + random(-deviation, deviation),
+               y + cellSize - margin + random(-deviation, deviation));
+        endShape(CLOSE);
+      }
+    }
+  }
+}</code></pre>
+    <p>Three nested loops: rows, columns, and the concentric squares per cell. The <code>random()</code> deviation makes each square slightly different.</p>
 </section>
 
 <section>

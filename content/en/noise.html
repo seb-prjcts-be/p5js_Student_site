@@ -3,6 +3,12 @@
 </div>
 
 <section>
+    <h2>Origin: Ken Perlin</h2>
+    <p><strong>Ken Perlin</strong> developed this function in 1983 for the film <em>Tron</em>. He needed a way to generate natural-looking textures for the computer imagery in the movie. His solution - a kind of "smooth" randomness - proved so powerful that he received an <strong>Academy Award</strong> (Technical Achievement Oscar) for it in 1997.</p>
+    <p>Since then, Perlin noise has become a standard technique in games, film, and creative coding. In p5.js you use it via the <code>noise()</code> function.</p>
+</section>
+
+<section>
     <h2>noise() vs random()</h2>
     <p>The difference is immediately visible:</p>
     <pre><code>// random(): jumps to a random value every frame
@@ -143,6 +149,45 @@ function draw() {
 
   t += 0.003;  // Let terrain slowly scroll
 }</code></pre>
+</section>
+
+<section>
+    <h2>Flow Field: noise as a compass</h2>
+    <p>A flow field uses noise to determine a direction at every point on the canvas. Imagine an invisible wind pattern: every particle moving through it follows the local wind direction.</p>
+    <p>The principle:</p>
+    <ul>
+        <li>Divide the canvas into a grid of cells</li>
+        <li>Calculate an angle per cell using <code>noise(x, y)</code></li>
+        <li>Let particles move in the direction of that angle</li>
+    </ul>
+    <pre><code>let particles = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 200; i++) {
+    particles.push(createVector(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(10, 15);
+  for (let p of particles) {
+    // Noise determines the direction at this position
+    let angle = noise(p.x * 0.005, p.y * 0.005, frameCount * 0.003) * TWO_PI * 2;
+    p.x += cos(angle);
+    p.y += sin(angle);
+
+    // Wrap around edges
+    if (p.x > width) p.x = 0;
+    if (p.x < 0) p.x = width;
+    if (p.y > height) p.y = 0;
+    if (p.y < 0) p.y = height;
+
+    stroke(200, 220, 255, 40);
+    point(p.x, p.y);
+  }
+}</code></pre>
+    <p>Flow fields are the foundation of many generative artworks. By adjusting the noise scale, speed, and number of particles, very different patterns emerge.</p>
 </section>
 
 <div class="p5-example">

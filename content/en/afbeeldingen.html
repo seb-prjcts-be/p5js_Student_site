@@ -4,7 +4,22 @@
 
 <section>
     <h2>Loading and Drawing an Image</h2>
-    <p>In modern p5.js, typically use <code>async function setup()</code> with <code>await loadImage()</code>. This ensures the image is loaded before you draw it. In older sketches you may still encounter <code>preload()</code>.</p>
+    <p>In modern p5.js, typically use <code>async function setup()</code> with <code>await loadImage()</code>. This ensures the image is loaded before you draw it.</p>
+    <p><strong>In older code:</strong> In p5.js 1.x, <code>preload()</code> was the standard way to load images. You'll still see this frequently in tutorials and on StackOverflow. It still works, but <code>async/await</code> in <code>setup()</code> is the modern approach.</p>
+    <pre><code>// Older pattern (p5.js 1.x) - still works
+let photo;
+
+function preload() {
+  photo = loadImage('my-photo.jpg');
+}
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  image(photo, 0, 0);
+}</code></pre>
 
     <pre><code>let photo;
 

@@ -14,8 +14,36 @@
     <ul>
         <li><strong>Processing:</strong> Java-gebaseerd, desktop applicatie</li>
         <li><strong>p5.js:</strong> JavaScript-gebaseerd, werkt in de browser</li>
+        <li><strong>Processing Python:</strong> Python-gebaseerd, alternatieve syntax</li>
     </ul>
     <p>Met p5.js hoef je niets te installeren - je schrijft code in een editor en opent het in je browser!</p>
+    <p>Processing is <strong>gratis</strong> en <strong>open source</strong>. Iedereen kan bijdragen aan de software. Je kunt Processing zien als een extra laag bovenop een programmeertaal - een bibliotheek van functies die jou toelaten om gemakkelijk creatieve projecten te maken.</p>
+
+    <h3>Vergelijk de drie talen</h3>
+    <p>De talen zijn verwant - je kunt vrij gemakkelijk verhuizen van de ene naar de andere:</p>
+    <table>
+        <tr><th>Processing (Java)</th><th>p5.js (JavaScript)</th><th>Processing (Python)</th></tr>
+        <tr>
+            <td><pre><code>void setup() {
+  size(400, 400);
+}
+void draw() {
+  background(245);
+}</code></pre></td>
+            <td><pre><code>function setup() {
+  createCanvas(400, 400);
+}
+function draw() {
+  background(245);
+}</code></pre></td>
+            <td><pre><code>def setup():
+    size(400, 400)
+
+def draw():
+    background(245)</code></pre></td>
+        </tr>
+    </table>
+    <p>In deze cursus focussen we op <strong>p5.js</strong>.</p>
 </section>
 
 <section>
@@ -40,7 +68,13 @@ console.log(mouseX);  // Toont de muispositie</code></pre>
 
     <h3>Vriendelijke foutmeldingen</h3>
     <p>Het <strong>Friendly Error System</strong> van p5.js geeft begrijpelijke foutmeldingen in eenvoudige taal - inclusief een hint wat er mis is en hoe je het kunt oplossen. Als er een fout in je code zit, lees de console dus aandachtig!</p>
-    <p>Wil je de echte browser-ontwikkelaarsconsole zien? Druk op <kbd>F12</kbd> of <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd>.</p>
+    <h3>Browser DevTools</h3>
+    <p>Druk op <kbd>F12</kbd> of <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd> om de ontwikkelaarstools te openen. Drie handige tabbladen:</p>
+    <ul>
+        <li><strong>Console:</strong> foutmeldingen en <code>console.log()</code> output verschijnen hier. Je kunt er ook JavaScript uitproberen.</li>
+        <li><strong>Elements:</strong> bekijk de HTML-structuur van je pagina en het canvas. Handig om te zien hoe p5.js elementen toevoegt.</li>
+        <li><strong>Sources:</strong> je kunt hier breakpoints zetten om je code regel per regel te doorlopen als iets niet werkt.</li>
+    </ul>
 </section>
 
 <section>
@@ -94,6 +128,25 @@ function draw() {
   background(245);
   ellipse(200, 200, 50, 50);
 }</code></pre>
+</section>
+
+<section>
+    <h2>Canvas opslaan</h2>
+    <p>Met <code>saveCanvas()</code> sla je het huidige canvas op als afbeelding (PNG of JPG):</p>
+    <pre><code>function keyPressed() {
+  if (key === 's') {
+    saveCanvas('mijn-sketch', 'png');
+  }
+}</code></pre>
+    <p>Voor een animatie kun je elk frame opslaan met een volgnummer:</p>
+    <pre><code>function draw() {
+  background(220);
+  circle(frameCount % width, height/2, 40);
+
+  // Sla elk frame op met genummerde naam: frame-0001.png, frame-0002.png, ...
+  saveCanvas('frame-' + nf(frameCount, 4), 'png');
+}</code></pre>
+    <p>De functie <code>nf(getal, cijfers)</code> voegt voorloopnullen toe zodat bestanden correct gesorteerd worden. Zet tijdens het exporteren de <code>frameRate()</code> lager (bv. 5) zodat je computer de tijd heeft om elk frame op te slaan.</p>
 </section>
 
 <div class="p5-example">

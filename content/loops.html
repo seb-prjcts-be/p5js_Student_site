@@ -53,6 +53,41 @@ for (let j = 0; j < grootte; j += celgrootte) {
 }</code></pre>
     <p>De <code>i</code> staat voor alle x-posities, de <code>j</code> voor alle y-posities - zo is de afspraak onder programmeurs.</p>
     <p>Kunstenares <strong>Vera Molnár</strong> gebruikte precies dit principe (raster van cellen) om haar tekenrobot aan te sturen. Bekijk de <a href="#vera-molnar">Vera Molnár pagina</a> voor voorbeelden.</p>
+
+    <h3>Voorbeeld: Desordres-stijl</h3>
+    <p>Molnárs beroemde werk <em>(Des)Ordres</em> (1974) gebruikt een geneste loop om concentrische vierkanten te tekenen, met een kleine willekeurige afwijking per hoekpunt. Het resultaat: orde met net genoeg chaos.</p>
+    <pre><code>let celgrootte = 80;
+
+function setup() {
+  createCanvas(400, 400);
+  noFill();
+  stroke(0);
+  noLoop();
+}
+
+function draw() {
+  background(255);
+  for (let y = 0; y < height; y += celgrootte) {
+    for (let x = 0; x < width; x += celgrootte) {
+      // 4 concentrische vierkanten per cel
+      for (let k = 0; k < 4; k++) {
+        let afwijking = k * 1.5;  // Meer afwijking bij binnenste vierkant
+        let marge = k * 10;
+        beginShape();
+        vertex(x + marge + random(-afwijking, afwijking),
+               y + marge + random(-afwijking, afwijking));
+        vertex(x + celgrootte - marge + random(-afwijking, afwijking),
+               y + marge + random(-afwijking, afwijking));
+        vertex(x + celgrootte - marge + random(-afwijking, afwijking),
+               y + celgrootte - marge + random(-afwijking, afwijking));
+        vertex(x + marge + random(-afwijking, afwijking),
+               y + celgrootte - marge + random(-afwijking, afwijking));
+        endShape(CLOSE);
+      }
+    }
+  }
+}</code></pre>
+    <p>Drie geneste loops: rijen, kolommen en de concentrische vierkanten per cel. De <code>random()</code>-afwijking maakt elk vierkant net iets anders.</p>
 </section>
 
 <section>

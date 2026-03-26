@@ -125,6 +125,7 @@ p5_cursus_site/
 │   ├── inspiratie/          (vera-molnar-desordres.png, vera-molnar-hero.jpg, vera-molnar-interruptions.png)
 │   └── strudel/             (strudel-drums.png, strudel-sounds.png)
 ├── data/               ← Bronmateriaal (read-only)
+│   ├── Voor AI_Lab44_EDU - p5.js_FULL_def_Update_25.md  (5.7 MB - full curriculum as markdown)
 │   └── pdf/            ← Source PDFs en gesplitste HTML-pagina's
 │       ├── Lab44_EDU - p5.js_FULL_def_Update_25.pdf   (15 MB - full curriculum)
 │       ├── Lab44_EDU - p5.js_FULL_def_Update_25/      (gesplitste pagina's + images)
@@ -443,9 +444,13 @@ This is intentional: editors run in iframes (global mode is safe there), example
 
 ---
 
-## PDF Integration: Source Material
+## Source Material
 
-The PDFs in `data/pdf/` are the original curriculum source. The PDF has been split into per-section HTML pages for easy reading:
+The primary curriculum source is available in two formats:
+- **Markdown:** `data/Voor AI_Lab44_EDU - p5.js_FULL_def_Update_25.md` (5.7 MB, AI-friendly, preferred for content work)
+- **PDF:** `data/pdf/Lab44_EDU - p5.js_FULL_def_Update_25.pdf` (15 MB, original layout)
+
+The PDF has been split into per-section HTML pages for easy reading:
 
 ```
 data/pdf/Lab44_EDU - p5.js_FULL_def_Update_25/pages/
@@ -718,11 +723,11 @@ The site uses `fetch()` to load content files. This requires HTTP - opening `ind
 
 ## Topics Still to Complete / Expand
 
-- **Vera Molnar** - deepen with practical generative art exercises
 - **Strudel** - add more examples: polyrhythm, samples, effects
-- **Camera/webcam** - `createCapture()`, pixel arrays; no page yet (source: `25_camera_en_createcapture.html`)
-- **Externe data** - JSON/CSV laden via fetch; geen pagina (source: `37_werken_met_externe_data_in_p5_js.html`)
-- **DOM-elementen** - `createButton()`, `createInput()`, sliders; geen pagina (source: `32_dom-elementen.html`)
+- **Camera/webcam** - `createCapture()`, pixel arrays, filters (GRAY, INVERT, POSTERIZE, BLUR); no page yet (source: curriculum section "Camera en createCapture")
+- **Externe data** - CSV (`loadTable`), JSON (`loadJSON`), API loading with Belgian open data sources; no page yet (source: curriculum section "Werken met externe data in p5.js")
+- **DOM-elementen** - `createButton()`, `createInput()`, `createSlider()`, `.value()`, `.style()`, `.mousePressed()`; no page yet (source: curriculum section "DOM-elementen")
+- **Libraries** - p5.Capture (video recording), p5play (physics/games), p5.speech (text-to-speech); no page yet (source: curriculum section "Libraries")
 
 All core p5.js topics are complete as of 2026-03-24. New Inspiratie topics added: ai-tools, ai-modellen (2026-03-24). Moderne p5.js topic removed 2026-03-24 - content verdeeld over vormen, muis-interactie en 3d-basis.
 
@@ -731,6 +736,16 @@ Content gap-fill pass completed 2026-03-24 against `data/pdf/Lab44_EDU - p5.js_F
 - `berekeningen.html` - toegevoegd: `random()` sectie incl. `floor(random())` voor integers
 - `variabelen.html` - toegevoegd: `windowWidth`/`windowHeight`, `windowResized()`
 - `vormen.html` - toegevoegd: `arc()`, `quad()`, `beginShape()`/`vertex()`/`endShape(CLOSE)`, `LINES`/`POINTS` modi
+
+Curriculum-aligned content pass completed 2026-03-26 against `data/Voor AI_Lab44_EDU - p5.js_FULL_def_Update_25.md`. Updates made:
+- `noise.html` - Ken Perlin oorsprong (Oscar/Tron) + flow field sectie met codevoorbeeld
+- `kleur.html` - volledige kleurnamen referentietabel met hex en RGB + `color()` hex-notatie
+- `variabelen.html` - Color als variabeletype met `color()` en hex
+- `loops.html` - Vera Molnar (Des)Ordres codevoorbeeld met 3 geneste loops
+- `over-p5js.html` - DevTools uitleg (Console/Elements/Sources) + canvas opslaan (`saveCanvas()`, `nf()`) + Processing/p5.js/Python vergelijkingstabel + open source context
+- `generative-design.html` - hedendaagse projecten sectie (5 projecten) + algorave/live coding (TidalCycles, Hydra) + Vera Molnar/Manfred Mohr als vroege pioniers + demoscene verdieping + Tim Rodenbroker
+- `vera-molnar.html` - algoritmische uitleg bij (Des)Ordres met stapsgewijze beschrijving
+- `afbeeldingen.html` - `preload()` legacy context met werkend 1.x codevoorbeeld
 
 ---
 
@@ -770,7 +785,7 @@ For any content or code change:
 - Do not edit content in only one language - always update both `content/<id>.html` (NL) and `content/en/<id>.html` (EN)
 - Do not add Dutch-only tags without adding their English equivalent to `tagTranslations`
 - Do not use em-dashes (-) - use regular hyphens (-) instead
-- Do not add content that is not derived from the PDFs or clearly in scope
+- Do not add content that is not derived from the PDFs, the curriculum markdown, or clearly in scope
 - Do not remove or rename existing topic `id` values - it breaks bookmarks
 - Do not edit files in `backup/` - those are historical snapshots
 - Do not add `console.log` to production code in content files or examples

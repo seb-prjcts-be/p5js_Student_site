@@ -3,6 +3,12 @@
 </div>
 
 <section>
+    <h2>Oorsprong: Ken Perlin</h2>
+    <p><strong>Ken Perlin</strong> ontwikkelde deze functie in 1983 voor de film <em>Tron</em>. Hij had een manier nodig om natuurlijk ogende texturen te genereren voor de computerbeelden in de film. Zijn oplossing - een soort "gladde" willekeur - bleek zo krachtig dat hij er in 1997 een <strong>Academy Award</strong> (Technical Achievement Oscar) voor ontving.</p>
+    <p>Sindsdien is Perlin noise een standaardtechniek in games, film en creative coding. In p5.js gebruik je het via de functie <code>noise()</code>.</p>
+</section>
+
+<section>
     <h2>noise() vs random()</h2>
     <p>Het verschil is meteen zichtbaar:</p>
     <pre><code>// random(): springt elke frame naar een willekeurige waarde
@@ -143,6 +149,45 @@ function draw() {
 
   t += 0.003;  // Laat terrein langzaam schuiven
 }</code></pre>
+</section>
+
+<section>
+    <h2>Flow Field: noise als kompas</h2>
+    <p>Een flow field (stroomveld) gebruikt noise om op elk punt in het canvas een richting te bepalen. Stel je een onzichtbaar windpatroon voor: elk deeltje dat er doorheen beweegt, volgt de lokale windrichting.</p>
+    <p>Het principe:</p>
+    <ul>
+        <li>Verdeel het canvas in een raster van cellen</li>
+        <li>Bereken per cel een hoek met <code>noise(x, y)</code></li>
+        <li>Laat deeltjes bewegen in de richting van die hoek</li>
+    </ul>
+    <pre><code>let deeltjes = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 200; i++) {
+    deeltjes.push(createVector(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(10, 15);
+  for (let p of deeltjes) {
+    // Noise bepaalt de richting op deze positie
+    let hoek = noise(p.x * 0.005, p.y * 0.005, frameCount * 0.003) * TWO_PI * 2;
+    p.x += cos(hoek);
+    p.y += sin(hoek);
+
+    // Wrap rond de randen
+    if (p.x > width) p.x = 0;
+    if (p.x < 0) p.x = width;
+    if (p.y > height) p.y = 0;
+    if (p.y < 0) p.y = height;
+
+    stroke(200, 220, 255, 40);
+    point(p.x, p.y);
+  }
+}</code></pre>
+    <p>Flow fields zijn de basis van veel generatieve kunstwerken. Door de noise-schaal, snelheid en het aantal deeltjes aan te passen, ontstaan heel verschillende patronen.</p>
 </section>
 
 <div class="p5-example">

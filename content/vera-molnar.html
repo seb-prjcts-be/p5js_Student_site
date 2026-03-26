@@ -47,6 +47,15 @@
         <img src="assets/inspiratie/vera-molnar-desordres.png" alt="(Des)Ordres (1974) - concentrische vierkanten met afwijkingen">
         <figcaption><strong>(Des)Ordres (1974):</strong> een perfect grid met bewust toegevoegde afwijkingen.</figcaption>
     </figure>
+    <h3>Hoe werkt het?</h3>
+    <p>Het algoritme achter (Des)Ordres is verrassend eenvoudig:</p>
+    <ol>
+        <li>Verdeel het canvas in een raster met een <strong>geneste loop</strong> (rij en kolom)</li>
+        <li>Teken per cel meerdere <strong>concentrische vierkanten</strong> (van buiten naar binnen)</li>
+        <li>Verschuif elk hoekpunt met een kleine <strong><code>random()</code> afwijking</strong></li>
+        <li>Hoe dieper het vierkant in de cel zit, hoe groter de afwijking mag zijn</li>
+    </ol>
+    <p>Het resultaat is een spanning tussen de perfecte orde van het raster en de menselijke onregelmatigheid van de verstoringen. Precies die 1% chaos die Molnar zocht. Bekijk het werkende codevoorbeeld op de <a href="#loops">Loops pagina</a>.</p>
     <figure>
         <img src="assets/inspiratie/vera-molnar-interruptions.png" alt="Interruptions (1968-1969) - parallelle lijnen met verstoringen">
         <figcaption><strong>Interruptions (1968-1969):</strong> minimale ingrepen die maximaal effect geven.</figcaption>

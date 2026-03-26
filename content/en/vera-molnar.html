@@ -47,6 +47,15 @@
         <img src="assets/inspiratie/vera-molnar-desordres.png" alt="(Des)Ordres (1974) - concentric squares with deviations">
         <figcaption><strong>(Des)Ordres (1974):</strong> a perfect grid with deliberately added deviations.</figcaption>
     </figure>
+    <h3>How does it work?</h3>
+    <p>The algorithm behind (Des)Ordres is surprisingly simple:</p>
+    <ol>
+        <li>Divide the canvas into a grid with a <strong>nested loop</strong> (row and column)</li>
+        <li>Draw multiple <strong>concentric squares</strong> per cell (from outside to inside)</li>
+        <li>Shift each corner with a small <strong><code>random()</code> deviation</strong></li>
+        <li>The deeper the square sits inside the cell, the larger the deviation can be</li>
+    </ol>
+    <p>The result is a tension between the perfect order of the grid and the human irregularity of the disturbances. Exactly that 1% chaos Molnar was looking for. See the working code example on the <a href="#loops">Loops page</a>.</p>
     <figure>
         <img src="assets/inspiratie/vera-molnar-interruptions.png" alt="Interruptions (1968-1969) - parallel lines with disruptions">
         <figcaption><strong>Interruptions (1968-1969):</strong> minimal interventions that produce maximum effect.</figcaption>
