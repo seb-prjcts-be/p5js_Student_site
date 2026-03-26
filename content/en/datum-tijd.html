@@ -4,7 +4,7 @@
 
 <section>
     <h2>Getting the date and time</h2>
-    <p>Six functions give you the current system time — they are re-evaluated each time you call them:</p>
+    <p>Six functions give you the current system time - they are re-evaluated each time you call them:</p>
     <pre><code>function draw() {
   let j = year();    // e.g. 2026
   let mo = month();  // 1 – 12
@@ -30,7 +30,7 @@
   text(u + ":" + m + ":" + s, width / 2, height / 2);
 }</code></pre>
 
-    <p><code>nf(value, 2)</code> ensures a fixed width of 2 digits — so <code>9</code> is displayed as <code>09</code>.</p>
+    <p><code>nf(value, 2)</code> ensures a fixed width of 2 digits - so <code>9</code> is displayed as <code>09</code>.</p>
 </section>
 
 <section>
@@ -72,22 +72,22 @@ function draw() {
 
     <h3>Smooth second hand</h3>
     <p><code>second()</code> jumps one step every second. For smooth motion use <code>millis()</code>:</p>
-    <pre><code>// millis() returns milliseconds — divide by 1000 for seconds
+    <pre><code>// millis() returns milliseconds - divide by 1000 for seconds
 let smoothSec = (millis() / 1000) % 60;
 let sAngle = map(smoothSec, 0, 60, 0, 360) - 90;</code></pre>
 </section>
 
 <section>
-    <h2>John Maeda — 12 o'clocks (1996)</h2>
-    <p>In 1996 the American designer and programmer <strong>John Maeda</strong> created a series of twelve small programs — each a different way to display time. He called them <em>12 o'clocks</em>.</p>
+    <h2>John Maeda - 12 o'clocks (1996)</h2>
+    <p>In 1996 the American designer and programmer <strong>John Maeda</strong> created a series of twelve small programs - each a different way to display time. He called them <em>12 o'clocks</em>.</p>
     <p>None of the twelve looks like an ordinary clock. One shows only dots that shift. Another lets concentric circles pulse to the rhythm of the seconds. Yet another draws lines that together express the hour as an abstract pattern.</p>
-    <p>Maeda's thesis: <em>a clock is an interface for time</em> — and an interface can be reinvented endlessly. The only constraint is that the system must correctly show the current time. How you do that is entirely up to you.</p>
+    <p>Maeda's thesis: <em>a clock is an interface for time</em> - and an interface can be reinvented endlessly. The only constraint is that the system must correctly show the current time. How you do that is entirely up to you.</p>
     <p>12 o'clocks was one of the earliest examples of code as a design medium. Maeda worked in Java at the time; today you do the same thing in p5.js.</p>
 </section>
 
 <section>
     <h2>The challenge: make your own clock</h2>
-    <p>Create a sketch that shows the current time — but do it in a way that looks nothing like anything you've seen before.</p>
+    <p>Create a sketch that shows the current time - but do it in a way that looks nothing like anything you've seen before.</p>
 
     <p>What you can use:</p>
     <ul>
@@ -96,13 +96,13 @@ let sAngle = map(smoothSec, 0, 60, 0, 360) - 90;</code></pre>
         <li>Movement, rotation, scale</li>
         <li>Grids, patterns, repetition with <code>for</code></li>
         <li>Randomness via <code>random()</code> or <code>noise()</code></li>
-        <li>Text — with or without numbers</li>
+        <li>Text - with or without numbers</li>
     </ul>
 
     <p>What it must do:</p>
     <ul>
         <li>Correctly display the current time (hours, minutes, seconds)</li>
-        <li>Live in the loop — animation is not required, but is allowed</li>
+        <li>Live in the loop - animation is not required, but is allowed</li>
         <li>Show something you would dare to show Maeda</li>
     </ul>
 
@@ -148,7 +148,7 @@ function draw() {
   stroke(80);
   circle(0, 0, 300);
 
-  // Second hand — try adjusting this!
+  // Second hand - try adjusting this!
   let sAngle = map(s, 0, 60, 0, 360) - 90;
   stroke(255, 60, 60);
   strokeWeight(1);

@@ -1,4 +1,4 @@
-// Geïnspireerd op Sol LeWitt — lijnen vanuit de vier hoeken
+// Geïnspireerd op Sol LeWitt - lijnen vanuit de vier hoeken
 // naar willekeurige punten, opgebouwd over tijd.
 // Klik om opnieuw te starten.
 

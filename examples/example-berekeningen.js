@@ -1,4 +1,4 @@
-// Berekeningen voorbeeld — cirkel reageert op muisafstand
+// Berekeningen voorbeeld - cirkel reageert op muisafstand
 // Beschikbare concepten: variabelen, mouseX, mouseY, map(), dist(), random()
 window.sketch_example_berekeningen = function(p) {
 
@@ -16,7 +16,7 @@ window.sketch_example_berekeningen = function(p) {
         // Afstand van muis tot het midden
         let d = p.dist(p.mouseX, p.mouseY, cx, cy);
 
-        // map() — afstand omzetten naar grootte en kleur
+        // map() - afstand omzetten naar grootte en kleur
         let grootte = p.map(d, 0, 350, 200, 20);
         let rood = p.map(d, 0, 350, 255, 30);
         let blauw = p.map(d, 0, 350, 30, 255);

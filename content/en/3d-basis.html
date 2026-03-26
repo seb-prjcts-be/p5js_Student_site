@@ -15,7 +15,7 @@ function draw() {
 }</code></pre>
     <p>In WEBGL mode, the center of the canvas is at coordinate (0, 0, 0). Use <code>translate()</code> to move objects.</p>
     <figure>
-        <img src="assets/3d-basis/webgl-coordinaten.png" alt="Coordinate grid in WEBGL mode: center is 0,0 — negative x values go left, negative y values go up">
+        <img src="assets/3d-basis/webgl-coordinaten.png" alt="Coordinate grid in WEBGL mode: center is 0,0 - negative x values go left, negative y values go up">
         <figcaption>In WEBGL, (0, 0) is at the center. Left and up are negative, right and down are positive.</figcaption>
     </figure>
 </section>
@@ -24,12 +24,12 @@ function draw() {
     <h2>3D Shapes</h2>
     <p>p5.js has built-in 3D shapes:</p>
     <ul>
-        <li><code>box(width, height, depth)</code> — cube or box</li>
-        <li><code>sphere(radius, detail)</code> — sphere</li>
-        <li><code>cylinder(radius, height)</code> — cylinder</li>
-        <li><code>cone(radius, height)</code> — cone</li>
-        <li><code>torus(radius, tubeRadius)</code> — donut shape</li>
-        <li><code>plane(width, height)</code> — flat surface</li>
+        <li><code>box(width, height, depth)</code> - cube or box</li>
+        <li><code>sphere(radius, detail)</code> - sphere</li>
+        <li><code>cylinder(radius, height)</code> - cylinder</li>
+        <li><code>cone(radius, height)</code> - cone</li>
+        <li><code>torus(radius, tubeRadius)</code> - donut shape</li>
+        <li><code>plane(width, height)</code> - flat surface</li>
     </ul>
 
     <pre><code>function draw() {
@@ -88,14 +88,14 @@ function draw() {
     <h2>Lighting</h2>
     <p>Without light, 3D shapes look flat. p5.js has several light sources:</p>
 
-    <h3>ambientLight() — ambient light</h3>
+    <h3>ambientLight() - ambient light</h3>
     <pre><code>function draw() {
   background(0);
   ambientLight(100);  // Value 0-255: how bright the ambient light is
   sphere(100);
 }</code></pre>
 
-    <h3>directionalLight() — directional light</h3>
+    <h3>directionalLight() - directional light</h3>
     <pre><code>function draw() {
   background(0);
   // directionalLight(color, direction as vector)
@@ -103,7 +103,7 @@ function draw() {
   sphere(100);
 }</code></pre>
 
-    <h3>pointLight() — point light</h3>
+    <h3>pointLight() - point light</h3>
     <pre><code>function draw() {
   background(0);
   // Light that shines from a single point
@@ -125,14 +125,14 @@ function draw() {
     <h2>Materials</h2>
     <p>Materials determine how a shape responds to light:</p>
 
-    <h3>normalMaterial() — colors based on normal vector</h3>
+    <h3>normalMaterial() - colors based on normal vector</h3>
     <pre><code>function draw() {
   background(0);
   normalMaterial();  // No extra parameters needed
   box(100);
 }</code></pre>
 
-    <h3>ambientMaterial() — responds to ambient light</h3>
+    <h3>ambientMaterial() - responds to ambient light</h3>
     <pre><code>function draw() {
   background(0);
   ambientLight(200);
@@ -140,7 +140,7 @@ function draw() {
   sphere(100);
 }</code></pre>
 
-    <h3>specularMaterial() — shiny surface</h3>
+    <h3>specularMaterial() - shiny surface</h3>
     <pre><code>function draw() {
   background(0);
   ambientLight(60);
@@ -189,7 +189,7 @@ function draw() {
   myShader.setUniform('uTime', millis() / 1000);
   rect(-width / 2, -height / 2, width, height);
 }</code></pre>
-    <p>This is an advanced feature — useful when you want to fully control WEBGL. Shaders are small programs (GLSL) that determine how each pixel looks.</p>
+    <p>This is an advanced feature - useful when you want to fully control WEBGL. Shaders are small programs (GLSL) that determine how each pixel looks.</p>
 </section>
 
 <div class="p5-example">

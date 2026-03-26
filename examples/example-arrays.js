@@ -1,4 +1,4 @@
-// Particle system voorbeeld — array van objecten met positie, snelheid en kleur
+// Particle system voorbeeld - array van objecten met positie, snelheid en kleur
 window.sketch_example_arrays = function (p) {
     let particles = [];
     const MAX_PARTICLES = 300;

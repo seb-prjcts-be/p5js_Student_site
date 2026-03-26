@@ -1,4 +1,4 @@
-// setup() en draw() voorbeeld — een cirkel volgt de muis
+// setup() en draw() voorbeeld - een cirkel volgt de muis
 // Beschikbare concepten: setup(), draw(), createCanvas(), background(), ellipse(), mouseX, mouseY
 window.sketch_example_basis = function(p) {
 

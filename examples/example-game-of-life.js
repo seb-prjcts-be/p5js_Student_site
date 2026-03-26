@@ -1,4 +1,4 @@
-// Conway's Game of Life — cellulair automaat
+// Conway's Game of Life - cellulair automaat
 window.sketch_example_game_of_life = function(p) {
     const cols = 80;
     const rows = 50;

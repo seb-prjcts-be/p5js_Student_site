@@ -1,5 +1,5 @@
 <div class="intro">
-    <p>Sol LeWitt (1928-2007) was an American conceptual artist who became famous for his <em>Wall Drawings</em>: artworks consisting of written instructions. He sent those instructions to museums, which then had them executed on-site by staff or visitors. The drawing itself was secondary — the instruction was the work.</p>
+    <p>Sol LeWitt (1928-2007) was an American conceptual artist who became famous for his <em>Wall Drawings</em>: artworks consisting of written instructions. He sent those instructions to museums, which then had them executed on-site by staff or visitors. The drawing itself was secondary - the instruction was the work.</p>
 </div>
 
 <section>
@@ -9,7 +9,7 @@
     <blockquote style="border-left: 2px solid var(--accent-color); padding-left: 1rem; margin: 1rem 0; font-style: italic;">
         "Lines from corners, sides, and center of the canvas to random points on the wall."
     </blockquote>
-    <p>This is nothing other than an algorithm. Code <em>is</em> an instruction. When you write a p5.js sketch, you're doing exactly what LeWitt did: describing a system that someone else — in this case the computer — executes.</p>
+    <p>This is nothing other than an algorithm. Code <em>is</em> an instruction. When you write a p5.js sketch, you're doing exactly what LeWitt did: describing a system that someone else - in this case the computer - executes.</p>
 </section>
 
 <section>
@@ -23,7 +23,7 @@ for (let i = 0; i &lt; 40; i++) {
   points.push({ x: random(width), y: random(height) });
 }
 
-// Step 2: for each point — find the 3 nearest
+// Step 2: for each point - find the 3 nearest
 for (let a of points) {
   let sorted = points
     .filter(b => b !== a)
@@ -35,7 +35,7 @@ for (let a of points) {
   }
 }</code></pre>
 
-    <p>Try it below. Click to generate a new execution — each click is a new "execution" of the same instruction:</p>
+    <p>Try it below. Click to generate a new execution - each click is a new "execution" of the same instruction:</p>
 
     <div class="p5-editor" data-width="600" data-height="380" data-autorun="true">
         <script type="text/p5">
@@ -90,12 +90,12 @@ function mousePressed() {
 </section>
 
 <section>
-    <h2>Wall Drawing #118 — corners and sides</h2>
-    <p>LeWitt's <em>Wall Drawing #118</em> (1971): <em>"Fifty randomly placed points, connected by straight lines."</em> All points are connected to each other — that gives n x (n-1)/2 lines. With 50 points that's 1225 lines:</p>
+    <h2>Wall Drawing #118 - corners and sides</h2>
+    <p>LeWitt's <em>Wall Drawing #118</em> (1971): <em>"Fifty randomly placed points, connected by straight lines."</em> All points are connected to each other - that gives n x (n-1)/2 lines. With 50 points that's 1225 lines:</p>
 
     <div class="p5-editor" data-width="600" data-height="380" data-autorun="true">
         <script type="text/p5">
-// Wall Drawing #118 — all points connected to all others.
+// Wall Drawing #118 - all points connected to all others.
 // Click for a new execution.
 
 let points = [];

@@ -1,4 +1,4 @@
-# CLAUDE.md — p5.js Cursus Site
+# CLAUDE.md - p5.js Cursus Site
 
 Authoritative guide for AI-assisted development of this project. Read this before touching any file.
 
@@ -6,10 +6,10 @@ Authoritative guide for AI-assisted development of this project. Read this befor
 
 ## Project Overview
 
-A static Dutch-language p5.js educational website for students aged 16+. Built with plain HTML, CSS, and JavaScript — no build tools, no Node.js, no frameworks. Runs directly under Apache/XAMPP.
+A bilingual (Dutch/English) p5.js educational website for students aged 16+. Built with plain HTML, CSS, and JavaScript - no build tools, no Node.js, no frameworks. Runs directly under Apache/XAMPP.
 
 - **URL (local):** `http://localhost/p5_cursus_site/`
-- **Language:** Dutch throughout (UI, content, comments)
+- **Languages:** Dutch (default) and English, switchable via NL/EN toggle in header
 - **Audience:** Leerlingen 16+, creative coding beginners
 - **Organisation:** Lab44 EDU
 
@@ -47,6 +47,7 @@ p5_cursus_site/
 │       ├── PROMPT.md
 │       └── README.md
 ├── content/            ← One HTML fragment per topic (no <html>/<body> tags)
+│   ├── en/             ← English translations (same filenames as parent)
 │   ├── generative-design.html
 │   ├── over-p5js.html
 │   ├── setup-draw.html
@@ -125,7 +126,7 @@ p5_cursus_site/
 │   └── strudel/             (strudel-drums.png, strudel-sounds.png)
 ├── data/               ← Bronmateriaal (read-only)
 │   └── pdf/            ← Source PDFs en gesplitste HTML-pagina's
-│       ├── Lab44_EDU - p5.js_FULL_def_Update_25.pdf   (15 MB — full curriculum)
+│       ├── Lab44_EDU - p5.js_FULL_def_Update_25.pdf   (15 MB - full curriculum)
 │       ├── Lab44_EDU - p5.js_FULL_def_Update_25/      (gesplitste pagina's + images)
 │       ├── Lab44 - Strudel.pdf
 │       ├── Inspiratiemap- Vera Molnár...pdf
@@ -148,7 +149,7 @@ URL: http://localhost/p5_cursus_site/#setup-draw
 ```
 
 Flow:
-1. `DOMContentLoaded` → `buildNav()` → `initNavGroups()` → `initRouter()` → `initSearch()`
+1. `DOMContentLoaded` → `initLang()` → `buildNav()` → `initNavGroups()` → `initRouter()` → `initSearch()`
 2. `hashchange` or initial load → `loadOnderwerp()` → finds topic in `onderwerpen[]`
 3. `renderOnderwerp(onderwerp)` → `fetch(onderwerp.contentFile)` → inject into `#content`
 4. `ensureContentAnchors()` adds stable ids to `.intro`, `section`, and `.p5-example` blocks for tag-based in-page navigation
@@ -203,7 +204,35 @@ IIFE module, exposes `window.P5Editor`.
 
 Each `.p5-editor` div becomes a split-pane editor: textarea (left) + iframe preview (right).
 
-Code runs inside an `srcdoc` iframe that loads p5.js 2.2.1 from CDN. The iframe is fully isolated — no shared state with the page.
+Code runs inside an `srcdoc` iframe that loads p5.js 2.2.1 from CDN. The iframe is fully isolated - no shared state with the page. The iframe inherits the current `data-lang` attribute for localised error messages.
+
+### i18n System (`main.js`)
+
+The site is bilingual (NL/EN). Language preference is stored in `localStorage` (key: `lang`, default: `nl`).
+
+**Architecture:**
+- `i18n` object at the top of `main.js` holds all UI strings in both languages
+- `tagTranslations` object maps Dutch tag names to English equivalents
+- Helper functions: `t(key)`, `tCat(categorie)`, `tTag(tag)`, `topicTitle(onderwerp)`, `topicSummary(onderwerp)`, `topicContentFile(onderwerp)`
+- `setLanguage(lang)` updates all UI elements, rebuilds navigation, and reloads the current topic
+- `initLang()` runs at startup to restore the saved preference
+
+**Content file resolution:**
+- NL: `content/<id>.html`
+- EN: `content/en/<id>.html`
+- If an EN file is missing, the system falls back to the NL version automatically
+
+**Header controls (left to right):**
+```
+[NL] [EN]  |  [A small] [A medium] [A large]
+```
+
+**Tag translations:**
+- Tags are stored in Dutch in the `onderwerp.tags` array (these are the canonical keys)
+- `data-tag` attributes always hold the original Dutch value for consistent matching
+- Display text is translated via `tTag()` using the `tagTranslations` map
+- Tags that are already English (API names, technical terms) pass through untranslated
+- When adding a new Dutch tag, add its English equivalent to `tagTranslations` in `main.js`
 
 ---
 
@@ -212,10 +241,14 @@ Code runs inside an `srcdoc` iframe that loads p5.js 2.2.1 from CDN. The iframe 
 ```javascript
 {
     id: "mijn-onderwerp",         // Used in URL hash and file names
-    titel: "Mijn onderwerp",      // Displayed in nav and page h1
-    samenvatting: "...",          // Used in search results
-    tags: ["tag1", "tag2"],       // Used in search and tag relations
-    contentFile: "content/mijn-onderwerp.html",
+    titel: "Mijn onderwerp",      // Displayed in nav and page h1 (NL)
+    samenvatting: "...",          // Used in search results (NL)
+    en: {                         // English translations (required)
+        titel: "My topic",
+        samenvatting: "..."
+    },
+    tags: ["tag1", "tag2"],       // Used in search and tag relations (NL canonical)
+    contentFile: "content/mijn-onderwerp.html",  // NL path; EN resolved automatically
     categorie: "p5.js basis"      // Must match a value in navCategories[]
 }
 ```
@@ -238,7 +271,7 @@ Valid `categorie` values: `"Introductie"`, `"p5.js basis"`, `"p5.js +"`, `"Code 
 
 ### 1. Create the content file: `content/<id>.html`
 
-This is an HTML fragment — no `<html>`, `<head>`, or `<body>` tags.
+This is an HTML fragment - no `<html>`, `<head>`, or `<body>` tags.
 
 **Required structure:**
 ```html
@@ -316,9 +349,18 @@ window.sketch_example_<id_with_underscores> = function(p) {
 - Declare variables outside `setup`/`draw` for persistence across frames
 - Always call `p.createCanvas()` inside `p.setup()`
 - 3D sketches: use `p.createCanvas(600, 400, p.WEBGL)`
-- No `console.log` spam — examples run silently
+- No `console.log` spam - examples run silently
 
-### 3. Register the topic in `main.js`
+### 3. Create the English content file: `content/en/<id>.html`
+
+Translate the NL content file to English:
+- Same HTML structure, classes, IDs, and data attributes
+- Translate all prose (headings, paragraphs, list items) to clear, friendly English
+- Keep code examples as-is; translate Dutch comments in code to English
+- Keep `<script type="text/p5">` blocks unchanged except for Dutch comments
+- Keep image paths, CSS classes, IDs unchanged
+
+### 4. Register the topic in `main.js`
 
 Add to the `onderwerpen` array in the correct position (order matters for nav display):
 
@@ -327,17 +369,32 @@ Add to the `onderwerpen` array in the correct position (order matters for nav di
     id: "mijn-onderwerp",
     titel: "Mijn Onderwerp",
     samenvatting: "Korte beschrijving voor zoekresultaten (1-2 zinnen).",
+    en: {
+        titel: "My Topic",
+        samenvatting: "Short description for search results (1-2 sentences)."
+    },
     tags: ["tag1", "tag2", "trefwoord"],
     contentFile: "content/mijn-onderwerp.html",
     categorie: "p5.js basis"
 }
 ```
 
+### 5. Add tag translations
+
+If any new Dutch tags are introduced, add their English equivalents to the `tagTranslations` object at the top of `main.js`:
+
+```javascript
+const tagTranslations = {
+    // ... existing entries
+    "trefwoord": "keyword",
+};
+```
+
 ---
 
 ## Live Editor: Usage Patterns
 
-### Option A — Script tag (preferred for multi-line code)
+### Option A - Script tag (preferred for multi-line code)
 
 ```html
 <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
@@ -356,7 +413,7 @@ function draw() {
 </div>
 ```
 
-### Option B — `data-code` attribute (for very short snippets only)
+### Option B - `data-code` attribute (for very short snippets only)
 
 ```html
 <div class="p5-editor" data-code="function setup(){createCanvas(400,300);} function draw(){background(220);circle(mouseX,mouseY,40);}"></div>
@@ -369,7 +426,7 @@ function draw() {
 | `data-width` | `600` | Canvas width in pixels |
 | `data-height` | `400` | Canvas height in pixels |
 | `data-autorun` | `"true"` | Auto-execute on load (`"false"` to disable) |
-| `data-code` | — | Inline code string (use script tag instead when possible) |
+| `data-code` | - | Inline code string (use script tag instead when possible) |
 
 **Important:** Editor code uses **global p5.js mode** (no `p.` prefix), because it runs in an isolated iframe with its own p5.js instance.
 
@@ -396,7 +453,7 @@ data/pdf/Lab44_EDU - p5.js_FULL_def_Update_25/pages/
 
 Open `pages/index.html` to browse sections, or read a specific page directly (e.g. `pages/15_kleur.html`).
 
-**Important:** The site content may already be ahead of the PDF. Always check the existing `content/*.html` file first. Use the PDF pages as a basis and reference — not as a replacement for what's already been written. Only fill gaps or correct errors relative to the current site content.
+**Important:** The site content may already be ahead of the PDF. Always check the existing `content/*.html` file first. Use the PDF pages as a basis and reference - not as a replacement for what's already been written. Only fill gaps or correct errors relative to the current site content.
 
 ### Lab44_EDU - p5.js_FULL_def_Update_25.pdf (15 MB)
 
@@ -420,14 +477,14 @@ Full curriculum. Topics it covers that must be reflected in the site:
 
 ### p5js2_handleiding.pdf (190 KB)
 
-p5.js 2.x features — taught as the default approach, distributed across relevant topic pages:
+p5.js 2.x features - taught as the default approach, distributed across relevant topic pages:
 
 - Async asset loading (`loadImage`, `loadFont`, `loadShader` met await) → `afbeeldingen.html`, `text-typografie.html`, `3d-basis.html`
 - Pointer events voor muis en touch → `muis-interactie.html`
 - Curves en splines (`splineVertex`, `bezierVertex`, `quadraticVertex`) → `vormen.html`
 - Oudere 1.x-patronen zoals `preload()` alleen als context bij bestaand materiaal
 
-**When writing content:** read the relevant PDF sections, translate concepts into student-friendly Dutch, provide working code examples at each concept.
+**When writing content:** read the relevant PDF sections, write concepts in student-friendly Dutch (NL) and English (EN), provide working code examples at each concept. Always create both language versions.
 
 ---
 
@@ -435,15 +492,17 @@ p5.js 2.x features — taught as the default approach, distributed across releva
 
 ### Language and tone
 
-- Dutch throughout — no code-switching to English mid-sentence
-- Friendly, accessible tone: "je" not "u", not overly formal
-- Technical terms stay in English (p5.js convention): `setup()`, `draw()`, `mouseX`, etc.
+- NL content: Dutch throughout - no code-switching to English mid-sentence
+- EN content: English throughout - same friendly tone as the Dutch version
+- Friendly, accessible tone: NL uses "je" not "u"; EN uses "you" - not overly formal
+- Technical terms stay in English in both languages (p5.js convention): `setup()`, `draw()`, `mouseX`, etc.
 - Short sentences, bullet points over paragraphs
+- Every content change must be made in both `content/<id>.html` (NL) and `content/en/<id>.html` (EN)
 
 ### Code examples in `<pre><code>`
 
 - Every concept gets a minimal working code snippet
-- Comments in Dutch where helpful
+- Comments in Dutch (NL) or English (EN) where helpful
 - Show the simplest possible version first, complexity later
 - Always test that snippets are syntactically correct before committing
 - Default to modern p5.js 2.x patterns; mention `preload()` only when clarifying older code students may still encounter
@@ -453,7 +512,7 @@ p5.js 2.x features — taught as the default approach, distributed across releva
 - Every p5.js topic page **must** have at least one `.p5-editor` block
 - The editor code should demonstrate the topic's core concept clearly
 - Start with `createCanvas(600, 400)` unless there's a good reason not to
-- Include a comment inviting students to experiment: `// Probeer dit aan te passen!`
+- Include a comment inviting students to experiment: NL `// Probeer dit aan te passen!`, EN `// Try changing this!`
 
 ### Example canvases (`examples/*.js`)
 
@@ -476,7 +535,7 @@ grid-template-areas:
     "footer footer";
 ```
 
-Breakpoint: `768px` — below this, all areas stack vertically.
+Breakpoint: `768px` - below this, all areas stack vertically.
 
 Desktop layout currently uses the full available width with an approximate 20% / 50% / 30% flow:
 - `nav`: about 20% of the viewport width
@@ -489,7 +548,7 @@ Desktop layout currently uses the full available width with an approximate 20% /
 
 | Class | Usage |
 |---|---|
-| `.intro` | First paragraph of a topic — slightly styled intro block |
+| `.intro` | First paragraph of a topic - slightly styled intro block |
 | `.p5-example` | Wrapper for an interactive canvas demo |
 | `.p5-example-container` | Inner container for the canvas |
 | `.p5-canvas-wrapper` | Direct container for the p5 instance (needs `id`) |
@@ -514,13 +573,13 @@ Fonts are loaded via Google Fonts in `index.html` (`<head>`):
 |---|---|---|---|
 | Titels, nav, subtitels | Oswald | 300 (Light), 400 (Regular) | `--font-title` |
 | Bodytekst, alinea's | Alegreya | 400, 700, italic 400 | `--font-body` |
-| Code blocks (`pre`, `code`) | Courier New | — | hardcoded |
+| Code blocks (`pre`, `code`) | Courier New | - | hardcoded |
 
 **Gebruik:**
 - `--font-title` → `font-family: 'Oswald', Arial, sans-serif`
 - Gebruik Oswald 300 voor hoofdtitels zoals de site title en pagina-`h1`
 - Gebruik Oswald 400 voor navigatie, subtitels en tussenkoppen zodat de hiërarchie duidelijker blijft
-- `--font-body` → `font-family: 'Alegreya', Georgia, serif` — `body`, lopende tekst
+- `--font-body` → `font-family: 'Alegreya', Georgia, serif` - `body`, lopende tekst
 - Koppen schalen mee via `em` eenheden zodat de lettergrootte-knoppen correct werken
 
 **Lettergrootte-switcher** (knoppen in header, opgeslagen in `localStorage`):
@@ -595,8 +654,8 @@ AI
   └── Vibe coding                        (vibe-coding)
 
 Inspiratie
-  ├── Vera Molnar — code zonder computer  (vera-molnar)
-  ├── Sol LeWitt — instructies als kunst (sol-lewitt)
+  ├── Vera Molnar - code zonder computer  (vera-molnar)
+  ├── Sol LeWitt - instructies als kunst (sol-lewitt)
   └── Links & bronnen                    (inspiratie-links)
 ```
 
@@ -609,7 +668,7 @@ To add a new category: add its name to `navCategories[]` in `main.js`. Current o
 ### Current: p5.js 2.2.1
 
 - CDN: `https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js`
-- Loaded in `index.html` `<head>` — available globally on the page
+- Loaded in `index.html` `<head>` - available globally on the page
 - Also loaded inside each editor iframe independently
 
 ### Older 1.x Patterns
@@ -628,8 +687,8 @@ Never put two `.p5-canvas-wrapper` elements with the same `id` on the same page.
 
 ### Editor code vs example code
 
-Editor code (in `content/*.html` inside `<script type="text/p5">`) uses **global mode** — no `p.` prefix.
-Example code (in `examples/*.js`) uses **instance mode** — always `p.` prefix.
+Editor code (in `content/*.html` and `content/en/*.html` inside `<script type="text/p5">`) uses **global mode** - no `p.` prefix.
+Example code (in `examples/*.js`) uses **instance mode** - always `p.` prefix.
 Mixing these up will break sketches silently.
 
 ### Script loading timing
@@ -641,7 +700,7 @@ Mixing these up will break sketches silently.
 
 ### Content files are fragments, not full HTML
 
-`content/*.html` files are fetched and injected via `innerHTML`. They must NOT contain `<html>`, `<head>`, `<body>`, `<script src="">`, or `<link>` tags. Inline `<script type="text/p5">` inside `.p5-editor` is the only script tag allowed.
+`content/*.html` and `content/en/*.html` files are fetched and injected via `innerHTML`. They must NOT contain `<html>`, `<head>`, `<body>`, `<script src="">`, or `<link>` tags. Inline `<script type="text/p5">` inside `.p5-editor` is the only script tag allowed.
 
 ### Tag system depends on meaningful sections
 
@@ -653,25 +712,25 @@ The relation panel scans `.intro`, `section`, and `.p5-example` blocks on the cu
 
 ### XAMPP / local server required
 
-The site uses `fetch()` to load content files. This requires HTTP — opening `index.html` directly as a `file://` URL will fail with CORS errors. Always serve via Apache/XAMPP.
+The site uses `fetch()` to load content files. This requires HTTP - opening `index.html` directly as a `file://` URL will fail with CORS errors. Always serve via Apache/XAMPP.
 
 ---
 
 ## Topics Still to Complete / Expand
 
-- **Vera Molnar** — deepen with practical generative art exercises
-- **Strudel** — add more examples: polyrhythm, samples, effects
-- **Camera/webcam** — `createCapture()`, pixel arrays; no page yet (source: `25_camera_en_createcapture.html`)
-- **Externe data** — JSON/CSV laden via fetch; geen pagina (source: `37_werken_met_externe_data_in_p5_js.html`)
-- **DOM-elementen** — `createButton()`, `createInput()`, sliders; geen pagina (source: `32_dom-elementen.html`)
+- **Vera Molnar** - deepen with practical generative art exercises
+- **Strudel** - add more examples: polyrhythm, samples, effects
+- **Camera/webcam** - `createCapture()`, pixel arrays; no page yet (source: `25_camera_en_createcapture.html`)
+- **Externe data** - JSON/CSV laden via fetch; geen pagina (source: `37_werken_met_externe_data_in_p5_js.html`)
+- **DOM-elementen** - `createButton()`, `createInput()`, sliders; geen pagina (source: `32_dom-elementen.html`)
 
-All core p5.js topics are complete as of 2026-03-24. New Inspiratie topics added: ai-tools, ai-modellen (2026-03-24). Moderne p5.js topic removed 2026-03-24 — content verdeeld over vormen, muis-interactie en 3d-basis.
+All core p5.js topics are complete as of 2026-03-24. New Inspiratie topics added: ai-tools, ai-modellen (2026-03-24). Moderne p5.js topic removed 2026-03-24 - content verdeeld over vormen, muis-interactie en 3d-basis.
 
 Content gap-fill pass completed 2026-03-24 against `data/pdf/Lab44_EDU - p5.js_FULL_def_Update_25/pages/`. Updates made:
-- `animatie.html` — toegevoegd: `translate()`, `rotate()`, `angleMode(DEGREES)`, `tan()`
-- `berekeningen.html` — toegevoegd: `random()` sectie incl. `floor(random())` voor integers
-- `variabelen.html` — toegevoegd: `windowWidth`/`windowHeight`, `windowResized()`
-- `vormen.html` — toegevoegd: `arc()`, `quad()`, `beginShape()`/`vertex()`/`endShape(CLOSE)`, `LINES`/`POINTS` modi
+- `animatie.html` - toegevoegd: `translate()`, `rotate()`, `angleMode(DEGREES)`, `tan()`
+- `berekeningen.html` - toegevoegd: `random()` sectie incl. `floor(random())` voor integers
+- `variabelen.html` - toegevoegd: `windowWidth`/`windowHeight`, `windowResized()`
+- `vormen.html` - toegevoegd: `arc()`, `quad()`, `beginShape()`/`vertex()`/`endShape(CLOSE)`, `LINES`/`POINTS` modi
 
 ---
 
@@ -679,32 +738,39 @@ Content gap-fill pass completed 2026-03-24 against `data/pdf/Lab44_EDU - p5.js_F
 
 For any content or code change:
 
-- [ ] Open `http://localhost/p5_cursus_site/` — welcome page loads
-- [ ] Navigate to changed topic via sidebar — content loads correctly
+- [ ] Open `http://localhost/p5_cursus_site/` - welcome page loads
+- [ ] Navigate to changed topic via sidebar - content loads correctly
 - [ ] Navigation accordion opens one group clearly at a time, the active topic stays visible, and no category counter badge is shown
 - [ ] Right-hand tag sidebar appears for topics with tags
 - [ ] Tags render in `onderwerp.tags` order at the start of the chip flow; the earliest tags are the most page-specific keywords
 - [ ] The sidebar DOM stays shallow: direct `.tags-chip-flow` plus `#tag-context`, without extra panel/group wrappers
-- [ ] Click a tag — in-page relations, broader tags, and `Gerelateerde onderwerpen` update in the sidebar
-- [ ] Click two different tags quickly — only the latest clicked tag remains active and the panel stays coherent
+- [ ] Click a tag - in-page relations, broader tags, and `Gerelateerde onderwerpen` update in the sidebar
+- [ ] Click two different tags quickly - only the latest clicked tag remains active and the panel stays coherent
 - [ ] Desktop layout uses the intended wide 20 / 50 / 30 flow and still stacks correctly on smaller screens
 - [ ] `.p5-example` canvas renders and animates
 - [ ] `.p5-editor` shows textarea + iframe, auto-runs
-- [ ] Click Reset — code reverts and re-runs
-- [ ] Modify code in editor, click Run — new output appears
-- [ ] Search for a keyword from the topic — result appears
-- [ ] Resize browser below 768px — layout stacks correctly
+- [ ] Click Reset - code reverts and re-runs
+- [ ] Modify code in editor, click Run - new output appears
+- [ ] Search for a keyword from the topic - result appears
+- [ ] Resize browser below 768px - layout stacks correctly
+- [ ] Toggle NL/EN - all UI text switches (title, subtitle, nav headings, categories, search placeholder)
+- [ ] Toggle NL/EN - topic content switches to the correct language version
+- [ ] Toggle NL/EN - tags in sidebar display translated labels
+- [ ] Reload page after language switch - preference persists (localStorage)
+- [ ] Search works in both languages (finds by NL and EN title/summary)
 - [ ] No JavaScript errors in browser console
 
 ---
 
 ## Do Not
 
-- Do not add a backend, Node.js, or build step — the site must run with just Apache
-- Do not add frameworks (React, Vue, etc.) — plain JS only
-- Do not use global p5.js mode in `examples/*.js` — always instance mode there
-- Do not hardcode Dutch content in English — keep everything in Dutch
+- Do not add a backend, Node.js, or build step - the site must run with just Apache
+- Do not add frameworks (React, Vue, etc.) - plain JS only
+- Do not use global p5.js mode in `examples/*.js` - always instance mode there
+- Do not edit content in only one language - always update both `content/<id>.html` (NL) and `content/en/<id>.html` (EN)
+- Do not add Dutch-only tags without adding their English equivalent to `tagTranslations`
+- Do not use em-dashes (-) - use regular hyphens (-) instead
 - Do not add content that is not derived from the PDFs or clearly in scope
-- Do not remove or rename existing topic `id` values — it breaks bookmarks
-- Do not edit files in `backup/` — those are historical snapshots
+- Do not remove or rename existing topic `id` values - it breaks bookmarks
+- Do not edit files in `backup/` - those are historical snapshots
 - Do not add `console.log` to production code in content files or examples

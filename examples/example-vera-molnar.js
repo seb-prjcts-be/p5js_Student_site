@@ -1,4 +1,4 @@
-// Vera Molnár — (Des)Ordres geïnspireerd voorbeeld
+// Vera Molnár - (Des)Ordres geïnspireerd voorbeeld
 // Concentrische rechthoeken in een raster met instelbare afwijking
 window.sketch_example_vera_molnar = function (p) {
     const RIJEN = 5;

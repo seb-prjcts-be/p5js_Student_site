@@ -6,12 +6,12 @@
     <h2>Basic elements: point and line</h2>
     <p>The simplest shapes in p5.js are a point and a line.</p>
 
-    <h3>point() — Point</h3>
+    <h3>point() - Point</h3>
     <p>A point is the simplest shape, defined only by its x and y coordinates.</p>
     <pre><code>point(x, y);
 point(100, 100);</code></pre>
 
-    <h3>line() — Line</h3>
+    <h3>line() - Line</h3>
     <p>A line has two endpoints, each with an x and y coordinate.</p>
     <pre><code>line(x1, y1, x2, y2);
 line(0, 100, 400, 100);</code></pre>
@@ -24,12 +24,12 @@ line(0, 100, 400, 100);</code></pre>
 <section>
     <h2>Round shapes: circle() and ellipse()</h2>
 
-    <h3>circle() — Circle</h3>
+    <h3>circle() - Circle</h3>
     <p>Use a circle when width and height are equal. You specify the center point and the diameter:</p>
     <pre><code>circle(x, y, diameter);
 circle(200, 200, 150);  // Circle with diameter 150</code></pre>
 
-    <h3>ellipse() — Oval</h3>
+    <h3>ellipse() - Oval</h3>
     <p>An ellipse has a separate width and height. If they're equal you also get a circle:</p>
     <pre><code>ellipse(x, y, width, height);
 ellipse(200, 200, 100, 100);  // Circle via ellipse
@@ -39,7 +39,7 @@ ellipse(200, 200, 150, 100);  // Oval</code></pre>
 <section>
     <h2>Rectangular shapes: square() and rect()</h2>
 
-    <h3>square() — Square</h3>
+    <h3>square() - Square</h3>
     <p>Use a square when all sides are equal length. You specify the top-left corner and the side length:</p>
     <pre><code>square(x, y, side);
 square(100, 100, 80);  // Square of 80x80</code></pre>
@@ -48,12 +48,12 @@ square(100, 100, 80);  // Square of 80x80</code></pre>
         <figcaption>With <code>square()</code> and <code>rect()</code>, <code>(x, y)</code> is the <strong>top-left corner</strong>, not the center.</figcaption>
     </figure>
 
-    <h3>rect() — Rectangle</h3>
+    <h3>rect() - Rectangle</h3>
     <p>A rectangle has a separate width and height. Just like <code>square()</code>, <code>(x, y)</code> is the top-left corner:</p>
     <pre><code>rect(x, y, width, height);
 rect(100, 100, 200, 150);</code></pre>
 
-    <h3>rectMode(CENTER) — Center as anchor point</h3>
+    <h3>rectMode(CENTER) - Center as anchor point</h3>
     <p>Would you rather use the <em>center</em> of the rectangle as the coordinate? Then set <code>rectMode(CENTER)</code> in <code>setup()</code>:</p>
     <pre><code>function setup() {
   createCanvas(400, 400);
@@ -64,7 +64,7 @@ function draw() {
   rect(200, 200, 100, 60);  // Center at (200,200)
 }</code></pre>
 
-    <h3>triangle() — Triangle</h3>
+    <h3>triangle() - Triangle</h3>
     <p>A triangle has three corner points, each with an x and y coordinate:</p>
     <pre><code>triangle(x1, y1, x2, y2, x3, y3);
 triangle(200, 50, 100, 200, 300, 200);</code></pre>
@@ -90,13 +90,13 @@ triangle(200, 50, 100, 200, 300, 200);</code></pre>
   rect(150, 150, 100, 100);     // Rectangle
   line(0, 0, 400, 400);         // Line
 }</code></pre>
-    <p>The order determines what's on top — the last shape is on top.</p>
+    <p>The order determines what's on top - the last shape is on top.</p>
 </section>
 
 <section>
     <h2>arc() and quad()</h2>
 
-    <h3>arc() — Arc or Pie Slice</h3>
+    <h3>arc() - Arc or Pie Slice</h3>
     <p>An arc is a portion of an ellipse. You specify the center, dimensions, and two angles (in radians):</p>
     <pre><code>// arc(x, y, width, height, startAngle, endAngle)
 arc(200, 200, 150, 150, 0, PI);          // Half circle (bottom)
@@ -104,8 +104,8 @@ arc(200, 200, 150, 150, 0, PI, PIE);     // Pie slice
 arc(200, 200, 150, 150, 0, PI, CHORD);   // Closed chord</code></pre>
     <p>Options for the close type: <code>OPEN</code> (default), <code>CHORD</code> (straight line between endpoints), <code>PIE</code> (pie slice).</p>
 
-    <h3>quad() — Quadrilateral</h3>
-    <p>A quadrilateral with four corner points — not necessarily a rectangle:</p>
+    <h3>quad() - Quadrilateral</h3>
+    <p>A quadrilateral with four corner points - not necessarily a rectangle:</p>
     <pre><code>// quad(x1, y1, x2, y2, x3, y3, x4, y4)
 quad(100, 50, 300, 20, 350, 200, 80, 230);</code></pre>
 </section>

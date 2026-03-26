@@ -1,4 +1,4 @@
-// Turtle geometry demo — kleurrijke spirograaf-patronen
+// Turtle geometry demo - kleurrijke spirograaf-patronen
 window.sketch_example_turtle = function(p) {
     let tx, ty, heading, penNeer;
     let patroon = 0;

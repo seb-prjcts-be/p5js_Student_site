@@ -1,4 +1,4 @@
-// === i18n — tweetalig NL/EN ===
+// === i18n - tweetalig NL/EN ===
 let currentLang = localStorage.getItem('lang') || 'nl';
 
 const i18n = {
@@ -25,7 +25,7 @@ const i18n = {
         welcomeText2: "p5.js is een JavaScript bibliotheek die creative coding toegankelijk maakt. Je kunt er interactieve animaties, visuele kunst, games en meer mee maken.",
         welcomeQuote: "Creative coding is vandaag een vorm van geletterdheid: je leert niet alleen tools gebruiken, je leert systemen begrijpen, sturen en verbeelden. In een tijd waarin alles software wordt, van beeld tot beleid, geeft creative coding je agency: je kan experimenteren, kritisch kijken naar algoritmes, en je eigen taal bouwen om ideeën zichtbaar te maken.",
         welcomeQuote2: "En net als in de allegorie met de boeken is \"alles begrijpen\" niet het punt. Elke schets, elke mislukte iteratie en elke kleine tweak spoelt iets door je denken: patronen, timing, gevoel voor structuur, en het vertrouwen dat je een complex probleem kan kneden tot iets dat werkt, of op z'n minst iets dat spreekt. De langetermijnwinst zit in die herhaalde aha's: een brein dat wendbaar wordt, dat verbanden ziet, en dat met onzekerheid kan spelen, precies de spier die je nodig hebt in een wereld die blijft veranderen.",
-        welcomeAuthor: "Frederick De Bleser — Luca Gent",
+        welcomeAuthor: "Frederick De Bleser - Luca Gent",
         fontSizeLabel: "Lettergrootte",
         fontSizeSmall: "Kleine letters",
         fontSizeMedium: "Normale letters",
@@ -38,7 +38,7 @@ const i18n = {
         starterCode: "Startcode",
         niveauLabels: { 1: 'Nabootsen', 2: 'Variëren', 3: 'Creëren' },
         niveauBeschrijvingen: {
-            1: 'Pas bestaande code aan — verander één waarde en bekijk het resultaat.',
+            1: 'Pas bestaande code aan - verander één waarde en bekijk het resultaat.',
             2: 'Breid een voorbeeld uit met eigen aanpassingen.',
             3: 'Bouw iets nieuws met de concepten die je hebt geleerd.'
         },
@@ -75,8 +75,8 @@ const i18n = {
         welcomeText1: "This course helps you learn creative coding step by step with p5.js. Pick a topic from the menu to get started, or use the search to find specific subjects.",
         welcomeText2: "p5.js is a JavaScript library that makes creative coding accessible. You can create interactive animations, visual art, games and more.",
         welcomeQuote: "Creative coding is a form of literacy today: you don't just learn to use tools, you learn to understand, steer and imagine systems. In a time where everything becomes software, from visuals to policy, creative coding gives you agency: you can experiment, look critically at algorithms, and build your own language to make ideas visible.",
-        welcomeQuote2: "And just like the allegory of the books, \"understanding everything\" isn't the point. Every sketch, every failed iteration and every little tweak flushes something through your thinking: patterns, timing, a feel for structure, and the confidence that you can shape a complex problem into something that works, or at least something that speaks. The long-term gain lies in those repeated aha moments: a mind that becomes agile, that sees connections, and that can play with uncertainty — exactly the muscle you need in a world that keeps changing.",
-        welcomeAuthor: "Frederick De Bleser — Luca Gent",
+        welcomeQuote2: "And just like the allegory of the books, \"understanding everything\" isn't the point. Every sketch, every failed iteration and every little tweak flushes something through your thinking: patterns, timing, a feel for structure, and the confidence that you can shape a complex problem into something that works, or at least something that speaks. The long-term gain lies in those repeated aha moments: a mind that becomes agile, that sees connections, and that can play with uncertainty - exactly the muscle you need in a world that keeps changing.",
+        welcomeAuthor: "Frederick De Bleser - Luca Gent",
         fontSizeLabel: "Font size",
         fontSizeSmall: "Small text",
         fontSizeMedium: "Normal text",
@@ -89,7 +89,7 @@ const i18n = {
         starterCode: "Starter code",
         niveauLabels: { 1: 'Imitate', 2: 'Vary', 3: 'Create' },
         niveauBeschrijvingen: {
-            1: 'Modify existing code — change one value and see the result.',
+            1: 'Modify existing code - change one value and see the result.',
             2: 'Extend an example with your own tweaks.',
             3: 'Build something new with the concepts you have learned.'
         },
@@ -106,8 +106,115 @@ const i18n = {
     }
 };
 
+// Tag-vertalingen: NL → EN (tags die al Engels zijn, hoeven hier niet in)
+const tagTranslations = {
+    "geschiedenis": "history",
+    "vormen": "shapes",
+    "kleur": "colour",
+    "variabelen": "variables",
+    "berekeningen": "calculations",
+    "operatoren": "operators",
+    "rekenen": "arithmetic",
+    "voorwaarden": "conditions",
+    "logica": "logic",
+    "beslissingen": "decisions",
+    "herhalen": "repetition",
+    "patronen": "patterns",
+    "functies": "functions",
+    "herbruikbaar": "reusable",
+    "organisatie": "organisation",
+    "muis": "mouse",
+    "interactie": "interaction",
+    "toetsenbord": "keyboard",
+    "animatie": "animation",
+    "beweging": "movement",
+    "tijd": "time",
+    "datum": "date",
+    "klok": "clock",
+    "lijsten": "lists",
+    "opslag": "storage",
+    "rotatie": "rotation",
+    "transformatie": "transformation",
+    "instantie": "instance",
+    "methoden": "methods",
+    "willekeur": "randomness",
+    "organisch": "organic",
+    "textuur": "texture",
+    "landschap": "landscape",
+    "afbeelding": "image",
+    "tekst": "text",
+    "typografie": "typography",
+    "geluid": "sound",
+    "muziek": "music",
+    "ritme": "rhythm",
+    "introductie": "introduction",
+    "basis": "basics",
+    "fundamenten": "fundamentals",
+    "cellulair automaat": "cellular automaton",
+    "binaire regels": "binary rules",
+    "code concepten": "code concepts",
+    "zwerm": "swarm",
+    "vectoren": "vectors",
+    "emergentie": "emergence",
+    "cirkels": "circles",
+    "overlapping": "overlap",
+    "groeien": "growing",
+    "algoritme": "algorithm",
+    "simulatie": "simulation",
+    "palet": "palette",
+    "harmonie": "harmony",
+    "bereik": "range",
+    "schildpad": "turtle",
+    "spiraal": "spiral",
+    "ster": "star",
+    "zelfverwijzing": "self-reference",
+    "recursie": "recursion",
+    "boom": "tree",
+    "zelfde patroon": "same pattern",
+    "stopvoorwaarde": "base case",
+    "toeval": "chance",
+    "stappen": "steps",
+    "pad": "path",
+    "golven": "waves",
+    "wiskunde": "mathematics",
+    "rooster": "grid",
+    "raster": "grid",
+    "algoritmes": "algorithms",
+    "kunstgeschiedenis": "art history",
+    "instructie": "instruction",
+    "conceptuele kunst": "conceptual art",
+    "lijnen": "lines",
+    "systeem": "system",
+    "boeken": "books",
+    "bronnen": "resources",
+    "energie": "energy",
+    "ecologie": "ecology",
+    "klimaat": "climate",
+    "duurzaamheid": "sustainability",
+    "koffie": "coffee",
+    "programmeren": "programming",
+    "vergelijking": "comparison",
+    "modellen": "models",
+    "projectstructuur": "project structure",
+    "1d automaten": "1d automata"
+};
+
 function t(key) {
     return i18n[currentLang][key] || i18n['nl'][key] || key;
+}
+
+function tTag(tag) {
+    if (currentLang === 'nl') return tag;
+    const lower = tag.toLowerCase();
+    if (tagTranslations[lower]) {
+        // Behoud hoofdlettergebruik van het origineel
+        if (tag[0] === tag[0].toUpperCase() && tag[0] !== tag[0].toLowerCase()) {
+            const translated = tagTranslations[lower];
+            return translated[0].toUpperCase() + translated.slice(1);
+        }
+        return tagTranslations[lower];
+    }
+    return tag;
 }
 
 function tCat(categorie) {
@@ -452,10 +559,10 @@ const onderwerpen = [
     {
         id: "kleurenfamilie",
         titel: "Kleurenfamilie",
-        samenvatting: "Begrens willekeurige kleuren tot een klein venster per kanaal en maak zo een samenhangend kleurenpalet — zoals een textielontwerper een colorway kiest.",
+        samenvatting: "Begrens willekeurige kleuren tot een klein venster per kanaal en maak zo een samenhangend kleurenpalet - zoals een textielontwerper een colorway kiest.",
         en: {
             titel: "Colour family",
-            samenvatting: "Constrain random colours to a small window per channel to create a coherent colour palette — the way a textile designer picks a colourway."
+            samenvatting: "Constrain random colours to a small window per channel to create a coherent colour palette - the way a textile designer picks a colourway."
         },
         tags: ["kleur", "RGB", "random", "bereik", "palet", "colorway", "raster", "harmonie"],
         contentFile: "content/kleurenfamilie.html",
@@ -547,10 +654,10 @@ const onderwerpen = [
     },
     {
         id: "vera-molnar",
-        titel: "Vera Molnar — code zonder computer",
+        titel: "Vera Molnar - code zonder computer",
         samenvatting: "Pionier van digitale esthetiek en generatieve kunst met een focus op raster, regels en variatie.",
         en: {
-            titel: "Vera Molnar — code without a computer",
+            titel: "Vera Molnar - code without a computer",
             samenvatting: "Pioneer of digital aesthetics and generative art with a focus on grids, rules and variation."
         },
         tags: ["generative art", "plotter", "raster", "algoritmes", "disorder", "kunstgeschiedenis"],
@@ -559,11 +666,11 @@ const onderwerpen = [
     },
     {
         id: "sol-lewitt",
-        titel: "Sol LeWitt — instructies als kunst",
-        samenvatting: "Sol LeWitt schreef instructies naar musea in plaats van werken te maken. Code is ook een instructie — ontdek conceptuele kunst als algoritme.",
+        titel: "Sol LeWitt - instructies als kunst",
+        samenvatting: "Sol LeWitt schreef instructies naar musea in plaats van werken te maken. Code is ook een instructie - ontdek conceptuele kunst als algoritme.",
         en: {
-            titel: "Sol LeWitt — instructions as art",
-            samenvatting: "Sol LeWitt sent instructions to museums instead of creating works. Code is also an instruction — discover conceptual art as algorithm."
+            titel: "Sol LeWitt - instructions as art",
+            samenvatting: "Sol LeWitt sent instructions to museums instead of creating works. Code is also an instruction - discover conceptual art as algorithm."
         },
         tags: ["sol lewitt", "instructie", "conceptuele kunst", "wall drawing", "algoritme", "lijnen", "systeem"],
         contentFile: "content/sol-lewitt.html",
@@ -584,10 +691,10 @@ const onderwerpen = [
     {
         id: "ai-ecologische-kost",
         titel: "AI & ecologische kost",
-        samenvatting: "Hoeveel energie kost AI eigenlijk? Vergelijk AI-gesprekken met koffie, Netflix en meer — en ontdek waarom het verhaal genuanceerder is dan je denkt.",
+        samenvatting: "Hoeveel energie kost AI eigenlijk? Vergelijk AI-gesprekken met koffie, Netflix en meer - en ontdek waarom het verhaal genuanceerder is dan je denkt.",
         en: {
             titel: "AI & ecological cost",
-            samenvatting: "How much energy does AI actually use? Compare AI conversations with coffee, Netflix and more — and discover why the story is more nuanced than you think."
+            samenvatting: "How much energy does AI actually use? Compare AI conversations with coffee, Netflix and more - and discover why the story is more nuanced than you think."
         },
         tags: ["AI", "energie", "ecologie", "klimaat", "datacenter", "GPU", "duurzaamheid", "training", "koffie"],
         contentFile: "content/ai-ecologische-kost.html",
@@ -596,10 +703,10 @@ const onderwerpen = [
     {
         id: "ai-tools",
         titel: "AI-tools en playgrounds",
-        samenvatting: "Van API's en playgrounds tot NotebookLM en Cursor — een overzicht van de meest nuttige AI-tools voor studenten en makers.",
+        samenvatting: "Van API's en playgrounds tot NotebookLM en Cursor - een overzicht van de meest nuttige AI-tools voor studenten en makers.",
         en: {
             titel: "AI tools and playgrounds",
-            samenvatting: "From APIs and playgrounds to NotebookLM and Cursor — an overview of the most useful AI tools for students and makers."
+            samenvatting: "From APIs and playgrounds to NotebookLM and Cursor - an overview of the most useful AI tools for students and makers."
         },
         tags: ["AI", "API", "tools", "playground", "NotebookLM", "Cursor", "Copilot", "programmeren", "ElevenLabs"],
         contentFile: "content/ai-tools.html",
@@ -608,10 +715,10 @@ const onderwerpen = [
     {
         id: "ai-modellen",
         titel: "AI-modellen vergelijken",
-        samenvatting: "ChatGPT, Gemini, Claude, Copilot, Grok — welk model presteert het best voor creatieve en technische vragen? Met scoretabel en een blik op Europese alternatieven.",
+        samenvatting: "ChatGPT, Gemini, Claude, Copilot, Grok - welk model presteert het best voor creatieve en technische vragen? Met scoretabel en een blik op Europese alternatieven.",
         en: {
             titel: "Comparing AI models",
-            samenvatting: "ChatGPT, Gemini, Claude, Copilot, Grok — which model performs best for creative and technical questions? With score table and a look at European alternatives."
+            samenvatting: "ChatGPT, Gemini, Claude, Copilot, Grok - which model performs best for creative and technical questions? With score table and a look at European alternatives."
         },
         tags: ["AI", "modellen", "ChatGPT", "Claude", "Gemini", "Copilot", "Grok", "Mistral", "vergelijking", "Le Chat"],
         contentFile: "content/ai-modellen.html",
@@ -923,14 +1030,14 @@ function getRelatedTopicReason(item, activeTag) {
     const onderwerpTags = getOnderwerpTags(item.onderwerp);
 
     if (onderwerpTags.some(tag => normalizeText(tag) === normalizeText(activeTag))) {
-        return `${t('contains')} ${activeTag}`;
+        return `${t('contains')} ${tTag(activeTag)}`;
     }
 
     if (item.sharedTags.length > 0) {
-        return `${t('shared')}: ${item.sharedTags.slice(0, 2).join(', ')}`;
+        return `${t('shared')}: ${item.sharedTags.slice(0, 2).map(tTag).join(', ')}`;
     }
 
-    return `${t('relatedVia')} ${activeTag}`;
+    return `${t('relatedVia')} ${tTag(activeTag)}`;
 }
 
 function renderTagChipFlow(currentTags, contextData) {
@@ -939,12 +1046,12 @@ function renderTagChipFlow(currentTags, contextData) {
     const activeTagIsCurrent = currentTags.some(tag => normalizeText(tag) === activeTagNormalized);
     const staticTagButtons = currentTags.map(tag => `
         <button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">
-            ${escapeHtml(tag)}
+            ${escapeHtml(tTag(tag))}
         </button>
     `);
     const activeTagButton = !activeTagIsCurrent ? `
         <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(activeTag)}">
-            ${escapeHtml(activeTag)}
+            ${escapeHtml(tTag(activeTag))}
         </button>
     ` : '';
     const contextButtons = [
@@ -955,7 +1062,7 @@ function renderTagChipFlow(currentTags, contextData) {
         `),
         ...broaderTags.map(tag => `
             <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(tag)}">
-                ${escapeHtml(tag)}
+                ${escapeHtml(tTag(tag))}
             </button>
         `)
     ];
@@ -1048,7 +1155,7 @@ function renderContentBlock(block) {
 </figure>`;
         case 'links':
             return `<ul>${block.items.map(item =>
-                `<li><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.label)}</a>${item.beschrijving ? ` — ${renderInlineMarkdown(item.beschrijving)}` : ''}</li>`
+                `<li><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.label)}</a>${item.beschrijving ? ` - ${renderInlineMarkdown(item.beschrijving)}` : ''}</li>`
             ).join('\n')}</ul>`;
         default:
             return '';
@@ -1186,7 +1293,7 @@ async function renderOnderwerp(onderwerp) {
         const tagsSidebarHtml = tags.length > 0 ? `
             <aside class="tags-sidebar">
                 <div id="tags-chip-flow" class="tags-chip-flow">
-                    ${tags.map(tag => `<button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
+                    ${tags.map(tag => `<button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tTag(tag))}</button>`).join('')}
                 </div>
                 <div id="tag-context" class="tag-context" aria-live="polite"></div>
             </aside>` : '';
@@ -1434,7 +1541,7 @@ function initSearch() {
                 <div class="search-result-item" onclick="window.location.hash='${onderwerp.id}'">
                     <h3>${highlightMatch(topicTitle(onderwerp), query)}</h3>
                     <p>${highlightMatch(topicSummary(onderwerp), query)}</p>
-                    <p><small>${t('tags')}: ${onderwerp.tags.join(', ')}</small></p>
+                    <p><small>${t('tags')}: ${onderwerp.tags.map(tTag).join(', ')}</small></p>
                 </div>
             `).join('');
         } else {
@@ -1608,10 +1715,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initBalls();
 });
 
-// Achtergrond ballen — vallen, stuiteren en wijken voor de muis
+// Achtergrond ballen - vallen, stuiteren en wijken voor de muis
 function initBalls() {
     const kleuren = [
-        '#00ff00', '#00ff00', '#00ff00', '#00ff00', // groen — Lab44
+        '#00ff00', '#00ff00', '#00ff00', '#00ff00', // groen - Lab44
         '#ff0000', '#ff0000',                        // rood
         '#0000ff', '#0000ff',                        // blauw
         '#7d007d',                                   // paars
@@ -1635,7 +1742,7 @@ function initBalls() {
             for (let i = 0; i < AANTAL; i++) {
                 ballen.push({
                     x:  p.random(p.width),
-                    y:  p.random(-p.height, -20),
+                    y:  p.random(-p.height, - 20),
                     r:  p.random(18, 48),
                     vx: p.random(-2, 2),
                     vy: p.random(0, 2),
@@ -1664,14 +1771,14 @@ function initBalls() {
                 b.x += b.vx;
                 b.y += b.vy;
 
-                // Bodem — stuiteren
+                // Bodem - stuiteren
                 if (b.y + b.r > p.height) {
                     b.y = p.height - b.r;
-                    b.vy *= -STUIT;
+                    b.vy *= - STUIT;
                     b.vx *= 0.98;
                 }
 
-                // Buiten beeld — verwijderen
+                // Buiten beeld - verwijderen
                 if (b.x + b.r < 0 || b.x - b.r > p.width || b.y - b.r > p.height) {
                     b.weg = true;
                 }
@@ -1708,8 +1815,8 @@ function initBalls() {
 
             // Duw ballen uit elkaar zodat ze niet overlappen
             let overlap = (minDist - dist) / 2;
-            a.x -= nx * overlap;
-            a.y -= ny * overlap;
+            a.x - = nx * overlap;
+            a.y - = ny * overlap;
             b.x += nx * overlap;
             b.y += ny * overlap;
 
@@ -1726,8 +1833,8 @@ function initBalls() {
             let mb = b.r * b.r;
             let impuls = (2 * dot) / (ma + mb);
 
-            a.vx -= impuls * mb * nx;
-            a.vy -= impuls * mb * ny;
+            a.vx - = impuls * mb * nx;
+            a.vy - = impuls * mb * ny;
             b.vx += impuls * ma * nx;
             b.vy += impuls * ma * ny;
         }

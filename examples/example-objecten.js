@@ -1,4 +1,4 @@
-// Objecten & Classes voorbeeld — stuitende ballen als class-instanties
+// Objecten & Classes voorbeeld - stuitende ballen als class-instanties
 window.sketch_example_objecten = function (p) {
 
     class Bal {

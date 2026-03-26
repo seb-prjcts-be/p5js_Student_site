@@ -15,7 +15,7 @@ function draw() {
 }</code></pre>
     <p>In WEBGL-mode staat het middelpunt van het canvas op coördinaat (0, 0, 0). Gebruik <code>translate()</code> om objecten te verplaatsen.</p>
     <figure>
-        <img src="assets/3d-basis/webgl-coordinaten.png" alt="Coördinatenraster in WEBGL-mode: midden is 0,0 — negatieve x-waarden gaan naar links, negatieve y-waarden naar boven">
+        <img src="assets/3d-basis/webgl-coordinaten.png" alt="Coördinatenraster in WEBGL-mode: midden is 0,0 - negatieve x-waarden gaan naar links, negatieve y-waarden naar boven">
         <figcaption>In WEBGL staat (0, 0) in het midden. Links en boven zijn negatief, rechts en onder positief.</figcaption>
     </figure>
 </section>
@@ -24,12 +24,12 @@ function draw() {
     <h2>3D Vormen</h2>
     <p>p5.js heeft ingebouwde 3D vormen:</p>
     <ul>
-        <li><code>box(breedte, hoogte, diepte)</code> — kubus of doos</li>
-        <li><code>sphere(straal, detail)</code> — bol</li>
-        <li><code>cylinder(straal, hoogte)</code> — cilinder</li>
-        <li><code>cone(straal, hoogte)</code> — kegel</li>
-        <li><code>torus(straal, buisdikte)</code> — donut-vorm</li>
-        <li><code>plane(breedte, hoogte)</code> — plat vlak</li>
+        <li><code>box(breedte, hoogte, diepte)</code> - kubus of doos</li>
+        <li><code>sphere(straal, detail)</code> - bol</li>
+        <li><code>cylinder(straal, hoogte)</code> - cilinder</li>
+        <li><code>cone(straal, hoogte)</code> - kegel</li>
+        <li><code>torus(straal, buisdikte)</code> - donut-vorm</li>
+        <li><code>plane(breedte, hoogte)</code> - plat vlak</li>
     </ul>
 
     <pre><code>function draw() {
@@ -88,14 +88,14 @@ function draw() {
     <h2>Belichting</h2>
     <p>Zonder licht zien 3D vormen er plat uit. p5.js heeft verschillende lichtbronnen:</p>
 
-    <h3>ambientLight() — omgevingslicht</h3>
+    <h3>ambientLight() - omgevingslicht</h3>
     <pre><code>function draw() {
   background(0);
   ambientLight(100);  // Waarde 0-255: hoe helder het omgevingslicht
   sphere(100);
 }</code></pre>
 
-    <h3>directionalLight() — richtingslicht</h3>
+    <h3>directionalLight() - richtingslicht</h3>
     <pre><code>function draw() {
   background(0);
   // directionalLight(kleur, richting als vector)
@@ -103,7 +103,7 @@ function draw() {
   sphere(100);
 }</code></pre>
 
-    <h3>pointLight() — puntlicht</h3>
+    <h3>pointLight() - puntlicht</h3>
     <pre><code>function draw() {
   background(0);
   // Licht dat vanuit één punt schijnt
@@ -125,14 +125,14 @@ function draw() {
     <h2>Materialen</h2>
     <p>Materialen bepalen hoe een vorm reageert op licht:</p>
 
-    <h3>normalMaterial() — kleurt op basis van normaalvector</h3>
+    <h3>normalMaterial() - kleurt op basis van normaalvector</h3>
     <pre><code>function draw() {
   background(0);
   normalMaterial();  // Geen extra parameters nodig
   box(100);
 }</code></pre>
 
-    <h3>ambientMaterial() — reageert op omgevingslicht</h3>
+    <h3>ambientMaterial() - reageert op omgevingslicht</h3>
     <pre><code>function draw() {
   background(0);
   ambientLight(200);
@@ -140,7 +140,7 @@ function draw() {
   sphere(100);
 }</code></pre>
 
-    <h3>specularMaterial() — glanzend oppervlak</h3>
+    <h3>specularMaterial() - glanzend oppervlak</h3>
     <pre><code>function draw() {
   background(0);
   ambientLight(60);
@@ -189,7 +189,7 @@ function draw() {
   mijnShader.setUniform('uTime', millis() / 1000);
   rect(-width / 2, -height / 2, width, height);
 }</code></pre>
-    <p>Dit is een geavanceerde functie — handig als je WEBGL volledig wilt aansturen. Shaders zijn kleine programmaatjes (GLSL) die bepalen hoe elk pixel eruitziet.</p>
+    <p>Dit is een geavanceerde functie - handig als je WEBGL volledig wilt aansturen. Shaders zijn kleine programmaatjes (GLSL) die bepalen hoe elk pixel eruitziet.</p>
 </section>
 
 <div class="p5-example">

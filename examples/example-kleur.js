@@ -1,4 +1,4 @@
-// Kleur voorbeeld — statische vormen met verschillende kleuren en transparantie
+// Kleur voorbeeld - statische vormen met verschillende kleuren en transparantie
 // Beschikbare concepten: vormen + fill(), stroke(), noFill(), noStroke(), RGB, alpha
 window.sketch_example_kleur = function(p) {
 
@@ -12,7 +12,7 @@ window.sketch_example_kleur = function(p) {
 
         p.noStroke();
 
-        // Drie overlappende cirkels — RGB primaire kleuren met transparantie
+        // Drie overlappende cirkels - RGB primaire kleuren met transparantie
         p.fill(255, 0, 0, 120);
         p.ellipse(250, 170, 180, 180);
 

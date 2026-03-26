@@ -1,4 +1,4 @@
-// Functies voorbeeld — herbruikbare tekenBloem() functie
+// Functies voorbeeld - herbruikbare tekenBloem() functie
 // Beschikbare concepten: alles t/m functies (#10), incl. loops (#9)
 // Geen arrays, geen objecten, geen translate/rotate
 window.sketch_example_functies = function(p) {

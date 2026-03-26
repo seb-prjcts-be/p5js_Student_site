@@ -54,7 +54,7 @@ pre, code, textarea, kbd, samp {
     font-family: 'Courier New', Consolas, monospace;
 }
 
-/* Lettergrootte — op :root zodat alle rem-waarden en inherited tekst meeschalen */
+/* Lettergrootte - op :root zodat alle rem-waarden en inherited tekst meeschalen */
 :root {
     font-size: 20px; /* standaard: medium */
 }

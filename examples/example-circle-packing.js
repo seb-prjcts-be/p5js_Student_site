@@ -1,4 +1,4 @@
-// Circle packing — cirkels groeien tot ze elkaar of de rand raken.
+// Circle packing - cirkels groeien tot ze elkaar of de rand raken.
 // Klik om opnieuw te starten.
 
 window.sketch_example_circle_packing = function(p) {

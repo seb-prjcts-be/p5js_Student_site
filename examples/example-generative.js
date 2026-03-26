@@ -1,4 +1,4 @@
-// Generative design voorbeeld — vlekken verschijnen langzaam op het canvas
+// Generative design voorbeeld - vlekken verschijnen langzaam op het canvas
 // Beschikbare concepten: setup(), draw(), createCanvas(), background(), ellipse(), random(), fill()
 window.sketch_example_generative = function(p) {
 

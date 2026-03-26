@@ -1,5 +1,5 @@
 <div class="intro">
-    <p>p5.js is a calculator that draws. Almost everything you see — positions, sizes, colors, movement — is the result of calculations. How you write those calculations determines what appears on screen.</p>
+    <p>p5.js is a calculator that draws. Almost everything you see - positions, sizes, colors, movement - is the result of calculations. How you write those calculations determines what appears on screen.</p>
 </div>
 
 <section>
@@ -27,7 +27,7 @@ x /= 4;   // x = x / 4  → 6
 x++;      // x = x + 1  → 7  (increment by one)
 x--;      // x = x - 1  → 6  (decrement by one)</code></pre>
 
-    <p>In p5.js you see <code>x += speed</code> and <code>angle += 0.02</code> everywhere — it's the standard way to make something move or rotate.</p>
+    <p>In p5.js you see <code>x += speed</code> and <code>angle += 0.02</code> everywhere - it's the standard way to make something move or rotate.</p>
 </section>
 
 <section>
@@ -70,8 +70,8 @@ function draw() {
 </section>
 
 <section>
-    <h2>random() — random numbers</h2>
-    <p><code>random()</code> returns a different decimal number each time. This gives you a different result every time — essential for generative art.</p>
+    <h2>random() - random numbers</h2>
+    <p><code>random()</code> returns a different decimal number each time. This gives you a different result every time - essential for generative art.</p>
     <pre><code>random(100)       // number from 0 to 99.99...  (never exactly 100!)
 random(50, 101)   // number from 50 to 100.99...
 
@@ -101,12 +101,12 @@ abs(-5)      // → 5   (absolute value, always positive)</code></pre>
     <pre><code>min(3, 7, 1)    // → 1  (smallest value)
 max(3, 7, 1)    // → 7  (largest value)</code></pre>
 
-    <h3>constrain() — keep a value within bounds</h3>
+    <h3>constrain() - keep a value within bounds</h3>
     <p>Handy to prevent something from going off screen:</p>
     <pre><code>let x = constrain(mouseX, 50, width - 50);
 // x is never less than 50, never greater than width - 50</code></pre>
 
-    <h3>map() — scale a range to another range</h3>
+    <h3>map() - scale a range to another range</h3>
     <p><code>map()</code> is one of the most used functions in p5.js. You specify where a value comes from and where it should go:</p>
     <pre><code>// mouseX runs from 0 to width → turn it into a color value (0–255)
 let red = map(mouseX, 0, width, 0, 255);
@@ -115,7 +115,7 @@ fill(red, 0, 150);
 // frameCount to an angle (0 – TWO_PI)
 let angle = map(frameCount % 120, 0, 120, 0, TWO_PI);</code></pre>
 
-    <h3>dist() — distance between two points</h3>
+    <h3>dist() - distance between two points</h3>
     <pre><code>// Distance from the mouse to the center
 let d = dist(mouseX, mouseY, width / 2, height / 2);
 
@@ -130,7 +130,7 @@ sq(4)      // → 16  (square, same as 4 * 4)</code></pre>
 
 <div class="p5-example">
     <h3>Example: map() and dist()</h3>
-    <p>Move your mouse — each circle responds to its distance from the cursor:</p>
+    <p>Move your mouse - each circle responds to its distance from the cursor:</p>
     <div class="p5-example-container">
         <div class="p5-canvas-wrapper" id="example-berekeningen"></div>
     </div>
@@ -162,7 +162,7 @@ function draw() {
       // Distance from this point to the mouse
       let d = dist(mouseX, mouseY, x, y);
 
-      // map(): distance → size and color — try adjusting the numbers!
+      // map(): distance → size and color - try adjusting the numbers!
       let size = map(d, 0, 300, 60, 5);
       let brightness = map(d, 0, 300, 255, 40);
 

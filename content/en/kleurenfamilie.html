@@ -1,14 +1,14 @@
 <div class="intro">
-    <p>Imagine: you're going to paint and you pick one paint pot as a starting point. After that you can only use colors that are close to it. This way you get a cohesive painting — not wild chaos. This code does the same thing, but digitally.</p>
+    <p>Imagine: you're going to paint and you pick one paint pot as a starting point. After that you can only use colors that are close to it. This way you get a cohesive painting - not wild chaos. This code does the same thing, but digitally.</p>
 </div>
 
 <section>
     <h2>How does color work in p5.js?</h2>
     <p>Every color consists of three numbers between 0 and 255:</p>
     <ul>
-        <li><strong>R</strong> — how much red</li>
-        <li><strong>G</strong> — how much green</li>
-        <li><strong>B</strong> — how much blue</li>
+        <li><strong>R</strong> - how much red</li>
+        <li><strong>G</strong> - how much green</li>
+        <li><strong>B</strong> - how much blue</li>
     </ul>
     <pre><code>fill(255, 0, 0)     // pure red
 fill(200, 180, 190) // soft pinkish</code></pre>
@@ -18,33 +18,33 @@ fill(200, 180, 190) // soft pinkish</code></pre>
 <section>
     <h2>The trick in three steps</h2>
 
-    <h3>Step 1 — pick a starting point per color channel</h3>
+    <h3>Step 1 - pick a starting point per color channel</h3>
     <pre><code>let startR = floor(random(0, 155));
 let startG = floor(random(0, 155));
 let startB = floor(random(0, 155));</code></pre>
-    <p>Why up to 155 and not 255? Because we will add 100 later. 155 + 100 = 255 — this way we always stay within range.</p>
+    <p>Why up to 155 and not 255? Because we will add 100 later. 155 + 100 = 255 - this way we always stay within range.</p>
 
-    <h3>Step 2 — define the range</h3>
+    <h3>Step 2 - define the range</h3>
     <pre><code>// The range goes from startR to startR + 100
 // Example: startR = 80 → red varies between 80 and 180</code></pre>
 
-    <h3>Step 3 — color each cell randomly, but within the range</h3>
+    <h3>Step 3 - color each cell randomly, but within the range</h3>
     <pre><code>fill(
   random(startR, startR + 100),
   random(startG, startG + 100),
   random(startB, startB + 100)
 );</code></pre>
-    <p>Each cell gets a different color — but never too different. They all stay in the same <em>neighborhood</em>.</p>
+    <p>Each cell gets a different color - but never too different. They all stay in the same <em>neighborhood</em>.</p>
 </section>
 
 <section>
     <h2>Why is this clever?</h2>
     <p>Compare the two approaches:</p>
 
-    <pre><code>// Without restriction — color chaos
+    <pre><code>// Without restriction - color chaos
 fill(random(255), random(255), random(255));
 
-// With restriction — color family
+// With restriction - color family
 fill(
   random(startR, startR + 100),
   random(startG, startG + 100),
@@ -108,7 +108,7 @@ function mousePressed() {
 
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
-// Color family — click for a new family
+// Color family - click for a new family
 // Try adjusting the range (currently 100)!
 
 let startR, startG, startB;

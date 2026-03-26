@@ -1,4 +1,4 @@
-// Animatie voorbeeld — roterende vormen met translate/rotate
+// Animatie voorbeeld - roterende vormen met translate/rotate
 // Beschikbare concepten: alles t/m animatie (#12), incl. sin/cos, translate, rotate, push/pop
 // Geen arrays, geen objecten
 window.sketch_example_animatie = function(p) {

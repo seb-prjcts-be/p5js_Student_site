@@ -1,4 +1,4 @@
-// Kleurenfamilie — een raster van kleuren uit dezelfde toonbuurt.
+// Kleurenfamilie - een raster van kleuren uit dezelfde toonbuurt.
 // Klik om een nieuwe kleurenfamilie te genereren.
 
 window.sketch_example_kleurenfamilie = function(p) {
@@ -39,7 +39,7 @@ window.sketch_example_kleurenfamilie = function(p) {
         p.textSize(11);
         p.textAlign(p.LEFT, p.CENTER);
         p.text(
-            `R: ${startR}–${startR + BEREIK}   G: ${startG}–${startG + BEREIK}   B: ${startB}–${startB + BEREIK}   — klik voor nieuwe familie`,
+            `R: ${startR}–${startR + BEREIK}   G: ${startG}–${startG + BEREIK}   B: ${startB}–${startB + BEREIK}   - klik voor nieuwe familie`,
             10, p.height - 14
         );
     };

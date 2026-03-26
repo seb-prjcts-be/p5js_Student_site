@@ -1,4 +1,4 @@
-// 3D voorbeeld — belichting, materialen en muis-gestuurd puntlicht
+// 3D voorbeeld - belichting, materialen en muis-gestuurd puntlicht
 window.sketch_example_3d = function (p) {
     p.setup = function () {
         p.createCanvas(600, 400, p.WEBGL);
@@ -59,6 +59,6 @@ window.sketch_example_3d = function (p) {
         p.noStroke();
         p.textSize(12);
         p.textAlign(p.LEFT, p.TOP);
-        p.text('Beweeg de muis — het licht volgt je cursor', -p.width / 2 + 10, -p.height / 2 + 10);
+        p.text('Beweeg de muis - het licht volgt je cursor', -p.width / 2 + 10, -p.height / 2 + 10);
     };
 };

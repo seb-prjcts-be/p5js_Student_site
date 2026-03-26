@@ -31,10 +31,10 @@ console.log(balls);  // [120, 340, 55, ...]</code></pre>
 
     <p>Other useful methods:</p>
     <ul>
-        <li><code>push(value)</code> — add to the end</li>
-        <li><code>pop()</code> — remove the last element (and return it)</li>
-        <li><code>splice(index, count)</code> — remove elements at a position</li>
-        <li><code>indexOf(value)</code> — find the index of a value</li>
+        <li><code>push(value)</code> - add to the end</li>
+        <li><code>pop()</code> - remove the last element (and return it)</li>
+        <li><code>splice(index, count)</code> - remove elements at a position</li>
+        <li><code>indexOf(value)</code> - find the index of a value</li>
     </ul>
 </section>
 
@@ -50,7 +50,7 @@ function draw() {
   }
 }</code></pre>
 
-    <p>Or the modern <code>for...of</code> loop — shorter and more readable:</p>
+    <p>Or the modern <code>for...of</code> loop - shorter and more readable:</p>
     <pre><code>for (let x of positions) {
   circle(x, height / 2, 40);
 }</code></pre>
@@ -109,16 +109,16 @@ function draw() {
 
 <section>
     <h2>Useful Array Methods</h2>
-    <h3>filter() — select elements</h3>
+    <h3>filter() - select elements</h3>
     <pre><code>// Remove dead particles (life <= 0)
 particles = particles.filter(p => p.life > 0);</code></pre>
 
-    <h3>map() — transform each element</h3>
+    <h3>map() - transform each element</h3>
     <pre><code>let numbers = [1, 2, 3, 4, 5];
 let doubled = numbers.map(n => n * 2);
 // doubled = [2, 4, 6, 8, 10]</code></pre>
 
-    <h3>forEach() — do something with each element</h3>
+    <h3>forEach() - do something with each element</h3>
     <pre><code>balls.forEach(ball => {
   ball.x += ball.vx;
   ball.y += ball.vy;
@@ -137,10 +137,10 @@ let doubled = numbers.map(n => n * 2);
     <h2>Try these in the editor too</h2>
     <p>Check out these sketches from the course:</p>
     <ul>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/TeBiI6qjs" target="_blank" rel="noopener">LES_Array_push</a> — push() in action: adding elements while the sketch runs</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/dCm09wpo8" target="_blank" rel="noopener">LES_array_kleuren</a> — looping through an array of colors</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/XV9jLP8RN" target="_blank" rel="noopener">LES_Array_met_kleuren</a> — color and position together in an array</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/HLRUKmp8u" target="_blank" rel="noopener">LES_Array_fibonacci</a> — calculating and visualizing the Fibonacci sequence with an array</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/TeBiI6qjs" target="_blank" rel="noopener">LES_Array_push</a> - push() in action: adding elements while the sketch runs</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/dCm09wpo8" target="_blank" rel="noopener">LES_array_kleuren</a> - looping through an array of colors</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/XV9jLP8RN" target="_blank" rel="noopener">LES_Array_met_kleuren</a> - color and position together in an array</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/HLRUKmp8u" target="_blank" rel="noopener">LES_Array_fibonacci</a> - calculating and visualizing the Fibonacci sequence with an array</li>
     </ul>
 </section>
 

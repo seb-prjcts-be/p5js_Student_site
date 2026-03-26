@@ -1,6 +1,6 @@
-// Muis-interactie voorbeeld — teken met de muis
+// Muis-interactie voorbeeld - teken met de muis
 // Beschikbare concepten: alles t/m muis-interactie (#11), incl. loops en functies
-// Geen arrays, geen objecten — tekent rechtstreeks op het canvas
+// Geen arrays, geen objecten - tekent rechtstreeks op het canvas
 window.sketch_example_interactie = function(p) {
     let penKleur;
     let penGrootte;

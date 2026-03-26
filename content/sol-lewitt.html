@@ -1,5 +1,5 @@
 <div class="intro">
-    <p>Sol LeWitt (1928–2007) was een Amerikaanse conceptueel kunstenaar die beroemd werd om zijn <em>Wall Drawings</em>: kunstwerken die bestaan uit geschreven instructies. Hij stuurde die instructies naar musea, die ze dan ter plekke lieten uitvoeren door medewerkers of bezoekers. De tekening zelf was bijzaak — de instructie was het werk.</p>
+    <p>Sol LeWitt (1928–2007) was een Amerikaanse conceptueel kunstenaar die beroemd werd om zijn <em>Wall Drawings</em>: kunstwerken die bestaan uit geschreven instructies. Hij stuurde die instructies naar musea, die ze dan ter plekke lieten uitvoeren door medewerkers of bezoekers. De tekening zelf was bijzaak - de instructie was het werk.</p>
 </div>
 
 <section>
@@ -9,7 +9,7 @@
     <blockquote style="border-left: 2px solid var(--accent-color); padding-left: 1rem; margin: 1rem 0; font-style: italic;">
         "Lines from corners, sides, and center of the canvas to random points on the wall."
     </blockquote>
-    <p>Dit is niets anders dan een algoritme. Code <em>is</em> een instructie. Wanneer je een p5.js-sketch schrijft, doe je precies wat LeWitt deed: je beschrijft een systeem dat iemand anders — in dit geval de computer — uitvoert.</p>
+    <p>Dit is niets anders dan een algoritme. Code <em>is</em> een instructie. Wanneer je een p5.js-sketch schrijft, doe je precies wat LeWitt deed: je beschrijft een systeem dat iemand anders - in dit geval de computer - uitvoert.</p>
 </section>
 
 <section>
@@ -23,7 +23,7 @@ for (let i = 0; i &lt; 40; i++) {
   punten.push({ x: random(width), y: random(height) });
 }
 
-// Stap 2: voor elk punt — zoek de 3 dichtstbijzijnde
+// Stap 2: voor elk punt - zoek de 3 dichtstbijzijnde
 for (let a of punten) {
   let gesorteerd = punten
     .filter(b => b !== a)
@@ -35,7 +35,7 @@ for (let a of punten) {
   }
 }</code></pre>
 
-    <p>Probeer het hieronder. Klik om een nieuwe uitvoering te genereren — elke klik is een nieuwe "uitvoering" van dezelfde instructie:</p>
+    <p>Probeer het hieronder. Klik om een nieuwe uitvoering te genereren - elke klik is een nieuwe "uitvoering" van dezelfde instructie:</p>
 
     <div class="p5-editor" data-width="600" data-height="380" data-autorun="true">
         <script type="text/p5">
@@ -90,12 +90,12 @@ function mousePressed() {
 </section>
 
 <section>
-    <h2>Wall Drawing #118 — hoeken en zijden</h2>
-    <p>LeWitt's <em>Wall Drawing #118</em> (1971): <em>"Vijftig willekeurig geplaatste punten, verbonden door rechte lijnen."</em> Alle punten zijn met elkaar verbonden — dat geeft n×(n-1)/2 lijnen. Met 50 punten zijn dat 1225 lijnen:</p>
+    <h2>Wall Drawing #118 - hoeken en zijden</h2>
+    <p>LeWitt's <em>Wall Drawing #118</em> (1971): <em>"Vijftig willekeurig geplaatste punten, verbonden door rechte lijnen."</em> Alle punten zijn met elkaar verbonden - dat geeft n×(n-1)/2 lijnen. Met 50 punten zijn dat 1225 lijnen:</p>
 
     <div class="p5-editor" data-width="600" data-height="380" data-autorun="true">
         <script type="text/p5">
-// Wall Drawing #118 — alle punten verbonden met alle anderen.
+// Wall Drawing #118 - alle punten verbonden met alle anderen.
 // Klik voor een nieuwe uitvoering.
 
 let punten = [];
