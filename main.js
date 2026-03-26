@@ -1110,7 +1110,9 @@ function initRouter() {
     function loadOnderwerp() {
         const hash = window.location.hash.slice(1); // Verwijder #
         const onderwerp = hash ? onderwerpen.find(o => o.id === hash) : null;
-        
+
+        window.scrollTo(0, 0);
+
         if (onderwerp) {
             renderOnderwerp(onderwerp);
             updateActiveNav(onderwerp.id);
