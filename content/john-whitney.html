@@ -112,11 +112,7 @@ function draw() {
     <div class="p5-editor" data-width="600" data-height="600" data-autorun="true">
         <script type="text/p5">
 let arms = [];
-let hexColors = [
-  '#61B199', '#C0CE68', '#F0E933', '#FBBF2E', '#F89A3C',
-  '#F3722E', '#EF4424', '#ED1C26', '#E92B59', '#E23D96',
-  '#BF428A', '#9F4A81', '#69619B', '#367BB7', '#0091D1'
-];
+let hexColors = ['#61B199','#C0CE68','#F0E933','#FBBF2E','#F89A3C','#F3722E','#EF4424','#ED1C26','#E92B59','#E23D96','#BF428A','#9F4A81','#69619B','#367BB7','#0091D1'];
 
 function setup() {
   createCanvas(600, 600);
@@ -144,8 +140,8 @@ class Arm {
     this.baseAngle = angle;
     this.angle = angle;
     this.speed = random(0.002, 0.02);
-    this.radius = random(120, 260);
-    this.oscAmp = random(20, 80);
+    this.radius = random(100, 240);
+    this.oscAmp = random(20, 60);
     this.oscSpeed = random(0.01, 0.03);
     this.color = color(random(hexColors));
   }
