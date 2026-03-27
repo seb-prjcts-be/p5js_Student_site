@@ -175,6 +175,9 @@ const tagTranslations = {
     "toeval": "chance",
     "driehoek": "triangle",
     "iteratie": "iteration",
+    "harmonische beweging": "harmonic motion",
+    "sinusgolf": "sine wave",
+    "visuele muziek": "visual music",
     "stappen": "steps",
     "pad": "path",
     "golven": "waves",
@@ -254,7 +257,7 @@ const onderwerpen = [
             titel: "Generative design & history",
             samenvatting: "Discover the history of generative design, from John Whitney to modern creative coding."
         },
-        tags: ["geschiedenis", "generative design", "Whitney", "fractals", "DEMO", "BYOB", "creative coding"],
+        tags: ["geschiedenis", "generative design", "fractals", "DEMO", "BYOB", "creative coding"],
         contentFile: "content/generative-design.html",
         categorie: "Introductie"
     },
@@ -688,6 +691,18 @@ const onderwerpen = [
         },
         tags: ["sol lewitt", "instructie", "conceptuele kunst", "wall drawing", "algoritme", "lijnen", "systeem"],
         contentFile: "content/sol-lewitt.html",
+        categorie: "Inspiratie"
+    },
+    {
+        id: "john-whitney",
+        titel: "John Whitney - pionier computeranimatie",
+        samenvatting: "De grondlegger van computergegenereerde animatie. Whitney vertaalde wiskundige harmonie naar bewegend beeld.",
+        en: {
+            titel: "John Whitney - computer animation pioneer",
+            samenvatting: "The founder of computer-generated animation. Whitney translated mathematical harmony into moving visuals."
+        },
+        tags: ["Whitney", "harmonische beweging", "sinusgolf", "animatie", "visuele muziek", "kunstgeschiedenis"],
+        contentFile: "content/john-whitney.html",
         categorie: "Inspiratie"
     },
     {

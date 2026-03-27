@@ -1,0 +1,108 @@
+<div class="intro">
+    <p>John Whitney (1917-1995) was een Amerikaanse animator, componist en pionier van computergegenereerde animatie. Hij was een van de eersten die de potentie van computers zag om niet alleen wetenschappelijke problemen op te lossen, maar ook om esthetische en artistieke creaties te genereren.</p>
+    <p><em>"I've always been interested in movement, in what happens when things move."</em></p>
+</div>
+
+<section>
+    <h2>Biografie: van analoog naar digitaal</h2>
+    <p>Whitney begon als filmmaker en experimenteerde al in de jaren 40 met abstracte animatie. Samen met zijn broer James maakte hij films door direct op film te tekenen en mechanische apparaten te gebruiken om patronen te genereren.</p>
+    <p>In de jaren 60 bouwde hij een analoge computer uit een omgebouwd luchtafweergeschut (een M-5 antiaircraft director). Dit mechanische apparaat kon sinusgolven berekenen en werd de basis voor zijn eerste computergegenereerde animaties.</p>
+    <p>Later stapte hij over op digitale computers en schreef hij zijn eigen software. Hij werkte bij IBM en was artist-in-residence bij het Jet Propulsion Laboratory (JPL) van NASA.</p>
+</section>
+
+<section>
+    <h2>Harmonische beweging</h2>
+    <p>Het kernprincipe achter Whitney's werk is <strong>harmonische beweging</strong>: punten die bewegen op basis van sinusgolven met verschillende frequenties. Elk punt heeft zijn eigen snelheid, maar samen vormen ze steeds nieuwe, adembenemende patronen.</p>
+    <p>Dit is hetzelfde principe dat je terugvindt in muziek (boventonen), astronomie (planeetbanen) en natuurkunde (trillingen). Whitney zag deze verbanden en vertaalde ze naar beeld.</p>
+
+    <pre><code>// Het basisprincipe: elk punt beweegt met een eigen frequentie
+for (let i = 0; i < punten; i++) {
+  let freq = i + 1;
+  let hoek = tijd * freq;
+  let x = cx + cos(hoek) * straal;
+  let y = cy + sin(hoek) * straal;
+  point(x, y);
+}</code></pre>
+
+    <p>Door de frequentie per punt te varieren ontstaan <a href="#lissajous">Lissajous-achtige figuren</a> die voortdurend veranderen. Het resultaat: abstracte patronen die lijken te ademen.</p>
+</section>
+
+<section>
+    <h2>Experiments in Motion Graphics (1968)</h2>
+    <p>Whitney's bekendste werk is de korte film "Experiments in Motion Graphics" uit 1968. Hierin demonstreert hij hoe wiskundige functies visuele harmonie kunnen creeren.</p>
+
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:1.5rem 0;">
+        <iframe src="https://www.youtube.com/embed/jIv-EcX9tUs" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="John Whitney - Experiments in Motion Graphics 1968"></iframe>
+    </div>
+</section>
+
+<section>
+    <h2>Invloed</h2>
+    <p>Whitney's werk heeft generaties makers beinvloed:</p>
+    <ul>
+        <li>De openingstitels van Alfred Hitchcocks <strong>Vertigo</strong> (1958) werden gemaakt door Saul Bass met Whitney's analoge computer</li>
+        <li>Zijn zonen Michael en Mark Whitney zetten zijn werk voort in digitale media</li>
+        <li>Zijn boek <strong>"Digital Harmony"</strong> (1980) beschrijft de link tussen muzikale harmonie en visuele patronen</li>
+        <li>Creative coders wereldwijd gebruiken zijn principes nog steeds als basis voor generatieve kunst</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Kernbegrippen</h2>
+    <ul>
+        <li><strong>Harmonische beweging:</strong> beweging gebaseerd op sinusgolven met verschillende frequenties.</li>
+        <li><strong>Fase en frequentie:</strong> elk element beweegt met zijn eigen snelheid, waardoor het geheel voortdurend verandert.</li>
+        <li><strong>Analoge computer:</strong> een mechanisch of elektronisch apparaat dat continu wiskundige functies berekent.</li>
+        <li><strong>Visuele muziek:</strong> het vertalen van muzikale principes (harmonie, ritme, boventonen) naar beeld.</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Live Demo: harmonische beweging</h3>
+    <p>Punten bewegen elk met een eigen frequentie. Samen vormen ze patronen die voortdurend veranderen.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-john-whitney"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Pas het aantal punten, de snelheid of de straal aan en ontdek nieuwe patronen!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Geinspireerd op John Whitney - harmonische beweging
+// Elk punt heeft een eigen snelheid; samen vormen ze steeds nieuwe patronen.
+
+let punten = 64;
+
+function setup() {
+  createCanvas(600, 400);
+  colorMode(HSB, 360, 100, 100, 100);
+  strokeWeight(3);
+  noFill();
+}
+
+function draw() {
+  background(0, 0, 4, 15);
+
+  let t = frameCount * 0.008;
+  let cx = width / 2;
+  let cy = height / 2;
+  let straal = min(width, height) * 0.42;
+
+  for (let i = 0; i < punten; i++) {
+    let freq = i + 1;
+    let hoek = t * freq;
+    let x = cx + cos(hoek) * straal * (i / punten);
+    let y = cy + sin(hoek * 0.5) * straal * (i / punten);
+
+    // Kleur op basis van positie in de reeks
+    let hue = map(i, 0, punten, 180, 300);
+    stroke(hue, 70, 90);
+    point(x, y);
+  }
+}
+        </script>
+    </div>
+</section>

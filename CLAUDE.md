@@ -82,6 +82,7 @@ p5_cursus_site/
 │   ├── boids.html
 │   ├── chaos-game.html
 │   ├── circle-packing.html
+│   ├── john-whitney.html
 │   ├── kleurenfamilie.html
 │   ├── quine.html
 │   ├── turtle.html
@@ -120,6 +121,7 @@ p5_cursus_site/
 │   ├── example-boids.js
 │   ├── example-chaos-game.js
 │   ├── example-circle-packing.js
+│   ├── example-john-whitney.js
 │   ├── example-kleurenfamilie.js
 │   └── example-quine.js
 ├── assets/             ← Afbeeldingen per onderwerp
@@ -664,6 +666,7 @@ AI
 Inspiratie
   ├── Vera Molnar - code zonder computer  (vera-molnar)
   ├── Sol LeWitt - instructies als kunst (sol-lewitt)
+  ├── John Whitney - pionier computeranimatie (john-whitney)
   └── Links & bronnen                    (inspiratie-links)
 ```
 

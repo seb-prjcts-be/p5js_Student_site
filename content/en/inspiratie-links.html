@@ -140,49 +140,7 @@ function draw() {
 
 <section>
     <h2>John Whitney - harmonic motion</h2>
-    <p>John Whitney (1917-1995) is the founder of computer-generated animation. In the 1960s he made films by moving points based on sine waves with different frequencies. The result: abstract patterns that seem to breathe.</p>
-
-    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin-bottom:1.5em;">
-        <iframe src="https://www.youtube.com/embed/jIv-EcX9tUs" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen></iframe>
-    </div>
-
-    <p>Try it yourself:</p>
-
-    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
-        <script type="text/p5">
-// Inspired by John Whitney - harmonic motion
-// Each point has its own speed; together they form ever-new patterns.
-
-let punten = 64;
-
-function setup() {
-  createCanvas(600, 400);
-  colorMode(RGB);
-  strokeWeight(3);
-  noFill();
-}
-
-function draw() {
-  background(10, 10);
-
-  let t = frameCount * 0.008;
-  let cx = width / 2;
-  let cy = height / 2;
-  let straal = min(width, height) * 0.42;
-
-  for (let i = 0; i < punten; i++) {
-    let freq = i + 1;
-    let hoek = t * freq;
-    let x = cx + cos(hoek) * straal * (i / punten);
-    let y = cy + sin(hoek * 0.5) * straal * (i / punten);
-
-    let helderheid = map(i, 0, punten, 80, 255);
-    stroke(helderheid);
-    point(x, y);
-  }
-}
-        </script>
-    </div>
+    <p>John Whitney (1917-1995) is the founder of computer-generated animation. Read more on his <a href="#john-whitney">dedicated page</a> with video, biography and interactive example.</p>
 </section>
 
 

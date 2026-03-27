@@ -1,0 +1,108 @@
+<div class="intro">
+    <p>John Whitney (1917-1995) was an American animator, composer, and pioneer of computer-generated animation. He was one of the first to see the potential of computers not only to solve scientific problems but also to generate aesthetic and artistic creations.</p>
+    <p><em>"I've always been interested in movement, in what happens when things move."</em></p>
+</div>
+
+<section>
+    <h2>Biography: from analog to digital</h2>
+    <p>Whitney started as a filmmaker and was already experimenting with abstract animation in the 1940s. Together with his brother James, he made films by drawing directly on film and using mechanical devices to generate patterns.</p>
+    <p>In the 1960s he built an analog computer from a repurposed anti-aircraft gun director (an M-5 antiaircraft director). This mechanical device could calculate sine waves and became the foundation for his first computer-generated animations.</p>
+    <p>Later he switched to digital computers and wrote his own software. He worked at IBM and was artist-in-residence at NASA's Jet Propulsion Laboratory (JPL).</p>
+</section>
+
+<section>
+    <h2>Harmonic motion</h2>
+    <p>The core principle behind Whitney's work is <strong>harmonic motion</strong>: points moving based on sine waves with different frequencies. Each point has its own speed, but together they form ever-new, breathtaking patterns.</p>
+    <p>This is the same principle found in music (overtones), astronomy (planetary orbits), and physics (vibrations). Whitney saw these connections and translated them into visuals.</p>
+
+    <pre><code>// The basic principle: each point moves with its own frequency
+for (let i = 0; i < points; i++) {
+  let freq = i + 1;
+  let angle = time * freq;
+  let x = cx + cos(angle) * radius;
+  let y = cy + sin(angle) * radius;
+  point(x, y);
+}</code></pre>
+
+    <p>By varying the frequency per point, <a href="#lissajous">Lissajous-like figures</a> emerge that constantly change. The result: abstract patterns that seem to breathe.</p>
+</section>
+
+<section>
+    <h2>Experiments in Motion Graphics (1968)</h2>
+    <p>Whitney's best-known work is the short film "Experiments in Motion Graphics" from 1968. In it he demonstrates how mathematical functions can create visual harmony.</p>
+
+    <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;margin:1.5rem 0;">
+        <iframe src="https://www.youtube.com/embed/jIv-EcX9tUs" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen title="John Whitney - Experiments in Motion Graphics 1968"></iframe>
+    </div>
+</section>
+
+<section>
+    <h2>Influence</h2>
+    <p>Whitney's work has influenced generations of creators:</p>
+    <ul>
+        <li>The opening titles of Alfred Hitchcock's <strong>Vertigo</strong> (1958) were created by Saul Bass using Whitney's analog computer</li>
+        <li>His sons Michael and Mark Whitney continued his work in digital media</li>
+        <li>His book <strong>"Digital Harmony"</strong> (1980) describes the link between musical harmony and visual patterns</li>
+        <li>Creative coders worldwide still use his principles as the foundation for generative art</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Key concepts</h2>
+    <ul>
+        <li><strong>Harmonic motion:</strong> movement based on sine waves with different frequencies.</li>
+        <li><strong>Phase and frequency:</strong> each element moves at its own speed, causing the whole to constantly change.</li>
+        <li><strong>Analog computer:</strong> a mechanical or electronic device that continuously calculates mathematical functions.</li>
+        <li><strong>Visual music:</strong> translating musical principles (harmony, rhythm, overtones) into visuals.</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Live Demo: harmonic motion</h3>
+    <p>Points each move at their own frequency. Together they form patterns that constantly change.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-john-whitney"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experiment Yourself</h2>
+    <p>Adjust the number of points, speed, or radius and discover new patterns!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Inspired by John Whitney - harmonic motion
+// Each point has its own speed; together they form ever-new patterns.
+
+let points = 64;
+
+function setup() {
+  createCanvas(600, 400);
+  colorMode(HSB, 360, 100, 100, 100);
+  strokeWeight(3);
+  noFill();
+}
+
+function draw() {
+  background(0, 0, 4, 15);
+
+  let t = frameCount * 0.008;
+  let cx = width / 2;
+  let cy = height / 2;
+  let radius = min(width, height) * 0.42;
+
+  for (let i = 0; i < points; i++) {
+    let freq = i + 1;
+    let angle = t * freq;
+    let x = cx + cos(angle) * radius * (i / points);
+    let y = cy + sin(angle * 0.5) * radius * (i / points);
+
+    // Color based on position in the series
+    let hue = map(i, 0, points, 180, 300);
+    stroke(hue, 70, 90);
+    point(x, y);
+  }
+}
+        </script>
+    </div>
+</section>
