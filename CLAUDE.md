@@ -80,6 +80,7 @@ p5_cursus_site/
 │   ├── langtons-ant.html
 │   ├── 1d-automaten.html
 │   ├── boids.html
+│   ├── chaos-game.html
 │   ├── circle-packing.html
 │   ├── kleurenfamilie.html
 │   ├── quine.html
@@ -117,6 +118,7 @@ p5_cursus_site/
 │   ├── example-langtons-ant.js
 │   ├── example-1d-automaten.js
 │   ├── example-boids.js
+│   ├── example-chaos-game.js
 │   ├── example-circle-packing.js
 │   ├── example-kleurenfamilie.js
 │   └── example-quine.js
@@ -638,6 +640,7 @@ p5.js +
 Code concepten
   ├── 1D cellulaire automaten            (1d-automaten)
   ├── Boids                              (boids)
+  ├── Chaos game                          (chaos-game)
   ├── Circle packing                     (circle-packing)
   ├── Game of Life                       (game-of-life)
   ├── Kleurenfamilie                     (kleurenfamilie)

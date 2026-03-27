@@ -173,6 +173,8 @@ const tagTranslations = {
     "zelfde patroon": "same pattern",
     "stopvoorwaarde": "base case",
     "toeval": "chance",
+    "driehoek": "triangle",
+    "iteratie": "iteration",
     "stappen": "steps",
     "pad": "path",
     "golven": "waves",
@@ -542,6 +544,18 @@ const onderwerpen = [
         },
         tags: ["circle packing", "cirkels", "overlapping", "dist", "groeien", "generative", "algoritme"],
         contentFile: "content/circle-packing.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "chaos-game",
+        titel: "Chaos game",
+        samenvatting: "Gooi een dobbelsteen, spring halverwege naar een hoekpunt, herhaal. Uit pure willekeur ontstaat een perfecte Sierpinski-driehoek.",
+        en: {
+            titel: "Chaos game",
+            samenvatting: "Roll a die, jump halfway to a vertex, repeat. From pure randomness emerges a perfect Sierpinski triangle."
+        },
+        tags: ["chaos game", "Sierpinski", "fractal", "toeval", "driehoek", "iteratie", "code concepten"],
+        contentFile: "content/chaos-game.html",
         categorie: "Code concepten"
     },
     {

@@ -1,0 +1,145 @@
+<div class="intro">
+    <p>Gooi een dobbelsteen, spring halverwege naar een hoekpunt, herhaal. Uit deze simpele regel ontstaat een van de mooiste fractals in de wiskunde: de Sierpinski-driehoek.</p>
+</div>
+
+<section>
+    <h2>Wat is het Chaos Game?</h2>
+    <p>Het Chaos Game is een algoritme dat met pure willekeur een perfect geometrisch patroon genereert. De regels zijn verrassend eenvoudig:</p>
+    <ol>
+        <li>Kies <strong>drie punten</strong> op je canvas die samen een driehoek vormen.</li>
+        <li>Nummer de hoekpunten van 0 tot 2.</li>
+        <li>Kies een willekeurig <strong>startpunt P</strong> ergens op het canvas.</li>
+        <li>Maak een digitale dobbelsteen met drie waarden: <code>floor(random(3))</code>.</li>
+        <li>Gooi de dobbelsteen en beweeg P <strong>halverwege</strong> naar het gekozen hoekpunt.</li>
+        <li>Teken een punt op de nieuwe positie van P.</li>
+        <li>Herhaal stap 4-6 duizenden keren.</li>
+    </ol>
+    <p>Na een paar duizend iteraties verschijnt er een herkenbaar patroon: de <strong>Sierpinski-driehoek</strong>.</p>
+</section>
+
+<section>
+    <h2>Waarom werkt dit?</h2>
+    <p>Het lijkt onmogelijk: willekeurige keuzes die een perfecte fractal opleveren. Toch is het logisch als je erbij stilstaat.</p>
+    <p>De halverwege-regel zorgt ervoor dat punten steeds dichter bij de hoekpunten komen te liggen. Na een paar stappen belandt elk punt in een van de drie "zones" van de Sierpinski-driehoek. Het midden wordt nooit geraakt - precies het gat in het midden van de fractal.</p>
+    <p>Dit patroon is ook te maken met <a href="#recursie">recursie</a>, maar het Chaos Game laat zien dat <strong>toeval en structuur</strong> niet elkaars tegengestelden zijn.</p>
+</section>
+
+<section>
+    <h2>De basiscode</h2>
+    <p>Het kernalgoritme in p5.js:</p>
+    <pre><code>// Drie hoekpunten van de driehoek
+let hoeken = [
+  { x: 300, y: 20 },
+  { x: 20, y: 380 },
+  { x: 580, y: 380 }
+];
+
+// Startpunt
+let px = random(width);
+let py = random(height);
+
+// Elke frame: 100 nieuwe punten
+for (let i = 0; i < 100; i++) {
+  let keuze = floor(random(3)); // dobbelsteen: 0, 1 of 2
+  px = (px + hoeken[keuze].x) / 2; // halverwege x
+  py = (py + hoeken[keuze].y) / 2; // halverwege y
+  point(px, py);
+}</code></pre>
+    <p>De <code>floor(random(3))</code> is je digitale dobbelsteen: hij geeft willekeurig 0, 1 of 2 terug. Met <code>(px + hoek.x) / 2</code> spring je naar het midden tussen je huidige positie en het gekozen hoekpunt.</p>
+</section>
+
+<section>
+    <h2>Variaties</h2>
+    <p>Het Chaos Game is niet beperkt tot driehoeken. Door de regels aan te passen krijg je verrassende resultaten:</p>
+    <ul>
+        <li><strong>Andere ratio:</strong> in plaats van halverwege (0.5), probeer 1/3 of 2/3. De fractal verandert van vorm.</li>
+        <li><strong>Meer hoekpunten:</strong> met 4 punten (vierkant) en de restrictie dat je niet twee keer naar hetzelfde hoekpunt mag, ontstaat een ander patroon.</li>
+        <li><strong>Kleuren per hoekpunt:</strong> geef elk hoekpunt een eigen kleur en kleur het punt op basis van de laatste keuze. De structuur wordt nog duidelijker.</li>
+        <li><strong>Grootte variatie:</strong> maak de puntgrootte afhankelijk van het iteratienummer voor een diepte-effect.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Probeer de volgende aanpassingen in de editor hieronder:</p>
+    <ul>
+        <li>Verander de ratio van 0.5 naar 0.33 - wat gebeurt er met het patroon?</li>
+        <li>Voeg een vierde hoekpunt toe en maak er een vierkant van. Pas <code>floor(random(3))</code> aan naar <code>floor(random(4))</code>.</li>
+        <li>Geef elk hoekpunt een eigen kleur met <code>stroke()</code> op basis van de dobbelsteenwaarde.</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Live Demo: Chaos Game</h3>
+    <p>De Sierpinski-driehoek verschijnt punt voor punt. Klik om te resetten.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-chaos-game"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer Zelf</h2>
+    <p>Pas de code aan en ontdek de variaties! Verander de ratio, het aantal hoekpunten of de kleuren.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Chaos Game - Sierpinski-driehoek
+// Probeer de ratio of het aantal hoekpunten aan te passen!
+
+let hoeken = [];
+let px, py;
+let kleuren;
+
+function setup() {
+  createCanvas(600, 400);
+  background(15, 15, 30);
+  strokeWeight(1);
+
+  // Drie hoekpunten
+  hoeken = [
+    createVector(300, 15),
+    createVector(15, 385),
+    createVector(585, 385)
+  ];
+
+  kleuren = [
+    color(255, 100, 100),
+    color(100, 255, 100),
+    color(100, 150, 255)
+  ];
+
+  // Willekeurig startpunt
+  px = random(width);
+  py = random(height);
+}
+
+function draw() {
+  let ratio = 0.5; // Probeer 0.33 of 0.66!
+
+  for (let i = 0; i < 100; i++) {
+    let keuze = floor(random(hoeken.length));
+
+    // Spring naar ratio van de afstand
+    px = lerp(px, hoeken[keuze].x, ratio);
+    py = lerp(py, hoeken[keuze].y, ratio);
+
+    // Kleur op basis van gekozen hoekpunt
+    stroke(kleuren[keuze]);
+    point(px, py);
+  }
+
+  // Info
+  fill(180);
+  noStroke();
+  textSize(12);
+  text('Punten: ' + frameCount * 100, 15, 20);
+}
+
+function mousePressed() {
+  background(15, 15, 30);
+  px = random(width);
+  py = random(height);
+}
+        </script>
+    </div>
+</section>

@@ -1,0 +1,145 @@
+<div class="intro">
+    <p>Roll a die, jump halfway to a vertex, repeat. From this simple rule emerges one of the most beautiful fractals in mathematics: the Sierpinski triangle.</p>
+</div>
+
+<section>
+    <h2>What is the Chaos Game?</h2>
+    <p>The Chaos Game is an algorithm that generates a perfectly geometric pattern from pure randomness. The rules are surprisingly simple:</p>
+    <ol>
+        <li>Choose <strong>three points</strong> on your canvas that form a triangle.</li>
+        <li>Number the vertices from 0 to 2.</li>
+        <li>Choose a random <strong>starting point P</strong> somewhere on the canvas.</li>
+        <li>Create a digital die with three values: <code>floor(random(3))</code>.</li>
+        <li>Roll the die and move P <strong>halfway</strong> toward the chosen vertex.</li>
+        <li>Draw a dot at the new position of P.</li>
+        <li>Repeat steps 4-6 thousands of times.</li>
+    </ol>
+    <p>After a few thousand iterations, a recognizable pattern appears: the <strong>Sierpinski triangle</strong>.</p>
+</section>
+
+<section>
+    <h2>Why does this work?</h2>
+    <p>It seems impossible: random choices producing a perfect fractal. Yet it makes sense when you think about it.</p>
+    <p>The halfway rule ensures that points keep getting closer to the vertices. After a few steps, every point lands in one of the three "zones" of the Sierpinski triangle. The center is never reached - exactly the gap in the middle of the fractal.</p>
+    <p>This pattern can also be created with <a href="#recursie">recursion</a>, but the Chaos Game shows that <strong>randomness and structure</strong> are not opposites.</p>
+</section>
+
+<section>
+    <h2>The basic code</h2>
+    <p>The core algorithm in p5.js:</p>
+    <pre><code>// Three vertices of the triangle
+let vertices = [
+  { x: 300, y: 20 },
+  { x: 20, y: 380 },
+  { x: 580, y: 380 }
+];
+
+// Starting point
+let px = random(width);
+let py = random(height);
+
+// Each frame: 100 new points
+for (let i = 0; i < 100; i++) {
+  let choice = floor(random(3)); // die: 0, 1 or 2
+  px = (px + vertices[choice].x) / 2; // halfway x
+  py = (py + vertices[choice].y) / 2; // halfway y
+  point(px, py);
+}</code></pre>
+    <p>The <code>floor(random(3))</code> is your digital die: it randomly returns 0, 1, or 2. With <code>(px + vertex.x) / 2</code> you jump to the midpoint between your current position and the chosen vertex.</p>
+</section>
+
+<section>
+    <h2>Variations</h2>
+    <p>The Chaos Game is not limited to triangles. By adjusting the rules you get surprising results:</p>
+    <ul>
+        <li><strong>Different ratio:</strong> instead of halfway (0.5), try 1/3 or 2/3. The fractal changes shape.</li>
+        <li><strong>More vertices:</strong> with 4 points (square) and the restriction that you can't jump to the same vertex twice in a row, a different pattern emerges.</li>
+        <li><strong>Colors per vertex:</strong> give each vertex its own color and color the dot based on the last choice. The structure becomes even clearer.</li>
+        <li><strong>Size variation:</strong> make the dot size depend on the iteration number for a depth effect.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Try the following modifications in the editor below:</p>
+    <ul>
+        <li>Change the ratio from 0.5 to 0.33 - what happens to the pattern?</li>
+        <li>Add a fourth vertex to make a square. Change <code>floor(random(3))</code> to <code>floor(random(4))</code>.</li>
+        <li>Give each vertex its own color using <code>stroke()</code> based on the die value.</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Live Demo: Chaos Game</h3>
+    <p>The Sierpinski triangle appears dot by dot. Click to reset.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-chaos-game"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experiment Yourself</h2>
+    <p>Modify the code and discover the variations! Change the ratio, the number of vertices, or the colors.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Chaos Game - Sierpinski triangle
+// Try changing the ratio or number of vertices!
+
+let vertices = [];
+let px, py;
+let colors;
+
+function setup() {
+  createCanvas(600, 400);
+  background(15, 15, 30);
+  strokeWeight(1);
+
+  // Three vertices
+  vertices = [
+    createVector(300, 15),
+    createVector(15, 385),
+    createVector(585, 385)
+  ];
+
+  colors = [
+    color(255, 100, 100),
+    color(100, 255, 100),
+    color(100, 150, 255)
+  ];
+
+  // Random starting point
+  px = random(width);
+  py = random(height);
+}
+
+function draw() {
+  let ratio = 0.5; // Try 0.33 or 0.66!
+
+  for (let i = 0; i < 100; i++) {
+    let choice = floor(random(vertices.length));
+
+    // Jump toward the vertex by ratio
+    px = lerp(px, vertices[choice].x, ratio);
+    py = lerp(py, vertices[choice].y, ratio);
+
+    // Color based on chosen vertex
+    stroke(colors[choice]);
+    point(px, py);
+  }
+
+  // Info
+  fill(180);
+  noStroke();
+  textSize(12);
+  text('Points: ' + frameCount * 100, 15, 20);
+}
+
+function mousePressed() {
+  background(15, 15, 30);
+  px = random(width);
+  py = random(height);
+}
+        </script>
+    </div>
+</section>
