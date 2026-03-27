@@ -105,4 +105,65 @@ function draw() {
 }
         </script>
     </div>
+
+    <h3>Roterende armen</h3>
+    <p>Een variatie met draaiende lijnstukken die elk hun eigen snelheid en straal hebben. De nabeelden (fade) creeren het typische Whitney-effect.</p>
+
+    <div class="p5-editor" data-width="600" data-height="600" data-autorun="true">
+        <script type="text/p5">
+let arms = [];
+let hexColors = [
+  '#61B199', '#C0CE68', '#F0E933', '#FBBF2E', '#F89A3C',
+  '#F3722E', '#EF4424', '#ED1C26', '#E92B59', '#E23D96',
+  '#BF428A', '#9F4A81', '#69619B', '#367BB7', '#0091D1'
+];
+
+function setup() {
+  createCanvas(600, 600);
+  strokeWeight(2);
+  noFill();
+
+  for (let i = 0; i < 40; i++) {
+    let baseAngle = (i / 40) * TWO_PI;
+    arms.push(new Arm(baseAngle));
+  }
+}
+
+function draw() {
+  background(0, 18);
+  translate(width / 2, height / 2);
+
+  for (let a of arms) {
+    a.update();
+    a.show();
+  }
+}
+
+class Arm {
+  constructor(angle) {
+    this.baseAngle = angle;
+    this.angle = angle;
+    this.speed = random(0.002, 0.02);
+    this.radius = random(120, 260);
+    this.oscAmp = random(20, 80);
+    this.oscSpeed = random(0.01, 0.03);
+    this.color = color(random(hexColors));
+  }
+
+  update() {
+    this.angle += this.speed;
+    this.r = this.radius + sin(frameCount * this.oscSpeed) * this.oscAmp;
+  }
+
+  show() {
+    stroke(this.color);
+    let x1 = cos(this.angle) * this.r;
+    let y1 = sin(this.angle) * this.r;
+    let x2 = cos(this.angle + PI / 8) * (this.r * 0.5);
+    let y2 = sin(this.angle + PI / 8) * (this.r * 0.5);
+    line(x1, y1, x2, y2);
+  }
+}
+        </script>
+    </div>
 </section>
