@@ -277,6 +277,35 @@ function mousePressed() {
 }</code></pre>
 </section>
 
+<section>
+    <h2>Sonification: making data audible</h2>
+    <p><strong>Sonification</strong> is the process of converting ordinary data into sound. Instead of only seeing data in a chart, you can also <em>hear</em> it. This adds an extra dimension to your p5.js projects.</p>
+
+    <h3>How does it work?</h3>
+    <p>The basic principle is simple: you map numbers from a dataset to sound parameters like pitch, volume, or rhythm.</p>
+    <ul>
+        <li>A <strong>high value</strong> in your data becomes a high tone</li>
+        <li>A <strong>large distance</strong> becomes a lower volume</li>
+        <li>The <strong>time sequence</strong> determines the rhythm</li>
+    </ul>
+
+    <pre><code>// Example: converting a number to a pitch
+let freq = map(dataValue, 0, 100, 200, 800);
+// dataValue 0 → 200 Hz (low)
+// dataValue 100 → 800 Hz (high)</code></pre>
+
+    <h3>Example: meteorite landings</h3>
+    <p>A concrete example: visualizing and sonifying the largest meteorite landings in history. Each meteorite appears on the canvas based on its coordinates, while the size determines the pitch.</p>
+    <p>The <a href="https://data.nasa.gov/Earth-Science/Meteorite-Landings-API/c2vx-j9ed" target="_blank" rel="noopener">NASA Meteorite Landings API</a> provides the data as JSON. Combine this with the p5.sound library to create a multisensory data portrait.</p>
+
+    <h3>Why sonification?</h3>
+    <ul>
+        <li>Patterns in data sometimes become clearer when you hear them than when you see them</li>
+        <li>It makes data accessible for people with visual impairments</li>
+        <li>It combines <strong>art</strong>, <strong>data</strong>, and <strong>technology</strong> in a unique way</li>
+    </ul>
+</section>
+
 <div class="p5-example">
     <h3>Example: Oscillator Visualization</h3>
     <p>A simulated sound wave pattern (without p5.sound, using pure math).</p>

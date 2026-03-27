@@ -747,6 +747,10 @@ Curriculum-aligned content pass completed 2026-03-26 against `data/Voor AI_Lab44
 - `vera-molnar.html` - algoritmische uitleg bij (Des)Ordres met stapsgewijze beschrijving
 - `afbeeldingen.html` - `preload()` legacy context met werkend 1.x codevoorbeeld
 
+Curriculum deep-dive pass completed 2026-03-27 against full markdown curriculum. Updates made:
+- `geluid.html` - sonificatie sectie: data hoorbaar maken, map() naar toonhoogte, NASA meteorietendata als voorbeeld
+- `vibe-coding.html` - AI als co-creator (GANs, stijltransfer, collaboratief werken) + waarom coderen blijft tellen + ethische vragen (originaliteit, auteurschap, mens vs. machine)
+
 ---
 
 ## Testing Checklist Before Committing

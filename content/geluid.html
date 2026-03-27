@@ -277,6 +277,35 @@ function mousePressed() {
 }</code></pre>
 </section>
 
+<section>
+    <h2>Sonificatie: data hoorbaar maken</h2>
+    <p><strong>Sonificatie</strong> is het omzetten van gewone data in geluid. In plaats van data alleen te zien in een grafiek, kun je ze ook <em>horen</em>. Dit voegt een extra dimensie toe aan je p5.js-projecten.</p>
+
+    <h3>Hoe werkt het?</h3>
+    <p>Het basisprincipe is eenvoudig: je koppelt getallen uit een dataset aan geluidsparameters zoals toonhoogte, volume of ritme.</p>
+    <ul>
+        <li>Een <strong>hoge waarde</strong> in je data wordt een hoge toon</li>
+        <li>Een <strong>grote afstand</strong> wordt een lager volume</li>
+        <li>De <strong>tijdsvolgorde</strong> bepaalt het ritme</li>
+    </ul>
+
+    <pre><code>// Voorbeeld: een getal omzetten naar een toonhoogte
+let freq = map(dataWaarde, 0, 100, 200, 800);
+// dataWaarde 0 → 200 Hz (laag)
+// dataWaarde 100 → 800 Hz (hoog)</code></pre>
+
+    <h3>Voorbeeld: meteorietenlandingen</h3>
+    <p>Een concreet voorbeeld: de grootste neergekomen meteorieten uit de geschiedenis visualiseren en sonificeren. Elke meteoriet verschijnt op het canvas op basis van zijn coordinaten, terwijl de grootte de toonhoogte bepaalt.</p>
+    <p>De <a href="https://data.nasa.gov/Earth-Science/Meteorite-Landings-API/c2vx-j9ed" target="_blank" rel="noopener">NASA Meteorite Landings API</a> levert de data als JSON. Combineer dit met de p5.sound library om een multisensorieel dataportret te maken.</p>
+
+    <h3>Waarom sonificatie?</h3>
+    <ul>
+        <li>Patronen in data worden soms duidelijker als je ze hoort dan als je ze ziet</li>
+        <li>Het maakt data toegankelijk voor mensen met een visuele beperking</li>
+        <li>Het combineert <strong>kunst</strong>, <strong>data</strong> en <strong>technologie</strong> op een unieke manier</li>
+    </ul>
+</section>
+
 <div class="p5-example">
     <h3>Voorbeeld: Oscillator Visualisatie</h3>
     <p>Een gesimuleerd geluidsgolfpatroon (zonder p5.sound, met pure wiskunde).</p>
