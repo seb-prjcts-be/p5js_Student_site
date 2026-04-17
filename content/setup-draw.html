@@ -14,7 +14,6 @@
     <ul>
         <li>Canvas aanmaken met <code>createCanvas()</code></li>
         <li>Begintoestand instellen</li>
-        <li>Variabelen initialiseren</li>
         <li>Assets laden (afbeeldingen, geluiden)</li>
     </ul>
 </section>
@@ -46,7 +45,7 @@ createCanvas(windowWidth, windowHeight);  // Volledig scherm</code></pre>
 
 <section>
     <h2>Assenstelsel</h2>
-    <p>Een canvas heeft een <strong>coördinatenstelsel</strong> waarmee je elk punt op het canvas kunt aanwijzen. De oorsprong <code>(0, 0)</code> ligt <strong>linksboven</strong>. X loopt naar rechts, Y loopt naar beneden — anders dan in wiskunde!</p>
+    <p>Een canvas heeft een <strong>coördinatenstelsel</strong> waarmee je elk punt op het canvas kunt aanwijzen. De oorsprong <code>(0, 0)</code> ligt <strong>linksboven</strong>. X loopt naar rechts, Y loopt naar beneden - anders dan in wiskunde!</p>
 
     <figure>
         <img src="assets/setup-draw/assenstelsel.png" alt="Het coördinatenstelsel van p5.js: (0,0) linksboven, X naar rechts, Y naar beneden">
@@ -69,7 +68,7 @@ point(200, 200);</code></pre>
 
     <h3>Commentaar</h3>
     <p>Commentaar is tekst die niet als code wordt gelezen. Handig om aantekeningen te maken of tijdelijk code uit te zetten:</p>
-    <pre><code>// Dit is een commentaarregel — wordt genegeerd door p5.js
+    <pre><code>// Dit is een commentaarregel - wordt genegeerd door p5.js
 
 /* Dit is een blok commentaar
    dat meerdere regels kan beslaan */
@@ -95,7 +94,7 @@ function draw() {
   background(220);
   // Animatie hier
 }</code></pre>
-    <p>Met <code>noLoop()</code> stop je de loop — <code>draw()</code> wordt dan maar één keer uitgevoerd. Handig voor statische composities.</p>
+    <p>Met <code>noLoop()</code> stop je de loop - <code>draw()</code> wordt dan maar één keer uitgevoerd. Handig voor statische composities.</p>
     <pre><code>function setup() {
   createCanvas(400, 400);
   noLoop();  // Teken eenmalig

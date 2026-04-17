@@ -115,7 +115,7 @@ Elk onderwerp heeft werkende p5.js voorbeelden die direct in de pagina draaien. 
 ### p5.js CDN
 De website gebruikt p5.js via CDN:
 ```html
-<script src="https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js"></script>
 ```
 
 Alle nieuwe lesvoorbeelden vertrekken van moderne p5.js 2.x. Oudere patronen zoals `preload()` mogen nog vermeld worden, maar alleen als context bij bestaand materiaal.

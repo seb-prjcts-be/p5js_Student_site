@@ -1,0 +1,138 @@
+<div class="intro">
+    <p>With if-statements you make decisions in your code. Your code can do different things depending on conditions.</p>
+</div>
+
+<section>
+    <h2>Basic If-Statement</h2>
+    <p>An if-statement checks a condition:</p>
+    <pre><code>if (condition) {
+  // Code that runs if the condition is true
+}</code></pre>
+
+    <h3>Example</h3>
+    <pre><code>function draw() {
+  if (mouseX > width/2) {
+    fill(255, 0, 0);  // Red if mouse is on the right
+  } else {
+    fill(0, 0, 255);  // Blue if mouse is on the left
+  }
+  ellipse(200, 200, 100, 100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Comparisons</h2>
+    <p>You can make different comparisons:</p>
+    <ul>
+        <li><code>==</code> - Equal to</li>
+        <li><code>!=</code> - Not equal to</li>
+        <li><code>&gt;</code> - Greater than</li>
+        <li><code>&lt;</code> - Less than</li>
+        <li><code>&gt;=</code> - Greater than or equal to</li>
+        <li><code>&lt;=</code> - Less than or equal to</li>
+    </ul>
+
+    <h3>Examples</h3>
+    <pre><code>if (x > 100) { }
+if (y < 200) { }
+if (diameter == 50) { }
+if (speed != 0) { }</code></pre>
+</section>
+
+<section>
+    <h2>Else and Else If</h2>
+    <p>You can check multiple conditions:</p>
+    <pre><code>if (x < 100) {
+  fill(255, 0, 0);  // Red
+} else if (x < 200) {
+  fill(0, 255, 0);  // Green
+} else {
+  fill(0, 0, 255);  // Blue
+}</code></pre>
+</section>
+
+<section>
+    <h2>Logical Operators</h2>
+    <p>Combine conditions with <code>&&</code> (and) and <code>||</code> (or), or reverse a condition with <code>!</code> (not):</p>
+    <pre><code>if (x > 100 && x < 300) {
+  // x is between 100 and 300
+}
+
+if (x < 50 || x > 350) {
+  // x is less than 50 OR greater than 350
+}
+
+// ! reverses a boolean
+if (!mouseIsPressed) {
+  background(245);  // Only clear when mouse is NOT pressed
+}</code></pre>
+</section>
+
+<section>
+    <h2>Short notation</h2>
+    <p>If you only want to execute one statement, you can omit the braces:</p>
+    <pre><code>// With braces (standard)
+if (x > width) {
+  x = 0;
+}
+
+// Short notation (one statement)
+if (x > width) x = 0;</code></pre>
+
+    <h3>Boolean as condition</h3>
+    <p>If a variable is already a boolean (<code>true</code>/<code>false</code>), you don't need to compare:</p>
+    <pre><code>let isStudent = true;
+
+// Explicit
+if (isStudent == true) {
+  fill(0, 255, 0);
+}
+
+// Shorter - same effect
+if (isStudent) {
+  fill(0, 255, 0);
+}
+
+// Reversed with !
+if (!isStudent) {
+  fill(255, 0, 0);  // If NOT a student
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Interactive Colors</h3>
+    <p>Move your mouse to see how if-statements work:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-if-statements"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try it Yourself!</h2>
+    <p>Adjust the conditions! Try different comparisons and logical operators.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+
+  // Change color based on mouse position
+  if (mouseX > width/2) {
+    fill(255, 0, 0);  // Red if mouse is on the right
+  } else {
+    fill(0, 0, 255);  // Blue if mouse is on the left
+  }
+
+  ellipse(width/2, height/2, 100, 100);
+
+  // Small circle follows mouse
+  fill(0, 255, 0);
+  ellipse(mouseX, mouseY, 30, 30);
+}
+        </script>
+    </div>
+</section>

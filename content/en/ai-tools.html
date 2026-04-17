@@ -1,0 +1,116 @@
+<div class="intro">
+    <p>AI tools come in all shapes and sizes. From playgrounds to test models to editors that code alongside you - this is an overview of the most useful tools for students and makers.</p>
+</div>
+
+<section>
+    <h2>What is an API?</h2>
+    <p>An <strong>API</strong> (Application Programming Interface) is a way to let two software systems talk to each other. You send a question, and you get an answer back - without knowing how it works on the other side.</p>
+    <p>Think of it like a restaurant: you order (the <em>request</em>), the kitchen prepares it (the processing), and the waiter brings the result (the <em>response</em>). You don't need to know how the kitchen works.</p>
+    <p>Almost all AI tools work via an API. When you write code that talks to an AI model, you send a request to such an API and process the response in your own application.</p>
+</section>
+
+<section>
+    <h2>Memory and context</h2>
+    <p>AI models start every conversation blank - they remember nothing from previous sessions. That sounds like a limitation, but there are smart ways to work around it:</p>
+
+    <h3>Provide context</h3>
+    <p>You can always give an AI model extra information in your prompt. Paste in some text, share a link, or describe your project. The more relevant context you provide, the better the answer.</p>
+
+    <h3>CLAUDE.md — memory for your project</h3>
+    <p>Tools like <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener">Claude Code</a> use a <code>CLAUDE.md</code> file as long-term memory. You describe your project, preferences, and rules in it. At the start of every session, the AI reads that file and immediately knows what you're working on.</p>
+    <p>You can apply this principle anywhere: create a text file with context about your project and paste it at the beginning of each new conversation.</p>
+
+    <h3>Skills and instructions</h3>
+    <p>Many AI tools support <strong>custom instructions</strong> or <strong>skills</strong> - reusable instructions that you save. This way you don't have to explain what you want every time. Think of it as a recipe that the AI can follow again and again.</p>
+
+    <h3>Knowledge cutoff</h3>
+    <p>Models have a <strong>knowledge cutoff</strong> (cutoff date): they don't automatically know about recent events. But many tools can now search the web, and you can always provide current information in your prompt.</p>
+</section>
+
+<section>
+    <h2>AI Labs and Playgrounds</h2>
+    <p>The major AI companies offer their own playgrounds: environments where you can test models directly without programming.</p>
+
+    <h3>Google AI Studio</h3>
+    <p><a href="https://aistudio.google.com/" target="_blank" rel="noopener">Google AI Studio</a> is Google's free playground for Gemini models. You can test text, images, and code there, and create your own API key.</p>
+    <ul>
+        <li>Try multimodal prompts: include an image with your question</li>
+        <li>Check out the tokenizer: see how your text is split up</li>
+        <li>Free to use for experimentation</li>
+    </ul>
+
+    <h3>OpenAI Platform</h3>
+    <p><a href="https://platform.openai.com/playground" target="_blank" rel="noopener">OpenAI Platform</a> is the official playground of OpenAI (makers of ChatGPT). You can test GPT models here, explore fine-tuning, and analyze API requests.</p>
+
+    <h3>Anthropic Console</h3>
+    <p><a href="https://console.anthropic.com/" target="_blank" rel="noopener">Anthropic Console</a> is the playground of Anthropic (makers of Claude). Similar to the others - handy for exploring Claude's strengths, such as processing longer documents and accurate reasoning.</p>
+</section>
+
+<section>
+    <h2>NotebookLM</h2>
+    <p><a href="https://notebooklm.google.com/" target="_blank" rel="noopener"><strong>NotebookLM</strong></a> (from Google) is a tool that combines AI with your own sources. You upload documents, PDFs, or URLs, and then you can ask questions about them - the model only answers based on what you've added.</p>
+    <p>Very useful for:</p>
+    <ul>
+        <li>Summarizing and querying a long PDF</li>
+        <li>Merging notes from different sources</li>
+        <li>Generating an "audio overview": a simulated podcast conversation about your sources</li>
+    </ul>
+    <p>NotebookLM hallucinates much less than regular chatbots, because it's bound to the documents you've provided.</p>
+</section>
+
+<section>
+    <h2>Chrome browser tips</h2>
+    <p>Your browser has become a powerful AI starting point:</p>
+    <ul>
+        <li><strong>Gemini in Chrome</strong> - you can ask questions directly in the address bar by typing <code>@gemini</code></li>
+        <li><strong>Extensions</strong> - tools like Monica, Merlin, or Sider add an AI sidebar to every page</li>
+        <li><strong>Reading and summary tools</strong> - select text on a page and directly request a summary</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Other useful AI tools</h2>
+
+    <h3>Gamma</h3>
+    <p><a href="https://gamma.app/" target="_blank" rel="noopener">Gamma</a> creates presentations, documents, and websites based on a text prompt. Handy as a starting point - customize to your own style afterwards.</p>
+
+    <h3>ElevenLabs</h3>
+    <p><a href="https://elevenlabs.io/" target="_blank" rel="noopener">ElevenLabs</a> offers high-quality text-to-speech. Generate voices in dozens of languages and styles. Use it for videos, prototypes, or audio experiments.</p>
+
+    <h3>Napkin</h3>
+    <p><a href="https://www.napkin.ai/" target="_blank" rel="noopener">Napkin</a> automatically converts text into diagrams and infographics. Handy for visualizing processes or ideas.</p>
+
+    <h3>Eightify</h3>
+    <p><a href="https://eightify.app/" target="_blank" rel="noopener">Eightify</a> is a Chrome extension that summarizes YouTube videos. Get the key points of a long video in seconds.</p>
+</section>
+
+<section>
+    <h2>Programming with AI</h2>
+    <p>AI is also changing how we write code. There are tools that sit right in your code editor and suggest, explain, and complete code.</p>
+
+    <h3>GitHub Copilot (in VSCode)</h3>
+    <p><a href="https://github.com/features/copilot" target="_blank" rel="noopener">Copilot</a> suggests code as you type - based on the context of your file. Available as an extension in VSCode. Free for students via the <a href="https://education.github.com/pack" target="_blank" rel="noopener">GitHub Student Developer Pack</a>.</p>
+
+    <h3>Cursor</h3>
+    <p><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> is a separate code editor built around AI. You can have it write complete code blocks, explain or refactor using plain language. Works well for larger projects.</p>
+
+    <h3>Tips for AI-assisted programming</h3>
+    <ul>
+        <li>Describe what you want to achieve, not how - let the AI choose the implementation</li>
+        <li>Always review generated code - AI makes mistakes</li>
+        <li>Use AI for explanations: "Explain what this function does" works excellently</li>
+        <li>Small steps: let AI write one function at a time, not an entire project</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Keeping up with the AI landscape</h2>
+    <p>The AI field moves fast. Here are reliable sources to stay current:</p>
+    <ul>
+        <li><a href="https://huggingface.co/" target="_blank" rel="noopener"><strong>Hugging Face</strong></a> - open-source models and papers, the hub of the AI research community</li>
+        <li><a href="https://www.futuretools.io/" target="_blank" rel="noopener"><strong>FutureTools.io</strong></a> - overview of new AI tools, sorted by category</li>
+        <li><a href="https://www.youtube.com/@MattWolfe" target="_blank" rel="noopener"><strong>Matt Wolfe</strong></a> (YouTube) - weekly videos about new AI tools and developments, accessibly explained</li>
+        <li><a href="https://www.youtube.com/@AIExplained-official" target="_blank" rel="noopener"><strong>AI Explained</strong></a> (YouTube) - more in-depth videos about how models work</li>
+    </ul>
+    <p>You're not expected to follow everything. Pick one or two sources that match your interests.</p>
+</section>

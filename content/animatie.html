@@ -1,5 +1,5 @@
 <div class="intro">
-    <p>Animatie ontstaat doordat <code>draw()</code> steeds opnieuw wordt uitgevoerd — standaard 60 keer per seconde. Door waarden elke frame een beetje te veranderen, krijg je beweging.</p>
+    <p>Animatie ontstaat doordat <code>draw()</code> steeds opnieuw wordt uitgevoerd - standaard 60 keer per seconde. Door waarden elke frame een beetje te veranderen, krijg je beweging.</p>
 </div>
 
 <section>
@@ -51,7 +51,7 @@ function draw() {
 }</code></pre>
 
     <h3>Tangens</h3>
-    <p><code>tan()</code> is de derde trigonometrische functie. In tegenstelling tot sin/cos loopt tan() naar oneindig — het schiet door het canvas heen en komt aan de andere kant terug. Dat levert grillige, energieke patronen op:</p>
+    <p><code>tan()</code> is de derde trigonometrische functie. In tegenstelling tot sin/cos loopt tan() naar oneindig - het schiet door het canvas heen en komt aan de andere kant terug. Dat levert grillige, energieke patronen op:</p>
     <pre><code>let hoek = 0;
 
 function draw() {
@@ -97,7 +97,7 @@ function mousePressed() {
 
 <section>
     <h2>translate() en rotate()</h2>
-    <p><code>translate(x, y)</code> verschuift het assenstelsel — alsof je het papier onder de pen verplaatst. Daarna teken je gewoon op (0, 0):</p>
+    <p><code>translate(x, y)</code> verschuift het assenstelsel - alsof je het papier onder de pen verplaatst. Daarna teken je gewoon op (0, 0):</p>
     <pre><code>function draw() {
   background(245);
   translate(mouseX, mouseY);  // Assenstelsel naar muispositie
@@ -118,6 +118,32 @@ function draw() {
 }</code></pre>
 
     <p>Gebruik <code>translate()</code> altijd <em>vóór</em> <code>rotate()</code> om een object om zijn eigen middelpunt te draaien, niet om de linkerbovenhoek.</p>
+
+    <h3>Opgepast: translate() stapelt op</h3>
+    <p>Transformaties zijn <strong>cumulatief</strong>. Twee keer <code>translate(100, 0)</code> is hetzelfde als één keer <code>translate(200, 0)</code>. Dat levert verrassingen op als je het niet verwacht:</p>
+    <pre><code>// FOUT: de cirkel schuift elk frame 100px verder op!
+function draw() {
+  background(245);
+  translate(100, 200);
+  circle(0, 0, 40);
+  translate(100, 0);   // Stapelt op de vorige: nu op (200, 200)
+  circle(0, 0, 40);    // Deze cirkel staat op x=200, niet op x=100
+}</code></pre>
+    <pre><code>// GOED: met push/pop begint elke transformatie schoon
+function draw() {
+  background(245);
+
+  push();
+    translate(100, 200);
+    circle(0, 0, 40);   // Op (100, 200)
+  pop();
+
+  push();
+    translate(200, 200);
+    circle(0, 0, 40);   // Op (200, 200) - onafhankelijk
+  pop();
+}</code></pre>
+    <p>Onthoud: zonder <code>push()</code>/<code>pop()</code> is elke <code>translate()</code> en <code>rotate()</code> een <em>extra verschuiving</em> bovenop alles wat ervoor kwam.</p>
 </section>
 
 <section>
@@ -158,26 +184,42 @@ function draw() {
 
 <div class="p5-example">
     <h3>Voorbeeld: Lissajous en Easing</h3>
-    <p>Beweeg je muis — de cirkel volgt vloeiend met easing:</p>
+    <p>Beweeg je muis - de cirkel volgt vloeiend met easing:</p>
     <div class="p5-example-container">
         <div class="p5-canvas-wrapper" id="example-animatie"></div>
     </div>
 </div>
 
 <section>
+    <h2>Je animatie exporteren</h2>
+    <p>Wil je een stilstaand frame of een reeks frames opslaan? Gebruik <code>saveCanvas()</code> om een PNG te exporteren, of combineer het met <code>frameCount</code> voor frame-per-frame opnames:</p>
+    <pre><code>// Eén frame opslaan (bv. bij muisklik)
+function mousePressed() {
+  saveCanvas('mijn-frame', 'png');
+}
+
+// Meerdere frames opslaan (voor een GIF of video)
+function draw() {
+  // ... je animatie ...
+  saveCanvas('frame-' + frameCount, 'png');
+}</code></pre>
+    <p>Meer over afbeeldingen laden, filters en pixels vind je bij <a href="#afbeeldingen">Afbeeldingen</a>.</p>
+</section>
+
+<section>
     <h2>Probeer ook in de editor</h2>
-    <p>Bekijk deze sketches uit de cursus — van eenvoudig naar complex:</p>
+    <p>Bekijk deze sketches uit de cursus - van eenvoudig naar complex:</p>
     <ul>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/OFEBVjDn7" target="_blank" rel="noopener">LES_animatie_draw_loop</a> — het basisprincipe van de draw loop</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/TzcmTQktg" target="_blank" rel="noopener">LES_animatie_bal</a> — stuiterende bal stap voor stap opgebouwd</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/WLc8RICgG" target="_blank" rel="noopener">LES_Bounce_vector</a> — bouncing met vectoren</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/mxpF1N6Da" target="_blank" rel="noopener">LES_DEMO_graden, hoeken, sin en cos</a> — visuele uitleg van hoeken en sinusgolf</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/HJA0O8-R-" target="_blank" rel="noopener">LES_SIN_simple_bounce</a> — sin() als bounce-beweging</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/ina1wx1Zz" target="_blank" rel="noopener">LES_sin_op_x</a> / <a href="https://editor.p5js.org/seb_prjcts.be/sketches/Affhp0IfB" target="_blank" rel="noopener">LES_sin_wave_op_y</a> — sinusgolf op X- en Y-as</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/jts1Vr0Hu" target="_blank" rel="noopener">LES_sin_cos_cirkel</a> — cirkelbeweging via sin en cos</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/XPeXnrj7lo" target="_blank" rel="noopener">LES_vertex+sin</a> — vertex-punten animeren met sin()</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/_0uCkHU-p" target="_blank" rel="noopener">LES_Lissajous</a> — Lissajous-figuur met instelbare frequenties</li>
-        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/vUFjL_FMt" target="_blank" rel="noopener">LES_Lissajous_Spiraal</a> — Lissajous als spiraalvorm</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/OFEBVjDn7" target="_blank" rel="noopener">LES_animatie_draw_loop</a> - het basisprincipe van de draw loop</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/TzcmTQktg" target="_blank" rel="noopener">LES_animatie_bal</a> - stuiterende bal stap voor stap opgebouwd</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/WLc8RICgG" target="_blank" rel="noopener">LES_Bounce_vector</a> - bouncing met vectoren</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/mxpF1N6Da" target="_blank" rel="noopener">LES_DEMO_graden, hoeken, sin en cos</a> - visuele uitleg van hoeken en sinusgolf</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/HJA0O8-R-" target="_blank" rel="noopener">LES_SIN_simple_bounce</a> - sin() als bounce-beweging</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/ina1wx1Zz" target="_blank" rel="noopener">LES_sin_op_x</a> / <a href="https://editor.p5js.org/seb_prjcts.be/sketches/Affhp0IfB" target="_blank" rel="noopener">LES_sin_wave_op_y</a> - sinusgolf op X- en Y-as</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/jts1Vr0Hu" target="_blank" rel="noopener">LES_sin_cos_cirkel</a> - cirkelbeweging via sin en cos</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/XPeXnrj7lo" target="_blank" rel="noopener">LES_vertex+sin</a> - vertex-punten animeren met sin()</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/_0uCkHU-p" target="_blank" rel="noopener">LES_Lissajous</a> - Lissajous-figuur met instelbare frequenties</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/vUFjL_FMt" target="_blank" rel="noopener">LES_Lissajous_Spiraal</a> - Lissajous als spiraalvorm</li>
     </ul>
 </section>
 

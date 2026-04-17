@@ -1,0 +1,339 @@
+<div class="intro">
+    <p>'Vibe coding' is a way of programming where you describe what you want to make in plain language - and an AI generates the code for you. You don't have to write every line yourself: you describe, test, give feedback, and refine. The term was introduced in February 2025 by <strong>Andrej Karpathy</strong> (co-founder of OpenAI).</p>
+</div>
+
+<section>
+    <h2>How does it work?</h2>
+
+    <h3>1. Describe your idea</h3>
+    <p>Formulate as concretely as possible what you want to make:</p>
+    <pre><code>"Maak een p5.js-sketch met 50 gekleurde cirkels die
+van het scherm stuiteren. Elke cirkel heeft een
+willekeurige kleur en grootte."</code></pre>
+    <p>The more precise your description, the better the result. Think about: what does it do, what does it look like, what happens during interaction?</p>
+
+    <h3>2. Let the AI generate</h3>
+    <p>The AI creates working code based on your description. This is what Copilot generated for the prompt above:</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Gegenereerd door Copilot met de prompt hierboven
+let cirkels = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 50; i++) {
+    cirkels.push({
+      x: random(width),
+      y: random(height),
+      grootte: random(10, 40),
+      vx: random(-2, 2),
+      vy: random(-2, 2),
+      kleur: color(random(255), random(255), random(255))
+    });
+  }
+}
+
+function draw() {
+  background(30);
+  noStroke();
+
+  for (let c of cirkels) {
+    fill(c.kleur);
+    circle(c.x, c.y, c.grootte);
+
+    c.x += c.vx;
+    c.y += c.vy;
+
+    // Stuiteren tegen de randen
+    if (c.x < c.grootte / 2 || c.x > width - c.grootte / 2) c.vx *= -1;
+    if (c.y < c.grootte / 2 || c.y > height - c.grootte / 2) c.vy *= -1;
+  }
+}
+        </script>
+    </div>
+    <p>It works, but it's not perfect yet. The colors are random and the circles pass through each other.</p>
+
+    <h3>3. Refine iteratively</h3>
+    <p>Test the result and give feedback in a follow-up prompt:</p>
+    <pre><code>"De cirkels bewegen, maar ik wil dat ze van
+elkaar afbotsen in plaats van door elkaar heen
+te gaan."</code></pre>
+    <p>You repeat this until the result is right. Each round brings it closer to what you had in mind.</p>
+</section>
+
+<section>
+    <h2>Free vibe coding tools</h2>
+    <p>There are many AI coding tools, but not all of them are free. These are the best options you can use as a student without paying:</p>
+
+    <h3>Google AI Studio + Antigravity</h3>
+    <p>Google's all-in-one platform: describe an app and get working code with database and hosting via Firebase. Runs on Gemini.</p>
+    <ul>
+        <li>Fully in the browser, no installation needed</li>
+        <li>Can generate complete web apps with backend and database</li>
+        <li><strong>Free limit:</strong> ~20 requests per day (significantly reduced since March 2026)</li>
+        <li><a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a></li>
+    </ul>
+
+    <h3>Bolt.new</h3>
+    <p>Describe what you want and get a running app directly in the browser. Open source and very fast for prototypes.</p>
+    <ul>
+        <li>Generates full-stack apps via WebContainers - everything runs in your browser</li>
+        <li>Open source: you can also run it locally</li>
+        <li><strong>Free limit:</strong> 1M tokens/month, 300K/day (~3-8 prompts per day)</li>
+        <li><a href="https://bolt.new" target="_blank">bolt.new</a></li>
+    </ul>
+
+    <h3>Replit</h3>
+    <p>Online IDE with AI assistant. Ideal for learning: you can see the code and directly edit and publish it online.</p>
+    <ul>
+        <li>Works fully in the browser, including hosting</li>
+        <li>Real-time collaboration possible (like Google Docs)</li>
+        <li><strong>Free limit:</strong> limited daily AI credits + 1,200 minutes of dev time per month</li>
+        <li><a href="https://replit.com" target="_blank">replit.com</a></li>
+    </ul>
+
+    <h3>Lovable</h3>
+    <p>Describe an app in plain language and get both code and a nice UI. Strong for visual prototypes and MVPs.</p>
+    <ul>
+        <li>Generates code and design at the same time</li>
+        <li>Free projects are publicly visible</li>
+        <li><strong>Free limit:</strong> 5 credits per day (30 per month)</li>
+        <li><a href="https://lovable.dev" target="_blank">lovable.dev</a></li>
+    </ul>
+
+    <h3>v0 (Vercel)</h3>
+    <p>Specialized in generating UI components. Ideal when you need a nice design for a web page.</p>
+    <ul>
+        <li>Strong in React/Next.js components with Tailwind CSS</li>
+        <li>Less suited for complete apps, but great for individual parts</li>
+        <li><strong>Free limit:</strong> limited number of generations per day</li>
+        <li><a href="https://v0.dev" target="_blank">v0.dev</a></li>
+    </ul>
+
+    <h3>GitHub Copilot</h3>
+    <p>AI assistant in your code editor (VS Code). Suggests code as you type and can generate entire functions based on a comment line.</p>
+    <ul>
+        <li>Works best when you already have basic coding knowledge</li>
+        <li>Free for students via <a href="https://education.github.com" target="_blank">GitHub Education</a></li>
+        <li>Integrated in VS Code - no separate tool needed</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Comparison</h2>
+    <p>All tools below have a free version. The limits apply per day or per month.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Tool</th>
+                <th>Type</th>
+                <th>Free limit</th>
+                <th>Best for</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>AI Studio</strong></td>
+                <td>Full-stack in browser</td>
+                <td>~20 requests/day</td>
+                <td>Complete apps with backend</td>
+            </tr>
+            <tr>
+                <td><strong>Bolt.new</strong></td>
+                <td>Full-stack in browser</td>
+                <td>~3-8 prompts/day</td>
+                <td>Quick prototypes</td>
+            </tr>
+            <tr>
+                <td><strong>Replit</strong></td>
+                <td>Online IDE + AI</td>
+                <td>Limited credits/day</td>
+                <td>Learning, collaborating</td>
+            </tr>
+            <tr>
+                <td><strong>Lovable</strong></td>
+                <td>App builder</td>
+                <td>5 credits/day</td>
+                <td>Visual prototypes</td>
+            </tr>
+            <tr>
+                <td><strong>v0</strong></td>
+                <td>UI generator</td>
+                <td>Limited/day</td>
+                <td>Beautiful components</td>
+            </tr>
+            <tr>
+                <td><strong>Copilot</strong></td>
+                <td>Code editor plugin</td>
+                <td>Free for students</td>
+                <td>Writing code in VS Code</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Tip:</strong> combine tools. For example, use Lovable or v0 for the design, and Replit or Bolt to make it functional.</p>
+</section>
+
+<section>
+    <h2>Vibe coding with p5.js</h2>
+    <p>For p5.js sketches you don't always need a heavy tool. A chatbot like Copilot, ChatGPT or Claude can generate p5.js code just fine - you simply paste the result into the editor on this site or in the <a href="https://editor.p5js.org" target="_blank">online p5.js editor</a>.</p>
+
+    <h3>Good prompts for p5.js</h3>
+    <p>The more specific your prompt, the better the result. Compare:</p>
+    <pre><code>// Vaag - AI moet te veel gokken
+"Maak iets met cirkels"
+
+// Beter - concreet en visueel
+"Maak een p5.js-sketch van 600x400 pixels met
+20 cirkels die willekeurig over het canvas bewegen.
+Elke cirkel heeft een andere kleur uit een
+analoog kleurenschema rond blauw. Als twee cirkels
+botsen, wisselen ze van kleur."</code></pre>
+
+    <h3>Tips for better results</h3>
+    <ul>
+        <li><strong>Always mention "p5.js"</strong> in your prompt - otherwise you sometimes get vanilla Canvas code</li>
+        <li><strong>Include canvas size</strong> - "600x400 pixels" prevents guesswork</li>
+        <li><strong>Describe behavior</strong>, not just appearance - "bounces off", "follows the mouse", "fades slowly"</li>
+        <li><strong>Ask for explanation</strong> - "Add comments that explain what each step does"</li>
+        <li><strong>Iterate step by step</strong> - start simple and add features in follow-up prompts</li>
+    </ul>
+
+    <h3>Example: one prompt, working result</h3>
+    <p>This complete sketch was generated with a single prompt: <em>"Maak een p5.js-sketch met deeltjes die de muis volgen en een kleurenspoor achterlaten."</em></p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Vibe-coded: deeltjes die de muis volgen
+let deeltjes = [];
+
+function setup() {
+  createCanvas(600, 400);
+  background(20);
+}
+
+function draw() {
+  // Licht vervagen voor spooreffect
+  background(20, 15);
+
+  // Nieuw deeltje bij muispositie
+  if (mouseX > 0 && mouseY > 0) {
+    deeltjes.push({
+      x: mouseX + random(-5, 5),
+      y: mouseY + random(-5, 5),
+      vx: random(-1, 1),
+      vy: random(-2, 0),
+      grootte: random(3, 10),
+      kleur: color(
+        map(mouseX, 0, width, 100, 255),
+        map(mouseY, 0, height, 50, 200),
+        200
+      ),
+      levensduur: 255
+    });
+  }
+
+  // Teken en update deeltjes
+  noStroke();
+  for (let i = deeltjes.length - 1; i >= 0; i--) {
+    let d = deeltjes[i];
+    d.kleur.setAlpha(d.levensduur);
+    fill(d.kleur);
+    circle(d.x, d.y, d.grootte);
+
+    d.x += d.vx;
+    d.y += d.vy;
+    d.levensduur -= 3;
+
+    // Verwijder dode deeltjes
+    if (d.levensduur <= 0) {
+      deeltjes.splice(i, 1);
+    }
+  }
+
+  // Beperk aantal deeltjes
+  if (deeltjes.length > 200) {
+    deeltjes.splice(0, deeltjes.length - 200);
+  }
+}
+        </script>
+    </div>
+    <p>Move your mouse over the canvas. Notice: the AI chose a fading trail, color based on mouse position, and a lifespan system on its own. Can you improve it? Try adding gravity or adjusting the colors.</p>
+
+    <h3>Which tool for p5.js?</h3>
+    <ul>
+        <li><strong>Copilot / ChatGPT / Claude</strong> - the fastest: ask for a sketch, paste the code into the editor. No setup needed.</li>
+        <li><strong>Replit</strong> - handy if you want a full p5.js project with multiple files and online hosting.</li>
+        <li><strong>Bolt.new</strong> - if you want to build a complete website around your p5.js sketch (e.g. a portfolio).</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Vibe coding vs. traditional programming</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Aspect</th>
+                <th>Traditional</th>
+                <th>Vibe coding</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Entry barrier</td><td>High</td><td>Low</td></tr>
+            <tr><td>Control over code</td><td>Full</td><td>Limited</td></tr>
+            <tr><td>Prototyping speed</td><td>Slow</td><td>Fast</td></tr>
+            <tr><td>Understanding of the code</td><td>Full</td><td>Variable</td></tr>
+            <tr><td>Suitable for complex systems</td><td>Yes</td><td>With caution</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Critical evaluation</h2>
+    <p>AI-generated code often works at first glance, but is it actually <em>good</em>? Learning to evaluate what the AI produces is at least as important as being able to generate it.</p>
+
+    <h3>What to look for?</h3>
+    <ul>
+        <li><strong>Does it work?</strong> - Does the code do what you asked? Test thoroughly, not just the happy path.</li>
+        <li><strong>Do you understand it?</strong> - Can you explain every line? If not, ask the AI for an explanation or simplification.</li>
+        <li><strong>Is it efficient?</strong> - AI sometimes generates unnecessary complexity. Can it be simpler?</li>
+        <li><strong>Are there bugs?</strong> - AI makes subtle mistakes: wrong variable names, loops that go one step too far, colors that don't match.</li>
+    </ul>
+
+    <h3>Exercise: evaluate this sketch</h3>
+    <p>Suppose you asked an AI: "Make a p5.js sketch with falling snowflakes." You get the code below. Evaluate: what is good? What is missing? What would you improve?</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// AI-gegenereerde code - beoordeel kritisch!
+let vlokken = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 100; i++) {
+    vlokken.push({
+      x: random(width),
+      y: random(-height, 0),
+      grootte: random(2, 8),
+      snelheid: random(1, 3)
+    });
+  }
+}
+
+function draw() {
+  background(30, 40, 60);
+  fill(255);
+  noStroke();
+
+  for (let v of vlokken) {
+    circle(v.x, v.y, v.grootte);
+    v.y += v.snelheid;
+    if (v.y > height) {
+      v.y = 0;
+      v.x = random(width);
+    }
+  }
+}
+        </script>
+    </div>
+    <p>Think about: is this convincing as snow? What is missing? Maybe horizontal movement, variation in transparency, or a softer color palette? Try to improve the code.</p>
+</section>

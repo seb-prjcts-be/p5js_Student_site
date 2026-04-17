@@ -1,0 +1,116 @@
+<div class="intro">
+    <p>A quine is a program that produces its own source code without opening a file. It's a small, strange, and surprisingly deep idea about self-reference in code.</p>
+</div>
+
+<section>
+    <h2>Why this concept is special</h2>
+    <p>Most code does something outside of itself: drawing, calculating, reacting, or simulating. A quine turns that around. The program itself becomes the subject.</p>
+    <p><strong>Think about it:</strong> can a system describe itself without getting help from the outside?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>the difference between code and data</li>
+        <li>how strings can contain a description of code</li>
+        <li>what self-reference means in computer science</li>
+        <li>why a clever idea is sometimes more important than lots of code</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Self-reference</h2>
+    <p>The core problem: how do you write a program that describes itself without simply reading a file? You can't use <code>readFile()</code> or a network. So the code must carry itself as data.</p>
+    <p>The trick is <strong>quoting</strong>: you store part of the code in a string and use that string to reconstruct the complete source code.</p>
+    <pre><code>// Pseudocode quine
+let s = "let s = X; print('let s = ' + quote(s) + '; ' + s)";
+print("let s = " + quote(s) + "; " + s);</code></pre>
+</section>
+
+<section>
+    <h2>An accessible version in JavaScript</h2>
+    <p>In JavaScript every function has a built-in way to read its own source code: <code>function.toString()</code>.</p>
+    <pre><code>function setup() {
+  let code = setup.toString();
+  console.log(code);
+}</code></pre>
+    <p>This isn't a perfect quine, because you're only reading the function and not the complete program. But didactically it's a strong stepping stone.</p>
+
+    <h3>Self-knowledge on the canvas</h3>
+    <p>In p5.js you can have a function literally draw itself:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  background(20);
+
+  let code = setup.toString();
+  let lines = code.split("\n");
+
+  fill(140, 230, 120);
+  textFont("monospace");
+  textSize(11);
+
+  lines.forEach(function(line, i) {
+    text(line, 10, 20 + i * 15);
+  });
+}</code></pre>
+</section>
+
+<section>
+    <h2>Why this is more than a joke</h2>
+    <p>A quine opens a door to deeper questions: what is a description, what is a representation, and where is the boundary between system and meta-system? That's why this topic belongs among creative code concepts: it's code as philosophy.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>First use the example with <code>toString()</code>. Then make the code not only display itself, but also do something extra: draw a grid, show a color gradient, or highlight keywords. This way the source code itself becomes visual material.</p>
+</section>
+
+<section>
+    <h2>Try It Yourself</h2>
+    <p>Run the code. The <code>setup()</code> function draws itself on the canvas. Adjust the text color or size and see if the display changes along with it.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  background(20);
+  noLoop();
+
+  let code = setup.toString();
+  let lines = code.split("\n");
+
+  fill(140, 230, 120);
+  textFont("monospace");
+  textSize(11);
+  noStroke();
+
+  lines.forEach(function(line, i) {
+    text(line, 10, 22 + i * 15);
+  });
+}
+
+function draw() {}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>The demo shows the source code of the sketch itself, with simple color accents.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-quine"></div>
+        </div>
+    </div>
+</section>
+
+<section>
+    <h2>Real quines</h2>
+    <p>A full quine in JavaScript looks more complicated. You don't need to memorize it. What matters is that you understand why it works:</p>
+    <pre><code>(function q(){
+  let s = "(function q(){\n  let s = " +
+          JSON.stringify(s) + ";\n  " + q.toString().split("\n").slice(2,-1).join("\n  ") +
+          "\n})();";
+  console.log(s);
+})();</code></pre>
+    <p>Quines exist in almost every programming language. They show that code can not only execute itself, but also represent itself.</p>
+</section>

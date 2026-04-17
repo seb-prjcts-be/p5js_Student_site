@@ -1,0 +1,176 @@
+<div class="intro">
+    <p>p5.js has built-in functions to retrieve the current date and time. With these you can build clocks, create countdowns, or tie your sketch to the time of day.</p>
+</div>
+
+<section>
+    <h2>Getting the date and time</h2>
+    <p>Six functions give you the current system time - they are re-evaluated each time you call them:</p>
+    <pre><code>function draw() {
+  let j = year();    // e.g. 2026
+  let mo = month();  // 1 – 12
+  let d = day();     // 1 – 31
+
+  let u = hour();    // 0 – 23
+  let m = minute();  // 0 – 59
+  let s = second();  // 0 – 59
+}</code></pre>
+
+    <p>Combine them for a digital clock:</p>
+    <pre><code>function draw() {
+  background(20);
+  fill(255);
+  textSize(48);
+  textAlign(CENTER, CENTER);
+
+  // Add a leading zero if the number is less than 10
+  let u = nf(hour(), 2);
+  let m = nf(minute(), 2);
+  let s = nf(second(), 2);
+
+  text(u + ":" + m + ":" + s, width / 2, height / 2);
+}</code></pre>
+
+    <p><code>nf(value, 2)</code> ensures a fixed width of 2 digits - so <code>9</code> is displayed as <code>09</code>.</p>
+</section>
+
+<section>
+    <h2>Converting time to an angle</h2>
+    <p>An analog clock works by translating seconds, minutes, and hours into angles. Use <code>map()</code> to go from a time range to an angle range.</p>
+
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+}
+
+function draw() {
+  background(20);
+  translate(width / 2, height / 2);
+
+  let u = hour() % 12;   // 0 – 11
+  let m = minute();       // 0 – 59
+  let s = second();       // 0 – 59
+
+  // -90 so that 0 is at the top (12 o'clock) instead of the right
+  let sAngle = map(s, 0, 60, 0, 360) - 90;
+  let mAngle = map(m, 0, 60, 0, 360) - 90;
+  let hAngle = map(u + m / 60, 0, 12, 0, 360) - 90;
+
+  // Second hand
+  stroke(255, 60, 60);
+  line(0, 0, cos(sAngle) * 130, sin(sAngle) * 130);
+
+  // Minute hand
+  stroke(200);
+  strokeWeight(3);
+  line(0, 0, cos(mAngle) * 100, sin(mAngle) * 100);
+
+  // Hour hand
+  stroke(255);
+  strokeWeight(5);
+  line(0, 0, cos(hAngle) * 65, sin(hAngle) * 65);
+}</code></pre>
+
+    <h3>Smooth second hand</h3>
+    <p><code>second()</code> jumps one step every second. For smooth motion use <code>millis()</code>:</p>
+    <pre><code>// millis() returns milliseconds - divide by 1000 for seconds
+let smoothSec = (millis() / 1000) % 60;
+let sAngle = map(smoothSec, 0, 60, 0, 360) - 90;</code></pre>
+</section>
+
+<section>
+    <h2>John Maeda - 12 o'clocks (1996)</h2>
+    <p>In 1996 the American designer and programmer <strong>John Maeda</strong> created a series of twelve small programs - each a different way to display time. He called them <em>12 o'clocks</em>.</p>
+    <p>None of the twelve looks like an ordinary clock. One shows only dots that shift. Another lets concentric circles pulse to the rhythm of the seconds. Yet another draws lines that together express the hour as an abstract pattern.</p>
+    <p>Maeda's thesis: <em>a clock is an interface for time</em> - and an interface can be reinvented endlessly. The only constraint is that the system must correctly show the current time. How you do that is entirely up to you.</p>
+    <p>12 o'clocks was one of the earliest examples of code as a design medium. Maeda worked in Java at the time; today you do the same thing in p5.js.</p>
+</section>
+
+<section>
+    <h2>The challenge: make your own clock</h2>
+    <p>Create a sketch that shows the current time - but do it in a way that looks nothing like anything you've seen before.</p>
+
+    <p>What you can use:</p>
+    <ul>
+        <li>Shapes, lines, points, curves</li>
+        <li>Color, transparency, gradients</li>
+        <li>Movement, rotation, scale</li>
+        <li>Grids, patterns, repetition with <code>for</code></li>
+        <li>Randomness via <code>random()</code> or <code>noise()</code></li>
+        <li>Text - with or without numbers</li>
+    </ul>
+
+    <p>What it must do:</p>
+    <ul>
+        <li>Correctly display the current time (hours, minutes, seconds)</li>
+        <li>Live in the loop - animation is not required, but is allowed</li>
+        <li>Show something you would dare to show Maeda</li>
+    </ul>
+
+    <p>Some ideas to break free from the standard clock:</p>
+    <ul>
+        <li>Use the time as a frequency for <code>sin()</code> or <code>cos()</code></li>
+        <li>Let the number of seconds determine the number of dots or shapes</li>
+        <li>Use color or transparency to encode hours and minutes</li>
+        <li>Build a grid where cells turn on and off based on the time</li>
+        <li>Let the background color slowly shift over the course of the day</li>
+    </ul>
+</section>
+
+<div class="p5-example">
+    <h3>Example: analog clock</h3>
+    <p>A clock with a smooth second hand and date display:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-datum-tijd"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Build your own clock</h2>
+    <p>Use this starter code as a foundation. Replace the hands with something that is entirely yours.</p>
+
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+}
+
+function draw() {
+  background(20);
+  translate(width / 2, height / 2);
+
+  let u = hour() % 12;
+  let m = minute();
+  let s = second();
+
+  // Clock face
+  noFill();
+  stroke(80);
+  circle(0, 0, 300);
+
+  // Second hand - try adjusting this!
+  let sAngle = map(s, 0, 60, 0, 360) - 90;
+  stroke(255, 60, 60);
+  strokeWeight(1);
+  line(0, 0, cos(sAngle) * 130, sin(sAngle) * 130);
+
+  // Minute hand
+  let mAngle = map(m, 0, 60, 0, 360) - 90;
+  stroke(180);
+  strokeWeight(3);
+  line(0, 0, cos(mAngle) * 100, sin(mAngle) * 100);
+
+  // Hour hand
+  let hAngle = map(u + m / 60, 0, 12, 0, 360) - 90;
+  stroke(255);
+  strokeWeight(5);
+  line(0, 0, cos(hAngle) * 65, sin(hAngle) * 65);
+
+  // Center dot
+  fill(255);
+  noStroke();
+  circle(0, 0, 10);
+}
+        </script>
+    </div>
+</section>

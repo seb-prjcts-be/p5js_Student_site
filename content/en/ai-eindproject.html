@@ -1,0 +1,183 @@
+<div class="intro">
+    <p>Everything comes together in your final project. You've gotten to know AI as an explainer, debugger, code generator and creative tool. Now it's your turn: make something where AI plays a conscious part - and show what you brought to it.</p>
+</div>
+
+<section>
+    <h2>The assignment</h2>
+    <p>Create a creative work in p5.js where AI plays a <strong>conscious role</strong>. This can be done in different ways:</p>
+    <ul>
+        <li><strong>AI as medium</strong> - Use ml5.js to make your sketch react to body, sound or image</li>
+        <li><strong>AI as co-author</strong> - Let AI generate code that you then adapt and make your own</li>
+        <li><strong>AI as subject</strong> - Create a work <em>about</em> AI: what it can do, what it can't, how it influences us</li>
+        <li><strong>AI as process</strong> - Document how you worked iteratively with AI to reach a result</li>
+    </ul>
+    <p>The form is free: an interactive sketch, an installation, a visual story, a generative artwork - as long as you can explain what role AI plays and which choices are yours.</p>
+</section>
+
+<section>
+    <h2>Optional starter projects</h2>
+    <p>No idea yet? These are <em>possible</em> starting points  - not required. Pick one or design your own project.</p>
+    <ul>
+        <li><strong>Halftone webcam</strong>  - Turn your webcam image into a grid of circles (or other shapes) based on brightness. Small project, big effect. Works well with iterative AI help per step: read the image, measure greyscale values, draw shapes, set a threshold.</li>
+        <li><strong>Body-paint</strong>  - Use BodyPose or HandPose (ml5.js) to draw with your body. The body becomes the brush.</li>
+        <li><strong>Generative portrait</strong>  - Combine FaceMesh with your own aesthetic: replace the face image with shapes, lines or colour fields that respond to your facial features.</li>
+        <li><strong>Sound-reactive image</strong>  - Make a sketch that reacts to your voice or music via SoundClassifier or an FFT analysis.</li>
+        <li><strong>AI as subject</strong>  - Make a sketch that <em>is about</em> AI: about data centres, training data, bias, or the ecological cost. Image as commentary.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Project setup</h2>
+    <p>A good project starts with a clear concept. Answer these questions before you start coding:</p>
+    <ol>
+        <li><strong>What do I want to make?</strong> - Describe your idea in two sentences.</li>
+        <li><strong>What role does AI play?</strong> - Is it a tool, a co-creator, a subject?</li>
+        <li><strong>What is my own contribution?</strong> - What do you add that the AI cannot?</li>
+        <li><strong>What do I need?</strong> - Which technologies, models or tools will I use?</li>
+        <li><strong>How do I show the result?</strong> - Screen, installation, video, live demo?</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Working time</h2>
+    <p>Plan your time realistically. Divide your work into manageable steps:</p>
+
+    <h3>Phase 1: concept</h3>
+    <ul>
+        <li>Develop and discuss your idea</li>
+        <li>Collect references (existing artworks, example code)</li>
+        <li>Check technical feasibility: does the model you want to use work?</li>
+    </ul>
+
+    <h3>Phase 2: build</h3>
+    <ul>
+        <li>Create basic version - focus on functionality, not aesthetics</li>
+        <li>Test AI integration</li>
+        <li>Iterate: refine, adjust, improve</li>
+    </ul>
+
+    <h3>Phase 3: finish</h3>
+    <ul>
+        <li>Visual refinement: colours, composition, timing</li>
+        <li>Handle edge cases: what if the webcam doesn't work? What if there's no sound?</li>
+        <li>Prepare presentation</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Presenting</h2>
+    <p>You present your final work to the class. A good presentation shows not only the <em>result</em>, but also the <em>process</em>.</p>
+
+    <h3>Structure for your presentation</h3>
+    <ol>
+        <li><strong>Show your work</strong> - Demo or video of the final result</li>
+        <li><strong>Tell what AI did</strong> - Which AI tools or models did you use? What did the AI generate?</li>
+        <li><strong>Tell what you did</strong> - Which choices did you make yourself? What did you adjust?</li>
+        <li><strong>Show the process</strong> - Show intermediate versions. How did it evolve?</li>
+        <li><strong>Reflect</strong> - What did you learn? What would you do differently?</li>
+    </ol>
+
+    <h3>Tips</h3>
+    <ul>
+        <li>Save screenshots of every iteration</li>
+        <li>Save your prompts - they tell the story of your collaboration with AI</li>
+        <li>Be honest about what did and didn't work</li>
+        <li>Practice your demo beforehand - technology can fail unexpectedly</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Documenting AI use</h2>
+    <p>In academic work you cite every source you use. The same applies to AI: if you worked with AI, note <strong>which model</strong> you used, <strong>when</strong>, and <strong>what your prompt was</strong>. This isn't a formality  - it makes your work honest and reproducible, and it helps you see later how an idea grew.</p>
+    <p>You do this <strong>in the code itself</strong>, using <code>//</code> comments right above the block that was influenced by AI. No separate document, no side text file  - right next to the code it's about, so context and source always travel together.</p>
+
+    <h3>Minimum citation</h3>
+    <p>For every AI contribution in your project, note at least:</p>
+    <ul>
+        <li><strong>Model</strong>  - e.g. ChatGPT-5, Claude Sonnet 4.6, Gemini 2.5</li>
+        <li><strong>Date</strong>  - when you had the conversation (AI answers change over time)</li>
+        <li><strong>Prompt</strong>  - the question you asked, verbatim</li>
+        <li><strong>What you did with it</strong>  - typed out, adapted, ignored, or used only as inspiration</li>
+    </ul>
+
+    <h3>Example</h3>
+    <pre><code>// AI source
+// Model: ChatGPT-5 (free tier)
+// Date: 2026-04-17
+// Prompt: "How do I make a halftone effect from a webcam
+//          image in p5.js, using circles instead of pixels?"
+// Used: base idea typed out, threshold and colour palette
+//       adjusted myself.
+
+function draw() {
+  // your code
+}</code></pre>
+    <p>You can refer to these comment blocks in your presentation.</p>
+
+    <h3>Why this matters</h3>
+    <ul>
+        <li><strong>Honesty</strong>  - you don't claim something as fully your own when AI contributed</li>
+        <li><strong>Learning</strong>  - saving your prompts shows you which questions gave good answers</li>
+        <li><strong>Reproducibility</strong>  - someone else can understand and retrace your process</li>
+        <li><strong>Critical distance</strong>  - documenting forces you to choose consciously instead of passively accepting</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Reflection</h2>
+    <p>After the presentations, it's time to look back. Not just at your own work, but at the entire journey.</p>
+
+    <h3>Questions to think about</h3>
+    <ul>
+        <li>When was AI most useful to you? When did it get in the way?</li>
+        <li>How has your image of AI changed compared to the beginning?</li>
+        <li>Can you feel the difference between something the AI came up with and something that came from you?</li>
+        <li>Would you continue using AI in your creative work in the future? How?</li>
+        <li>What does "authorship" mean when AI collaborates?</li>
+    </ul>
+
+    <h3>The core</h3>
+    <p>AI is a tool - an extraordinarily powerful tool, but still a tool. The value lies not in what the AI can do, but in what <strong>you do with it</strong>. Your ideas, your choices, your aesthetics - that's what makes the difference between generated content and creative work.</p>
+</section>
+
+<section>
+    <h2>Assessment criteria</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Criterion</th>
+                <th>Description</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>Concept</strong></td>
+                <td>Is the idea clear and original? Does it fit the theme of AI &amp; creativity?</td>
+            </tr>
+            <tr>
+                <td><strong>AI integration</strong></td>
+                <td>Is AI used in a conscious and meaningful way?</td>
+            </tr>
+            <tr>
+                <td><strong>Own contribution</strong></td>
+                <td>Are there clear personal choices? Is the work more than just AI output?</td>
+            </tr>
+            <tr>
+                <td><strong>Technical execution</strong></td>
+                <td>Does the sketch work? Is the code well-maintained?</td>
+            </tr>
+            <tr>
+                <td><strong>Presentation</strong></td>
+                <td>Can you explain what you made, why, and what the role of AI was?</td>
+            </tr>
+            <tr>
+                <td><strong>Process</strong></td>
+                <td>Is the iterative process visible? Are intermediate versions saved?</td>
+            </tr>
+            <tr>
+                <td><strong>AI attribution</strong></td>
+                <td>Are the models, dates and prompts used documented? Is it clear what AI contributed?</td>
+            </tr>
+        </tbody>
+    </table>
+</section>

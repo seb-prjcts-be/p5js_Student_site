@@ -9,6 +9,13 @@
 </section>
 
 <section>
+    <h2>Welke p5.js-versie?</h2>
+    <p>Deze site gebruikt <strong>p5.js 2.2.3</strong>. De grootste verandering tegenover 1.x: assets (afbeeldingen, geluid, fonts) laad je niet meer in <code>preload()</code>, maar met <code>async function setup()</code> en <code>await loadImage(...)</code>. Je ziet dit patroon terug op de pagina's Afbeeldingen, Geluid en Text & typografie.</p>
+    <p>De officiële online editor op <a href="https://editor.p5js.org" target="_blank" rel="noopener">editor.p5js.org</a> staat standaard nog op p5.js 1.x tot augustus 2026. Wil je daar met 2.x werken, kies dan expliciet een 2.x-versie in de editor, of voeg <code>?version=2.2.3</code> toe aan de URL.</p>
+    <p>In oudere tutorials zie je vaak nog <code>preload()</code>. Die code werkt niet meer zonder aanpassing in 2.x.</p>
+</section>
+
+<section>
     <h2>Van Processing naar p5.js</h2>
     <p>p5.js is de JavaScript-versie van Processing. Het werd ontwikkeld door Lauren McCarthy en een community van ontwikkelaars. Het belangrijkste verschil:</p>
     <ul>
@@ -39,7 +46,7 @@ console.log(mouseX);  // Toont de muispositie</code></pre>
     <p>Je kunt de console ook gebruiken als rekenmachine: typ een berekening in en druk op Enter.</p>
 
     <h3>Vriendelijke foutmeldingen</h3>
-    <p>Het <strong>Friendly Error System</strong> van p5.js geeft begrijpelijke foutmeldingen in eenvoudige taal — inclusief een hint wat er mis is en hoe je het kunt oplossen. Als er een fout in je code zit, lees de console dus aandachtig!</p>
+    <p>Het <strong>Friendly Error System</strong> van p5.js geeft begrijpelijke foutmeldingen in eenvoudige taal - inclusief een hint wat er mis is en hoe je het kunt oplossen. Als er een fout in je code zit, lees de console dus aandachtig!</p>
     <p>Wil je de echte browser-ontwikkelaarsconsole zien? Druk op <kbd>F12</kbd> of <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd>.</p>
 </section>
 
@@ -58,11 +65,11 @@ console.log(mouseX);  // Toont de muispositie</code></pre>
     <h2>Schetsen bewaren en organiseren</h2>
     <p>In de online editor worden je schetsen automatisch opgeslagen als je bent ingelogd. Toch loont het de moeite om goede gewoontes aan te leren:</p>
     <ul>
-        <li><strong>Gebruik duidelijke namen</strong> — geen "sketch_01" maar iets als "LES_kleur_rainbow"</li>
-        <li><strong>Geen spaties</strong> in bestandsnamen — gebruik een underscore <code>_</code> of koppelteken <code>-</code></li>
+        <li><strong>Gebruik duidelijke namen</strong> - geen "sketch_01" maar iets als "LES_kleur_rainbow"</li>
+        <li><strong>Geen spaties</strong> in bestandsnamen - gebruik een underscore <code>_</code> of koppelteken <code>-</code></li>
         <li><strong>Gebruik versienummers</strong> als je experimenten bijhoudt: <code>_v01</code>, <code>_v02</code></li>
-        <li><strong>Organiseer in collecties</strong> — de editor ondersteunt mappen per project of thema</li>
-        <li><strong>Maak regelmatig back-ups</strong> — download de bestanden lokaal voor langetermijnsprojecten</li>
+        <li><strong>Organiseer in collecties</strong> - de editor ondersteunt mappen per project of thema</li>
+        <li><strong>Maak regelmatig back-ups</strong> - download de bestanden lokaal voor langetermijnsprojecten</li>
     </ul>
 </section>
 
@@ -78,7 +85,7 @@ console.log(mouseX);  // Toont de muispositie</code></pre>
     <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
-  &lt;script src="https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js"&gt;&lt;/script&gt;
+  &lt;script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js"&gt;&lt;/script&gt;
   &lt;script src="sketch.js"&gt;&lt;/script&gt;
 &lt;/head&gt;
 &lt;body&gt;

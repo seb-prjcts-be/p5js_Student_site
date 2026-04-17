@@ -6,6 +6,9 @@
 (function() {
     'use strict';
 
+    const P5_VERSION = '2.2.3';
+    const P5_CDN_URL = `https://cdn.jsdelivr.net/npm/p5@${P5_VERSION}/lib/p5.min.js`;
+
     // Editor instances opslaan
     const editors = new Map();
 
@@ -46,6 +49,11 @@
         }
 
         // Maak editor HTML structuur
+        const pageLang = document.documentElement.getAttribute('data-lang') || 'nl';
+        const versionLabel = pageLang === 'en'
+            ? `Running on p5.js ${P5_VERSION}`
+            : `Draait op p5.js ${P5_VERSION}`;
+
         container.innerHTML = `
             <div class="p5-editor-container">
                 <div class="p5-editor-controls">
@@ -60,6 +68,7 @@
                         <iframe class="p5-editor-preview" id="${editorId}-preview"></iframe>
                     </div>
                 </div>
+                <div class="p5-editor-footer">${versionLabel}</div>
             </div>
         `;
 
@@ -84,11 +93,12 @@
             // Escape code voor gebruik in HTML
             const escapedCode = code.replace(/\\/g, '\\\\').replace(/`/g, '\\`').replace(/\${/g, '\\${');
             
+            const currentLang = document.documentElement.getAttribute('data-lang') || 'nl';
             const html = `<!DOCTYPE html>
-<html>
+<html lang="${currentLang}">
 <head>
 <meta charset="UTF-8">
-<script src="https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js"></script>
+<script src="${P5_CDN_URL}"></script>
 <style>
 body { margin: 0; padding: 0; overflow: hidden; }
 </style>
@@ -98,7 +108,7 @@ body { margin: 0; padding: 0; overflow: hidden; }
 try {
 ${escapedCode}
 } catch(error) {
-  document.body.innerHTML = '<div style="padding: 20px; font-family: monospace; color: #e74c3c;"><strong>Fout:</strong><br>' + error.message + '</div>';
+  document.body.innerHTML = '<div style="padding: 20px; font-family: monospace; color: #e74c3c;"><strong>' + (document.documentElement.lang === 'en' ? 'Error:' : 'Fout:') + '</strong><br>' + error.message + '</div>';
   console.error(error);
 }
 <\/script>

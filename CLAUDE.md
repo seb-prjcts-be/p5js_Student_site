@@ -22,7 +22,7 @@ A static Dutch-language p5.js educational website for students aged 16+. Built w
 | HTML | HTML5 semantic | Single `index.html` entry point |
 | CSS | CSS Grid + custom vars | `style.css` + `editor.css` |
 | JS | Vanilla ES6+ | `main.js` (router/data) + `editor.js` (IIFE module) |
-| p5.js | 2.2.1 via CDN | `cdn.jsdelivr.net` |
+| p5.js | 2.2.3 via CDN | `cdn.jsdelivr.net` |
 | Bootstrap | 5.3.3 via CDN | Layout utilities, loaded before `style.css` |
 | Strudel | ES module `strudel-mini.js` | For the Strudel live-coding lesson |
 
@@ -83,6 +83,13 @@ p5_cursus_site/
 │   ├── kleurenfamilie.html
 │   ├── quine.html
 │   ├── turtle.html
+│   ├── ai-introductie.html
+│   ├── ai-code-uitleg.html
+│   ├── ai-debuggen-prompting.html
+│   ├── ai-eigen-stijl.html
+│   ├── ai-ml5js.html
+│   ├── ai-ml5js-experiment.html
+│   ├── ai-eindproject.html
 │   ├── ai-ecologische-kost.html
 │   ├── ai-tools.html
 │   ├── ai-modellen.html
@@ -118,7 +125,10 @@ p5_cursus_site/
 │   ├── example-boids.js
 │   ├── example-circle-packing.js
 │   ├── example-kleurenfamilie.js
-│   └── example-quine.js
+│   ├── example-quine.js
+│   ├── example-ai-code-uitleg.js
+│   ├── example-ai-debuggen.js
+│   └── example-ai-ml5js.js
 ├── assets/             ← Afbeeldingen per onderwerp
 │   ├── generative-design/   (generative-byob.jpg, generative-demo.jpg, generative-fractal.jpg, generative-lines.png)
 │   ├── inspiratie/          (vera-molnar-desordres.png, vera-molnar-hero.jpg, vera-molnar-interruptions.png)
@@ -592,7 +602,14 @@ AI
   ├── AI & ecologische kost              (ai-ecologische-kost)
   ├── AI-tools en playgrounds            (ai-tools)
   ├── AI-modellen vergelijken            (ai-modellen)
-  └── Vibe coding                        (vibe-coding)
+  ├── Vibe coding                        (vibe-coding)
+  ├── Wat is educatieve AI?              (ai-introductie)
+  ├── AI legt code uit                   (ai-code-uitleg)
+  ├── Debuggen & prompting               (ai-debuggen-prompting)
+  ├── Eigen stijl bewaren                (ai-eigen-stijl)
+  ├── ml5.js introductie                 (ai-ml5js)
+  ├── ml5.js vrij experiment             (ai-ml5js-experiment)
+  └── Eindproject & reflectie            (ai-eindproject)
 
 Inspiratie
   ├── Vera Molnar — code zonder computer  (vera-molnar)
@@ -606,9 +623,9 @@ To add a new category: add its name to `navCategories[]` in `main.js`. Current o
 
 ## p5.js Version Notes
 
-### Current: p5.js 2.2.1
+### Current: p5.js 2.2.3
 
-- CDN: `https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js`
+- CDN: `https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js`
 - Loaded in `index.html` `<head>` — available globally on the page
 - Also loaded inside each editor iframe independently
 

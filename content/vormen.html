@@ -6,12 +6,12 @@
     <h2>Basiselementen: punt en lijn</h2>
     <p>De eenvoudigste vormen in p5.js zijn een punt en een lijn.</p>
 
-    <h3>point() — Punt</h3>
+    <h3>point() - Punt</h3>
     <p>Een punt is de eenvoudigste vorm, enkel gedefinieerd door zijn x- en y-coördinaten.</p>
     <pre><code>point(x, y);
 point(100, 100);</code></pre>
 
-    <h3>line() — Lijn</h3>
+    <h3>line() - Lijn</h3>
     <p>Een lijn heeft twee eindpunten, elk met een x- en y-coördinaat.</p>
     <pre><code>line(x1, y1, x2, y2);
 line(0, 100, 400, 100);</code></pre>
@@ -24,12 +24,12 @@ line(0, 100, 400, 100);</code></pre>
 <section>
     <h2>Ronde vormen: circle() en ellipse()</h2>
 
-    <h3>circle() — Cirkel</h3>
+    <h3>circle() - Cirkel</h3>
     <p>Een cirkel gebruik je wanneer breedte en hoogte gelijk zijn. Je geeft het middelpunt en de diameter op:</p>
     <pre><code>circle(x, y, diameter);
 circle(200, 200, 150);  // Cirkel met diameter 150</code></pre>
 
-    <h3>ellipse() — Ovaal</h3>
+    <h3>ellipse() - Ovaal</h3>
     <p>Een ellips heeft een aparte breedte en hoogte. Als ze gelijk zijn krijg je ook een cirkel:</p>
     <pre><code>ellipse(x, y, breedte, hoogte);
 ellipse(200, 200, 100, 100);  // Cirkel via ellipse
@@ -39,7 +39,7 @@ ellipse(200, 200, 150, 100);  // Ovaal</code></pre>
 <section>
     <h2>Rechthoekige vormen: square() en rect()</h2>
 
-    <h3>square() — Vierkant</h3>
+    <h3>square() - Vierkant</h3>
     <p>Een vierkant gebruik je wanneer alle zijden even lang zijn. Je geeft de linkerbovenhoek en de zijlengte op:</p>
     <pre><code>square(x, y, zijde);
 square(100, 100, 80);  // Vierkant van 80×80</code></pre>
@@ -48,12 +48,12 @@ square(100, 100, 80);  // Vierkant van 80×80</code></pre>
         <figcaption>Bij <code>square()</code> en <code>rect()</code> is <code>(x, y)</code> de <strong>linkerbovenhoek</strong>, niet het middelpunt.</figcaption>
     </figure>
 
-    <h3>rect() — Rechthoek</h3>
+    <h3>rect() - Rechthoek</h3>
     <p>Een rechthoek heeft aparte breedte en hoogte. Net als <code>square()</code> is <code>(x, y)</code> de linkerbovenhoek:</p>
     <pre><code>rect(x, y, breedte, hoogte);
 rect(100, 100, 200, 150);</code></pre>
 
-    <h3>rectMode(CENTER) — Middelpunt als ankerpunt</h3>
+    <h3>rectMode(CENTER) - Middelpunt als ankerpunt</h3>
     <p>Wil je liever het <em>midden</em> van de rechthoek als coördinaat gebruiken? Stel dan <code>rectMode(CENTER)</code> in via <code>setup()</code>:</p>
     <pre><code>function setup() {
   createCanvas(400, 400);
@@ -64,7 +64,7 @@ function draw() {
   rect(200, 200, 100, 60);  // Middelpunt op (200,200)
 }</code></pre>
 
-    <h3>triangle() — Driehoek</h3>
+    <h3>triangle() - Driehoek</h3>
     <p>Een driehoek heeft drie hoekpunten, elk met een x- en y-coördinaat:</p>
     <pre><code>triangle(x1, y1, x2, y2, x3, y3);
 triangle(200, 50, 100, 200, 300, 200);</code></pre>
@@ -96,7 +96,7 @@ triangle(200, 50, 100, 200, 300, 200);</code></pre>
 <section>
     <h2>arc() en quad()</h2>
 
-    <h3>arc() — Boog of Taartpunt</h3>
+    <h3>arc() - Boog of Taartpunt</h3>
     <p>Een boog is een stuk van een ellips. Je geeft het middelpunt, de maten en twee hoeken op (in radialen):</p>
     <pre><code>// arc(x, y, breedte, hoogte, startHoek, eindHoek)
 arc(200, 200, 150, 150, 0, PI);          // Halve cirkel (onderkant)
@@ -104,8 +104,8 @@ arc(200, 200, 150, 150, 0, PI, PIE);     // Taartpunt
 arc(200, 200, 150, 150, 0, PI, CHORD);   // Gesloten koorde</code></pre>
     <p>Opties voor het sluittype: <code>OPEN</code> (standaard), <code>CHORD</code> (rechte lijn tussen uiteinden), <code>PIE</code> (taartpunt).</p>
 
-    <h3>quad() — Vierhoek</h3>
-    <p>Een vierhoek met vier hoekpunten — niet noodzakelijk een rechthoek:</p>
+    <h3>quad() - Vierhoek</h3>
+    <p>Een vierhoek met vier hoekpunten - niet noodzakelijk een rechthoek:</p>
     <pre><code>// quad(x1, y1, x2, y2, x3, y3, x4, y4)
 quad(100, 50, 300, 20, 350, 200, 80, 230);</code></pre>
 </section>

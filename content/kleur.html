@@ -6,12 +6,12 @@
     <h2>Kleur functies</h2>
     <p>Je stelt kleur altijd in <em>vóór</em> je de vorm tekent. p5.js leest de code van boven naar onder:</p>
     <ul>
-        <li><code>background(kleur)</code> — achtergrondkleur van het canvas</li>
-        <li><code>fill(kleur)</code> — vulkleur voor vormen</li>
-        <li><code>stroke(kleur)</code> — lijnkleur (omtreklijn)</li>
-        <li><code>strokeWeight(dikte)</code> — dikte van de omtreklijn in pixels</li>
-        <li><code>noFill()</code> — geen vulling (transparant binnenste)</li>
-        <li><code>noStroke()</code> — geen omtreklijn</li>
+        <li><code>background(kleur)</code> - achtergrondkleur van het canvas</li>
+        <li><code>fill(kleur)</code> - vulkleur voor vormen</li>
+        <li><code>stroke(kleur)</code> - lijnkleur (omtreklijn)</li>
+        <li><code>strokeWeight(dikte)</code> - dikte van de omtreklijn in pixels</li>
+        <li><code>noFill()</code> - geen vulling (transparant binnenste)</li>
+        <li><code>noStroke()</code> - geen omtreklijn</li>
     </ul>
     <pre><code>stroke(255, 0, 0);       // Rode omtreklijn
 strokeWeight(3);          // Lijndikte 3 pixels
@@ -50,7 +50,7 @@ rect(100, 100, 200, 100);
 fill('white');
 square(100, 200, 100);</code></pre>
     <figure>
-        <img src="assets/kleur/kleur-namen.png" alt="p5.js editor met fill('red') en fill('white') — een rode rechthoek en een wit vierkant op het canvas">
+        <img src="assets/kleur/kleur-namen.png" alt="p5.js editor met fill('red') en fill('white') - een rode rechthoek en een wit vierkant op het canvas">
         <figcaption>CSS-kleurnamen zoals <code>'red'</code>, <code>'white'</code>, <code>'blue'</code> en <code>'gold'</code> werken rechtstreeks in <code>fill()</code> en <code>stroke()</code>.</figcaption>
     </figure>
 </section>
@@ -79,6 +79,36 @@ fill(grijs);
 
 // Willekeurige kleur met vaste transparantie
 fill(random(255), random(255), random(255), 180);</code></pre>
+</section>
+
+<section>
+    <h2>Tips en valkuilen</h2>
+
+    <h3>background() met transparantie</h3>
+    <p>Een krachtige creatieve truc: gebruik <code>background()</code> met een lage alpha-waarde in <code>draw()</code>. In plaats van het canvas volledig te wissen, leg je een semi-transparante laag over het vorige frame. Het resultaat: een trailing- of ghosteffect.</p>
+    <pre><code>function draw() {
+  background(0, 15);  // Zwart met lage alpha - spooreffect
+  fill(255);
+  circle(mouseX, mouseY, 30);
+}</code></pre>
+    <p>Hoe lager het getal, hoe langer het spoor blijft hangen. Probeer waarden tussen 5 en 30.</p>
+
+    <h3>Lijnen en punten hebben geen fill</h3>
+    <p>Een veelgemaakte beginnersfout: <code>fill()</code> aanroepen voor een <code>line()</code> of <code>point()</code>. Dat heeft geen effect - lijnen en punten reageren alleen op <code>stroke()</code> en <code>strokeWeight()</code>.</p>
+    <pre><code>stroke(255, 0, 0);
+strokeWeight(3);
+line(10, 10, 200, 200);  // Rode lijn van 3 pixels
+
+// fill() doet hier niets:
+fill(0, 255, 0);
+point(100, 100);  // Alleen stroke telt</code></pre>
+
+    <h3>Heel dunne lijnen met sub-pixel waarden</h3>
+    <p><code>strokeWeight()</code> accepteert ook decimale waarden. Met <code>strokeWeight(0.25)</code> of <code>strokeWeight(0.5)</code> maak je haardunne lijnen - ideaal voor fijne rasters of generatieve patronen.</p>
+    <pre><code>strokeWeight(0.25);
+for (let x = 0; x < width; x += 4) {
+  line(x, 0, x, height);  // Haardun raster
+}</code></pre>
 </section>
 
 <section>

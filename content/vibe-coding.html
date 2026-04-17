@@ -1,56 +1,271 @@
 <div class="intro">
-    <p>'Vibe coding' is een moderne benadering van programmeren waarbij je AI-tools gebruikt om code te genereren op basis van jouw beschrijvingen. In plaats van zelf elke regel te schrijven, beschrijf je wat je wilt bereiken — en de AI zet dit om in werkende code.</p>
+    <p>'Vibe coding' is een manier van programmeren waarbij je in gewone taal beschrijft wat je wilt maken - en een AI genereert de code voor je. Je hoeft niet elke regel zelf te schrijven: je beschrijft, test, geeft feedback, en verfijnt. De term werd in februari 2025 geïntroduceerd door <strong>Andrej Karpathy</strong> (mede-oprichter van OpenAI).</p>
 </div>
 
 <section>
-    <h2>Hoe werkt vibe coding?</h2>
-    <p>Het proces verloopt in drie stappen:</p>
+    <h2>Hoe werkt het?</h2>
 
     <h3>1. Beschrijf je idee</h3>
-    <p>Begin met het duidelijk formuleren van wat je wilt maken. Bijvoorbeeld:</p>
-    <pre><code>"Ik wil een eenvoudige website die mijn portfolio toont
-met een galerij van mijn digitale kunstwerken."</code></pre>
-    <p>Hoe concreter je beschrijving, hoe beter het resultaat. Denk aan: wat doet het, hoe ziet het eruit, wat gebeurt er als je ergens op klikt?</p>
+    <p>Formuleer zo concreet mogelijk wat je wilt maken:</p>
+    <pre><code>"Maak een p5.js-sketch met 50 gekleurde cirkels die
+van het scherm stuiteren. Elke cirkel heeft een
+willekeurige kleur en grootte."</code></pre>
+    <p>Hoe preciezer je beschrijving, hoe beter het resultaat. Denk aan: wat doet het, hoe ziet het eruit, wat gebeurt er bij interactie?</p>
 
-    <h3>2. Gebruik een AI-codingtool</h3>
-    <p>Er zijn verschillende AI-ondersteunde omgevingen beschikbaar:</p>
-    <ul>
-        <li><strong>Cursor</strong> — Een AI-aangedreven code-editor die code genereert en bewerkt op basis van gewone taal. Je werkt in je eigen projectmap.</li>
-        <li><strong>Windsurf</strong> — Een fork van Visual Studio Code met volledige ondersteuning voor het AI-model van jouw keuze.</li>
-        <li><strong>Replit</strong> — Een online IDE met een AI-assistent die volledige applicaties kan genereren en online zetten op basis van je beschrijving.</li>
-        <li><strong>GitHub Copilot</strong> — Geïntegreerd in VS Code. Suggereert code terwijl je typt en kan hele functies genereren op basis van een commentaarregel.</li>
-    </ul>
-    <p>Een actueel en regelmatig bijgewerkt overzicht van AI-codeertools vind je op <a href="https://www.futuretools.io/" target="_blank" rel="noopener">FutureTools.io</a> — filter op de categorie "Coding".</p>
+    <h3>2. Laat de AI genereren</h3>
+    <p>De AI maakt werkende code op basis van je beschrijving. Dit is wat Copilot genereerde voor de prompt hierboven:</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Gegenereerd door Copilot met de prompt hierboven
+let cirkels = [];
 
-    <h3>3. Iteratief verfijnen</h3>
-    <p>Nadat de AI code heeft gegenereerd, test je die en geef je feedback:</p>
-    <pre><code>"De galerij werkt, maar ik wil dat de afbeeldingen
-in een raster van drie kolommen worden weergegeven."</code></pre>
-    <p>De AI past de code aan op basis van je feedback. Dit herhaal je totdat het resultaat klopt.</p>
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 50; i++) {
+    cirkels.push({
+      x: random(width),
+      y: random(height),
+      grootte: random(10, 40),
+      vx: random(-2, 2),
+      vy: random(-2, 2),
+      kleur: color(random(255), random(255), random(255))
+    });
+  }
+}
+
+function draw() {
+  background(30);
+  noStroke();
+
+  for (let c of cirkels) {
+    fill(c.kleur);
+    circle(c.x, c.y, c.grootte);
+
+    c.x += c.vx;
+    c.y += c.vy;
+
+    // Stuiteren tegen de randen
+    if (c.x < c.grootte / 2 || c.x > width - c.grootte / 2) c.vx *= -1;
+    if (c.y < c.grootte / 2 || c.y > height - c.grootte / 2) c.vy *= -1;
+  }
+}
+        </script>
+    </div>
+    <p>Werkt, maar nog niet perfect. De kleuren zijn willekeurig en de cirkels gaan door elkaar heen.</p>
+
+    <h3>3. Verfijn iteratief</h3>
+    <p>Test het resultaat en geef feedback in een vervolgprompt:</p>
+    <pre><code>"De cirkels bewegen, maar ik wil dat ze van
+elkaar afbotsen in plaats van door elkaar heen
+te gaan."</code></pre>
+    <p>Dit herhaal je tot het resultaat klopt. Elke ronde breng je het dichter bij wat je voor ogen hebt.</p>
 </section>
 
 <section>
-    <h2>Voordelen</h2>
+    <h2>Gratis vibe coding tools</h2>
+    <p>Er zijn veel AI-codeertools, maar niet allemaal gratis. Dit zijn de beste opties waar je als student zonder te betalen mee aan de slag kunt:</p>
+
+    <h3>Google AI Studio + Antigravity</h3>
+    <p>Google's alles-in-één platform: beschrijf een app en krijg werkende code met database en hosting via Firebase. Draait op Gemini.</p>
     <ul>
-        <li><strong>Toegankelijkheid</strong> — Zelfs zonder diepgaande programmeerkennis kun je functionele software ontwikkelen.</li>
-        <li><strong>Snelheid</strong> — Je kunt snel prototypes maken en ideeën uitproberen zonder veel tijd te besteden aan het schrijven van code.</li>
-        <li><strong>Creativiteit</strong> — Doordat je je minder hoeft te concentreren op technische details, kun je je richten op het creatieve aspect van je project.</li>
+        <li>Volledig in de browser, geen installatie nodig</li>
+        <li>Kan volledige webapps genereren met backend en database</li>
+        <li><strong>Gratis limiet:</strong> ~20 requests per dag (sterk verlaagd sinds maart 2026)</li>
+        <li><a href="https://aistudio.google.com" target="_blank">aistudio.google.com</a></li>
+    </ul>
+
+    <h3>Bolt.new</h3>
+    <p>Beschrijf wat je wilt en krijg een draaiende app direct in de browser. Open source en heel snel voor prototypes.</p>
+    <ul>
+        <li>Genereert full-stack apps via WebContainers - alles draait in je browser</li>
+        <li>Open source: je kunt het ook lokaal draaien</li>
+        <li><strong>Gratis limiet:</strong> 1M tokens/maand, 300K/dag (~3–8 prompts per dag)</li>
+        <li><a href="https://bolt.new" target="_blank">bolt.new</a></li>
+    </ul>
+
+    <h3>Replit</h3>
+    <p>Online IDE met AI-assistent. Ideaal om te leren: je ziet de code én kunt die direct aanpassen en online zetten.</p>
+    <ul>
+        <li>Werkt volledig in de browser, inclusief hosting</li>
+        <li>Realtime samenwerken mogelijk (zoals Google Docs)</li>
+        <li><strong>Gratis limiet:</strong> beperkte dagelijkse AI-credits + 1.200 minuten dev-tijd per maand</li>
+        <li><a href="https://replit.com" target="_blank">replit.com</a></li>
+    </ul>
+
+    <h3>Lovable</h3>
+    <p>Beschrijf een app in gewone taal en krijg zowel code als een mooie UI. Sterk voor visuele prototypes en MVP's.</p>
+    <ul>
+        <li>Genereert code én design tegelijk</li>
+        <li>Gratis projecten zijn publiek zichtbaar</li>
+        <li><strong>Gratis limiet:</strong> 5 credits per dag (30 per maand)</li>
+        <li><a href="https://lovable.dev" target="_blank">lovable.dev</a></li>
+    </ul>
+
+    <h3>v0 (Vercel)</h3>
+    <p>Gespecialiseerd in het genereren van UI-componenten. Ideaal als je een mooi design nodig hebt voor een webpagina.</p>
+    <ul>
+        <li>Sterk in React/Next.js-componenten met Tailwind CSS</li>
+        <li>Minder geschikt voor volledige apps, wél voor losse onderdelen</li>
+        <li><strong>Gratis limiet:</strong> beperkt aantal generaties per dag</li>
+        <li><a href="https://v0.dev" target="_blank">v0.dev</a></li>
+    </ul>
+
+    <h3>GitHub Copilot</h3>
+    <p>AI-assistent in je code-editor (VS Code). Suggereert code terwijl je typt en kan hele functies genereren op basis van een commentaarregel.</p>
+    <ul>
+        <li>Werkt het best als je al basiskennis van code hebt</li>
+        <li>Gratis voor studenten via <a href="https://education.github.com" target="_blank">GitHub Education</a></li>
+        <li>Geïntegreerd in VS Code - geen aparte tool nodig</li>
     </ul>
 </section>
 
 <section>
-    <h2>Overwegingen</h2>
-    <ul>
-        <li><strong>Kwaliteit van de code</strong> — AI genereert code op basis van je beschrijvingen, maar controleer altijd op efficiëntie en veiligheid. AI maakt fouten.</li>
-        <li><strong>Beperkte controle</strong> — Je hebt mogelijk minder greep op de specifieke implementatie, wat een nadeel kan zijn bij complexere projecten.</li>
-        <li><strong>Afhankelijkheid</strong> — Als je niet begrijpt wat de AI heeft geschreven, kun je het moeilijk debuggen of aanpassen wanneer het misloopt.</li>
-    </ul>
+    <h2>Vergelijking</h2>
+    <p>Alle tools hieronder hebben een gratis versie. De limieten gelden per dag of per maand.</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Tool</th>
+                <th>Type</th>
+                <th>Gratis limiet</th>
+                <th>Beste voor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>AI Studio</strong></td>
+                <td>Full-stack in browser</td>
+                <td>~20 requests/dag</td>
+                <td>Complete apps met backend</td>
+            </tr>
+            <tr>
+                <td><strong>Bolt.new</strong></td>
+                <td>Full-stack in browser</td>
+                <td>~3–8 prompts/dag</td>
+                <td>Snelle prototypes</td>
+            </tr>
+            <tr>
+                <td><strong>Replit</strong></td>
+                <td>Online IDE + AI</td>
+                <td>Beperkte credits/dag</td>
+                <td>Leren, samenwerken</td>
+            </tr>
+            <tr>
+                <td><strong>Lovable</strong></td>
+                <td>App builder</td>
+                <td>5 credits/dag</td>
+                <td>Visuele prototypes</td>
+            </tr>
+            <tr>
+                <td><strong>v0</strong></td>
+                <td>UI generator</td>
+                <td>Beperkt/dag</td>
+                <td>Mooie componenten</td>
+            </tr>
+            <tr>
+                <td><strong>Copilot</strong></td>
+                <td>Code-editor plugin</td>
+                <td>Gratis voor studenten</td>
+                <td>Code schrijven in VS Code</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <p><strong>Tip:</strong> combineer tools. Gebruik bijvoorbeeld Lovable of v0 voor het design, en Replit of Bolt om het werkend te maken.</p>
 </section>
 
 <section>
-    <h2>Wist je dat?</h2>
-    <p>De term <strong>'vibe coding'</strong> werd in februari 2025 geïntroduceerd door <strong>Andrej Karpathy</strong>, mede-oprichter van OpenAI en voormalig AI-directeur bij Tesla. Hij beschreef het als volledig meegaan in de flow van AI-gestuurde ontwikkeling — zonder elk detail te controleren.</p>
-    <p>Deze benadering stelt zelfs beginners in staat om software te ontwikkelen die vroeger een heel team van ingenieurs vereiste.</p>
+    <h2>Vibe coding met p5.js</h2>
+    <p>Voor p5.js-sketches heb je niet altijd een zware tool nodig. Een chatbot zoals Copilot, ChatGPT of Claude kan prima p5.js-code genereren - je plakt het resultaat gewoon in de editor op deze site of in de <a href="https://editor.p5js.org" target="_blank">online p5.js-editor</a>.</p>
+
+    <h3>Goede prompts voor p5.js</h3>
+    <p>Hoe specifieker je prompt, hoe beter het resultaat. Vergelijk:</p>
+    <pre><code>// Vaag - AI moet te veel gokken
+"Maak iets met cirkels"
+
+// Beter - concreet en visueel
+"Maak een p5.js-sketch van 600x400 pixels met
+20 cirkels die willekeurig over het canvas bewegen.
+Elke cirkel heeft een andere kleur uit een
+analoog kleurenschema rond blauw. Als twee cirkels
+botsen, wisselen ze van kleur."</code></pre>
+
+    <h3>Tips voor betere resultaten</h3>
+    <ul>
+        <li><strong>Noem altijd "p5.js"</strong> in je prompt - anders krijg je soms vanilla Canvas-code</li>
+        <li><strong>Geef canvasgrootte mee</strong> - "600x400 pixels" voorkomt gokwerk</li>
+        <li><strong>Beschrijf gedrag</strong>, niet alleen uiterlijk - "stuitert af", "volgt de muis", "vervaagt langzaam"</li>
+        <li><strong>Vraag om uitleg</strong> - "Voeg Nederlandse commentaren toe die uitleggen wat elke stap doet"</li>
+        <li><strong>Itereer stap voor stap</strong> - begin simpel en voeg features toe in volgende prompts</li>
+    </ul>
+
+    <h3>Voorbeeld: één prompt, werkend resultaat</h3>
+    <p>Deze volledige sketch is gegenereerd met één enkele prompt: <em>"Maak een p5.js-sketch met deeltjes die de muis volgen en een kleurenspoor achterlaten."</em></p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Vibe-coded: deeltjes die de muis volgen
+let deeltjes = [];
+
+function setup() {
+  createCanvas(600, 400);
+  background(20);
+}
+
+function draw() {
+  // Licht vervagen voor spooreffect
+  background(20, 15);
+
+  // Nieuw deeltje bij muispositie
+  if (mouseX > 0 && mouseY > 0) {
+    deeltjes.push({
+      x: mouseX + random(-5, 5),
+      y: mouseY + random(-5, 5),
+      vx: random(-1, 1),
+      vy: random(-2, 0),
+      grootte: random(3, 10),
+      kleur: color(
+        map(mouseX, 0, width, 100, 255),
+        map(mouseY, 0, height, 50, 200),
+        200
+      ),
+      levensduur: 255
+    });
+  }
+
+  // Teken en update deeltjes
+  noStroke();
+  for (let i = deeltjes.length - 1; i >= 0; i--) {
+    let d = deeltjes[i];
+    d.kleur.setAlpha(d.levensduur);
+    fill(d.kleur);
+    circle(d.x, d.y, d.grootte);
+
+    d.x += d.vx;
+    d.y += d.vy;
+    d.levensduur -= 3;
+
+    // Verwijder dode deeltjes
+    if (d.levensduur <= 0) {
+      deeltjes.splice(i, 1);
+    }
+  }
+
+  // Beperk aantal deeltjes
+  if (deeltjes.length > 200) {
+    deeltjes.splice(0, deeltjes.length - 200);
+  }
+}
+        </script>
+    </div>
+    <p>Beweeg je muis over het canvas. Merk op: de AI heeft zelf gekozen voor een vervagend spoor, kleur op basis van muispositie en een levensduur-systeem. Kun je het verbeteren? Probeer zwaartekracht toe te voegen of de kleuren aan te passen.</p>
+
+    <h3>Welke tool voor p5.js?</h3>
+    <ul>
+        <li><strong>Copilot / ChatGPT / Claude</strong> - het snelst: vraag om een sketch, plak de code in de editor. Geen setup nodig.</li>
+        <li><strong>Replit</strong> - handig als je een volledig p5.js-project wilt met meerdere bestanden en online hosting.</li>
+        <li><strong>Bolt.new</strong> - als je een complete website wilt bouwen rondom je p5.js-sketch (bv. een portfolio).</li>
+    </ul>
 </section>
 
 <section>
@@ -71,4 +286,54 @@ in een raster van drie kolommen worden weergegeven."</code></pre>
             <tr><td>Geschikt voor complexe systemen</td><td>Ja</td><td>Met voorzichtigheid</td></tr>
         </tbody>
     </table>
+</section>
+
+<section>
+    <h2>Kritisch evalueren</h2>
+    <p>AI-gegenereerde code werkt vaak op het eerste gezicht, maar is het ook <em>goed</em>? Leren beoordelen wat de AI oplevert is minstens zo belangrijk als het kunnen genereren.</p>
+
+    <h3>Waar let je op?</h3>
+    <ul>
+        <li><strong>Werkt het?</strong> - Doet de code wat je hebt gevraagd? Test grondig, niet alleen het happy path.</li>
+        <li><strong>Begrijp je het?</strong> - Kun je elke regel uitleggen? Als niet, vraag de AI om uitleg of vereenvoudiging.</li>
+        <li><strong>Is het efficiënt?</strong> - AI genereert soms onnodige complexiteit. Kan het eenvoudiger?</li>
+        <li><strong>Zijn er fouten?</strong> - AI maakt subtiele fouten: verkeerde variabelenamen, loops die net te ver gaan, kleuren die niet kloppen.</li>
+    </ul>
+
+    <h3>Oefening: beoordeel deze sketch</h3>
+    <p>Stel dat je een AI hebt gevraagd: "Maak een p5.js-sketch met vallende sneeuwvlokken." Je krijgt de code hieronder. Beoordeel: wat is goed? Wat ontbreekt? Wat zou je verbeteren?</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// AI-gegenereerde code - beoordeel kritisch!
+let vlokken = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 100; i++) {
+    vlokken.push({
+      x: random(width),
+      y: random(-height, 0),
+      grootte: random(2, 8),
+      snelheid: random(1, 3)
+    });
+  }
+}
+
+function draw() {
+  background(30, 40, 60);
+  fill(255);
+  noStroke();
+
+  for (let v of vlokken) {
+    circle(v.x, v.y, v.grootte);
+    v.y += v.snelheid;
+    if (v.y > height) {
+      v.y = 0;
+      v.x = random(width);
+    }
+  }
+}
+        </script>
+    </div>
+    <p>Denk na over: is dit overtuigend als sneeuw? Wat mist er? Misschien horizontale beweging, variatie in transparantie, of een zachter kleurenpalet? Probeer de code te verbeteren.</p>
 </section>

@@ -1,4 +1,4 @@
-// Perlin noise voorbeeld — noise flow field met deeltjes
+// Perlin noise voorbeeld - noise flow field met deeltjes
 window.sketch_example_noise = function (p) {
     const N = 120;
     let particles = [];

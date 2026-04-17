@@ -11,7 +11,7 @@ window.sketch_example_if_statements = function (p) {
         let bgHelderheid = p.map(p.mouseY, 0, p.height, 240, 30);
         p.background(bgHelderheid);
 
-        // Canvas in vier kwadranten — elk een andere kleur
+        // Canvas in vier kwadranten - elk een andere kleur
         let links  = p.mouseX < p.width / 2;
         let boven  = p.mouseY < p.height / 2;
 
@@ -27,7 +27,7 @@ window.sketch_example_if_statements = function (p) {
 
         p.circle(p.width / 2, p.height / 2, 180);
 
-        // Kleine volgerbal — groter als muis dichterbij is
+        // Kleine volgerbal - groter als muis dichterbij is
         let d = p.dist(p.mouseX, p.mouseY, p.width / 2, p.height / 2);
         let grootte = d < 90 ? 50 : 20;  // inside cirkel → groot
 

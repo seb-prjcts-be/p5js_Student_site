@@ -1,0 +1,146 @@
+<div class="intro">
+    <p>AI kan prachtige dingen genereren  - maar het zijn pas jóuw dingen als ze jouw handschrift dragen. Hoe stuur je AI aan zodat de output past bij jouw esthetiek? En hoe behoud je je eigen stem in een wereld vol gegenereerde content?</p>
+</div>
+
+<section>
+    <h2>Het probleem van generieke output</h2>
+    <p>Als je een AI vraagt om "een mooie p5.js-sketch te maken", krijg je iets dat er goed uitziet  - maar het lijkt op wat iedereen krijgt. De AI kiest standaard de meest <em>voorspelbare</em> esthetiek, omdat die het vaakst voorkomt in de trainingsdata.</p>
+    <p>Jouw creatieve stem is het verschil. De uitdaging is om AI te gebruiken als versterker van je eigen ideeën, niet als vervanging.</p>
+</section>
+
+<section>
+    <h2>Stijlreferenties meegeven</h2>
+    <p>De krachtigste manier om AI naar jouw stijl te leiden is door <strong>referenties</strong> mee te geven in je prompt. Beschrijf niet alleen <em>wat</em> je wilt, maar ook <em>hoe</em> het eruit moet zien.</p>
+
+    <h3>Voorbeeld: vage prompt</h3>
+    <pre><code>"Maak een generatieve kunstsketch in p5.js."</code></pre>
+    <p>Resultaat: waarschijnlijk cirkels, willekeurige kleuren, standaard canvas.</p>
+
+    <h3>Voorbeeld: gerichte prompt met stijl</h3>
+    <pre><code>"Maak een p5.js-sketch in de stijl van Vera Molnár:
+geometrische rasters met subtiele verstoringen.
+Gebruik alleen zwart, wit en één accentkleur.
+De vormen moeten bijna-regelmatig zijn,
+met kleine willekeurige afwijkingen die het
+menselijk maken."</code></pre>
+    <p>Resultaat: veel dichter bij jouw visie, omdat je de AI concrete esthetische kaders hebt gegeven.</p>
+</section>
+
+<section>
+    <h2>Iteratief verfijnen</h2>
+    <p>Zelden is de eerste output perfect. Het echte creatieve werk zit in de <strong>iteratie</strong>  - het heen en weer tussen jou en de AI.</p>
+
+    <h3>Het iteratieproces</h3>
+    <ol>
+        <li><strong>Versie 1</strong>  - Beschrijf je idee en laat de AI een eerste versie genereren</li>
+        <li><strong>Evalueer</strong>  - Wat klopt? Wat niet? Wat mis je?</li>
+        <li><strong>Versie 2</strong>  - Geef gerichte feedback: "De kleuren zijn te fel, maak ze zachter. De beweging is te snel."</li>
+        <li><strong>Versie 3</strong>  - Verfijn verder: "Voeg meer variatie toe in de grootte. Laat de vormen langzaam roteren."</li>
+    </ol>
+    <p>Na drie tot vijf iteraties heb je iets dat veel dichter bij jouw visie ligt dan de eerste poging.</p>
+
+    <h3>Tip: bewaar elke versie</h3>
+    <p>Kopieer de code van elke iteratie voordat je verdergaat. Zo kun je vergelijken hoe je werk is geëvolueerd en eventueel teruggrijpen naar een eerdere versie.</p>
+</section>
+
+<section>
+    <h2>Je creatieve vocabulaire opbouwen</h2>
+    <p>Hoe beter je kunt beschrijven wat je wilt, hoe beter de AI je kan helpen. Bouw je esthetisch vocabulaire uit:</p>
+    <ul>
+        <li><strong>Kleur:</strong> warm, koel, pastel, verzadigd, monochroom, complementair</li>
+        <li><strong>Compositie:</strong> symmetrisch, organisch, rasterachtig, chaotisch, minimalistisch</li>
+        <li><strong>Beweging:</strong> vloeiend, staccato, pulserend, drijvend, explosief</li>
+        <li><strong>Sfeer:</strong> rustgevend, speels, dreigend, dromerig, industrieel</li>
+        <li><strong>Referenties:</strong> "zoals Mondriaan", "in de stijl van pixel art", "brutalistisch"</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Je stijl vastleggen in de AI</h2>
+    <p>Elke keer opnieuw beschrijven hoe je werk eruit moet zien is vermoeiend. De meeste AI-tools hebben ingebouwde functies om je voorkeuren op te slaan, zodat je stijl automatisch wordt meegenomen.</p>
+
+    <h3>Custom Instructions (ChatGPT)</h3>
+    <p>In ChatGPT kun je onder <em>Instellingen &gt; Personalisatie &gt; Aangepaste instructies</em> twee dingen instellen:</p>
+    <ul>
+        <li><strong>Wat moet ChatGPT over je weten?</strong> - bv. "Ik ben een student kunst. Ik werk met p5.js en hou van minimalistische, geometrische composities."</li>
+        <li><strong>Hoe moet ChatGPT reageren?</strong> - bv. "Schrijf code met Nederlandse commentaren. Gebruik een beperkt kleurenpalet. Vermijd overbodige complexiteit."</li>
+    </ul>
+    <p>Dit geldt dan voor elk nieuw gesprek.</p>
+
+    <h3>Projecten (Claude)</h3>
+    <p>In Claude kun je <em>Projecten</em> aanmaken met eigen instructies en bestanden. Je kunt:</p>
+    <ul>
+        <li>Een <strong>stijlgids</strong> uploaden met je voorkeuren (kleuren, vormen, sfeer)</li>
+        <li>Voorbeelden van je eigen code meegeven als referentie</li>
+        <li>Instructies schrijven die gelden voor elk gesprek in dat project</li>
+    </ul>
+    <p>Zo hoef je niet elke keer opnieuw uit te leggen wie je bent en wat je wilt.</p>
+
+    <h3>Copilot en Gemini</h3>
+    <p>Copilot onthoudt voorkeuren via <em>Notebook-modus</em> en eerder gestelde instructies. Gemini heeft een vergelijkbaar geheugen via <em>Gems</em> - vooraf ingestelde persona's die je zelf kunt definiëren.</p>
+
+    <h3>Voorbeeld: stijlinstructie voor p5.js</h3>
+    <p>Dit kun je als custom instruction of projectinstructie instellen:</p>
+    <pre><code>Ik maak generatieve kunst met p5.js.
+Mijn stijl:
+- Beperkt kleurenpalet (max 4-5 kleuren)
+- Geometrische vormen met subtiele organische variatie
+- Rustige, langzame animaties
+- Canvas altijd 600x400, zwarte of donkere achtergrond
+- Nederlandse commentaren in de code
+- Gebruik noise() in plaats van random() voor vloeiendheid</code></pre>
+    <p>Met zo'n instructie genereert de AI meteen code die dichter bij jouw esthetiek ligt, zonder dat je het elke keer moet herhalen.</p>
+
+    <h3>Custom GPTs en skills</h3>
+    <p>Je kunt nog een stap verder gaan: een volledig <strong>herbruikbaar stijlprofiel</strong> bouwen dat je steeds opnieuw kunt inzetten.</p>
+    <ul>
+        <li><strong>Custom GPTs</strong> (ChatGPT) - maak je eigen GPT met vaste instructies, referentiebestanden en een specifieke persoonlijkheid. Bv. een "p5.js-coach" die altijd in jouw stijl genereert.</li>
+        <li><strong>Skills</strong> (Claude Code) - herbruikbare opdrachten die een huisstijl toepassen. Bv. een skill die zegt: "Pas de Lab44-huisstijl toe" en automatisch de juiste kleuren, fonts en layout gebruikt.</li>
+    </ul>
+    <p>Het idee is hetzelfde: je legt je stijlregels één keer vast, en de AI past ze elke keer opnieuw toe. Zo bouw je een consistent eigen merk op, ook als de AI het technische werk doet.</p>
+
+    <h3>Je eigen werk als referentie</h3>
+    <p>Je kunt ook je eigen werk uploaden als voorbeeld. Als je eerder sketches hebt gemaakt die je goed vindt, geef die mee. De AI leert patronen herkennen: welke functies je gebruikt, hoe je variabelen benoemt, welke kleuren je kiest. Hoe meer voorbeelden, hoe beter de AI jouw stijl kan nabootsen.</p>
+</section>
+
+<section>
+    <h2>Experimenteer zelf</h2>
+    <p>Hieronder staat een eenvoudige generatieve sketch. Jouw opdracht: pas de code aan  - handmatig of met hulp van AI  - zodat het <em>jouw</em> stijl weerspiegelt. Denk aan kleurkeuze, vormen, bewegingspatroon en compositie.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Startpunt: pas dit aan naar jouw stijl
+function setup() {
+  createCanvas(600, 400);
+  colorMode(HSB, 360, 100, 100, 100);
+  noStroke();
+}
+
+function draw() {
+  background(0, 0, 95, 10);
+
+  let aantal = 8;
+  for (let i = 0; i < aantal; i++) {
+    let x = width / 2 + cos(frameCount * 0.02 + i) * 150;
+    let y = height / 2 + sin(frameCount * 0.03 + i * 0.7) * 100;
+    let grootte = 20 + sin(frameCount * 0.05 + i) * 10;
+    let kleur = (i * 45 + frameCount * 0.5) % 360;
+
+    fill(kleur, 60, 90, 50);
+    ellipse(x, y, grootte);
+  }
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>De balans vinden</h2>
+    <p>AI is een gereedschap, geen auteur. De meest interessante creatieve werken ontstaan wanneer je:</p>
+    <ul>
+        <li>AI gebruikt voor de technische uitvoering van <em>jouw</em> ideeën</li>
+        <li>Bewuste keuzes maakt over wat je wel en niet overneemt</li>
+        <li>De gegenereerde output aanpast, combineert en transformeert</li>
+        <li>Kunt uitleggen <em>waarom</em> je bepaalde keuzes hebt gemaakt</li>
+    </ul>
+    <p>Het verschil tussen "AI heeft dit gemaakt" en "ik heb dit gemaakt met AI" zit in de intentie en de iteratie.</p>
+</section>

@@ -1,0 +1,146 @@
+<div class="intro">
+    <p>AI can generate beautiful things - but they only become yours when they carry your handwriting. How do you guide AI so the output matches your aesthetics? And how do you keep your own voice in a world full of generated content?</p>
+</div>
+
+<section>
+    <h2>The problem of generic output</h2>
+    <p>When you ask an AI to "make a beautiful p5.js sketch", you get something that looks good - but it looks like what everyone gets. The AI defaults to the most <em>predictable</em> aesthetic, because that's what appears most often in the training data.</p>
+    <p>Your creative voice is the difference. The challenge is to use AI as an amplifier of your own ideas, not as a replacement.</p>
+</section>
+
+<section>
+    <h2>Providing style references</h2>
+    <p>The most powerful way to guide AI towards your style is by providing <strong>references</strong> in your prompt. Describe not only <em>what</em> you want, but also <em>how</em> it should look.</p>
+
+    <h3>Example: vague prompt</h3>
+    <pre><code>"Make a generative art sketch in p5.js."</code></pre>
+    <p>Result: probably circles, random colours, standard canvas.</p>
+
+    <h3>Example: targeted prompt with style</h3>
+    <pre><code>"Make a p5.js sketch in the style of Vera Molnar:
+geometric grids with subtle disruptions.
+Use only black, white and one accent colour.
+The shapes should be almost-regular,
+with small random deviations that make it
+feel human."</code></pre>
+    <p>Result: much closer to your vision, because you've given the AI concrete aesthetic boundaries.</p>
+</section>
+
+<section>
+    <h2>Iterative refinement</h2>
+    <p>Rarely is the first output perfect. The real creative work is in the <strong>iteration</strong> - the back and forth between you and the AI.</p>
+
+    <h3>The iteration process</h3>
+    <ol>
+        <li><strong>Version 1</strong> - Describe your idea and let the AI generate a first version</li>
+        <li><strong>Evaluate</strong> - What's right? What's not? What's missing?</li>
+        <li><strong>Version 2</strong> - Give targeted feedback: "The colours are too bright, make them softer. The movement is too fast."</li>
+        <li><strong>Version 3</strong> - Refine further: "Add more variation in size. Let the shapes slowly rotate."</li>
+    </ol>
+    <p>After three to five iterations you'll have something much closer to your vision than the first attempt.</p>
+
+    <h3>Tip: save every version</h3>
+    <p>Copy the code from each iteration before moving on. This way you can compare how your work has evolved and potentially go back to an earlier version.</p>
+</section>
+
+<section>
+    <h2>Building your creative vocabulary</h2>
+    <p>The better you can describe what you want, the better the AI can help you. Expand your aesthetic vocabulary:</p>
+    <ul>
+        <li><strong>Colour:</strong> warm, cool, pastel, saturated, monochrome, complementary</li>
+        <li><strong>Composition:</strong> symmetrical, organic, grid-like, chaotic, minimalist</li>
+        <li><strong>Movement:</strong> fluid, staccato, pulsing, drifting, explosive</li>
+        <li><strong>Mood:</strong> calming, playful, ominous, dreamy, industrial</li>
+        <li><strong>References:</strong> "like Mondrian", "in the style of pixel art", "brutalist"</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Saving your style in the AI</h2>
+    <p>Describing how your work should look every single time is tiring. Most AI tools have built-in features to save your preferences, so your style is automatically taken into account.</p>
+
+    <h3>Custom Instructions (ChatGPT)</h3>
+    <p>In ChatGPT you can set two things under <em>Settings &gt; Personalization &gt; Custom instructions</em>:</p>
+    <ul>
+        <li><strong>What should ChatGPT know about you?</strong> - e.g. "I'm an art student. I work with p5.js and like minimalist, geometric compositions."</li>
+        <li><strong>How should ChatGPT respond?</strong> - e.g. "Write code with Dutch comments. Use a limited colour palette. Avoid unnecessary complexity."</li>
+    </ul>
+    <p>This then applies to every new conversation.</p>
+
+    <h3>Projects (Claude)</h3>
+    <p>In Claude you can create <em>Projects</em> with custom instructions and files. You can:</p>
+    <ul>
+        <li>Upload a <strong>style guide</strong> with your preferences (colours, shapes, mood)</li>
+        <li>Include examples of your own code as reference</li>
+        <li>Write instructions that apply to every conversation in that project</li>
+    </ul>
+    <p>This way you don't have to explain who you are and what you want every time.</p>
+
+    <h3>Copilot and Gemini</h3>
+    <p>Copilot remembers preferences via <em>Notebook mode</em> and previously given instructions. Gemini has a similar memory via <em>Gems</em> - pre-configured personas that you can define yourself.</p>
+
+    <h3>Example: style instruction for p5.js</h3>
+    <p>You can set this as a custom instruction or project instruction:</p>
+    <pre><code>Ik maak generatieve kunst met p5.js.
+Mijn stijl:
+- Beperkt kleurenpalet (max 4-5 kleuren)
+- Geometrische vormen met subtiele organische variatie
+- Rustige, langzame animaties
+- Canvas altijd 600x400, zwarte of donkere achtergrond
+- Nederlandse commentaren in de code
+- Gebruik noise() in plaats van random() voor vloeiendheid</code></pre>
+    <p>With an instruction like this, the AI immediately generates code that is closer to your aesthetic, without you having to repeat it every time.</p>
+
+    <h3>Custom GPTs and skills</h3>
+    <p>You can go one step further: build a fully <strong>reusable style profile</strong> that you can use again and again.</p>
+    <ul>
+        <li><strong>Custom GPTs</strong> (ChatGPT) - create your own GPT with fixed instructions, reference files and a specific personality. E.g. a "p5.js coach" that always generates in your style.</li>
+        <li><strong>Skills</strong> (Claude Code) - reusable commands that apply a house style. E.g. a skill that says: "Apply the Lab44 house style" and automatically uses the right colours, fonts and layout.</li>
+    </ul>
+    <p>The idea is the same: you define your style rules once, and the AI applies them every time. This way you build a consistent personal brand, even when the AI does the technical work.</p>
+
+    <h3>Your own work as reference</h3>
+    <p>You can also upload your own work as an example. If you have earlier sketches that you like, include them. The AI learns to recognise patterns: which functions you use, how you name variables, which colours you choose. The more examples, the better the AI can mimic your style.</p>
+</section>
+
+<section>
+    <h2>Try it yourself</h2>
+    <p>Below is a simple generative sketch. Your task: modify the code - manually or with AI help - so it reflects <em>your</em> style. Think about colour choice, shapes, movement pattern and composition.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Startpunt: pas dit aan naar jouw stijl
+function setup() {
+  createCanvas(600, 400);
+  colorMode(HSB, 360, 100, 100, 100);
+  noStroke();
+}
+
+function draw() {
+  background(0, 0, 95, 10);
+
+  let aantal = 8;
+  for (let i = 0; i < aantal; i++) {
+    let x = width / 2 + cos(frameCount * 0.02 + i) * 150;
+    let y = height / 2 + sin(frameCount * 0.03 + i * 0.7) * 100;
+    let grootte = 20 + sin(frameCount * 0.05 + i) * 10;
+    let kleur = (i * 45 + frameCount * 0.5) % 360;
+
+    fill(kleur, 60, 90, 50);
+    ellipse(x, y, grootte);
+  }
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Finding the balance</h2>
+    <p>AI is a tool, not an author. The most interesting creative works emerge when you:</p>
+    <ul>
+        <li>Use AI for the technical execution of <em>your</em> ideas</li>
+        <li>Make conscious choices about what you do and don't adopt</li>
+        <li>Modify, combine and transform the generated output</li>
+        <li>Can explain <em>why</em> you made certain choices</li>
+    </ul>
+    <p>The difference between "AI made this" and "I made this with AI" lies in the intention and the iteration.</p>
+</section>

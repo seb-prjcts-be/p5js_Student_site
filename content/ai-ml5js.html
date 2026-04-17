@@ -1,0 +1,134 @@
+<div class="intro">
+    <p>Wat als je sketch kan zien, horen of reageren op beweging  - zonder dat je zelf een AI-model hoeft te bouwen? Met ml5.js kun je kant-en-klare AI-modellen inladen in p5.js en meteen creatief aan de slag.</p>
+</div>
+
+<section>
+    <h2>Wat is ml5.js?</h2>
+    <p><strong>ml5.js</strong> is een JavaScript-bibliotheek die machine learning toegankelijk maakt voor makers en ontwerpers. Het is speciaal ontworpen om samen te werken met p5.js.</p>
+    <p>Het idee: jij hoeft geen wiskundige te zijn om AI te gebruiken in je creatieve werk. ml5.js biedt voorgetrainde modellen die je direct kunt aanspreken  - voor lichaamsherkenning, geluidsclassificatie, beeldherkenning en meer.</p>
+    <ul>
+        <li>Gebouwd bovenop TensorFlow.js, maar veel eenvoudiger in gebruik</li>
+        <li>Werkt direct in de browser  - geen installatie nodig</li>
+        <li>Open source en gratis</li>
+    </ul>
+</section>
+
+<section>
+    <h2>ml5.js inladen</h2>
+    <p>Om ml5.js te gebruiken in je project, voeg je het toe via een CDN-link. In de live editor op deze site kun je het direct gebruiken in een <code>&lt;script&gt;</code>-tag:</p>
+    <pre><code>&lt;script src="https://unpkg.com/ml5@1/dist/ml5.min.js"&gt;&lt;/script&gt;</code></pre>
+    <p>In een eigen HTML-bestand plaats je deze regel in de <code>&lt;head&gt;</code>, naast je p5.js-script.</p>
+</section>
+
+<section>
+    <h2>Beschikbare modellen</h2>
+    <p>ml5.js biedt verschillende voorgetrainde modellen. Hier zijn de belangrijkste:</p>
+
+    <h3>BodyPose</h3>
+    <p>Herkent de positie van het menselijk lichaam via de webcam. Detecteert punten zoals schouders, ellebogen, polsen, knieën en enkels. Ideaal voor interactieve installaties of bewegingsgestuurde sketches.</p>
+
+    <h3>HandPose</h3>
+    <p>Herkent de positie van handen en individuele vingers. Kan 21 punten per hand detecteren. Handig voor gebarenherkenning of het tekenen met je handen.</p>
+
+    <h3>FaceMesh</h3>
+    <p>Detecteert 468 punten op het gezicht. Hiermee kun je gezichtsfilters maken, emoties analyseren of gezichtsbewegingen omzetten naar visuele effecten.</p>
+
+    <h3>ImageClassifier</h3>
+    <p>Herkent objecten in afbeeldingen. Geeft een label terug ("kat", "auto", "bloem") met een betrouwbaarheidsscore. Werkt met foto's en webcambeelden.</p>
+
+    <h3>SoundClassifier</h3>
+    <p>Herkent geluiden via de microfoon. Kan onderscheid maken tussen spreken, klappen, fluiten en achtergrondgeluid.</p>
+</section>
+
+<section>
+    <h2>Je eerste ml5.js-sketch: BodyPose</h2>
+    <p>Laten we stap voor stap een sketch bouwen die je lichaam detecteert via de webcam en de herkenningspunten tekent.</p>
+
+    <h3>Stap 1: webcam activeren</h3>
+    <pre><code>let video;
+
+function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide(); // Verberg het HTML-video-element
+}
+
+function draw() {
+  image(video, 0, 0); // Teken de video op het canvas
+}</code></pre>
+
+    <h3>Stap 2: BodyPose laden</h3>
+    <p>In moderne p5.js gebruik je <code>async function setup()</code> met <code>await</code>, zodat het model klaar is voor je verder gaat:</p>
+    <pre><code>let video;
+let bodyPose;
+let poses = [];
+
+async function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
+
+  // Wacht tot het BodyPose-model geladen is
+  bodyPose = await ml5.bodyPose();
+
+  // Start met het detecteren van poses
+  bodyPose.detectStart(video, ontvangResultaten);
+}
+
+function ontvangResultaten(resultaten) {
+  poses = resultaten;
+}</code></pre>
+
+    <h3>Stap 3: punten tekenen</h3>
+    <pre><code>function draw() {
+  image(video, 0, 0);
+
+  // Teken alle gedetecteerde punten
+  for (let i = 0; i < poses.length; i++) {
+    let pose = poses[i];
+    for (let j = 0; j < pose.keypoints.length; j++) {
+      let punt = pose.keypoints[j];
+      // Teken alleen als de betrouwbaarheid hoog genoeg is
+      if (punt.confidence > 0.2) {
+        fill(0, 255, 0);
+        noStroke();
+        circle(punt.x, punt.y, 10);
+      }
+    }
+  }
+}</code></pre>
+    <p>Elke <code>keypoint</code> heeft een <code>x</code>, <code>y</code> en <code>confidence</code> waarde. De confidence geeft aan hoe zeker het model is van de detectie (0 tot 1).</p>
+</section>
+
+<section>
+    <h2>Van detectie naar creatie</h2>
+    <p>Het wordt pas echt interessant als je de gedetecteerde punten gebruikt om iets <em>visueel</em> te doen. Enkele ideeën:</p>
+    <ul>
+        <li><strong>Lijnen tussen punten</strong>  - Verbind de keypoints met lijnen om een skelet te tekenen</li>
+        <li><strong>Deeltjes volgen</strong>  - Laat deeltjes zwermen rond je handen of hoofd</li>
+        <li><strong>Kleur met je lichaam</strong>  - Gebruik de positie van je handen om kleuren te mengen</li>
+        <li><strong>Geluid triggeren</strong>  - Koppel beweging aan geluidsparameters</li>
+        <li><strong>Abstracte vormen</strong>  - Vervang het videobeeld door abstracte geometrie die je lichaam volgt</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Belangrijk om te weten</h2>
+    <ul>
+        <li><strong>Webcam vereist</strong>  - De meeste ml5.js-modellen gebruiken de webcam. Zorg dat je browser toestemming heeft.</li>
+        <li><strong>Eerste keer laden duurt even</strong>  - Het model wordt gedownload bij het eerste gebruik. Daarna gaat het sneller.</li>
+        <li><strong>Privacy</strong>  - Alle verwerking gebeurt lokaal in je browser. Er worden geen beelden naar een server gestuurd.</li>
+        <li><strong>Prestaties</strong>  - AI-modellen in de browser zijn zwaarder dan gewone sketches. Op oudere computers kan het trager lopen.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Meer leren</h2>
+    <p>De officiële ml5.js-documentatie heeft voorbeelden en uitleg voor elk model:</p>
+    <ul>
+        <li><a href="https://ml5js.org/" target="_blank" rel="noopener">ml5js.org</a>  - Officiële site met documentatie en voorbeelden</li>
+        <li><a href="https://docs.ml5js.org/" target="_blank" rel="noopener">docs.ml5js.org</a>  - Gedetailleerde API-referentie</li>
+    </ul>
+</section>

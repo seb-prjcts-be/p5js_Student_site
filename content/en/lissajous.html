@@ -1,0 +1,103 @@
+<div class="intro">
+    <p>A Lissajous figure is created when you combine two oscillations: one movement in x and one movement in y. The ratio between those oscillations determines the shape.</p>
+</div>
+
+<section>
+    <h2>Why this is interesting</h2>
+    <p>Here you can see that an image can actually be frozen motion. A shape isn't just drawn - it emerges from two rhythms running simultaneously.</p>
+    <p><strong>Think about it:</strong> when does a shape feel harmonious, and when does it feel tense or chaotic?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>using sine and periodicity visually</li>
+        <li>working with a parameter <code>t</code> that moves through time</li>
+        <li>the effect of ratios like 1:1, 2:1, or 3:2</li>
+        <li>how small phase shifts make a figure morph</li>
+    </ul>
+</section>
+
+<section>
+    <h2>The formula</h2>
+    <p>Two equations, one parameter <code>t</code> running from 0 to 2pi:</p>
+    <pre><code>x = A * sin(a * t + delta)
+y = B * sin(b * t)</code></pre>
+    <ul>
+        <li><code>a</code> and <code>b</code> - frequencies; their ratio determines the shape</li>
+        <li><code>delta</code> - phase shift; makes the figure change</li>
+        <li><code>A</code> and <code>B</code> - amplitudes, the size in x and y</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Frequency ratios</h2>
+    <ul>
+        <li><strong>1:1</strong> - circle or ellipse</li>
+        <li><strong>2:1</strong> - simple loop or figure-8</li>
+        <li><strong>3:2</strong> - braided pattern</li>
+        <li><strong>5:4</strong> - dense, knot-like shape</li>
+    </ul>
+    <p>That's why this topic is also a beautiful bridge between image, mathematics, and music.</p>
+</section>
+
+<section>
+    <h2>In p5.js</h2>
+    <p>You draw the curve by calculating a point for each value of <code>t</code> and connecting them with <code>vertex()</code>:</p>
+    <pre><code>beginShape();
+for (let t = 0; t &lt; TWO_PI; t += 0.01) {
+  let x = width / 2 + 200 * sin(a * t + delta);
+  let y = height / 2 + 160 * sin(b * t);
+  vertex(x, y);
+}
+endShape();</code></pre>
+    <p>By slowly increasing <code>delta</code> with <code>frameCount</code>, the phase shifts. This way you see the figure move through different states.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Choose three ratios and describe their character. Which one feels rhythmic, which one feels tight, which one feels unpredictable? Then add color, trail lines, or transparency to make it your own work.</p>
+</section>
+
+<section>
+    <h2>Try It Yourself</h2>
+    <p>Change <code>a</code> and <code>b</code> for different patterns. Try 1:1, 3:2, 4:3, and 5:4. Optionally add a different line color or thicker stroke.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let a = 3;
+let b = 2;
+
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(0, 20);
+
+  let delta = frameCount * 0.01;
+
+  stroke(0, 0, 255, 180);
+  strokeWeight(1.5);
+  noFill();
+
+  beginShape();
+  for (let t = 0; t < TWO_PI; t += 0.005) {
+    let x = width / 2 + 220 * sin(a * t + delta);
+    let y = height / 2 + 170 * sin(b * t);
+    vertex(x, y);
+  }
+  endShape();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Click the canvas to test different frequency ratios.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-lissajous"></div>
+        </div>
+    </div>
+</section>

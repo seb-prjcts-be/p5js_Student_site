@@ -1,0 +1,127 @@
+<div class="intro">
+    <p>Bugs horen bij programmeren  - ze zijn niet het probleem, maar het zoekproces ernaar is de uitdaging. AI kan je helpen om fouten sneller te vinden, maar dan moet je wel de juiste vragen leren stellen. Welkom in de wereld van prompting.</p>
+</div>
+
+<section>
+    <h2>Debuggen met AI</h2>
+    <p>Traditioneel debuggen doe je met <code>console.log()</code>, de foutconsole en veel geduld. AI voegt een nieuw gereedschap toe: je kunt je code <em>voorleggen</em> en vragen wat er misgaat.</p>
+    <p>Dat klinkt simpel, maar de kwaliteit van het antwoord hangt af van hoe goed jij het probleem beschrijft. Dit noemen we <strong>prompting</strong>  - de kunst van het vragen stellen aan AI.</p>
+</section>
+
+<section>
+    <h2>Slechte prompt vs. goede prompt</h2>
+    <p>Vergelijk deze twee manieren om hulp te vragen:</p>
+
+    <h3>Slechte prompt</h3>
+    <pre><code>"Mijn code werkt niet. Fix het."</code></pre>
+    <p>Dit is te vaag. De AI weet niet wat je code doet, wat er mis is, of wat je verwacht. Het antwoord zal waarschijnlijk ook vaag zijn.</p>
+
+    <h3>Goede prompt</h3>
+    <pre><code>"Ik heb een p5.js-sketch die een cirkel moet tekenen
+die de muis volgt. Maar de cirkel blijft in de
+linkerbovenhoek staan. Hier is mijn code:
+
+function setup() {
+  createCanvas(400, 300);
+}
+
+function draw() {
+  background(220);
+  ellipse(mouseX, mouseX, 50, 50);
+}
+
+Wat gaat er fout?"</code></pre>
+    <p>Dit is specifiek: je beschrijft wat je verwacht, wat er gebeurt, en je geeft de code mee. De AI kan nu gericht kijken  - en zal waarschijnlijk opmerken dat je twee keer <code>mouseX</code> gebruikt in plaats van <code>mouseX, mouseY</code>.</p>
+</section>
+
+<section>
+    <h2>De prompt-formule</h2>
+    <p>Een effectieve prompt voor debugging bevat meestal vier onderdelen:</p>
+    <ol>
+        <li><strong>Context</strong>  - Wat probeer je te maken? ("Een p5.js-sketch met deeltjes die botsen")</li>
+        <li><strong>Verwachting</strong>  - Wat zou er moeten gebeuren? ("De deeltjes zouden moeten stuiteren tegen de randen")</li>
+        <li><strong>Probleem</strong>  - Wat gebeurt er in werkelijkheid? ("De deeltjes verdwijnen buiten het canvas")</li>
+        <li><strong>Code</strong>  - De relevante code, volledig en kopieerbaar</li>
+    </ol>
+    <pre><code>Prompt-formule:
+"Ik maak [context].
+Het zou moeten [verwachting],
+maar in plaats daarvan [probleem].
+Hier is mijn code: [code]"</code></pre>
+</section>
+
+<section>
+    <h2>Overtypen, niet kopiëren</h2>
+    <p>Als de AI je een stuk code teruggeeft, is het verleidelijk om het gewoon te kopiëren en plakken. <strong>Doe dat niet.</strong> Type de code zelf over, regel voor regel.</p>
+    <p>Waarom? Overtypen dwingt je om elke regel te lezen. Je merkt onmiddellijk welke regels je niet begrijpt - en dán kun je gericht om uitleg vragen. Kopiëren slaat dat moment over: je hebt werkende code, maar geen begrip. Bij de volgende fout sta je weer met lege handen.</p>
+    <p>Deze regel geldt extra sterk zolang je aan het leren bent. Later, als je al vloeiend in p5.js werkt, mag je af en toe kopiëren voor stukken die je volledig snapt (bv. een repetitief blok). In deze cursus: altijd overtypen.</p>
+    <p><strong>Probeer dit:</strong> vraag AI om code voor een effect dat je nog niet kent (bv. een muis-trail, een noise-landschap). Type het over. Welke regels begrijp je meteen? Welke niet? Stel over die laatste een vervolgvraag.</p>
+</section>
+
+<section>
+    <h2>Oefening: vind de bugs</h2>
+    <p>De sketch hieronder bevat bewuste fouten. Er zouden gekleurde cirkels moeten bewegen over het scherm, maar er gaat iets mis. Kun je de bugs vinden  - eerst zelf, dan met AI?</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Buggy sketch - er zitten 3 fouten in!
+// Doel: gekleurde cirkels die horizontaal bewegen
+
+let cirkels = [];
+
+function setup() {
+  createCanvas(600, 400);
+  colorMode(HSB, 360, 100, 100);
+
+  for (let i = 0; i < 5; i++) {
+    cirkels.push({
+      x: random(width),
+      y: random(height),
+      snelheid: random(1, 3),
+      kleur: random(360),
+      grootte: random(20, 60)
+    });
+  }
+}
+
+function draw() {
+  background(0, 0, 95);
+
+  for (let i = 0; i <= cirkels.length; i++) {
+    let c = cirkels[i];
+
+    c.x += c.snelheid;
+
+    if (c.x > width) {
+      c.x = 0;
+    }
+
+    fill(c.kleur, 70, 90);
+    noStroke();
+    circle(c.x, c.y, c.maat);
+  }
+}
+        </script>
+    </div>
+    <p><strong>Hints:</strong> Kijk goed naar de loop-conditie, de namen van de eigenschappen, en wat er gebeurt als een cirkel de rand bereikt. Er zitten drie bugs in.</p>
+</section>
+
+<section>
+    <h2>Prompten voor meer dan debugging</h2>
+    <p>Goede prompting is niet alleen nuttig voor bugs. Je kunt dezelfde techniek gebruiken om:</p>
+    <ul>
+        <li><strong>Concepten te begrijpen</strong>  - "Leg uit wat <code>map()</code> doet in p5.js, met een concreet voorbeeld"</li>
+        <li><strong>Alternatieven te verkennen</strong>  - "Zijn er andere manieren om dit effect te bereiken?"</li>
+        <li><strong>Code te verbeteren</strong>  - "Hoe kan ik deze code leesbaarder maken zonder het gedrag te veranderen?"</li>
+        <li><strong>Ideeën te genereren</strong>  - "Geef me vijf manieren om interactie toe te voegen aan deze sketch"</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Veelgemaakte prompt-fouten</h2>
+    <ul>
+        <li><strong>Te vaag</strong>  - "Help me met mijn code" geeft vage resultaten</li>
+        <li><strong>Te veel context</strong>  - Duizend regels code plakken zonder uitleg overweldigt het model</li>
+        <li><strong>Geen verwachting</strong>  - Als je niet zegt wat er <em>zou</em> moeten gebeuren, kan de AI niet weten wat er fout is</li>
+        <li><strong>Blind vertrouwen</strong>  - De AI kan een "fix" voorstellen die het probleem verplaatst in plaats van oplost. Test altijd.</li>
+    </ul>
+</section>

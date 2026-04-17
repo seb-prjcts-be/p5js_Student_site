@@ -1,6 +1,15 @@
 <div class="intro">
-    <p>p5.js is een rekenmachine die tekent. Bijna alles wat je ziet — posities, maten, kleuren, beweging — is het resultaat van berekeningen. Hoe je die berekeningen schrijft, bepaalt wat er op het scherm verschijnt.</p>
+    <p>p5.js is een rekenmachine die tekent. Bijna alles wat je ziet - posities, maten, kleuren, beweging - is het resultaat van berekeningen. Hoe je die berekeningen schrijft, bepaalt wat er op het scherm verschijnt.</p>
 </div>
+
+<section>
+    <h2>De console als rekenmachine</h2>
+    <p>Voordat je berekeningen in je sketch stopt, kun je ze uittesten met <code>console.log()</code>. Het is de snelste manier om te checken of een expressie doet wat je verwacht:</p>
+    <pre><code>console.log(10 / 3);          // 3.333...
+console.log(floor(10 / 3));   // 3
+console.log(width / 2);       // Helft van het canvas</code></pre>
+    <p>Open de console in je browser (F12) of in de p5.js-editor om het resultaat te zien. Gebruik het als verkenningsinstrument: probeer expressies uit voordat je ze in je code zet.</p>
+</section>
 
 <section>
     <h2>De vier basisoperatoren</h2>
@@ -27,7 +36,7 @@ x /= 4;   // x = x / 4  → 6
 x++;      // x = x + 1  → 7  (één ophogen)
 x--;      // x = x - 1  → 6  (één verlagen)</code></pre>
 
-    <p>In p5.js zie je <code>x += snelheid</code> en <code>hoek += 0.02</code> overal terug — het is de standaardmanier om iets te laten bewegen of draaien.</p>
+    <p>In p5.js zie je <code>x += snelheid</code> en <code>hoek += 0.02</code> overal terug - het is de standaardmanier om iets te laten bewegen of draaien.</p>
 </section>
 
 <section>
@@ -70,8 +79,8 @@ function draw() {
 </section>
 
 <section>
-    <h2>random() — willekeurige getallen</h2>
-    <p><code>random()</code> geeft elke keer een ander kommagetal terug. Daardoor krijg je steeds een ander resultaat — essentieel voor generatieve kunst.</p>
+    <h2>random() - willekeurige getallen</h2>
+    <p><code>random()</code> geeft elke keer een ander kommagetal terug. Daardoor krijg je steeds een ander resultaat - essentieel voor generatieve kunst.</p>
     <pre><code>random(100)       // getal van 0 tot 99.99...  (nooit precies 100!)
 random(50, 101)   // getal van 50 tot 100.99...
 
@@ -101,21 +110,27 @@ abs(-5)      // → 5   (absolute waarde, altijd positief)</code></pre>
     <pre><code>min(3, 7, 1)    // → 1  (kleinste waarde)
 max(3, 7, 1)    // → 7  (grootste waarde)</code></pre>
 
-    <h3>constrain() — houd een waarde binnen grenzen</h3>
+    <h3>constrain() - houd een waarde binnen grenzen</h3>
     <p>Handig om te voorkomen dat iets buiten het scherm gaat:</p>
     <pre><code>let x = constrain(mouseX, 50, width - 50);
 // x is nooit kleiner dan 50, nooit groter dan width - 50</code></pre>
 
-    <h3>map() — schaal een bereik naar een ander bereik</h3>
-    <p><code>map()</code> is een van de meest gebruikte functies in p5.js. Je geeft aan waar een waarde vandaan komt en waar die naartoe moet:</p>
-    <pre><code>// mouseX loopt van 0 tot width → maak er een kleurwaarde van (0–255)
+    <h3>map() - vertaal het ene bereik naar het andere</h3>
+    <p><code>map()</code> is een van de meest gebruikte functies in generatieve kunst. Het kernidee: je hebt een waarde in bereik A en wilt die omzetten naar bereik B.</p>
+    <pre><code>// map(waarde, van_min, van_max, naar_min, naar_max)
+
+// mouseX (0 tot width) → kleurwaarde (0 tot 255)
 let rood = map(mouseX, 0, width, 0, 255);
 fill(rood, 0, 150);
 
-// frameCount naar een hoek (0 – TWO_PI)
-let hoek = map(frameCount % 120, 0, 120, 0, TWO_PI);</code></pre>
+// frameCount naar een hoek (0 tot TWO_PI)
+let hoek = map(frameCount % 120, 0, 120, 0, TWO_PI);
 
-    <h3>dist() — afstand tussen twee punten</h3>
+// Je kunt ook omdraaien: groot wordt klein
+let grootte = map(mouseY, 0, height, 80, 10);  // Bovenaan groot, onderaan klein</code></pre>
+    <p>Bijna elk interactief of generatief effect begint met <code>map()</code>: muispositie naar kleur, afstand naar grootte, tijd naar rotatie. Als je één functie goed leert kennen, laat het deze zijn.</p>
+
+    <h3>dist() - afstand tussen twee punten</h3>
     <pre><code>// Afstand van de muis tot het midden
 let d = dist(mouseX, mouseY, width / 2, height / 2);
 
@@ -130,7 +145,7 @@ sq(4)      // → 16  (kwadraat, zelfde als 4 * 4)</code></pre>
 
 <div class="p5-example">
     <h3>Voorbeeld: map() en dist()</h3>
-    <p>Beweeg je muis — elke cirkel reageert op de afstand tot de muiscursor:</p>
+    <p>Beweeg je muis - elke cirkel reageert op de afstand tot de muiscursor:</p>
     <div class="p5-example-container">
         <div class="p5-canvas-wrapper" id="example-berekeningen"></div>
     </div>
@@ -162,7 +177,7 @@ function draw() {
       // Afstand van dit punt tot de muis
       let d = dist(mouseX, mouseY, x, y);
 
-      // map(): afstand → grootte en kleur — probeer de getallen aan te passen!
+      // map(): afstand → grootte en kleur - probeer de getallen aan te passen!
       let grootte = map(d, 0, 300, 60, 5);
       let helderheid = map(d, 0, 300, 255, 40);
 

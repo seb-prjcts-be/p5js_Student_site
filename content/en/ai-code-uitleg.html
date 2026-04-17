@@ -1,0 +1,96 @@
+<div class="intro">
+    <p>Imagine: you open a p5.js sketch that someone else wrote. Hundreds of lines of code, no comments. What does this program do? AI can help you decipher unfamiliar code - if you ask the right questions.</p>
+</div>
+
+<section>
+    <h2>Reading code with AI</h2>
+    <p>Understanding code is a skill. Not everything you encounter was written by you, and that's fine. AI can function as a patient explainer that guides you through unfamiliar code.</p>
+    <p>The key is: <strong>ask targeted questions</strong>. Instead of "explain this code", try:</p>
+    <ul>
+        <li>"What does the <code>draw()</code> function do in this sketch?"</li>
+        <li>"Why is there <code>translate(width/2, height/2)</code> at the beginning?"</li>
+        <li>"Which variables change every frame?"</li>
+        <li>"What would happen if I remove <code>noStroke()</code>?"</li>
+    </ul>
+    <p>The more specific your question, the more useful the answer.</p>
+</section>
+
+<section>
+    <h2>Exercise: mystery sketch</h2>
+    <p>Below is a sketch you probably won't immediately understand. Study the code and try to predict what appears on screen. Then use an AI tool to ask your questions.</p>
+</section>
+
+<div class="p5-example">
+    <h3>Mystery sketch</h3>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-ai-code-uitleg"></div>
+    </div>
+</div>
+
+<section>
+    <h2>What you can ask</h2>
+    <p>Copy the code from the editor below and paste it into an AI tool. Try these questions:</p>
+    <ol>
+        <li><strong>"What does this code do?"</strong> - Ask for a summary in plain language.</li>
+        <li><strong>"Explain line by line what happens."</strong> - For when you want to understand every detail.</li>
+        <li><strong>"Which p5.js functions are used here and what do they do?"</strong> - To expand your vocabulary.</li>
+        <li><strong>"How could I modify this sketch to do [X]?"</strong> - To go from understanding to creation.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Try it yourself</h2>
+    <p>Here's the same mystery sketch in the editor. Modify the code and see what changes. Can you predict what each adjustment does?</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Mystery sketch - what does this code do?
+let angle = 0;
+let count = 12;
+
+function setup() {
+  createCanvas(600, 400);
+  colorMode(HSB, 360, 100, 100, 100);
+}
+
+function draw() {
+  background(220, 15, 95);
+  translate(width / 2, height / 2);
+
+  for (let i = 0; i < count; i++) {
+    let a = (TWO_PI / count) * i + angle;
+    let r = 120 + sin(frameCount * 0.02 + i) * 40;
+    let x = cos(a) * r;
+    let y = sin(a) * r;
+    let size = 20 + sin(frameCount * 0.03 + i * 0.5) * 15;
+
+    fill((i * 30 + frameCount) % 360, 70, 90, 80);
+    noStroke();
+    ellipse(x, y, size, size);
+  }
+
+  angle += 0.005;
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Comparing AI with your own understanding</h2>
+    <p>A powerful exercise: write down <em>first</em> in your own words what you think the code does. <em>Then</em> ask the AI to explain it. Compare the two:</p>
+    <ul>
+        <li>Was your assessment correct?</li>
+        <li>Did the AI explain something you overlooked?</li>
+        <li>Did the AI explain something <em>incorrectly</em>? (Yes, that can happen!)</li>
+    </ul>
+    <p>This comparison is where you learn the most. You train yourself to read code and to critically evaluate AI output.</p>
+</section>
+
+<section>
+    <h2>Tips</h2>
+    <ul>
+        <li>Always copy the <strong>complete code</strong> to the AI - not just the bit you don't understand. Context matters.</li>
+        <li>Ask follow-up questions if an answer isn't clear: "Can you explain that more simply?"</li>
+        <li>Try to <strong>test</strong> the explanation: if the AI says "this variable controls the speed", change that variable and see if it's correct.</li>
+        <li>Compare explanations from different AI models - they sometimes explain in very different ways.</li>
+    </ul>
+</section>

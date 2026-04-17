@@ -1,0 +1,197 @@
+<div class="intro">
+    <p>Perlin noise is a special mathematical function that generates smooth, "organic" randomness. Where <code>random()</code> gives a completely random value each frame, <code>noise()</code> gives values that transition smoothly into each other - ideal for fluid movement, textures, and landscapes.</p>
+</div>
+
+<section>
+    <h2>noise() vs random()</h2>
+    <p>The difference is immediately visible:</p>
+    <pre><code>// random(): jumps to a random value every frame
+let x = random(0, width);   // Jerky, restless
+
+// noise(): smooth transition between values
+let offset = 0;
+
+function draw() {
+  let x = noise(offset) * width;  // noise() returns value between 0 and 1
+  offset += 0.01;                 // Small step = smooth motion
+}</code></pre>
+    <p><code>noise(t)</code> always returns a value between 0 and 1. By slowly increasing <code>t</code>, you move through the noise space.</p>
+</section>
+
+<section>
+    <h2>Basic usage</h2>
+    <pre><code>let t = 0;
+
+function draw() {
+  background(245);
+
+  let x = noise(t) * width;
+  let y = noise(t + 100) * height;  // Different starting point = different motion
+
+  circle(x, y, 40);
+
+  t += 0.01;  // Speed: smaller = slower and smoother
+}</code></pre>
+    <p>By using <code>t + 100</code> for the y-coordinate, we ensure that x and y move independently of each other.</p>
+</section>
+
+<section>
+    <h2>Mapping noise() to a Range</h2>
+    <p><code>noise()</code> always returns a value between 0 and 1. Use <code>map()</code> to convert it to a desired range:</p>
+    <pre><code>let t = 0;
+
+function draw() {
+  let diameter = map(noise(t), 0, 1, 20, 200);
+  // or: let diameter = noise(t) * 200;
+
+  background(245);
+  circle(width/2, height/2, diameter);
+  t += 0.02;
+}</code></pre>
+</section>
+
+<section>
+    <h2>2D Noise: Textures</h2>
+    <p><code>noise()</code> also works in two dimensions: <code>noise(x, y)</code>. This way you create seamless textures and "clouds":</p>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  noLoop();  // Draw only once
+}
+
+function draw() {
+  loadPixels();
+  let scale = 0.005;  // Smaller = larger "blobs"
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      let n = noise(x * scale, y * scale);
+      let brightness = n * 255;
+      let index = (x + y * width) * 4;
+      pixels[index]     = brightness;  // R
+      pixels[index + 1] = brightness;  // G
+      pixels[index + 2] = brightness;  // B
+      pixels[index + 3] = 255;         // Alpha
+    }
+  }
+  updatePixels();
+}</code></pre>
+</section>
+
+<section>
+    <h2>noiseSeed() and noiseDetail()</h2>
+    <p>You can influence the noise pattern:</p>
+    <pre><code>// noiseSeed(): same seed = always the same pattern
+noiseSeed(42);
+
+// noiseDetail(): how many "layers" of detail (octaves)
+// More octaves = more detail but more erratic
+noiseDetail(8, 0.5);  // 8 octaves, amplitude halves per octave</code></pre>
+</section>
+
+<section>
+    <h2>Noise for Smooth Movement</h2>
+    <p>A classic: multiple objects each moving independently through noise space:</p>
+    <pre><code>let offsets = [];
+let N = 20;
+
+function setup() {
+  createCanvas(600, 400);
+  // Give each object a different starting point in noise space
+  for (let i = 0; i < N; i++) {
+    offsets.push({ x: random(1000), y: random(1000) });
+  }
+}
+
+function draw() {
+  background(30, 20);
+
+  noStroke();
+  fill(0, 0, 255, 180);
+
+  for (let off of offsets) {
+    let x = noise(off.x) * width;
+    let y = noise(off.y) * height;
+
+    circle(x, y, 15);
+
+    off.x += 0.007;  // Move through noise space
+    off.y += 0.007;
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Noise Landscape</h2>
+    <p>Noise is perfect for terrain and waves:</p>
+    <pre><code>let t = 0;
+
+function draw() {
+  background(30, 100, 180);  // Sky
+
+  fill(50, 180, 80);  // Green terrain
+  noStroke();
+  beginShape();
+  vertex(0, height);
+
+  for (let x = 0; x <= width; x += 5) {
+    let y = noise(x * 0.003 + t) * height * 0.7 + height * 0.2;
+    vertex(x, y);
+  }
+
+  vertex(width, height);
+  endShape(CLOSE);
+
+  t += 0.003;  // Let terrain slowly scroll
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Noise Field</h3>
+    <p>Particles moving through a Perlin noise field - each with its own path:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-noise"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Change the noise scale, the number of particles, or the color. Try <code>noiseSeed()</code> to get a fixed pattern!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let t = 0;
+let points = [];
+
+function setup() {
+  createCanvas(600, 400);
+  // Create 60 points with random starting point in noise space
+  for (let i = 0; i < 60; i++) {
+    points.push({
+      offX: random(1000),
+      offY: random(1000) + 500  // Different starting point than offX
+    });
+  }
+  background(10);
+}
+
+function draw() {
+  background(10, 15);  // Semi-transparent -> trail fades
+
+  for (let p of points) {
+    let x = noise(p.offX) * width;
+    let y = noise(p.offY) * height;
+
+    // Color based on position
+    let hue = map(x, 0, width, 160, 320);
+    fill(hue, 180, 255, 150);
+    noStroke();
+    circle(x, y, 8);
+
+    // Step through noise space
+    p.offX += 0.008; // Try changing this!
+    p.offY += 0.008;
+  }
+}
+        </script>
+    </div>
+</section>

@@ -1,19 +1,30 @@
 <div class="intro">
-    <p>AI-tools zijn er in alle soorten en maten. Van playgrounds om modellen te testen tot editors die mee programmeren — dit is een overzicht van de meest nuttige tools voor studenten en makers.</p>
+    <p>AI-tools zijn er in alle soorten en maten. Van playgrounds om modellen te testen tot editors die mee programmeren - dit is een overzicht van de meest nuttige tools voor studenten en makers.</p>
 </div>
 
 <section>
     <h2>Wat is een API?</h2>
-    <p>Een <strong>API</strong> (Application Programming Interface) is een manier om twee softwaresystemen met elkaar te laten praten. Je stuurt een vraag, en je krijgt een antwoord terug — zonder te weten hoe het aan de andere kant werkt.</p>
+    <p>Een <strong>API</strong> (Application Programming Interface) is een manier om twee softwaresystemen met elkaar te laten praten. Je stuurt een vraag, en je krijgt een antwoord terug - zonder te weten hoe het aan de andere kant werkt.</p>
     <p>Vergelijk het met een restaurant: jij bestelt (de <em>request</em>), de keuken bereidt het (de verwerking), en de ober brengt het resultaat (de <em>response</em>). Jij hoeft niet te weten hoe de keuken werkt.</p>
     <p>Bijna alle AI-tools werken via een API. Als je code schrijft die een AI-model aanspreekt, stuur je een verzoek naar zo'n API en verwerk je het antwoord in je eigen applicatie.</p>
 </section>
 
 <section>
-    <h2>Catastrofaal vergeten</h2>
-    <p>AI-taalmodellen hebben een bijzonder probleem: ze kunnen niet leren van eerder gebruik. Elk gesprek begint helemaal opnieuw — het model herinnert zich niets van vorige sessies.</p>
-    <p>Bovendien hebben modellen een <strong>kennisgrens</strong> (cutoff date): alles wat na een bepaalde datum is gebeurd, weet het model niet. Je kunt dit deels omzeilen door het model recente teksten mee te geven in je prompt.</p>
-    <p>Dit is belangrijk om te onthouden als je AI gebruikt voor actuele informatie: controleer altijd of de info nog klopt.</p>
+    <h2>Geheugen en context</h2>
+    <p>AI-modellen starten elk gesprek blanco - ze herinneren zich niets van vorige sessies. Dat klinkt als een beperking, maar er zijn slimme manieren om daar omheen te werken:</p>
+
+    <h3>Geef context mee</h3>
+    <p>Je kunt een AI-model altijd extra informatie meegeven in je prompt. Plak er een stuk tekst bij, geef een link, of beschrijf je project. Hoe meer relevante context, hoe beter het antwoord.</p>
+
+    <h3>CLAUDE.md — geheugen voor je project</h3>
+    <p>Tools zoals <a href="https://docs.anthropic.com/en/docs/claude-code" target="_blank" rel="noopener">Claude Code</a> gebruiken een <code>CLAUDE.md</code>-bestand als langetermijngeheugen. Daarin beschrijf je je project, je voorkeuren en regels. Bij elke sessie leest de AI dat bestand en weet meteen waar je mee bezig bent.</p>
+    <p>Je kunt dit principe overal toepassen: maak een tekstbestand met context over je project en plak dat aan het begin van elk nieuw gesprek.</p>
+
+    <h3>Skills en instructies</h3>
+    <p>Veel AI-tools ondersteunen <strong>custom instructions</strong> of <strong>skills</strong> - herbruikbare instructies die je opslaat. Zo hoef je niet elke keer opnieuw uit te leggen wat je wilt. Denk aan het als een recept dat de AI telkens opnieuw kan volgen.</p>
+
+    <h3>Kennisgrens</h3>
+    <p>Modellen hebben een <strong>kennisgrens</strong> (cutoff date): recente gebeurtenissen kennen ze niet automatisch. Maar veel tools kunnen tegenwoordig het web doorzoeken, en je kunt altijd zelf actuele info meegeven in je prompt.</p>
 </section>
 
 <section>
@@ -21,7 +32,7 @@
     <p>De grote AI-bedrijven bieden eigen playgrounds aan: omgevingen waar je modellen direct kunt testen zonder te programmeren.</p>
 
     <h3>Google AI Studio</h3>
-    <p>Google's gratis playground voor Gemini-modellen. Je kunt er tekst, afbeeldingen en code testen, en je eigen API-sleutel aanmaken.</p>
+    <p><a href="https://aistudio.google.com/" target="_blank" rel="noopener">Google AI Studio</a> is Google's gratis playground voor Gemini-modellen. Je kunt er tekst, afbeeldingen en code testen, en je eigen API-sleutel aanmaken.</p>
     <ul>
         <li>Probeer multimodale prompts: geef een afbeelding mee met je vraag</li>
         <li>Bekijk de tokenizer: zie hoe je tekst wordt opgedeeld</li>
@@ -29,15 +40,15 @@
     </ul>
 
     <h3>OpenAI Platform</h3>
-    <p>De officiële speeltuin van OpenAI (makers van ChatGPT). Je kunt hier GPT-modellen testen, fine-tuning verkennen en API-aanvragen analyseren.</p>
+    <p><a href="https://platform.openai.com/playground" target="_blank" rel="noopener">OpenAI Platform</a> is de officiële speeltuin van OpenAI (makers van ChatGPT). Je kunt hier GPT-modellen testen, fine-tuning verkennen en API-aanvragen analyseren.</p>
 
     <h3>Anthropic Console</h3>
-    <p>De playground van Anthropic (makers van Claude). Vergelijkbaar met de anderen — handig om Claude's sterktes te verkennen, zoals langere documenten verwerken en nauwkeurig redeneren.</p>
+    <p><a href="https://console.anthropic.com/" target="_blank" rel="noopener">Anthropic Console</a> is de playground van Anthropic (makers van Claude). Vergelijkbaar met de anderen - handig om Claude's sterktes te verkennen, zoals langere documenten verwerken en nauwkeurig redeneren.</p>
 </section>
 
 <section>
     <h2>NotebookLM</h2>
-    <p><strong>NotebookLM</strong> (van Google) is een tool die AI combineert met je eigen bronnen. Je laadt documenten, PDF's of URLs in, en daarna kun je er vragen over stellen — het model antwoordt alleen op basis van wat je hebt toegevoegd.</p>
+    <p><a href="https://notebooklm.google.com/" target="_blank" rel="noopener"><strong>NotebookLM</strong></a> (van Google) is een tool die AI combineert met je eigen bronnen. Je laadt documenten, PDF's of URLs in, en daarna kun je er vragen over stellen - het model antwoordt alleen op basis van wat je hebt toegevoegd.</p>
     <p>Heel nuttig voor:</p>
     <ul>
         <li>Een lange PDF samenvatten en bevragen</li>
@@ -51,9 +62,9 @@
     <h2>Chrome-browser tips</h2>
     <p>Je browser is zelf een krachtig AI-startpunt geworden:</p>
     <ul>
-        <li><strong>Gemini in Chrome</strong> — rechtstreeks in de adresbalk kun je vragen stellen door <code>@gemini</code> te typen</li>
-        <li><strong>Extensies</strong> — tools zoals Monica, Merlin of Sider voegen een AI-zijpaneel toe aan elke pagina</li>
-        <li><strong>Lees- en samenvattingstools</strong> — selecteer tekst op een pagina en vraag direct om een samenvatting</li>
+        <li><strong>Gemini in Chrome</strong> - rechtstreeks in de adresbalk kun je vragen stellen door <code>@gemini</code> te typen</li>
+        <li><strong>Extensies</strong> - tools zoals Monica, Merlin of Sider voegen een AI-zijpaneel toe aan elke pagina</li>
+        <li><strong>Lees- en samenvattingstools</strong> - selecteer tekst op een pagina en vraag direct om een samenvatting</li>
     </ul>
 </section>
 
@@ -61,16 +72,16 @@
     <h2>Andere nuttige AI-tools</h2>
 
     <h3>Gamma</h3>
-    <p>Maak presentaties, documenten en websites op basis van een tekstprompt. Handig als startpunt — pas daarna aan naar eigen stijl.</p>
+    <p><a href="https://gamma.app/" target="_blank" rel="noopener">Gamma</a> maakt presentaties, documenten en websites op basis van een tekstprompt. Handig als startpunt - pas daarna aan naar eigen stijl.</p>
 
     <h3>ElevenLabs</h3>
-    <p>Tekst-naar-spraak van hoge kwaliteit. Genereer stemmen in tientallen talen en stijlen. Gebruik het voor video's, prototypes of experimenten met audio.</p>
+    <p><a href="https://elevenlabs.io/" target="_blank" rel="noopener">ElevenLabs</a> biedt tekst-naar-spraak van hoge kwaliteit. Genereer stemmen in tientallen talen en stijlen. Gebruik het voor video's, prototypes of experimenten met audio.</p>
 
     <h3>Napkin</h3>
-    <p>Zet tekst automatisch om in diagrammen en infographics. Handig voor het visualiseren van processen of ideeën.</p>
+    <p><a href="https://www.napkin.ai/" target="_blank" rel="noopener">Napkin</a> zet tekst automatisch om in diagrammen en infographics. Handig voor het visualiseren van processen of ideeën.</p>
 
     <h3>Eightify</h3>
-    <p>Chrome-extensie die YouTube-video's samenvat. Krijg de kernpunten van een lange video in seconden.</p>
+    <p><a href="https://eightify.app/" target="_blank" rel="noopener">Eightify</a> is een Chrome-extensie die YouTube-video's samenvat. Krijg de kernpunten van een lange video in seconden.</p>
 </section>
 
 <section>
@@ -78,15 +89,15 @@
     <p>AI verandert ook hoe we code schrijven. Er zijn tools die rechtstreeks in je code-editor zitten en mee suggereren, uitleggen en aanvullen.</p>
 
     <h3>GitHub Copilot (in VSCode)</h3>
-    <p>Copilot suggereert code terwijl je typt — op basis van de context van je bestand. Beschikbaar als extensie in VSCode. Gratis voor studenten via het GitHub Student Developer Pack.</p>
+    <p><a href="https://github.com/features/copilot" target="_blank" rel="noopener">Copilot</a> suggereert code terwijl je typt - op basis van de context van je bestand. Beschikbaar als extensie in VSCode. Gratis voor studenten via het <a href="https://education.github.com/pack" target="_blank" rel="noopener">GitHub Student Developer Pack</a>.</p>
 
     <h3>Cursor</h3>
-    <p>Een aparte code-editor gebouwd rondom AI. Je kunt er volledige codeblokken laten schrijven, uitleggen of refactoren via gewone taal. Werkt goed voor grotere projecten.</p>
+    <p><a href="https://www.cursor.com/" target="_blank" rel="noopener">Cursor</a> is een aparte code-editor gebouwd rondom AI. Je kunt er volledige codeblokken laten schrijven, uitleggen of refactoren via gewone taal. Werkt goed voor grotere projecten.</p>
 
     <h3>Tips bij AI-geassisteerd programmeren</h3>
     <ul>
-        <li>Beschrijf wat je wilt bereiken, niet hoe — laat de AI de implementatie kiezen</li>
-        <li>Controleer altijd de gegenereerde code — AI maakt fouten</li>
+        <li>Beschrijf wat je wilt bereiken, niet hoe - laat de AI de implementatie kiezen</li>
+        <li>Controleer altijd de gegenereerde code - AI maakt fouten</li>
         <li>Gebruik AI voor uitleg: "Leg uit wat deze functie doet" werkt uitstekend</li>
         <li>Kleine stappen: laat AI één functie tegelijk schrijven, niet een heel project</li>
     </ul>
@@ -96,10 +107,10 @@
     <h2>Bijblijven in het AI-landschap</h2>
     <p>Het AI-veld beweegt snel. Hier zijn betrouwbare bronnen om bij te blijven:</p>
     <ul>
-        <li><strong>Hugging Face</strong> — open-source modellen en papers, de hub van de AI-onderzoeksgemeenschap</li>
-        <li><strong>FutureTools.io</strong> — overzicht van nieuwe AI-tools, gesorteerd op categorie</li>
-        <li><strong>Matt Wolfe (YouTube)</strong> — wekelijkse video's over nieuwe AI-tools en ontwikkelingen, toegankelijk uitgelegd</li>
-        <li><strong>AI Explained (YouTube)</strong> — diepgaandere video's over hoe modellen werken</li>
+        <li><a href="https://huggingface.co/" target="_blank" rel="noopener"><strong>Hugging Face</strong></a> - open-source modellen en papers, de hub van de AI-onderzoeksgemeenschap</li>
+        <li><a href="https://www.futuretools.io/" target="_blank" rel="noopener"><strong>FutureTools.io</strong></a> - overzicht van nieuwe AI-tools, gesorteerd op categorie</li>
+        <li><a href="https://www.youtube.com/@MattWolfe" target="_blank" rel="noopener"><strong>Matt Wolfe</strong></a> (YouTube) - wekelijkse video's over nieuwe AI-tools en ontwikkelingen, toegankelijk uitgelegd</li>
+        <li><a href="https://www.youtube.com/@AIExplained-official" target="_blank" rel="noopener"><strong>AI Explained</strong></a> (YouTube) - diepgaandere video's over hoe modellen werken</li>
     </ul>
     <p>Het is niet de bedoeling dat je alles bijhoudt. Kies één of twee bronnen die bij jouw interesses passen.</p>
 </section>

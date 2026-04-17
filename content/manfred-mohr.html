@@ -1,0 +1,178 @@
+<div class="intro">
+    <p><strong>Manfred Mohr</strong> (1938-2023) was een van de eerste kunstenaars die een computer gebruikte als creatief instrument. Waar Vera Molnár begon met handmatige instructies, ging Mohr van meet af aan de dialoog aan met de machine - eerst als jazzmusicus, later als algoritmisch kunstenaar.</p>
+</div>
+
+<section>
+    <h2>Van jazz naar algoritmes</h2>
+    <p>Mohr groeide op in Pforzheim (Duitsland) en begon als abstracte schilder en actionschilder. In de jaren 60 speelde hij altsaxofoon in een jazz-ensemble - een discipline die improvisatie binnen regels centraal stelt.</p>
+    <p>Die balans tussen structuur en vrijheid zou zijn hele oeuvre bepalen. In 1969 begon hij code te schrijven voor een plotter aan het Centre de Calcul van de Universiteit van Parijs. Hij was een van de eersten in Europa die algoritmische kunst tentoonstelde in een groot museum: het Musée d'Art Moderne de la Ville de Paris in 1971.</p>
+</section>
+
+<section>
+    <h2>De kubus als uitgangspunt</h2>
+    <p>Vanaf het midden van de jaren 70 richtte Mohr zich bijna uitsluitend op de <strong>hyperkubus</strong> - de vierdimensionale uitbreiding van een kubus. Niet als wiskundig curiosum, maar als onuitputtelijke bron van visuele relaties.</p>
+    <p>Zijn werkwijze:</p>
+    <ol>
+        <li>Neem een kubus (of hyperkubus) als abstract model</li>
+        <li>Schrijf een algoritme dat bepaalde lijnen, vlakken of hoeken selecteert</li>
+        <li>Laat de computer alle mogelijke variaties uitrekenen</li>
+        <li>Kies uit de resultaten de composities die visueel het sterkst zijn</li>
+    </ol>
+    <p>Elke reeks werk is genummerd met een P-code (P-xxxx). Samen vormen ze een systematische verkenning van vorm die meer dan vijftig jaar beslaat.</p>
+</section>
+
+<section>
+    <h2>Belangrijke werken en reeksen</h2>
+
+    <h3>P-18 "Band" (1969)</h3>
+    <p>Een van zijn vroegste plotterwerken. Horizontale lijnen worden systematisch verstoord door een algoritme. Eenvoudige regels produceren complexe textuur - het kernprincipe dat door zijn hele oeuvre loopt.</p>
+
+    <h3>P-197 tot P-200 "Cubic Limit" (1973-1977)</h3>
+    <p>De doorbraak. Mohr reduceert de kubus tot losse lijnsegmenten en laat het algoritme beslissen welke combinaties op papier verschijnen. Het resultaat: abstracte composities die zowel wiskundig rigide als visueel verrassend zijn.</p>
+
+    <h3>P-480 "Klangfarben" (1998-2003)</h3>
+    <p>Kleur komt erbij. De naam verwijst naar Arnold Schönbergs concept van "Klangfarbenmelodie" - kleur als structureel element, niet als decoratie. Mohr past dezelfde algoritmische logica toe: kleur wordt berekend, niet gekozen.</p>
+
+    <h3>P-1414 "artificiata II" (2012-2015)</h3>
+    <p>Latere werken op basis van 11-dimensionale hyperkubussen. De complexiteit van de bron neemt toe, maar de visuele output blijft helder en leesbaar - een bewijs van Mohrs vaardigheid in het selecteren van regels die resoneren.</p>
+</section>
+
+<section>
+    <h2>Wat je van Mohr kunt leren</h2>
+    <ul>
+        <li><strong>Beperk je vocabulaire</strong> - Mohr werkte decennialang met dezelfde geometrische basis. Beperking leidt tot diepgang.</li>
+        <li><strong>Laat het algoritme verkennen</strong> - schrijf regels en bekijk wat eruit komt. Niet elke output is een kunstwerk, maar de selectie is dat wel.</li>
+        <li><strong>Structuur is geen gevangenis</strong> - net als in jazz ontstaat de interessantste kunst wanneer je binnen een systeem speelruimte vindt.</li>
+        <li><strong>Nummering = discipline</strong> - Mohrs P-nummering dwingt je om werk te documenteren en reeksen bewust op te bouwen.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Mohr en p5.js</h2>
+    <p>Mohrs werkwijze vertaalt zich direct naar p5.js: definieer een geometrische basis, schrijf regels die variaties produceren, en selecteer de sterkste resultaten. Hieronder een voorbeeld geïnspireerd op zijn "Cubic Limit" reeks.</p>
+</section>
+
+<div class="p5-example">
+    <h3>Interactief voorbeeld: kubusvariaties</h3>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-manfred-mohr"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experimenteer zelf</h2>
+    <p>Dit voorbeeld genereert een raster van kubusvariaties in de stijl van Mohrs werk hierboven. Elke kubus wordt willekeurig geroteerd en toont een andere selectie lijnsegmenten - wit op zwart, met rasterlijnen zoals in het origineel. Klik om een nieuwe compositie te genereren.</p>
+    <div class="p5-editor" data-width="600" data-height="600" data-autorun="true">
+        <script type="text/p5">
+// Geïnspireerd op Manfred Mohr - Cubic Limit
+// Wit op zwart, raster met geroteerde kubussen
+
+let kolommen = 8;
+let marge = 30;
+
+function setup() {
+  createCanvas(600, 600);
+  genereer();
+}
+
+function genereer() {
+  background(0);
+
+  let celGrootte = (width - marge * 2) / kolommen;
+
+  // Rasterlijnen (zoals in Mohrs werk)
+  stroke(255, 40);
+  strokeWeight(0.5);
+  for (let i = 0; i <= kolommen; i++) {
+    let pos = marge + i * celGrootte;
+    line(pos, marge, pos, height - marge);
+    line(marge, pos, width - marge, pos);
+  }
+
+  // Kubussen
+  stroke(255);
+  strokeWeight(1.2);
+  noFill();
+
+  for (let rij = 0; rij < kolommen; rij++) {
+    for (let kol = 0; kol < kolommen; kol++) {
+      let cx = marge + kol * celGrootte + celGrootte / 2;
+      let cy = marge + rij * celGrootte + celGrootte / 2;
+
+      push();
+      translate(cx, cy);
+      tekenKubus(celGrootte * 0.55);
+      pop();
+    }
+  }
+}
+
+function tekenKubus(g) {
+  let h = g / 2;
+
+  // Willekeurige 3D-rotatie per kubus
+  let rx = random(TWO_PI);
+  let ry = random(TWO_PI);
+  let rz = random(TWO_PI);
+
+  // 8 hoekpunten van een kubus in 3D
+  let punten3D = [
+    [-h, -h, -h], [h, -h, -h], [h, h, -h], [-h, h, -h],
+    [-h, -h,  h], [h, -h,  h], [h, h,  h], [-h, h,  h]
+  ];
+
+  // Roteer en projecteer naar 2D
+  let punten2D = punten3D.map(p => {
+    let [x, y, z] = p;
+    // Rotatie X
+    let y1 = y * cos(rx) - z * sin(rx);
+    let z1 = y * sin(rx) + z * cos(rx);
+    // Rotatie Y
+    let x2 = x * cos(ry) + z1 * sin(ry);
+    let z2 = -x * sin(ry) + z1 * cos(ry);
+    // Rotatie Z
+    let x3 = x2 * cos(rz) - y1 * sin(rz);
+    let y3 = x2 * sin(rz) + y1 * cos(rz);
+    return [x3, y3];
+  });
+
+  // 12 lijnsegmenten van een kubus
+  let lijnen = [
+    [0,1], [1,2], [2,3], [3,0],
+    [4,5], [5,6], [6,7], [7,4],
+    [0,4], [1,5], [2,6], [3,7]
+  ];
+
+  // Selecteer willekeurig 5-10 lijnen
+  let aantal = floor(random(5, 11));
+  let indices = [...Array(12).keys()];
+  for (let i = indices.length - 1; i > 0; i--) {
+    let j = floor(random(i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+
+  for (let i = 0; i < aantal; i++) {
+    let l = lijnen[indices[i]];
+    let a = punten2D[l[0]];
+    let b = punten2D[l[1]];
+    line(a[0], a[1], b[0], b[1]);
+  }
+}
+
+function mousePressed() {
+  genereer();
+}
+        </script>
+    </div>
+    <p>Klik op het canvas voor een nieuwe compositie. Probeer eens: alle 12 lijnen tonen in plaats van een selectie, de rotatie beperken tot één as, of kleur toevoegen op basis van de rotatiehoek.</p>
+</section>
+
+<section>
+    <h2>Verder kijken</h2>
+    <ul>
+        <li><a href="https://www.manfred-mohr.com" target="_blank">manfred-mohr.com</a> - officiële website met het volledige oeuvre</li>
+        <li><a href="https://www.youtube.com/watch?v=1RJKbWkYtrI" target="_blank">Manfred Mohr - Cubic Limit</a> (video)</li>
+        <li><a href="#vera-molnar">Vera Molnár</a> - tijdgenoot, andere aanpak: van handmatig naar digitaal</li>
+        <li><a href="#sol-lewitt">Sol LeWitt</a> - verwant idee: de instructie als kunstwerk</li>
+    </ul>
+</section>

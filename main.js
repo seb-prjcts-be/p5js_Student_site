@@ -1,9 +1,290 @@
+// === i18n - tweetalig NL/EN ===
+let currentLang = localStorage.getItem('lang') || 'nl';
+
+const i18n = {
+    nl: {
+        siteTitle: "p5.js Cursus",
+        subtitle: "Creative coding voor creatieve leerlingen",
+        pageTitle: "p5.js Cursus - Leer Creative Coding",
+        searchPlaceholder: "Zoek op trefwoord...",
+        navHeading: "Onderwerpen",
+        noResults: "Geen resultaten gevonden.",
+        loading: "Laden...",
+        topicNotFound: "Topic data niet gevonden. Controleer of het JSON-bestand bestaat.",
+        contentNotFound: "Content niet gevonden. Maak een HTML bestand aan in de content/ map.",
+        loadError: "Er is een fout opgetreden bij het laden van de content.",
+        relatedTopics: "Gerelateerde onderwerpen",
+        intro: "Intro",
+        example: "Voorbeeld",
+        section: "Sectie",
+        contains: "bevat",
+        shared: "gedeeld",
+        relatedVia: "verwant via",
+        welcomeTitle: "Welkom bij de p5.js Cursus",
+        welcomeText1: "Deze cursus helpt je stap voor stap creative coding leren met p5.js. Kies een onderwerp uit het menu om te beginnen, of gebruik de zoekfunctie om specifieke onderwerpen te vinden.",
+        welcomeText2: "p5.js is een JavaScript bibliotheek die creative coding toegankelijk maakt. Je kunt er interactieve animaties, visuele kunst, games en meer mee maken.",
+        welcomeQuote: "Creative coding is vandaag een vorm van geletterdheid: je leert niet alleen tools gebruiken, je leert systemen begrijpen, sturen en verbeelden. In een tijd waarin alles software wordt, van beeld tot beleid, geeft creative coding je agency: je kan experimenteren, kritisch kijken naar algoritmes, en je eigen taal bouwen om ideeën zichtbaar te maken.",
+        welcomeQuote2: "En net als in de allegorie met de boeken is \"alles begrijpen\" niet het punt. Elke schets, elke mislukte iteratie en elke kleine tweak spoelt iets door je denken: patronen, timing, gevoel voor structuur, en het vertrouwen dat je een complex probleem kan kneden tot iets dat werkt, of op z'n minst iets dat spreekt. De langetermijnwinst zit in die herhaalde aha's: een brein dat wendbaar wordt, dat verbanden ziet, en dat met onzekerheid kan spelen, precies de spier die je nodig hebt in een wereld die blijft veranderen.",
+        welcomeAuthor: "Frederick De Bleser - Luca Gent",
+        fontSizeLabel: "Lettergrootte",
+        fontSizeSmall: "Kleine letters",
+        fontSizeMedium: "Normale letters",
+        fontSizeLarge: "Grote letters",
+        editorError: "Fout:",
+        editorPreviewError: "Fout bij laden van preview:",
+        learningGoals: "Leerdoelen",
+        exercises: "Oefeningen",
+        hint: "Hint",
+        starterCode: "Startcode",
+        niveauLabels: { 1: 'Nabootsen', 2: 'Variëren', 3: 'Creëren' },
+        niveauBeschrijvingen: {
+            1: 'Pas bestaande code aan - verander één waarde en bekijk het resultaat.',
+            2: 'Breid een voorbeeld uit met eigen aanpassingen.',
+            3: 'Bouw iets nieuws met de concepten die je hebt geleerd.'
+        },
+        categories: {
+            "Introductie": "Introductie",
+            "p5.js basis": "p5.js basis",
+            "p5.js +": "p5.js +",
+            "Code concepten": "Code concepten",
+            "Strudel": "Strudel",
+            "AI": "AI",
+            "Inspiratie": "Inspiratie"
+        },
+        tags: "Tags"
+    },
+    en: {
+        siteTitle: "p5.js Course",
+        subtitle: "Creative coding for creative students",
+        pageTitle: "p5.js Course - Learn Creative Coding",
+        searchPlaceholder: "Search by keyword...",
+        navHeading: "Topics",
+        noResults: "No results found.",
+        loading: "Loading...",
+        topicNotFound: "Topic data not found. Check if the JSON file exists.",
+        contentNotFound: "Content not found. Create an HTML file in the content/ folder.",
+        loadError: "An error occurred while loading the content.",
+        relatedTopics: "Related topics",
+        intro: "Intro",
+        example: "Example",
+        section: "Section",
+        contains: "contains",
+        shared: "shared",
+        relatedVia: "related via",
+        welcomeTitle: "Welcome to the p5.js Course",
+        welcomeText1: "This course helps you learn creative coding step by step with p5.js. Pick a topic from the menu to get started, or use the search to find specific subjects.",
+        welcomeText2: "p5.js is a JavaScript library that makes creative coding accessible. You can create interactive animations, visual art, games and more.",
+        welcomeQuote: "Creative coding is a form of literacy today: you don't just learn to use tools, you learn to understand, steer and imagine systems. In a time where everything becomes software, from visuals to policy, creative coding gives you agency: you can experiment, look critically at algorithms, and build your own language to make ideas visible.",
+        welcomeQuote2: "And just like the allegory of the books, \"understanding everything\" isn't the point. Every sketch, every failed iteration and every little tweak flushes something through your thinking: patterns, timing, a feel for structure, and the confidence that you can shape a complex problem into something that works, or at least something that speaks. The long-term gain lies in those repeated aha moments: a mind that becomes agile, that sees connections, and that can play with uncertainty - exactly the muscle you need in a world that keeps changing.",
+        welcomeAuthor: "Frederick De Bleser - Luca Gent",
+        fontSizeLabel: "Font size",
+        fontSizeSmall: "Small text",
+        fontSizeMedium: "Normal text",
+        fontSizeLarge: "Large text",
+        editorError: "Error:",
+        editorPreviewError: "Error loading preview:",
+        learningGoals: "Learning goals",
+        exercises: "Exercises",
+        hint: "Hint",
+        starterCode: "Starter code",
+        niveauLabels: { 1: 'Imitate', 2: 'Vary', 3: 'Create' },
+        niveauBeschrijvingen: {
+            1: 'Modify existing code - change one value and see the result.',
+            2: 'Extend an example with your own tweaks.',
+            3: 'Build something new with the concepts you have learned.'
+        },
+        categories: {
+            "Introductie": "Introduction",
+            "p5.js basis": "p5.js basics",
+            "p5.js +": "p5.js +",
+            "Code concepten": "Code concepts",
+            "Strudel": "Strudel",
+            "AI": "AI",
+            "Inspiratie": "Inspiration"
+        },
+        tags: "Tags"
+    }
+};
+
+// Tag-vertalingen: NL → EN (tags die al Engels zijn, hoeven hier niet in)
+const tagTranslations = {
+    "geschiedenis": "history",
+    "vormen": "shapes",
+    "kleur": "colour",
+    "variabelen": "variables",
+    "berekeningen": "calculations",
+    "operatoren": "operators",
+    "rekenen": "arithmetic",
+    "voorwaarden": "conditions",
+    "logica": "logic",
+    "beslissingen": "decisions",
+    "herhalen": "repetition",
+    "patronen": "patterns",
+    "functies": "functions",
+    "herbruikbaar": "reusable",
+    "organisatie": "organisation",
+    "muis": "mouse",
+    "interactie": "interaction",
+    "toetsenbord": "keyboard",
+    "animatie": "animation",
+    "beweging": "movement",
+    "tijd": "time",
+    "datum": "date",
+    "klok": "clock",
+    "lijsten": "lists",
+    "opslag": "storage",
+    "rotatie": "rotation",
+    "transformatie": "transformation",
+    "instantie": "instance",
+    "methoden": "methods",
+    "willekeur": "randomness",
+    "organisch": "organic",
+    "textuur": "texture",
+    "landschap": "landscape",
+    "afbeelding": "image",
+    "tekst": "text",
+    "typografie": "typography",
+    "geluid": "sound",
+    "muziek": "music",
+    "ritme": "rhythm",
+    "introductie": "introduction",
+    "basis": "basics",
+    "fundamenten": "fundamentals",
+    "cellulair automaat": "cellular automaton",
+    "binaire regels": "binary rules",
+    "code concepten": "code concepts",
+    "zwerm": "swarm",
+    "vectoren": "vectors",
+    "emergentie": "emergence",
+    "cirkels": "circles",
+    "overlapping": "overlap",
+    "groeien": "growing",
+    "algoritme": "algorithm",
+    "simulatie": "simulation",
+    "palet": "palette",
+    "harmonie": "harmony",
+    "bereik": "range",
+    "schildpad": "turtle",
+    "spiraal": "spiral",
+    "ster": "star",
+    "zelfverwijzing": "self-reference",
+    "recursie": "recursion",
+    "boom": "tree",
+    "zelfde patroon": "same pattern",
+    "stopvoorwaarde": "base case",
+    "toeval": "chance",
+    "stappen": "steps",
+    "pad": "path",
+    "golven": "waves",
+    "wiskunde": "mathematics",
+    "rooster": "grid",
+    "raster": "grid",
+    "algoritmes": "algorithms",
+    "kunstgeschiedenis": "art history",
+    "instructie": "instruction",
+    "conceptuele kunst": "conceptual art",
+    "lijnen": "lines",
+    "systeem": "system",
+    "boeken": "books",
+    "bronnen": "resources",
+    "energie": "energy",
+    "ecologie": "ecology",
+    "klimaat": "climate",
+    "duurzaamheid": "sustainability",
+    "koffie": "coffee",
+    "programmeren": "programming",
+    "vergelijking": "comparison",
+    "modellen": "models",
+    "projectstructuur": "project structure",
+    "1d automaten": "1d automata",
+    "introductie": "introduction",
+    "educatie": "education",
+    "hallucinatie": "hallucination",
+    "bias": "bias",
+    "kritisch denken": "critical thinking",
+    "code lezen": "reading code",
+    "begrijpen": "understanding",
+    "uitleg": "explanation",
+    "mystery sketch": "mystery sketch",
+    "debugging": "debugging",
+    "prompting": "prompting",
+    "bugs": "bugs",
+    "prompt-engineering": "prompt engineering",
+    "fouten": "errors",
+    "oefeningen": "exercises",
+    "kritisch evalueren": "critical evaluation",
+    "stijl": "style",
+    "esthetiek": "aesthetics",
+    "iteratie": "iteration",
+    "eigen stem": "own voice",
+    "verfijnen": "refining",
+    "machine learning": "machine learning",
+    "webcam": "webcam",
+    "TensorFlow": "TensorFlow",
+    "experiment": "experiment",
+    "vrij werk": "free work",
+    "creatief": "creative",
+    "eindproject": "final project",
+    "presentatie": "presentation",
+    "reflectie": "reflection",
+    "auteurschap": "authorship",
+    "creatief proces": "creative process",
+    "portfolio": "portfolio"
+};
+
+function t(key) {
+    return i18n[currentLang][key] || i18n['nl'][key] || key;
+}
+
+function tTag(tag) {
+    if (currentLang === 'nl') return tag;
+    const lower = tag.toLowerCase();
+    if (tagTranslations[lower]) {
+        // Behoud hoofdlettergebruik van het origineel
+        if (tag[0] === tag[0].toUpperCase() && tag[0] !== tag[0].toLowerCase()) {
+            const translated = tagTranslations[lower];
+            return translated[0].toUpperCase() + translated.slice(1);
+        }
+        return tagTranslations[lower];
+    }
+    return tag;
+}
+
+function tCat(categorie) {
+    return i18n[currentLang].categories[categorie] || categorie;
+}
+
+function topicTitle(onderwerp) {
+    if (currentLang !== 'nl' && onderwerp.en && onderwerp.en.titel) {
+        return onderwerp.en.titel;
+    }
+    return onderwerp.titel;
+}
+
+function topicSummary(onderwerp) {
+    if (currentLang !== 'nl' && onderwerp.en && onderwerp.en.samenvatting) {
+        return onderwerp.en.samenvatting;
+    }
+    return onderwerp.samenvatting;
+}
+
+function topicContentFile(onderwerp) {
+    if (currentLang !== 'nl' && onderwerp.contentFile) {
+        return onderwerp.contentFile.replace('content/', 'content/en/');
+    }
+    return onderwerp.contentFile;
+}
+
 // Data structuur met alle onderwerpen
 const onderwerpen = [
     {
         id: "generative-design",
         titel: "Generative design & geschiedenis",
         samenvatting: "Ontdek de geschiedenis van generative design, van John Whitney tot moderne creative coding.",
+        en: {
+            titel: "Generative design & history",
+            samenvatting: "Discover the history of generative design, from John Whitney to modern creative coding."
+        },
         tags: ["geschiedenis", "generative design", "Whitney", "fractals", "DEMO", "BYOB", "creative coding"],
         contentFile: "content/generative-design.html",
         categorie: "Introductie"
@@ -12,6 +293,10 @@ const onderwerpen = [
         id: "over-p5js",
         titel: "Over p5.js",
         samenvatting: "Wat is p5.js, waar komt het vandaan, en hoe gebruik je het?",
+        en: {
+            titel: "About p5.js",
+            samenvatting: "What is p5.js, where does it come from, and how do you use it?"
+        },
         tags: ["p5.js", "Processing", "editor", "reference", "projectstructuur", "introductie"],
         contentFile: "content/over-p5js.html",
         categorie: "Introductie"
@@ -20,6 +305,10 @@ const onderwerpen = [
         id: "setup-draw",
         titel: "setup() en draw()",
         samenvatting: "Leer de twee belangrijkste functies: setup() voor initialisatie en draw() voor animatie.",
+        en: {
+            titel: "setup() and draw()",
+            samenvatting: "Learn the two most important functions: setup() for initialisation and draw() for animation."
+        },
         tags: ["setup", "draw", "createCanvas", "frameRate", "background", "basis", "fundamenten", "canvas"],
         contentFile: "content/setup-draw.html",
         categorie: "p5.js basis"
@@ -28,6 +317,10 @@ const onderwerpen = [
         id: "vormen",
         titel: "Vormen tekenen",
         samenvatting: "Leer hoe je basisvormen tekent: cirkels, rechthoeken, lijnen en meer.",
+        en: {
+            titel: "Drawing shapes",
+            samenvatting: "Learn how to draw basic shapes: circles, rectangles, lines and more."
+        },
         tags: ["vormen", "ellipse", "rect", "line", "triangle", "arc", "quad", "beginShape", "vertex", "endShape", "splineVertex", "bezierVertex", "quadraticVertex", "basis"],
         contentFile: "content/vormen.html",
         categorie: "p5.js basis"
@@ -36,6 +329,10 @@ const onderwerpen = [
         id: "kleur",
         titel: "Kleur",
         samenvatting: "Ontdek hoe je kleuren gebruikt in p5.js: RGB, HSB, transparantie en meer.",
+        en: {
+            titel: "Colour",
+            samenvatting: "Discover how to use colours in p5.js: RGB, HSB, transparency and more."
+        },
         tags: ["kleur", "fill", "stroke", "background", "RGB", "HSB"],
         contentFile: "content/kleur.html",
         categorie: "p5.js basis"
@@ -44,6 +341,10 @@ const onderwerpen = [
         id: "variabelen",
         titel: "Variabelen",
         samenvatting: "Leer hoe je variabelen gebruikt om waarden op te slaan en je code flexibel te maken.",
+        en: {
+            titel: "Variables",
+            samenvatting: "Learn how to use variables to store values and make your code flexible."
+        },
         tags: ["variabelen", "let", "const", "width", "height", "windowWidth", "windowHeight", "windowResized", "data", "basis"],
         contentFile: "content/variabelen.html",
         categorie: "p5.js basis"
@@ -52,6 +353,10 @@ const onderwerpen = [
         id: "berekeningen",
         titel: "Berekeningen",
         samenvatting: "Leer rekenen in p5.js: de vier basisoperatoren, modulo %, samengestelde operatoren en handige functies zoals map(), constrain() en dist().",
+        en: {
+            titel: "Calculations",
+            samenvatting: "Learn arithmetic in p5.js: the four basic operators, modulo %, compound operators and handy functions like map(), constrain() and dist()."
+        },
         tags: ["berekeningen", "operatoren", "modulo", "map", "constrain", "dist", "floor", "ceil", "round", "abs", "random", "%", "rekenen"],
         contentFile: "content/berekeningen.html",
         categorie: "p5.js basis"
@@ -60,6 +365,10 @@ const onderwerpen = [
         id: "if-statements",
         titel: "If-statements",
         samenvatting: "Maak beslissingen in je code met if-statements en voorwaarden.",
+        en: {
+            titel: "If statements",
+            samenvatting: "Make decisions in your code with if statements and conditions."
+        },
         tags: ["if", "else", "voorwaarden", "logica", "beslissingen"],
         contentFile: "content/if-statements.html",
         categorie: "p5.js basis"
@@ -68,6 +377,10 @@ const onderwerpen = [
         id: "loops",
         titel: "Loops",
         samenvatting: "Herhaal code met for-loops en while-loops om patronen te maken.",
+        en: {
+            titel: "Loops",
+            samenvatting: "Repeat code with for loops and while loops to create patterns."
+        },
         tags: ["loops", "for", "while", "herhalen", "patronen"],
         contentFile: "content/loops.html",
         categorie: "p5.js basis"
@@ -76,6 +389,10 @@ const onderwerpen = [
         id: "functies",
         titel: "Functies",
         samenvatting: "Maak herbruikbare code met functies. Organiseer je code en maak het overzichtelijker.",
+        en: {
+            titel: "Functions",
+            samenvatting: "Create reusable code with functions. Organise your code and keep it clear."
+        },
         tags: ["functies", "function", "herbruikbaar", "organisatie"],
         contentFile: "content/functies.html",
         categorie: "p5.js basis"
@@ -84,6 +401,10 @@ const onderwerpen = [
         id: "muis-interactie",
         titel: "Muis interactie",
         samenvatting: "Leer hoe je reageert op muisbewegingen en klikken.",
+        en: {
+            titel: "Mouse interaction",
+            samenvatting: "Learn how to respond to mouse movements and clicks."
+        },
         tags: ["muis", "mouseX", "mouseY", "pmouseX", "pmouseY", "mousePressed", "mouseDragged", "mouseReleased", "pointerPressed", "interactie", "events"],
         contentFile: "content/muis-interactie.html",
         categorie: "p5.js basis"
@@ -92,6 +413,10 @@ const onderwerpen = [
         id: "toetsenbord",
         titel: "Toetsenbord input",
         samenvatting: "Gebruik toetsenbord input om je sketches te besturen.",
+        en: {
+            titel: "Keyboard input",
+            samenvatting: "Use keyboard input to control your sketches."
+        },
         tags: ["toetsenbord", "keyboard", "keyPressed", "input"],
         contentFile: "content/toetsenbord.html",
         categorie: "p5.js +"
@@ -100,6 +425,10 @@ const onderwerpen = [
         id: "animatie",
         titel: "Animatie",
         samenvatting: "Maak animaties door waarden te veranderen in draw(). Leer over tijd, beweging en sinus/cosinus.",
+        en: {
+            titel: "Animation",
+            samenvatting: "Create animations by changing values in draw(). Learn about time, movement and sine/cosine."
+        },
         tags: ["animatie", "frameCount", "translate", "rotate", "angleMode", "beweging", "tijd", "millis", "sin", "cos", "tan"],
         contentFile: "content/animatie.html",
         categorie: "p5.js +"
@@ -108,6 +437,10 @@ const onderwerpen = [
         id: "datum-tijd",
         titel: "Datum en tijd",
         samenvatting: "Vraag de huidige datum en tijd op met year(), month(), day(), hour(), minute() en second(). Bouw klokken en tijdgestuurde sketches, geïnspireerd op John Maeda's 12 o'clocks (1996).",
+        en: {
+            titel: "Date and time",
+            samenvatting: "Retrieve the current date and time with year(), month(), day(), hour(), minute() and second(). Build clocks and time-driven sketches, inspired by John Maeda's 12 o'clocks (1996)."
+        },
         tags: ["datum", "tijd", "hour", "minute", "second", "year", "klok", "John Maeda", "12 o'clocks", "map", "angleMode"],
         contentFile: "content/datum-tijd.html",
         categorie: "p5.js +"
@@ -116,6 +449,10 @@ const onderwerpen = [
         id: "arrays",
         titel: "Arrays",
         samenvatting: "Gebruik arrays om meerdere waarden op te slaan en door te lopen.",
+        en: {
+            titel: "Arrays",
+            samenvatting: "Use arrays to store multiple values and loop through them."
+        },
         tags: ["arrays", "lijsten", "data", "opslag"],
         contentFile: "content/arrays.html",
         categorie: "p5.js +"
@@ -124,6 +461,10 @@ const onderwerpen = [
         id: "3d-basis",
         titel: "3D basis",
         samenvatting: "Ontdek 3D graphics met WEBGL. Leer 3D vormen tekenen en transformeren.",
+        en: {
+            titel: "3D basics",
+            samenvatting: "Discover 3D graphics with WEBGL. Learn to draw and transform 3D shapes."
+        },
         tags: ["3D", "WEBGL", "box", "sphere", "rotatie", "transformatie"],
         contentFile: "content/3d-basis.html",
         categorie: "p5.js +"
@@ -132,6 +473,10 @@ const onderwerpen = [
         id: "objecten",
         titel: "Objecten & classes",
         samenvatting: "Leer hoe je classes gebruikt om objecten te maken met eigen eigenschappen en gedrag. De basis van object-georiënteerd programmeren in p5.js.",
+        en: {
+            titel: "Objects & classes",
+            samenvatting: "Learn how to use classes to create objects with their own properties and behaviour. The basics of object-oriented programming in p5.js."
+        },
         tags: ["class", "object", "constructor", "OOP", "this", "instantie", "methoden"],
         contentFile: "content/objecten.html",
         categorie: "p5.js +"
@@ -140,6 +485,10 @@ const onderwerpen = [
         id: "noise",
         titel: "Noise & Perlin noise",
         samenvatting: "Ontdek noise(): een functie voor vloeiende, organische willekeur. Maak bewegende landschappen, texturen en flow fields.",
+        en: {
+            titel: "Noise & Perlin noise",
+            samenvatting: "Discover noise(): a function for smooth, organic randomness. Create moving landscapes, textures and flow fields."
+        },
         tags: ["noise", "Perlin noise", "willekeur", "organisch", "textuur", "flow field", "landschap"],
         contentFile: "content/noise.html",
         categorie: "p5.js +"
@@ -148,6 +497,10 @@ const onderwerpen = [
         id: "afbeeldingen",
         titel: "Afbeeldingen",
         samenvatting: "Leer afbeeldingen laden en tekenen met loadImage() en image(). Ontdek ook pixelmanipulatie en filters.",
+        en: {
+            titel: "Images",
+            samenvatting: "Learn to load and draw images with loadImage() and image(). Also discover pixel manipulation and filters."
+        },
         tags: ["afbeelding", "loadImage", "image", "pixels", "filter", "tint", "pixelArray"],
         contentFile: "content/afbeeldingen.html",
         categorie: "p5.js +"
@@ -156,6 +509,10 @@ const onderwerpen = [
         id: "text-typografie",
         titel: "Text & typografie",
         samenvatting: "Teken tekst op het canvas met text(), stel grootte en stijl in, en laad custom fonts met loadFont().",
+        en: {
+            titel: "Text & typography",
+            samenvatting: "Draw text on the canvas with text(), set size and style, and load custom fonts with loadFont()."
+        },
         tags: ["tekst", "text", "font", "typografie", "textSize", "textFont", "loadFont", "textAlign"],
         contentFile: "content/text-typografie.html",
         categorie: "p5.js +"
@@ -164,6 +521,10 @@ const onderwerpen = [
         id: "geluid",
         titel: "Geluid",
         samenvatting: "Voeg geluid toe aan je sketch met de p5.sound library: speel geluiden af, analyseer audio en maak visualisaties.",
+        en: {
+            titel: "Sound",
+            samenvatting: "Add sound to your sketch with the p5.sound library: play sounds, analyse audio and create visualisations."
+        },
         tags: ["geluid", "sound", "audio", "p5.sound", "loadSound", "SoundFile", "Amplitude", "FFT", "muziek"],
         contentFile: "content/geluid.html",
         categorie: "p5.js +"
@@ -172,6 +533,10 @@ const onderwerpen = [
         id: "strudel",
         titel: "Strudel: live coding muziek",
         samenvatting: "Leer live-coding muziek maken in je browser met Strudel: ritme, samples, noten en stack.",
+        en: {
+            titel: "Strudel: live coding music",
+            samenvatting: "Learn to make live-coding music in your browser with Strudel: rhythm, samples, notes and stack."
+        },
         tags: ["strudel", "live coding", "muziek", "samples", "ritme", "notes", "stack"],
         contentFile: "content/strudel.html",
         categorie: "Strudel"
@@ -180,6 +545,10 @@ const onderwerpen = [
         id: "1d-automaten",
         titel: "1D cellulaire automaten",
         samenvatting: "Een rij cellen volgt een simpele buurregel en groeit uit tot textielachtige, ritmische of chaotische patronen, zoals Rule 30 en Rule 110.",
+        en: {
+            titel: "1D cellular automata",
+            samenvatting: "A row of cells follows a simple neighbour rule and grows into textile-like, rhythmic or chaotic patterns, such as Rule 30 and Rule 110."
+        },
         tags: ["1d automaten", "rule 30", "rule 110", "cellulair automaat", "binaire regels", "code concepten"],
         contentFile: "content/1d-automaten.html",
         categorie: "Code concepten"
@@ -188,6 +557,10 @@ const onderwerpen = [
         id: "boids",
         titel: "Boids",
         samenvatting: "Zwermgedrag met drie regels: samenblijven, afstand houden en richting delen. Collectief gedrag zonder leider.",
+        en: {
+            titel: "Boids",
+            samenvatting: "Flocking behaviour with three rules: stay together, keep distance and share direction. Collective behaviour without a leader."
+        },
         tags: ["boids", "flocking", "zwerm", "vectoren", "emergentie", "agents", "code concepten"],
         contentFile: "content/boids.html",
         categorie: "Code concepten"
@@ -196,6 +569,10 @@ const onderwerpen = [
         id: "circle-packing",
         titel: "Circle packing",
         samenvatting: "Vul een canvas met zo veel mogelijk niet-overlappende cirkels die groeien tot ze elkaar of de rand raken.",
+        en: {
+            titel: "Circle packing",
+            samenvatting: "Fill a canvas with as many non-overlapping circles as possible that grow until they touch each other or the edge."
+        },
         tags: ["circle packing", "cirkels", "overlapping", "dist", "groeien", "generative", "algoritme"],
         contentFile: "content/circle-packing.html",
         categorie: "Code concepten"
@@ -204,6 +581,10 @@ const onderwerpen = [
         id: "game-of-life",
         titel: "Game of Life",
         samenvatting: "Vier simpele regels voor levende en dode cellen leveren werelden op met ritme, groei, instorting en onverwachte orde.",
+        en: {
+            titel: "Game of Life",
+            samenvatting: "Four simple rules for living and dead cells produce worlds with rhythm, growth, collapse and unexpected order."
+        },
         tags: ["game of life", "conway", "cellulair automaat", "simulatie", "emergentie", "code concepten"],
         contentFile: "content/game-of-life.html",
         categorie: "Code concepten"
@@ -211,7 +592,11 @@ const onderwerpen = [
     {
         id: "kleurenfamilie",
         titel: "Kleurenfamilie",
-        samenvatting: "Begrens willekeurige kleuren tot een klein venster per kanaal en maak zo een samenhangend kleurenpalet — zoals een textielontwerper een colorway kiest.",
+        samenvatting: "Begrens willekeurige kleuren tot een klein venster per kanaal en maak zo een samenhangend kleurenpalet - zoals een textielontwerper een colorway kiest.",
+        en: {
+            titel: "Colour family",
+            samenvatting: "Constrain random colours to a small window per channel to create a coherent colour palette - the way a textile designer picks a colourway."
+        },
         tags: ["kleur", "RGB", "random", "bereik", "palet", "colorway", "raster", "harmonie"],
         contentFile: "content/kleurenfamilie.html",
         categorie: "Code concepten"
@@ -220,6 +605,10 @@ const onderwerpen = [
         id: "l-systems",
         titel: "L-systemen",
         samenvatting: "Genereer organische bomen en vertakkingen door simpele tekstregels telkens opnieuw te herschrijven: beeld als grammatica.",
+        en: {
+            titel: "L-systems",
+            samenvatting: "Generate organic trees and branches by repeatedly rewriting simple text rules: image as grammar."
+        },
         tags: ["l-system", "lindenmayer", "fractal", "turtle", "string rewriting", "generative", "code concepten"],
         contentFile: "content/l-systems.html",
         categorie: "Code concepten"
@@ -228,6 +617,10 @@ const onderwerpen = [
         id: "langtons-ant",
         titel: "Langton's Ant",
         samenvatting: "Een mier draait links of rechts afhankelijk van de tegel onder zich. Een minuscuul regelsysteem dat van orde naar chaos en weer terug kan gaan.",
+        en: {
+            titel: "Langton's Ant",
+            samenvatting: "An ant turns left or right depending on the tile beneath it. A tiny rule system that can move from order to chaos and back again."
+        },
         tags: ["langton", "ant", "cellulair automaat", "emergentie", "chaos", "rooster", "code concepten"],
         contentFile: "content/langtons-ant.html",
         categorie: "Code concepten"
@@ -236,6 +629,10 @@ const onderwerpen = [
         id: "lissajous",
         titel: "Lissajous-figuren",
         samenvatting: "Combineer twee sinusgolven tot vloeiende figuren en ontdek hoe verhoudingen, ritme en faseverschuiving zichtbaar worden in beeld.",
+        en: {
+            titel: "Lissajous figures",
+            samenvatting: "Combine two sine waves into flowing figures and discover how ratios, rhythm and phase shift become visible in image."
+        },
         tags: ["lissajous", "sinus", "parametrisch", "wiskunde", "animatie", "golven", "code concepten"],
         contentFile: "content/lissajous.html",
         categorie: "Code concepten"
@@ -244,6 +641,10 @@ const onderwerpen = [
         id: "quine",
         titel: "Quine",
         samenvatting: "Een programma dat zijn eigen broncode toont zonder bestanden te lezen. Zelfverwijzing als denkoefening in code.",
+        en: {
+            titel: "Quine",
+            samenvatting: "A program that displays its own source code without reading files. Self-reference as a thought exercise in code."
+        },
         tags: ["quine", "zelfverwijzing", "meta", "toString", "recursie", "code concepten"],
         contentFile: "content/quine.html",
         categorie: "Code concepten"
@@ -252,6 +653,10 @@ const onderwerpen = [
         id: "random-walk",
         titel: "Random walk",
         samenvatting: "Een punt zet stap voor stap willekeurige bewegingen. Simpel idee, verrassend rijke patronen: toeval wordt zichtbaar als spoor.",
+        en: {
+            titel: "Random walk",
+            samenvatting: "A dot takes random steps one by one. A simple idea with surprisingly rich patterns: chance becomes visible as a trail."
+        },
         tags: ["random walk", "toeval", "walker", "stappen", "pad", "simulatie", "code concepten"],
         contentFile: "content/random-walk.html",
         categorie: "Code concepten"
@@ -260,6 +665,10 @@ const onderwerpen = [
         id: "recursie",
         titel: "Recursie",
         samenvatting: "Een functie die zichzelf opnieuw oproept. Ideaal om vertakkingen, fractals en herhaling op meerdere schalen te begrijpen.",
+        en: {
+            titel: "Recursion",
+            samenvatting: "A function that calls itself. Ideal for understanding branches, fractals and repetition at multiple scales."
+        },
         tags: ["recursie", "fractal", "boom", "zelfde patroon", "functie", "stopvoorwaarde", "code concepten"],
         contentFile: "content/recursie.html",
         categorie: "Code concepten"
@@ -268,30 +677,58 @@ const onderwerpen = [
         id: "turtle",
         titel: "Turtle geometry",
         samenvatting: "Bestuur een denkbeeldige schildpad met forward, right en left en ontdek hoe korte regels kunnen uitgroeien tot patronen, spiralen en fractals.",
+        en: {
+            titel: "Turtle geometry",
+            samenvatting: "Steer an imaginary turtle with forward, right and left and discover how short rules can grow into patterns, spirals and fractals."
+        },
         tags: ["turtle", "schildpad", "logo", "papert", "forward", "spiraal", "ster", "fractal", "code concepten"],
         contentFile: "content/turtle.html",
         categorie: "Code concepten"
     },
     {
         id: "vera-molnar",
-        titel: "Vera Molnar — code zonder computer",
+        titel: "Vera Molnar - code zonder computer",
         samenvatting: "Pionier van digitale esthetiek en generatieve kunst met een focus op raster, regels en variatie.",
+        en: {
+            titel: "Vera Molnar - code without a computer",
+            samenvatting: "Pioneer of digital aesthetics and generative art with a focus on grids, rules and variation."
+        },
         tags: ["generative art", "plotter", "raster", "algoritmes", "disorder", "kunstgeschiedenis"],
         contentFile: "content/vera-molnar.html",
         categorie: "Inspiratie"
     },
     {
         id: "sol-lewitt",
-        titel: "Sol LeWitt — instructies als kunst",
-        samenvatting: "Sol LeWitt schreef instructies naar musea in plaats van werken te maken. Code is ook een instructie — ontdek conceptuele kunst als algoritme.",
+        titel: "Sol LeWitt - instructies als kunst",
+        samenvatting: "Sol LeWitt schreef instructies naar musea in plaats van werken te maken. Code is ook een instructie - ontdek conceptuele kunst als algoritme.",
+        en: {
+            titel: "Sol LeWitt - instructions as art",
+            samenvatting: "Sol LeWitt sent instructions to museums instead of creating works. Code is also an instruction - discover conceptual art as algorithm."
+        },
         tags: ["sol lewitt", "instructie", "conceptuele kunst", "wall drawing", "algoritme", "lijnen", "systeem"],
         contentFile: "content/sol-lewitt.html",
+        categorie: "Inspiratie"
+    },
+    {
+        id: "manfred-mohr",
+        titel: "Manfred Mohr - de kubus als algoritme",
+        samenvatting: "Van jazz naar plotters: Manfred Mohr verkende vijftig jaar lang de kubus met code. Zijn werk toont hoe beperking tot diepgang leidt.",
+        en: {
+            titel: "Manfred Mohr - the cube as algorithm",
+            samenvatting: "From jazz to plotters: Manfred Mohr explored the cube through code for fifty years. His work shows how constraint leads to depth."
+        },
+        tags: ["manfred mohr", "kubus", "hyperkubus", "plotter", "algoritmische kunst", "generatieve kunst", "lijnen", "systeem"],
+        contentFile: "content/manfred-mohr.html",
         categorie: "Inspiratie"
     },
     {
         id: "inspiratie-links",
         titel: "Links & bronnen",
         samenvatting: "Alle links uit de cursus: inspirerende projecten, video's, boeken, bibliotheken, tools en datasets.",
+        en: {
+            titel: "Links & resources",
+            samenvatting: "All links from the course: inspiring projects, videos, books, libraries, tools and datasets."
+        },
         tags: ["links", "bronnen", "inspiratie", "boeken", "video", "community", "datasets", "bibliotheken"],
         contentFile: "content/inspiratie-links.html",
         categorie: "Inspiratie"
@@ -299,7 +736,11 @@ const onderwerpen = [
     {
         id: "ai-ecologische-kost",
         titel: "AI & ecologische kost",
-        samenvatting: "Hoeveel energie kost AI eigenlijk? Vergelijk AI-gesprekken met koffie, Netflix en meer — en ontdek waarom het verhaal genuanceerder is dan je denkt.",
+        samenvatting: "Hoeveel energie kost AI eigenlijk? Vergelijk AI-gesprekken met koffie, Netflix en meer - en ontdek waarom het verhaal genuanceerder is dan je denkt.",
+        en: {
+            titel: "AI & ecological cost",
+            samenvatting: "How much energy does AI actually use? Compare AI conversations with coffee, Netflix and more - and discover why the story is more nuanced than you think."
+        },
         tags: ["AI", "energie", "ecologie", "klimaat", "datacenter", "GPU", "duurzaamheid", "training", "koffie"],
         contentFile: "content/ai-ecologische-kost.html",
         categorie: "AI"
@@ -307,7 +748,11 @@ const onderwerpen = [
     {
         id: "ai-tools",
         titel: "AI-tools en playgrounds",
-        samenvatting: "Van API's en playgrounds tot NotebookLM en Cursor — een overzicht van de meest nuttige AI-tools voor studenten en makers.",
+        samenvatting: "Van API's en playgrounds tot NotebookLM en Cursor - een overzicht van de meest nuttige AI-tools voor studenten en makers.",
+        en: {
+            titel: "AI tools and playgrounds",
+            samenvatting: "From APIs and playgrounds to NotebookLM and Cursor - an overview of the most useful AI tools for students and makers."
+        },
         tags: ["AI", "API", "tools", "playground", "NotebookLM", "Cursor", "Copilot", "programmeren", "ElevenLabs"],
         contentFile: "content/ai-tools.html",
         categorie: "AI"
@@ -315,7 +760,11 @@ const onderwerpen = [
     {
         id: "ai-modellen",
         titel: "AI-modellen vergelijken",
-        samenvatting: "ChatGPT, Gemini, Claude, Copilot, Grok — welk model presteert het best voor creatieve en technische vragen? Met scoretabel en een blik op Europese alternatieven.",
+        samenvatting: "ChatGPT, Gemini, Claude, Copilot, Grok - welk model presteert het best voor creatieve en technische vragen? Met scoretabel en een blik op Europese alternatieven.",
+        en: {
+            titel: "Comparing AI models",
+            samenvatting: "ChatGPT, Gemini, Claude, Copilot, Grok - which model performs best for creative and technical questions? With score table and a look at European alternatives."
+        },
         tags: ["AI", "modellen", "ChatGPT", "Claude", "Gemini", "Copilot", "Grok", "Mistral", "vergelijking", "Le Chat"],
         contentFile: "content/ai-modellen.html",
         categorie: "AI"
@@ -324,8 +773,96 @@ const onderwerpen = [
         id: "vibe-coding",
         titel: "Vibe coding",
         samenvatting: "Beschrijf wat je wilt maken en laat AI de code schrijven. Een inleiding tot vibe coding: wat het is, welke tools je gebruikt en waar je op moet letten.",
-        tags: ["vibe coding", "AI", "Cursor", "Copilot", "Replit", "Windsurf", "Karpathy", "programmeren", "tools"],
+        en: {
+            titel: "Vibe coding",
+            samenvatting: "Describe what you want to build and let AI write the code. An introduction to vibe coding: what it is, which tools to use and what to watch out for."
+        },
+        tags: ["vibe coding", "AI", "Cursor", "Copilot", "Replit", "Windsurf", "Karpathy", "programmeren", "tools", "kritisch evalueren"],
         contentFile: "content/vibe-coding.html",
+        categorie: "AI"
+    },
+    {
+        id: "ai-4ds",
+        titel: "De 4D's: AI bewust gebruiken",
+        samenvatting: "Detecteren, definiëren, doen en documenteren. Een praktische aanpak om AI in te zetten als leerpartner, niet als shortcut.",
+        en: {
+            titel: "The 4D's: using AI consciously",
+            samenvatting: "Detect, define, do and document. A practical approach to using AI as a learning partner, not a shortcut."
+        },
+        tags: ["AI", "4D", "leerpartner", "studiebuddy", "promptcraft", "hallucinatie", "integriteit", "privacy", "leerjournaal"],
+        contentFile: "content/ai-4ds.html",
+        categorie: "AI"
+    },
+    {
+        id: "ai-code-uitleg",
+        titel: "AI legt code uit",
+        samenvatting: "Gebruik AI om onbekende p5.js-sketches te begrijpen. Leer de juiste vragen stellen en vergelijk AI-uitleg met je eigen begrip.",
+        en: {
+            titel: "AI explains code",
+            samenvatting: "Use AI to understand unfamiliar p5.js sketches. Learn to ask the right questions and compare AI explanations with your own understanding."
+        },
+        tags: ["AI", "code lezen", "begrijpen", "uitleg", "p5.js", "prompting", "mystery sketch"],
+        contentFile: "content/ai-code-uitleg.html",
+        categorie: "AI"
+    },
+    {
+        id: "ai-debuggen-prompting",
+        titel: "Debuggen & prompting",
+        samenvatting: "Leer AI inzetten om bugs te vinden en ontdek hoe je betere prompts schrijft. Met oefeningen en de prompt-formule.",
+        en: {
+            titel: "Debugging & prompting",
+            samenvatting: "Learn to use AI to find bugs and discover how to write better prompts. With exercises and the prompt formula."
+        },
+        tags: ["AI", "debugging", "prompting", "bugs", "prompt-engineering", "fouten", "code", "oefeningen"],
+        contentFile: "content/ai-debuggen-prompting.html",
+        categorie: "AI"
+    },
+    {
+        id: "ai-eigen-stijl",
+        titel: "Eigen stijl bewaren",
+        samenvatting: "Hoe stuur je AI aan zodat de output past bij jouw esthetiek? Leer iteratief werken en je creatieve stem behouden.",
+        en: {
+            titel: "Maintaining your own style",
+            samenvatting: "How do you guide AI so the output matches your aesthetics? Learn to work iteratively and maintain your creative voice."
+        },
+        tags: ["AI", "stijl", "esthetiek", "iteratie", "prompt", "creativiteit", "eigen stem", "verfijnen"],
+        contentFile: "content/ai-eigen-stijl.html",
+        categorie: "AI"
+    },
+    {
+        id: "ai-ml5js",
+        titel: "ml5.js introductie",
+        samenvatting: "Ontdek ml5.js als brug tussen p5.js en AI. Laad je eerste model en bouw een sketch die reageert op je lichaam.",
+        en: {
+            titel: "ml5.js introduction",
+            samenvatting: "Discover ml5.js as a bridge between p5.js and AI. Load your first model and build a sketch that reacts to your body."
+        },
+        tags: ["ml5.js", "AI", "machine learning", "BodyPose", "HandPose", "FaceMesh", "webcam", "p5.js", "TensorFlow"],
+        contentFile: "content/ai-ml5js.html",
+        categorie: "AI"
+    },
+    {
+        id: "ai-ml5js-experiment",
+        titel: "ml5.js vrij experiment",
+        samenvatting: "Kies zelf een ml5.js-model en integreer het in een eigen creatieve sketch. Van BodyPose tot SoundClassifier - jij kiest de richting.",
+        en: {
+            titel: "ml5.js free experiment",
+            samenvatting: "Choose an ml5.js model and integrate it into your own creative sketch. From BodyPose to SoundClassifier - you choose the direction."
+        },
+        tags: ["ml5.js", "AI", "experiment", "vrij werk", "BodyPose", "SoundClassifier", "ObjectDetector", "creatief"],
+        contentFile: "content/ai-ml5js-experiment.html",
+        categorie: "AI"
+    },
+    {
+        id: "ai-eindproject",
+        titel: "Eindproject & reflectie",
+        samenvatting: "Maak een creatief eindwerk waarin AI een bewuste rol speelt. Met projectopzet, presentatietips en reflectievragen.",
+        en: {
+            titel: "Final project & reflection",
+            samenvatting: "Create a creative final work where AI plays a conscious role. With project setup, presentation tips and reflection questions."
+        },
+        tags: ["AI", "eindproject", "presentatie", "reflectie", "auteurschap", "creatief proces", "portfolio"],
+        contentFile: "content/ai-eindproject.html",
         categorie: "AI"
     }
 ];
@@ -391,14 +928,32 @@ function getOnderwerpText(onderwerp) {
 
     const fallbackText = `${onderwerp.titel} ${onderwerp.samenvatting} ${getOnderwerpTags(onderwerp).join(' ')}`;
     const textPromise = (async () => {
-        if (!onderwerp.contentFile) {
+        const fetchUrl = onderwerp.dataFile || onderwerp.contentFile;
+        if (!fetchUrl) {
             return fallbackText;
         }
 
         try {
-            const response = await fetch(onderwerp.contentFile);
+            const response = await fetch(fetchUrl);
             if (!response.ok) {
                 return fallbackText;
+            }
+
+            if (onderwerp.dataFile) {
+                // JSON: extract plain text from all tekst/code/beschrijving fields
+                const topic = await response.json();
+                const texts = [];
+                for (const sectie of (topic.secties || [])) {
+                    if (sectie.titel) texts.push(sectie.titel);
+                    if (sectie.beschrijving) texts.push(sectie.beschrijving);
+                    if (sectie.code) texts.push(sectie.code);
+                    for (const block of (sectie.content || [])) {
+                        if (block.tekst) texts.push(block.tekst);
+                        if (block.code) texts.push(block.code);
+                        if (block.items) texts.push(block.items.join(' '));
+                    }
+                }
+                return texts.join(' ');
             }
 
             const html = await response.text();
@@ -460,14 +1015,14 @@ function getRelationLabel(block, index) {
     }
 
     if (block.classList.contains('intro')) {
-        return 'Intro';
+        return t('intro');
     }
 
     if (block.classList.contains('p5-example')) {
-        return `Voorbeeld ${index + 1}`;
+        return `${t('example')} ${index + 1}`;
     }
 
-    return `Sectie ${index + 1}`;
+    return `${t('section')} ${index + 1}`;
 }
 
 function getInPageRelations(contentRoot, activeTag) {
@@ -604,14 +1159,14 @@ function getRelatedTopicReason(item, activeTag) {
     const onderwerpTags = getOnderwerpTags(item.onderwerp);
 
     if (onderwerpTags.some(tag => normalizeText(tag) === normalizeText(activeTag))) {
-        return `bevat ${activeTag}`;
+        return `${t('contains')} ${tTag(activeTag)}`;
     }
 
     if (item.sharedTags.length > 0) {
-        return `gedeeld: ${item.sharedTags.slice(0, 2).join(', ')}`;
+        return `${t('shared')}: ${item.sharedTags.slice(0, 2).map(tTag).join(', ')}`;
     }
 
-    return `verwant via ${activeTag}`;
+    return `${t('relatedVia')} ${tTag(activeTag)}`;
 }
 
 function renderTagChipFlow(currentTags, contextData) {
@@ -620,12 +1175,12 @@ function renderTagChipFlow(currentTags, contextData) {
     const activeTagIsCurrent = currentTags.some(tag => normalizeText(tag) === activeTagNormalized);
     const staticTagButtons = currentTags.map(tag => `
         <button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">
-            ${escapeHtml(tag)}
+            ${escapeHtml(tTag(tag))}
         </button>
     `);
     const activeTagButton = !activeTagIsCurrent ? `
         <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(activeTag)}">
-            ${escapeHtml(activeTag)}
+            ${escapeHtml(tTag(activeTag))}
         </button>
     ` : '';
     const contextButtons = [
@@ -636,7 +1191,7 @@ function renderTagChipFlow(currentTags, contextData) {
         `),
         ...broaderTags.map(tag => `
             <button class="tag-btn tag-related-btn" type="button" data-tag="${escapeHtml(tag)}">
-                ${escapeHtml(tag)}
+                ${escapeHtml(tTag(tag))}
             </button>
         `)
     ];
@@ -651,12 +1206,12 @@ function renderTagChipFlow(currentTags, contextData) {
 function renderTagContext(contextData) {
     const { activeTag, relatedTopics } = contextData;
     const relatedTopicsSection = relatedTopics.length > 0 ? `
-        <p class="tag-context-heading">Gerelateerde onderwerpen</p>
+        <p class="tag-context-heading">${t('relatedTopics')}</p>
         <div class="tag-topic-list">
             ${relatedTopics.map(item => `
                 <a class="tag-topic-item" href="#${item.onderwerp.id}">
-                    <span class="tag-topic-category">${escapeHtml(item.onderwerp.categorie)}</span>
-                    <span class="tag-topic-title">${escapeHtml(item.onderwerp.titel)}</span>
+                    <span class="tag-topic-category">${escapeHtml(tCat(item.onderwerp.categorie))}</span>
+                    <span class="tag-topic-title">${escapeHtml(topicTitle(item.onderwerp))}</span>
                     <span class="tag-topic-reason">${escapeHtml(getRelatedTopicReason(item, activeTag))}</span>
                 </a>
             `).join('')}
@@ -684,7 +1239,9 @@ function initRouter() {
     function loadOnderwerp() {
         const hash = window.location.hash.slice(1); // Verwijder #
         const onderwerp = hash ? onderwerpen.find(o => o.id === hash) : null;
-        
+
+        window.scrollTo(0, 0);
+
         if (onderwerp) {
             renderOnderwerp(onderwerp);
             updateActiveNav(onderwerp.id);
@@ -701,6 +1258,123 @@ function initRouter() {
     loadOnderwerp();
 }
 
+// === JSON Topic Renderer ===
+// Rendert een topic-JSON naar HTML-fragmenten, identiek aan de hand-geschreven content/*.html structuur.
+
+function renderInlineMarkdown(tekst) {
+    // Converteer inline markdown naar HTML: `code`, **bold**, [link](#hash)
+    return tekst
+        .replace(/`([^`]+)`/g, '<code>$1</code>')
+        .replace(/\*\*([^*]+)\*\*/g, '<strong>$1</strong>')
+        .replace(/\[([^\]]+)\]\(([^)]+)\)/g, '<a href="$2">$1</a>');
+}
+
+function renderContentBlock(block) {
+    switch (block.type) {
+        case 'p':
+            return `<p>${renderInlineMarkdown(block.tekst)}</p>`;
+        case 'code':
+            return `<pre><code>${escapeHtml(block.code)}</code></pre>`;
+        case 'h3':
+            return `<h3>${renderInlineMarkdown(block.tekst)}</h3>`;
+        case 'lijst':
+            return `<ul>${block.items.map(item => `<li>${renderInlineMarkdown(item)}</li>`).join('\n')}</ul>`;
+        case 'afbeelding':
+            return `<figure>
+    <img src="${escapeHtml(block.src)}" alt="${escapeHtml(block.alt)}">
+    ${block.caption ? `<figcaption>${renderInlineMarkdown(block.caption)}</figcaption>` : ''}
+</figure>`;
+        case 'links':
+            return `<ul>${block.items.map(item =>
+                `<li><a href="${escapeHtml(item.url)}" target="_blank" rel="noopener">${escapeHtml(item.label)}</a>${item.beschrijving ? ` - ${renderInlineMarkdown(item.beschrijving)}` : ''}</li>`
+            ).join('\n')}</ul>`;
+        default:
+            return '';
+    }
+}
+
+function renderTopicFromJson(topic) {
+    const parts = [];
+
+    for (const sectie of topic.secties) {
+        switch (sectie.type) {
+            case 'intro':
+                parts.push(`<div class="intro">\n${sectie.content.map(renderContentBlock).join('\n')}\n</div>`);
+                break;
+            case 'sectie':
+                parts.push(`<section>\n<h2>${renderInlineMarkdown(sectie.titel)}</h2>\n${sectie.content.map(renderContentBlock).join('\n')}\n</section>`);
+                break;
+            case 'voorbeeld':
+                parts.push(`<div class="p5-example">
+    <h3>${renderInlineMarkdown(sectie.titel)}</h3>
+    ${sectie.beschrijving ? `<p>${renderInlineMarkdown(sectie.beschrijving)}</p>` : ''}
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="${escapeHtml(sectie.exampleId)}"></div>
+    </div>
+</div>`);
+                break;
+            case 'editor':
+                parts.push(`<section>
+    <h2>${renderInlineMarkdown(sectie.titel)}</h2>
+    ${sectie.beschrijving ? `<p>${renderInlineMarkdown(sectie.beschrijving)}</p>` : ''}
+    <div class="p5-editor" data-width="${sectie.width || 600}" data-height="${sectie.height || 400}" data-autorun="${sectie.autorun !== false ? 'true' : 'false'}">
+        <script type="text/p5">\n${sectie.code}\n        </script>
+    </div>
+</section>`);
+                break;
+        }
+    }
+
+    // Leerdoelen als uitklapbare sectie
+    if (topic.leerdoelen && topic.leerdoelen.length > 0) {
+        parts.push(`<section class="topic-leerdoelen">
+    <details>
+        <summary><h2>${t('learningGoals')}</h2></summary>
+        <ul>${topic.leerdoelen.map(doel => `\n            <li>${renderInlineMarkdown(doel)}</li>`).join('')}
+        </ul>
+    </details>
+</section>`);
+    }
+
+    // Oefeningen als uitklapbare sectie per niveau
+    if (topic.oefeningen && topic.oefeningen.length > 0) {
+        const niveauLabels = t('niveauLabels');
+        const niveauBeschrijvingen = t('niveauBeschrijvingen');
+
+        let oefeningenHtml = '';
+        for (const niveau of [1, 2, 3]) {
+            const items = topic.oefeningen.filter(o => o.niveau === niveau);
+            if (items.length === 0) continue;
+
+            oefeningenHtml += `\n            <div class="oefening-niveau" data-niveau="${niveau}">
+                <h3>${niveauLabels[niveau] || 'Niveau ' + niveau}</h3>
+                <p class="oefening-niveau-beschrijving">${niveauBeschrijvingen[niveau] || ''}</p>`;
+
+            for (const oef of items) {
+                oefeningenHtml += `\n                <div class="oefening-kaart">
+                    <h4>${renderInlineMarkdown(oef.titel)}</h4>
+                    <p>${renderInlineMarkdown(oef.beschrijving)}</p>`;
+                if (oef.hint) {
+                    oefeningenHtml += `\n                    <details class="oefening-hint"><summary>${t('hint')}</summary><p>${renderInlineMarkdown(oef.hint)}</p></details>`;
+                }
+                if (oef.starterCode) {
+                    oefeningenHtml += `\n                    <details class="oefening-starter"><summary>${t('starterCode')}</summary><pre><code>${escapeHtml(oef.starterCode)}</code></pre></details>`;
+                }
+                oefeningenHtml += `\n                </div>`;
+            }
+            oefeningenHtml += `\n            </div>`;
+        }
+
+        parts.push(`<section class="topic-oefeningen">
+    <details>
+        <summary><h2>${t('exercises')}</h2></summary>${oefeningenHtml}
+    </details>
+</section>`);
+    }
+
+    return parts.join('\n\n');
+}
+
 // Render functie voor onderwerp pagina
 async function renderOnderwerp(onderwerp) {
     const content = document.getElementById('content');
@@ -708,21 +1382,36 @@ async function renderOnderwerp(onderwerp) {
     // Toon laadindicator
     content.innerHTML = `
         <div class="onderwerp-page">
-            <h1>${onderwerp.titel}</h1>
-            <p>Laden...</p>
+            <h1>${topicTitle(onderwerp)}</h1>
+            <p>${t('loading')}</p>
         </div>
     `;
     
     try {
-        // Laad HTML content uit bestand
+        // Laad content: JSON (nieuw) of HTML (legacy)
         let htmlContent = '';
-        if (onderwerp.contentFile) {
-            const response = await fetch(onderwerp.contentFile);
+        if (onderwerp.dataFile) {
+            // JSON-pad: fetch JSON, render naar HTML
+            const response = await fetch(onderwerp.dataFile);
+            if (response.ok) {
+                const topic = await response.json();
+                htmlContent = renderTopicFromJson(topic);
+                cacheOnderwerpText(onderwerp.id, extractPlainText(htmlContent));
+            } else {
+                htmlContent = `<p>${t('topicNotFound')}</p>`;
+            }
+        } else if (onderwerp.contentFile) {
+            const fetchPath = topicContentFile(onderwerp);
+            let response = await fetch(fetchPath);
+            // Fallback naar NL als EN-bestand niet bestaat
+            if (!response.ok && currentLang !== 'nl') {
+                response = await fetch(onderwerp.contentFile);
+            }
             if (response.ok) {
                 htmlContent = await response.text();
                 cacheOnderwerpText(onderwerp.id, extractPlainText(htmlContent));
             } else {
-                htmlContent = '<p>Content niet gevonden. Maak een HTML bestand aan in de content/ map.</p>';
+                htmlContent = `<p>${t('contentNotFound')}</p>`;
             }
         } else if (onderwerp.inhoudHtml) {
             // Fallback naar oude inline HTML
@@ -735,14 +1424,14 @@ async function renderOnderwerp(onderwerp) {
         const tagsSidebarHtml = tags.length > 0 ? `
             <aside class="tags-sidebar">
                 <div id="tags-chip-flow" class="tags-chip-flow">
-                    ${tags.map(tag => `<button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tag)}</button>`).join('')}
+                    ${tags.map(tag => `<button class="tag-btn" type="button" data-tag="${escapeHtml(tag)}">${escapeHtml(tTag(tag))}</button>`).join('')}
                 </div>
                 <div id="tag-context" class="tag-context" aria-live="polite"></div>
             </aside>` : '';
 
         content.innerHTML = `
             <div class="onderwerp-page">
-                <h1>${onderwerp.titel}</h1>
+                <h1>${topicTitle(onderwerp)}</h1>
                 <div class="onderwerp-layout">
                     <div class="onderwerp-content">
                         ${htmlContent}
@@ -826,6 +1515,11 @@ async function renderOnderwerp(onderwerp) {
         // Laad p5.js voorbeelden voor dit onderwerp
         loadP5Examples(onderwerp.id);
 
+        // Laad live modeldata voor ai-modellen pagina
+        if (onderwerp.id === 'ai-modellen') {
+            loadOpenRouterData();
+        }
+
         // Initialiseer editors na korte delay zodat DOM is bijgewerkt
         setTimeout(() => {
             if (window.P5Editor && window.P5Editor.init) {
@@ -833,14 +1527,212 @@ async function renderOnderwerp(onderwerp) {
             }
         }, 100);
     } catch (error) {
-        console.error('Fout bij laden van content:', error);
+        console.error('Error loading content:', error);
         content.innerHTML = `
             <div class="onderwerp-page">
-                <h1>${onderwerp.titel}</h1>
-                <p>Er is een fout opgetreden bij het laden van de content. Controleer of het bestand ${onderwerp.contentFile || 'inhoudHtml'} bestaat.</p>
+                <h1>${topicTitle(onderwerp)}</h1>
+                <p>${t('loadError')}</p>
             </div>
         `;
     }
+}
+
+// --- Live data voor ai-modellen pagina (OpenRouter + Chatbot Arena) ---
+
+let openRouterCache = null;
+let arenaCache = null;
+
+// Vendor-naam mapping: OpenRouter provider → Arena vendor
+const arenaVendorMap = {
+    'openai': 'OpenAI',
+    'anthropic': 'Anthropic',
+    'google': 'Google',
+    'x-ai': 'xAI',
+    'mistralai': 'Mistral AI'
+};
+
+async function loadOpenRouterData() {
+    const sections = document.querySelectorAll('[data-openrouter-provider]');
+    if (!sections.length) return;
+
+    const statusEl = document.getElementById('model-live-status');
+
+    try {
+        if (statusEl) statusEl.textContent = 'Live modeldata laden...';
+
+        // Fetch beide API's parallel
+        const [orResult, arenaResult] = await Promise.allSettled([
+            openRouterCache ? Promise.resolve(openRouterCache) : fetch('https://openrouter.ai/api/v1/models').then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }).then(d => { openRouterCache = d.data || d; return openRouterCache; }),
+            arenaCache ? Promise.resolve(arenaCache) : fetch('https://api.wulong.dev/arena-ai-leaderboards/v1/leaderboard?name=text').then(r => { if (!r.ok) throw new Error(`HTTP ${r.status}`); return r.json(); }).then(d => { arenaCache = d; return d; })
+        ]);
+
+        const models = orResult.status === 'fulfilled' ? orResult.value : [];
+        const arena = arenaResult.status === 'fulfilled' ? arenaResult.value : null;
+
+        sections.forEach(section => {
+            const provider = section.getAttribute('data-openrouter-provider');
+            const filter = section.getAttribute('data-openrouter-filter');
+            const container = section.querySelector('.model-live-data');
+            if (!container) return;
+
+            const model = findFlagshipModel(models, provider, filter);
+            const arenaEntry = findArenaEntry(arena, provider);
+
+            if (!model && !arenaEntry) {
+                container.innerHTML = `<p class="model-live-unavailable">Geen live data beschikbaar voor ${escapeHtml(provider)}.</p>`;
+                return;
+            }
+
+            const label = section.getAttribute('data-openrouter-label');
+            const arenaHtml = formatArenaEntry(arenaEntry);
+            const modelHtml = model ? `
+                <div class="model-live-item">
+                    <span class="model-live-label">Topmodel</span>
+                    <span class="model-live-value">${escapeHtml(model.name)}</span>
+                </div>
+                <div class="model-live-item">
+                    <span class="model-live-label">Context</span>
+                    <span class="model-live-value">${formatContextLength(model.context_length)}</span>
+                </div>
+                ${formatPricing(model.pricing)}
+                <div class="model-live-item">
+                    <span class="model-live-label">Input</span>
+                    <span class="model-live-value">${formatModalities(model.architecture)}</span>
+                </div>
+            ` : '';
+
+            container.innerHTML = `
+                <div class="model-live-card">
+                    ${label ? `<span class="model-live-note">${label}</span>` : ''}
+                    <div class="model-live-grid">
+                        ${arenaHtml}
+                        ${modelHtml}
+                    </div>
+                    <span class="model-live-source">via OpenRouter + Chatbot Arena</span>
+                </div>
+            `;
+        });
+
+        // Render Arena top 10 tabel
+        renderArenaTable(arena);
+
+        if (statusEl) {
+            const arenaDate = arena?.meta?.last_updated || '';
+            statusEl.textContent = arenaDate ? `Arena-ranking van ${arenaDate}` : '';
+        }
+
+    } catch (err) {
+        if (statusEl) statusEl.textContent = 'Live modeldata kon niet geladen worden.';
+        console.error('Live data fetch failed:', err);
+    }
+}
+
+function findFlagshipModel(models, provider, filter) {
+    let candidates = models.filter(m => m.id.startsWith(provider + '/'));
+    if (filter) {
+        candidates = candidates.filter(m => m.id.includes(filter));
+    }
+    candidates = candidates.filter(m =>
+        !m.id.endsWith(':free') &&
+        !m.id.includes('multi-agent')
+    );
+    if (!candidates.length) return null;
+    candidates.sort((a, b) => {
+        const dateA = a.created || 0;
+        const dateB = b.created || 0;
+        if (dateB !== dateA) return dateB - dateA;
+        const priceA = parseFloat(a.pricing?.prompt || '0');
+        const priceB = parseFloat(b.pricing?.prompt || '0');
+        return priceB - priceA;
+    });
+    return candidates[0];
+}
+
+function findArenaEntry(arena, provider) {
+    if (!arena || !arena.models) return null;
+    const vendorName = arenaVendorMap[provider];
+    if (!vendorName) return null;
+    // Beste model van deze vendor (laagste rank)
+    const matches = arena.models.filter(m => m.vendor === vendorName);
+    if (!matches.length) return null;
+    return matches.reduce((best, m) => m.rank < best.rank ? m : best);
+}
+
+function formatArenaEntry(entry) {
+    if (!entry) return '';
+    return `
+        <div class="model-live-item">
+            <span class="model-live-label">Arena ELO</span>
+            <span class="model-live-value"><strong>${entry.score}</strong> (#${entry.rank} van 20)</span>
+        </div>
+        <div class="model-live-item">
+            <span class="model-live-label">Arena model</span>
+            <span class="model-live-value">${escapeHtml(entry.model)}</span>
+        </div>
+    `;
+}
+
+function renderArenaTable(arena) {
+    const container = document.getElementById('arena-ranking-table');
+    if (!container) return;
+    if (!arena || !arena.models || !arena.models.length) {
+        container.innerHTML = '<p class="model-live-unavailable">Arena-ranking kon niet geladen worden.</p>';
+        return;
+    }
+    const top = arena.models.slice(0, 10);
+    const rows = top.map(m => `
+        <tr>
+            <td>${m.rank}</td>
+            <td><strong>${escapeHtml(m.model)}</strong></td>
+            <td>${escapeHtml(m.vendor)}</td>
+            <td>${m.score}</td>
+            <td>${m.votes.toLocaleString('nl-BE')}</td>
+        </tr>
+    `).join('');
+
+    container.innerHTML = `
+        <table>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Model</th>
+                    <th>Maker</th>
+                    <th>ELO</th>
+                    <th>Stemmen</th>
+                </tr>
+            </thead>
+            <tbody>${rows}</tbody>
+        </table>
+    `;
+}
+
+function formatContextLength(tokens) {
+    if (!tokens) return '?';
+    if (tokens >= 1000000) return `${(tokens / 1000000).toFixed(tokens % 1000000 === 0 ? 0 : 1)}M tokens`;
+    if (tokens >= 1000) return `${Math.round(tokens / 1000)}K tokens`;
+    return `${tokens} tokens`;
+}
+
+function formatPricing(pricing) {
+    if (!pricing || (!pricing.prompt && !pricing.completion)) {
+        return `<div class="model-live-item"><span class="model-live-label">Prijs</span><span class="model-live-value">gratis / onbekend</span></div>`;
+    }
+    const input = pricing.prompt ? `$${(parseFloat(pricing.prompt) * 1000000).toFixed(2)}` : '?';
+    const output = pricing.completion ? `$${(parseFloat(pricing.completion) * 1000000).toFixed(2)}` : '?';
+    return `
+        <div class="model-live-item">
+            <span class="model-live-label">Prijs / 1M tokens</span>
+            <span class="model-live-value">${input} in · ${output} uit</span>
+        </div>
+    `;
+}
+
+function formatModalities(arch) {
+    if (!arch || !arch.modality) return 'tekst';
+    const map = { text: 'tekst', image: 'beeld', audio: 'audio', video: 'video', file: 'bestanden' };
+    const parts = arch.modality.split('->');
+    const inputs = parts[0].split('+').map(m => map[m.trim()] || m.trim());
+    return inputs.join(', ');
 }
 
 // Render welcome pagina
@@ -849,9 +1741,9 @@ function renderWelcome() {
     content.innerHTML = `
         <div class="welcome">
             <blockquote class="welcome-quote">
-                <p>Creative coding is vandaag een vorm van geletterdheid: je leert niet alleen tools gebruiken, je leert systemen begrijpen, sturen en verbeelden. In een tijd waarin alles software wordt, van beeld tot beleid, geeft creative coding je agency: je kan experimenteren, kritisch kijken naar algoritmes, en je eigen taal bouwen om ideeën zichtbaar te maken.</p>
-                <p>En net als in de allegorie met de boeken is "alles begrijpen" niet het punt. Elke schets, elke mislukte iteratie en elke kleine tweak spoelt iets door je denken: patronen, timing, gevoel voor structuur, en het vertrouwen dat je een complex probleem kan kneden tot iets dat werkt, of op z'n minst iets dat spreekt. De langetermijnwinst zit in die herhaalde aha's: een brein dat wendbaar wordt, dat verbanden ziet, en dat met onzekerheid kan spelen, precies de spier die je nodig hebt in een wereld die blijft veranderen.</p>
-                <footer><cite>Frederick De Bleser — Luca Gent</cite></footer>
+                <p>${t('welcomeQuote')}</p>
+                <p>${t('welcomeQuote2')}</p>
+                <footer><cite>${t('welcomeAuthor')}</cite></footer>
             </blockquote>
         </div>
     `;
@@ -905,13 +1797,13 @@ function buildNav() {
     navList.innerHTML = groups.map(group => {
         const groupId = `nav-group-${slugify(group.categorie)}`;
         const itemsMarkup = group.items.map(onderwerp => `
-            <li><a href="#${onderwerp.id}">${onderwerp.titel}</a></li>
+            <li><a href="#${onderwerp.id}">${topicTitle(onderwerp)}</a></li>
         `).join('');
 
         return `
             <li class="nav-group" data-category="${group.categorie}">
                 <button class="nav-group-toggle" type="button" aria-expanded="false" aria-controls="${groupId}">
-                    <span class="nav-group-text">${group.categorie}</span>
+                    <span class="nav-group-text">${tCat(group.categorie)}</span>
                     <span class="nav-group-meta">
                         <span class="nav-group-icon" aria-hidden="true"></span>
                     </span>
@@ -963,27 +1855,32 @@ function initSearch() {
             return;
         }
         
-        // Zoek in titels, samenvattingen en tags
+        // Zoek in titels, samenvattingen en tags (beide talen)
         const results = onderwerpen.filter(onderwerp => {
-            const titelMatch = onderwerp.titel.toLowerCase().includes(query);
-            const samenvattingMatch = onderwerp.samenvatting.toLowerCase().includes(query);
+            const titel = topicTitle(onderwerp);
+            const samenvatting = topicSummary(onderwerp);
+            const titelMatch = titel.toLowerCase().includes(query);
+            const samenvattingMatch = samenvatting.toLowerCase().includes(query);
             const tagsMatch = onderwerp.tags.some(tag => tag.toLowerCase().includes(query));
-            
-            return titelMatch || samenvattingMatch || tagsMatch;
+            // Ook zoeken in NL-titel als we in EN zitten
+            const nlTitelMatch = onderwerp.titel.toLowerCase().includes(query);
+            const nlSamenvattingMatch = onderwerp.samenvatting.toLowerCase().includes(query);
+
+            return titelMatch || samenvattingMatch || tagsMatch || nlTitelMatch || nlSamenvattingMatch;
         });
-        
+
         if (results.length > 0) {
             searchResults.classList.add('active');
             searchResults.innerHTML = results.map(onderwerp => `
                 <div class="search-result-item" onclick="window.location.hash='${onderwerp.id}'">
-                    <h3>${highlightMatch(onderwerp.titel, query)}</h3>
-                    <p>${highlightMatch(onderwerp.samenvatting, query)}</p>
-                    <p><small>Tags: ${onderwerp.tags.join(', ')}</small></p>
+                    <h3>${highlightMatch(topicTitle(onderwerp), query)}</h3>
+                    <p>${highlightMatch(topicSummary(onderwerp), query)}</p>
+                    <p><small>${t('tags')}: ${onderwerp.tags.map(tTag).join(', ')}</small></p>
                 </div>
             `).join('');
         } else {
             searchResults.classList.add('active');
-            searchResults.innerHTML = '<p>Geen resultaten gevonden.</p>';
+            searchResults.innerHTML = `<p>${t('noResults')}</p>`;
         }
     });
 }
@@ -1073,8 +1970,77 @@ function initFontSize() {
     });
 }
 
+// Taalwissel
+function setLanguage(lang) {
+    currentLang = lang;
+    localStorage.setItem('lang', lang);
+    document.documentElement.setAttribute('lang', lang);
+    document.documentElement.setAttribute('data-lang', lang);
+
+    // Update taalknop actieve staat
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.lang === lang);
+    });
+
+    // Update statische UI-elementen
+    document.title = t('pageTitle');
+    const siteTitle = document.querySelector('header h1');
+    if (siteTitle) siteTitle.textContent = t('siteTitle');
+    const subtitle = document.querySelector('.subtitle');
+    if (subtitle) subtitle.textContent = t('subtitle');
+    const navHeading = document.querySelector('#main-nav h2');
+    if (navHeading) navHeading.textContent = t('navHeading');
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.placeholder = t('searchPlaceholder');
+    const fontControls = document.querySelector('.font-size-controls');
+    if (fontControls) fontControls.setAttribute('aria-label', t('fontSizeLabel'));
+    const fontBtns = document.querySelectorAll('.font-size-btn');
+    const fontTitles = [t('fontSizeSmall'), t('fontSizeMedium'), t('fontSizeLarge')];
+    fontBtns.forEach((btn, i) => { btn.title = fontTitles[i]; });
+
+    // Herbouw navigatie
+    buildNav();
+    initNavGroups();
+
+    // Herlaad huidig topic of welcome
+    onderwerpTextCache.clear();
+    const hash = window.location.hash.slice(1);
+    const onderwerp = hash ? onderwerpen.find(o => o.id === hash) : null;
+    if (onderwerp) {
+        renderOnderwerp(onderwerp);
+        updateActiveNav(onderwerp.id);
+    } else {
+        renderWelcome();
+        updateActiveNav(null);
+    }
+}
+
+function initLang() {
+    const saved = localStorage.getItem('lang') || 'nl';
+    currentLang = saved;
+    document.documentElement.setAttribute('lang', saved);
+    document.documentElement.setAttribute('data-lang', saved);
+
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.classList.toggle('is-active', btn.dataset.lang === saved);
+        btn.addEventListener('click', () => setLanguage(btn.dataset.lang));
+    });
+
+    // Stel statische elementen in bij eerste load
+    document.title = t('pageTitle');
+    const siteTitle = document.querySelector('header h1');
+    if (siteTitle) siteTitle.textContent = t('siteTitle');
+    const subtitle = document.querySelector('.subtitle');
+    if (subtitle) subtitle.textContent = t('subtitle');
+    const navHeading = document.querySelector('#main-nav h2');
+    if (navHeading) navHeading.textContent = t('navHeading');
+    const searchInput = document.getElementById('search-input');
+    if (searchInput) searchInput.placeholder = t('searchPlaceholder');
+}
+
 // Initialisatie
 document.addEventListener('DOMContentLoaded', () => {
+    initLang();
     buildNav();
     initNavGroups();
     initRouter();
@@ -1083,10 +2049,10 @@ document.addEventListener('DOMContentLoaded', () => {
     initBalls();
 });
 
-// Achtergrond ballen — vallen, stuiteren en wijken voor de muis
+// Achtergrond ballen - vallen, stuiteren en wijken voor de muis
 function initBalls() {
     const kleuren = [
-        '#00ff00', '#00ff00', '#00ff00', '#00ff00', // groen — Lab44
+        '#00ff00', '#00ff00', '#00ff00', '#00ff00', // groen - Lab44
         '#ff0000', '#ff0000',                        // rood
         '#0000ff', '#0000ff',                        // blauw
         '#7d007d',                                   // paars
@@ -1110,7 +2076,7 @@ function initBalls() {
             for (let i = 0; i < AANTAL; i++) {
                 ballen.push({
                     x:  p.random(p.width),
-                    y:  p.random(-p.height, -20),
+                    y:  p.random(-p.height, - 20),
                     r:  p.random(18, 48),
                     vx: p.random(-2, 2),
                     vy: p.random(0, 2),
@@ -1139,14 +2105,14 @@ function initBalls() {
                 b.x += b.vx;
                 b.y += b.vy;
 
-                // Bodem — stuiteren
+                // Bodem - stuiteren
                 if (b.y + b.r > p.height) {
                     b.y = p.height - b.r;
-                    b.vy *= -STUIT;
+                    b.vy *= - STUIT;
                     b.vx *= 0.98;
                 }
 
-                // Buiten beeld — verwijderen
+                // Buiten beeld - verwijderen
                 if (b.x + b.r < 0 || b.x - b.r > p.width || b.y - b.r > p.height) {
                     b.weg = true;
                 }

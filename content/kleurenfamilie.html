@@ -1,14 +1,14 @@
 <div class="intro">
-    <p>Stel je voor: je gaat schilderen en je kiest één verfpot als startpunt. Daarna mag je alleen kleuren gebruiken die er dicht bij liggen. Zo krijg je een samenhangend schilderij — geen wilde chaos. Dat doet deze code ook, maar dan digitaal.</p>
+    <p>Stel je voor: je gaat schilderen en je kiest één verfpot als startpunt. Daarna mag je alleen kleuren gebruiken die er dicht bij liggen. Zo krijg je een samenhangend schilderij - geen wilde chaos. Dat doet deze code ook, maar dan digitaal.</p>
 </div>
 
 <section>
     <h2>Hoe werkt kleur in p5.js?</h2>
     <p>Elke kleur bestaat uit drie getallen tussen 0 en 255:</p>
     <ul>
-        <li><strong>R</strong> — hoeveel rood</li>
-        <li><strong>G</strong> — hoeveel groen</li>
-        <li><strong>B</strong> — hoeveel blauw</li>
+        <li><strong>R</strong> - hoeveel rood</li>
+        <li><strong>G</strong> - hoeveel groen</li>
+        <li><strong>B</strong> - hoeveel blauw</li>
     </ul>
     <pre><code>fill(255, 0, 0)     // puur rood
 fill(200, 180, 190) // zacht roze-achtig</code></pre>
@@ -18,33 +18,33 @@ fill(200, 180, 190) // zacht roze-achtig</code></pre>
 <section>
     <h2>De truc in drie stappen</h2>
 
-    <h3>Stap 1 — kies een startpunt per kleurkanaal</h3>
+    <h3>Stap 1 - kies een startpunt per kleurkanaal</h3>
     <pre><code>let startR = floor(random(0, 155));
 let startG = floor(random(0, 155));
 let startB = floor(random(0, 155));</code></pre>
-    <p>Waarom tot 155 en niet 255? Omdat we straks nog 100 optellen. 155 + 100 = 255 — zo blijven we altijd binnen het bereik.</p>
+    <p>Waarom tot 155 en niet 255? Omdat we straks nog 100 optellen. 155 + 100 = 255 - zo blijven we altijd binnen het bereik.</p>
 
-    <h3>Stap 2 — bepaal het bereik</h3>
+    <h3>Stap 2 - bepaal het bereik</h3>
     <pre><code>// Het bereik loopt van startR tot startR + 100
 // Voorbeeld: startR = 80 → rood varieert tussen 80 en 180</code></pre>
 
-    <h3>Stap 3 — kleur elk vakje willekeurig, maar binnen het bereik</h3>
+    <h3>Stap 3 - kleur elk vakje willekeurig, maar binnen het bereik</h3>
     <pre><code>fill(
   random(startR, startR + 100),
   random(startG, startG + 100),
   random(startB, startB + 100)
 );</code></pre>
-    <p>Elk vakje krijgt een andere kleur — maar nooit té anders. Ze zitten allemaal in dezelfde <em>buurt</em>.</p>
+    <p>Elk vakje krijgt een andere kleur - maar nooit té anders. Ze zitten allemaal in dezelfde <em>buurt</em>.</p>
 </section>
 
 <section>
     <h2>Waarom is dit slim?</h2>
     <p>Vergelijk de twee aanpakken:</p>
 
-    <pre><code>// Zonder beperking — kleurchaos
+    <pre><code>// Zonder beperking - kleurchaos
 fill(random(255), random(255), random(255));
 
-// Met beperking — kleurenfamilie
+// Met beperking - kleurenfamilie
 fill(
   random(startR, startR + 100),
   random(startG, startG + 100),
@@ -108,7 +108,7 @@ function mousePressed() {
 
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
-// Kleurenfamilie — klik voor een nieuwe familie
+// Kleurenfamilie - klik voor een nieuwe familie
 // Probeer het bereik (nu 100) aan te passen!
 
 let startR, startG, startB;

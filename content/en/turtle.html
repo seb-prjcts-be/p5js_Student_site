@@ -1,0 +1,173 @@
+<div class="intro">
+    <p>Turtle geometry is drawing with an imaginary turtle. You only give simple commands like forward and turn, but from those short instructions complex figures can emerge.</p>
+</div>
+
+<section>
+    <h2>Why this concept is powerful</h2>
+    <p>Turtle geometry makes code very concrete. You're not writing abstract formulas, but steering a drawing body through space. This makes algorithmic thinking feel almost physical.</p>
+    <p><strong>Think about it:</strong> how can a rich drawing emerge from just three or four lines?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>describing space with position and angle</li>
+        <li>building patterns with repetition</li>
+        <li>creating functions that form your own drawing language</li>
+        <li>seeing how a rule not only computes, but also draws</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Origin: Logo and Seymour Papert</h2>
+    <p>Turtle graphics became well-known through the programming language <strong>Logo</strong>. Seymour Papert used the idea to help students understand mathematics through movement and action.</p>
+    <p>The turtle has three properties:</p>
+    <ul>
+        <li><strong>Position</strong> - x and y on the canvas</li>
+        <li><strong>Direction</strong> - the angle it's facing</li>
+        <li><strong>Pen</strong> - down (draws) or up (moves without a line)</li>
+    </ul>
+</section>
+
+<section>
+    <h2>The basic commands</h2>
+    <pre><code>forward(n)    // Go n pixels forward and draw a line
+right(angle)  // Turn n degrees to the right
+left(angle)   // Turn n degrees to the left
+penUp()       // Pen up: move without drawing
+penDown()     // Pen down: start drawing again</code></pre>
+
+    <h3>Implementation in p5.js</h3>
+    <p>The turtle keeps track of its position and direction. <code>forward()</code> calculates the new point using sine and cosine:</p>
+    <pre><code>let tx, ty, heading, penIsDown;
+
+function forward(n) {
+  let nx = tx + n * cos(radians(heading));
+  let ny = ty + n * sin(radians(heading));
+  if (penIsDown) line(tx, ty, nx, ny);
+  tx = nx;
+  ty = ny;
+}
+
+function right(angle) { heading += angle; }
+function left(angle)  { heading -= angle; }</code></pre>
+</section>
+
+<section>
+    <h2>From rule to pattern</h2>
+    <p>The power of turtle geometry lies in repetition. A square is nothing more than four times forward and 90 degrees turn.</p>
+    <pre><code>for (let i = 0; i &lt; 4; i++) {
+  forward(100);
+  right(90);
+}</code></pre>
+
+    <p>A five-pointed star uses a different turn angle:</p>
+    <pre><code>for (let i = 0; i &lt; 5; i++) {
+  forward(120);
+  right(144);
+}</code></pre>
+
+    <p>For a regular n-gon you always use <code>360 / n</code>:</p>
+    <pre><code>let n = 6;
+for (let i = 0; i &lt; n; i++) {
+  forward(80);
+  right(360 / n);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Spirals and deviations</h2>
+    <p>Increase the step length slightly each iteration, and you get a spiral:</p>
+    <pre><code>for (let i = 0; i &lt; 200; i++) {
+  forward(i * 0.5);
+  right(91);
+}</code></pre>
+    <p>That small difference between 90 and 91 degrees seems insignificant, but it completely changes the behavior. This is typical for code concepts: small rules can have big visual consequences.</p>
+</section>
+
+<section>
+    <h2>Recursive patterns</h2>
+    <p>If you let the same drawing return at a smaller scale, you end up with recursion and fractals:</p>
+    <pre><code>function tree(length) {
+  if (length &lt; 5) return;
+  forward(length);
+  right(30);
+  tree(length * 0.7);
+  left(60);
+  tree(length * 0.7);
+  right(30);
+  forward(-length);
+}
+
+tree(80);</code></pre>
+    <p>Here you can see that turtle geometry is not just about shapes, but also about structure and growth.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Make three versions of the same idea:</p>
+    <ul>
+        <li>a neat shape with a "correct" angle, like 90 or 120 degrees</li>
+        <li>a version with a small deviation, like 89 or 121 degrees</li>
+        <li>a personal variant with color, variable step length, or pen-up movements</li>
+    </ul>
+    <p>Then compare which pattern feels the most predictable and which one becomes surprisingly different.</p>
+</section>
+
+<section>
+    <h2>Try It Yourself</h2>
+    <p>The turtle is already set up. Try a star, spiral, or your own pattern. The commands <code>forward()</code>, <code>right()</code>, <code>left()</code>, <code>penUp()</code>, and <code>penDown()</code> are available.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let tx, ty, heading, penIsDown;
+
+function turtleReset() {
+  tx = width / 2;
+  ty = height / 2;
+  heading = -90;
+  penIsDown = true;
+}
+
+function forward(n) {
+  let nx = tx + n * cos(radians(heading));
+  let ny = ty + n * sin(radians(heading));
+  if (penIsDown) line(tx, ty, nx, ny);
+  tx = nx;
+  ty = ny;
+}
+
+function right(angle) { heading += angle; }
+function left(angle)  { heading -= angle; }
+function penUp()      { penIsDown = false; }
+function penDown()    { penIsDown = true; }
+
+function setup() {
+  createCanvas(600, 400);
+  background(255);
+  noLoop();
+
+  turtleReset();
+  stroke(0);
+  strokeWeight(1.5);
+
+  // Try changing the angle or step growth!
+  for (let i = 0; i < 220; i++) {
+    forward(i * 0.45);
+    right(89);
+  }
+}
+
+function draw() {}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Click on the canvas to switch between different turtle patterns.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-turtle"></div>
+        </div>
+    </div>
+</section>

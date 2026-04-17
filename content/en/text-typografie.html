@@ -1,0 +1,332 @@
+<div class="intro">
+    <p>With p5.js you can draw text on the canvas. You control the size, font, alignment, and color yourself. Text is a powerful component of generative art, data visualization, and interactive sketches.</p>
+</div>
+
+<section>
+    <h2>Basics: Drawing Text</h2>
+    <p>Use <code>text()</code> to draw text. Always set a size with <code>textSize()</code>.</p>
+
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  background(240);
+}
+
+function draw() {
+  background(240);
+
+  fill(50);          // text color
+  noStroke();        // no outline around the text
+  textSize(32);      // font size in pixels
+
+  text('Hello world!', 50, 100); // text, x, y
+}</code></pre>
+
+    <p>The x and y in <code>text()</code> indicate the <strong>bottom-left</strong> of the text (the baseline), not the top-left corner.</p>
+</section>
+
+<section>
+    <h2>Font Size and Style</h2>
+
+    <pre><code>function draw() {
+  background(240);
+  fill(30);
+  noStroke();
+
+  // Different sizes
+  textSize(12);
+  text('Small font', 50, 80);
+
+  textSize(24);
+  text('Normal font', 50, 130);
+
+  textSize(48);
+  text('Large font', 50, 200);
+
+  // Font style
+  textStyle(NORMAL);
+  text('Normal', 50, 270);
+
+  textStyle(BOLD);
+  text('Bold', 50, 310);
+
+  textStyle(ITALIC);
+  text('Italic', 50, 350);
+
+  textStyle(BOLDITALIC);
+  text('Bold and italic', 200, 350);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Alignment</h2>
+    <p>With <code>textAlign()</code> you control how text is aligned relative to the given position.</p>
+
+    <pre><code>function draw() {
+  background(240);
+  fill(30);
+  noStroke();
+  textSize(20);
+
+  // Horizontal alignment
+  textAlign(LEFT);
+  text('Left aligned', 300, 80);
+
+  textAlign(CENTER);
+  text('Centered', 300, 130);
+
+  textAlign(RIGHT);
+  text('Right aligned', 300, 180);
+
+  // Vertical alignment (second parameter)
+  textAlign(CENTER, TOP);
+  text('Top', 300, 230);
+
+  textAlign(CENTER, CENTER);
+  text('Middle', 300, 280);
+
+  textAlign(CENTER, BOTTOM);
+  text('Bottom', 300, 330);
+
+  // Guide line to see the position
+  stroke(255, 0, 0);
+  line(300, 0, 300, height);
+}</code></pre>
+
+    <h3>Centering text on the canvas</h3>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  textSize(40);
+  textAlign(CENTER, CENTER);
+  fill(50);
+  noStroke();
+}
+
+function draw() {
+  background(240);
+  text('I am in the center!', width / 2, height / 2);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Text in a Rectangle</h2>
+    <p>If you pass a fourth and fifth parameter to <code>text()</code>, the text is automatically wrapped within the specified width and height.</p>
+
+    <pre><code>function draw() {
+  background(240);
+  fill(30);
+  noStroke();
+  textSize(16);
+
+  // text(content, x, y, width, height)
+  text('This is a longer text that automatically wraps to the next line when it becomes too long.', 50, 50, 300, 200);
+
+  // Draw frame to see the text box
+  noFill();
+  stroke(200, 0, 0);
+  rect(50, 50, 300, 200);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Line Spacing</h2>
+    <pre><code>textSize(18);
+textLeading(30); // distance between lines in pixels
+
+text('Line one\nLine two\nLine three', 50, 100);</code></pre>
+</section>
+
+<section>
+    <h2>Measuring Text Width</h2>
+    <p>With <code>textWidth()</code> you can measure how wide a text is. Useful for positioning text precisely.</p>
+
+    <pre><code>function draw() {
+  background(240);
+  textSize(32);
+  fill(30);
+
+  let word = 'p5.js';
+  let w = textWidth(word);
+
+  // Draw a marker under the word
+  text(word, 100, 100);
+  stroke(255, 0, 0);
+  line(100, 105, 100 + w, 105);
+
+  // Center text manually
+  noStroke();
+  text(word, width / 2 - w / 2, 200);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Loading Custom Fonts</h2>
+    <p>You can load your own font with <code>loadFont()</code>. In modern p5.js you usually do this with <code>await loadFont()</code> in <code>async function setup()</code>. Older tutorials often still use <code>preload()</code> for this.</p>
+
+    <pre><code>let myFont;
+
+async function setup() {
+  // Load a local font file
+  myFont = await loadFont('fonts/my-font.ttf');
+  createCanvas(600, 400);
+  textFont(myFont); // set the font
+}
+
+function draw() {
+  background(240);
+  textSize(48);
+  fill(50);
+  text('Custom font!', 50, 200);
+}</code></pre>
+
+    <p><strong>Tip:</strong> Download the font file and save it in your project folder - that's the most reliable approach.</p>
+</section>
+
+<section>
+    <h2>Google Fonts via index.html</h2>
+    <p>The easiest way to use a Google Font is to import it via <code>index.html</code>. This way the browser loads the font automatically when the page opens.</p>
+
+    <h3>Step 1 - choose a font on Google Fonts</h3>
+    <p>Go to <a href="https://fonts.google.com/" target="_blank" rel="noopener">fonts.google.com</a>, find a font and click <em>Get font</em> &rarr; <em>Get embed code</em>. You'll get a <code>&lt;link&gt;</code> tag like this:</p>
+    <pre><code>&lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"&gt;</code></pre>
+
+    <h3>Step 2 - paste the link in index.html</h3>
+    <p>Add that line in the <code>&lt;head&gt;</code> of <code>index.html</code>, before <code>style.css</code>:</p>
+    <pre><code>&lt;head&gt;
+  ...
+  &lt;link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap"&gt;
+  &lt;link rel="stylesheet" href="style.css"&gt;
+&lt;/head&gt;</code></pre>
+
+    <h3>Step 3 - use the font in your sketch</h3>
+    <p>Call the font by its exact name (as listed on Google Fonts) via <code>textFont()</code>:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  textFont('Press Start 2P');
+  textSize(16);
+}
+
+function draw() {
+  background(245);
+  fill(0);
+  text('Game Over', 160, 200);
+}</code></pre>
+
+    <p><strong>Note:</strong> the font must be loaded before your sketch uses it. If you import the font in <code>index.html</code>, it's already available when p5.js starts up during normal use. If you're working with a standalone sketch (separate HTML file), add the <code>&lt;link&gt;</code> tag to that file.</p>
+
+    <h3>Which fonts work well in p5.js?</h3>
+    <ul>
+        <li><strong>Press Start 2P</strong> - pixel font, retro game style</li>
+        <li><strong>Oswald</strong> - narrow and strong, easy to read on canvas</li>
+        <li><strong>Space Mono</strong> - monospace with character</li>
+        <li><strong>Bebas Neue</strong> - wide capitals, strong for titles</li>
+        <li><strong>DM Serif Display</strong> - elegant serif for poetic sketches</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Text as Generative Art</h2>
+    <p>Text is a powerful medium for generative art. Here are a few ideas:</p>
+
+    <h3>Moving text</h3>
+    <pre><code>function draw() {
+  background(20);
+  fill(255);
+  textSize(32);
+  textAlign(CENTER, CENTER);
+
+  let x = width / 2 + sin(frameCount * 0.05) * 100;
+  let y = height / 2 + cos(frameCount * 0.03) * 80;
+
+  text('p5.js', x, y);
+}</code></pre>
+
+    <h3>Text with variable size</h3>
+    <pre><code>function draw() {
+  background(240);
+  fill(50, 100, 200);
+  textAlign(CENTER, CENTER);
+
+  let size = map(mouseX, 0, width, 10, 100);
+  textSize(size);
+  text('Move the mouse!', width / 2, height / 2);
+}</code></pre>
+
+    <h3>Letters on a circle</h3>
+    <pre><code>let sentence = 'p5.js is awesome! ';
+
+function draw() {
+  background(240);
+  textSize(18);
+  textAlign(CENTER, CENTER);
+  fill(30);
+  noStroke();
+
+  for (let i = 0; i < sentence.length; i++) {
+    let angle = map(i, 0, sentence.length, 0, TWO_PI);
+    angle += frameCount * 0.01; // rotate slowly
+
+    let x = width / 2 + cos(angle) * 150;
+    let y = height / 2 + sin(angle) * 150;
+
+    push();
+    translate(x, y);
+    rotate(angle + HALF_PI); // rotate letter in the right direction
+    text(sentence[i], 0, 0);
+    pop();
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Interactive Example: Typographic Effect</h3>
+    <p>Move your mouse to influence the text size and position.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-text-typografie"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Adjust the text, size, color, and position. Also try <code>textStyle(BOLD)</code> or <code>textAlign(CENTER)</code>!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+
+function setup() {
+  createCanvas(600, 400);
+  textAlign(CENTER, CENTER);
+}
+
+function draw() {
+  background(20, 20, 40);
+
+  // Draw letters in a grid
+  let cols = 10;
+  let rows = 6;
+  let cellWidth = width / cols;
+  let cellHeight = height / rows;
+
+  for (let c = 0; c < cols; c++) {
+    for (let r = 0; r < rows; r++) {
+      let x = c * cellWidth + cellWidth / 2;
+      let y = r * cellHeight + cellHeight / 2;
+
+      // Distance to mouse determines size and brightness
+      let d = dist(mouseX, mouseY, x, y);
+      let size = map(d, 0, 300, 40, 8);
+      let brightness = map(d, 0, 300, 255, 80);
+
+      // Choose a letter based on position and time
+      let letterIndex = (c + r * cols + floor(frameCount * 0.05)) % letters.length;
+
+      textSize(size);
+      fill(100, 200, brightness);
+      noStroke();
+      text(letters[letterIndex], x, y);
+    }
+  }
+}
+        </script>
+    </div>
+</section>

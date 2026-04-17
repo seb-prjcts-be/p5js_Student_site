@@ -1,0 +1,253 @@
+<div class="intro">
+    <p>Classes are blueprints for objects. They bundle properties (data) and behavior (functions) into one unit. In p5.js you often use classes for things like balls, particles, or enemies in a game - objects that each keep track of their own state.</p>
+</div>
+
+<section>
+    <h2>From Object Literal to Class</h2>
+    <p>You already knew object literals from arrays:</p>
+    <pre><code>let ball = { x: 100, y: 200, vx: 2, vy: 0 };</code></pre>
+    <p>But what if you want dozens of balls, each with their own methods? Then a class is more convenient:</p>
+    <pre><code>class Ball {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.vx = random(-2, 2);
+    this.vy = random(-3, -1);
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += 0.1;  // Gravity
+  }
+
+  display() {
+    circle(this.x, this.y, 20);
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Creating Objects with new</h2>
+    <p>You create an instance of a class with <code>new</code>:</p>
+    <pre><code>let myBall = new Ball(200, 300);  // Calls the constructor
+
+myBall.update();  // Execute a method
+myBall.display();</code></pre>
+
+    <h3>Multiple Objects in an Array</h3>
+    <pre><code>let balls = [];
+
+function setup() {
+  createCanvas(600, 400);
+
+  // Create 10 balls
+  for (let i = 0; i < 10; i++) {
+    balls.push(new Ball(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(245);
+
+  for (let ball of balls) {
+    ball.update();
+    ball.display();
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>A Complete Class Example</h2>
+    <p>A ball that bounces against the edges of the canvas:</p>
+    <pre><code>class BouncingBall {
+  constructor(x, y, diameter) {
+    this.x = x;
+    this.y = y;
+    this.d = diameter;
+    this.vx = random(-3, 3);
+    this.vy = random(-3, 3);
+    this.clr = color(random(255), random(255), random(255));
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // Bounce off left/right edge
+    if (this.x < this.d / 2 || this.x > width - this.d / 2) {
+      this.vx *= -1;
+    }
+    // Bounce off top/bottom edge
+    if (this.y < this.d / 2 || this.y > height - this.d / 2) {
+      this.vy *= -1;
+    }
+  }
+
+  display() {
+    fill(this.clr);
+    noStroke();
+    circle(this.x, this.y, this.d);
+  }
+}
+
+let balls = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 15; i++) {
+    balls.push(new BouncingBall(
+      random(width), random(height), random(20, 60)
+    ));
+  }
+}
+
+function draw() {
+  background(30);
+  for (let ball of balls) {
+    ball.update();
+    ball.display();
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Methods that Return Values</h2>
+    <p>Methods can also calculate and return values:</p>
+    <pre><code>class Ball {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.d = 30;
+  }
+
+  // Returns true if two balls overlap
+  overlaps(otherBall) {
+    let distance = dist(this.x, this.y, otherBall.x, otherBall.y);
+    return distance < (this.d + otherBall.d) / 2;
+  }
+
+  display(hit) {
+    fill(hit ? 255 : 0, 0, 255);
+    circle(this.x, this.y, this.d);
+  }
+}
+
+let a, b;
+
+function setup() {
+  createCanvas(400, 300);
+  a = new Ball(100, 150);
+  b = new Ball(300, 150);
+}
+
+function draw() {
+  background(245);
+  b.x = mouseX;
+  b.y = mouseY;
+
+  let isOverlapping = a.overlaps(b);
+  a.display(isOverlapping);
+  b.display(isOverlapping);
+}</code></pre>
+</section>
+
+<section>
+    <h2>The this Keyword</h2>
+    <p><code>this</code> always refers to the current object. This is how you distinguish object properties from local variables:</p>
+    <pre><code>class Counter {
+  constructor(startValue) {
+    this.value = startValue;  // Property of the object
+  }
+
+  increment(step) {
+    let step = step || 1;    // Local variable
+    this.value += step;      // Works on the object
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Bouncing Balls</h3>
+    <p>Each ball is its own object that tracks its position and speed. Click to add a new ball:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-objecten"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Also try in the editor</h2>
+    <p>Check out these sketches from the course:</p>
+    <ul>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/TyAr3UwLO" target="_blank" rel="noopener">LES_LAB_Intro_object_movement_x++</a> - a moving object as introduction to OOP</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/rEONpF6LgB" target="_blank" rel="noopener">Les_objecten</a> - classes and objects explained</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/EnWIBsQHe" target="_blank" rel="noopener">LES_Rondom_walker01</a> - random walker as separate functions</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/vN5P6jyl1" target="_blank" rel="noopener">LES_Rondom_walker_CLASS</a> - the same random walker rewritten as a class</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Modify the class: add gravity, change the size on collisions, or make balls change color!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+class Ball {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.d = random(20, 50);
+    this.vx = random(-3, 3);
+    this.vy = random(-3, 3);
+    this.r = random(100, 255);
+    this.g = random(100, 255);
+    this.b = random(100, 255);
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // Bounce off edges
+    if (this.x < this.d / 2 || this.x > width - this.d / 2) {
+      this.vx *= -1;
+    }
+    if (this.y < this.d / 2 || this.y > height - this.d / 2) {
+      this.vy *= -1;
+    }
+  }
+
+  display() {
+    noStroke();
+    fill(this.r, this.g, this.b, 200);
+    circle(this.x, this.y, this.d);
+  }
+}
+
+let balls = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 8; i++) {
+    balls.push(new Ball(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(20);
+
+  for (let ball of balls) {
+    ball.update();
+    ball.display();
+  }
+
+  fill(200);
+  text("Click to add a ball: " + balls.length, 10, 20);
+}
+
+function mousePressed() {
+  balls.push(new Ball(mouseX, mouseY)); // Try changing this!
+}
+        </script>
+    </div>
+</section>

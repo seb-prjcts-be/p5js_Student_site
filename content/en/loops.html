@@ -1,0 +1,109 @@
+<div class="intro">
+    <p>Loops repeat code. They're perfect for drawing multiple elements or iterating through data.</p>
+</div>
+
+<section>
+    <h2>For Loop</h2>
+    <p>The for loop is the most commonly used. It has three parts:</p>
+    <pre><code>for (start; condition; step) {
+  // Code that gets repeated
+}</code></pre>
+
+    <h3>Example: 10 Circles</h3>
+    <pre><code>for (let i = 0; i < 10; i++) {
+  ellipse(i * 50, 100, 40, 40);
+}</code></pre>
+    <p>This draws 10 circles next to each other.</p>
+</section>
+
+<section>
+    <h2>Loop Variables</h2>
+    <p>The loop variable (usually <code>i</code>) changes with each iteration:</p>
+    <pre><code>for (let i = 0; i < 5; i++) {
+  console.log(i);  // Prints: 0, 1, 2, 3, 4
+}</code></pre>
+
+    <h3>Using in Drawing</h3>
+    <pre><code>for (let i = 0; i < 10; i++) {
+  let x = i * 50;
+  let y = 100;
+  ellipse(x, y, 30, 30);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Nested loops</h2>
+    <p>You can use loops <em>inside</em> loops for 2D patterns - one loop for the rows (y), one loop for the columns (x):</p>
+    <pre><code>for (let x = 0; x < 10; x++) {
+  for (let y = 0; y < 10; y++) {
+    ellipse(x * 50, y * 50, 30, 30);
+  }
+}</code></pre>
+    <p>This draws a grid of 10x10 circles.</p>
+
+    <h3>Example with cell size</h3>
+    <p>A handy technique is working with a <code>cellSize</code> variable instead of fixed distances:</p>
+    <pre><code>let cellSize = 40;
+let size = 400;
+
+for (let j = 0; j < size; j += cellSize) {
+  for (let i = 0; i < size; i += cellSize) {
+    rect(i, j, cellSize);  // Square at position (i, j)
+  }
+}</code></pre>
+    <p>The <code>i</code> represents all x-positions, the <code>j</code> represents all y-positions - this is a convention among programmers.</p>
+    <p>Artist <strong>Vera Molnar</strong> used exactly this principle (grid of cells) to control her drawing robot. Check the <a href="#vera-molnar">Vera Molnar page</a> for examples.</p>
+</section>
+
+<section>
+    <h2>While Loop</h2>
+    <p>A while loop repeats as long as a condition is true:</p>
+    <pre><code>let x = 0;
+while (x < width) {
+  line(x, 0, x, height);
+  x += 20;
+}</code></pre>
+    <p>Watch out: make sure the condition eventually becomes false, otherwise you'll get an infinite loop!</p>
+</section>
+
+<div class="p5-example">
+    <h3>Example: Loops for Patterns</h3>
+    <p>This example uses loops to create patterns:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-loops"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Also try in the editor</h2>
+    <p>Check out these sketches from the course:</p>
+    <ul>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/aEEdxeWLB" target="_blank" rel="noopener">LES_geneste_for_loop / of \</a> - nested loop that draws diagonal patterns</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/qbUAZeEKD" target="_blank" rel="noopener">LES_geneste_for_loop</a> - grid with nested for loops</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/UgltSUbU2" target="_blank" rel="noopener">LES_FOR_genuary01</a> - generative pattern using a for loop</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Try It Yourself!</h2>
+    <p>Modify the loop! Change the number of repetitions, the spacing between elements, or try a nested loop for a grid.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+}
+
+function draw() {
+  background(245);
+
+  // Draw rows of circles
+  for (let i = 0; i < 10; i++) {
+    fill(i * 25, 0, 255);
+    ellipse(i * 60, height/2, 40, 40);
+  }
+}
+        </script>
+    </div>
+</section>

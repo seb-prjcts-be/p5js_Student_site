@@ -1,0 +1,150 @@
+<div class="intro">
+    <p>You now know the basics of ml5.js. Time to choose your own direction. Which model appeals to you? Which idea do you want to develop? This is the moment to experiment - without a fixed outcome, but with the freedom to make something of your own.</p>
+</div>
+
+<section>
+    <h2>Choose your model</h2>
+    <p>ml5.js offers several models that each process a different type of input. Choose the model that best fits your idea:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Input</th>
+                <th>What it does</th>
+                <th>Suitable for</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>BodyPose</strong></td>
+                <td>Webcam</td>
+                <td>Recognises body points (17 keypoints)</td>
+                <td>Movement interaction, dance, sports</td>
+            </tr>
+            <tr>
+                <td><strong>HandPose</strong></td>
+                <td>Webcam</td>
+                <td>Recognises hand points (21 per hand)</td>
+                <td>Gestures, air drawing, control</td>
+            </tr>
+            <tr>
+                <td><strong>FaceMesh</strong></td>
+                <td>Webcam</td>
+                <td>Detects 468 facial points</td>
+                <td>Filters, emotion detection, masks</td>
+            </tr>
+            <tr>
+                <td><strong>ImageClassifier</strong></td>
+                <td>Webcam / image</td>
+                <td>Recognises objects in images</td>
+                <td>Object recognition, sorting games</td>
+            </tr>
+            <tr>
+                <td><strong>SoundClassifier</strong></td>
+                <td>Microphone</td>
+                <td>Recognises sound types</td>
+                <td>Sound-driven art, voice interaction</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Ideas for inspiration</h2>
+    <p>Here are some project ideas per model - but the best thing is if you find your own direction.</p>
+
+    <h3>With BodyPose</h3>
+    <ul>
+        <li>A digital shadow that follows your movements but reacts with a delay</li>
+        <li>Particles attracted by your hands and repelled by your head</li>
+        <li>An instrument you play by moving - position determines pitch and volume</li>
+    </ul>
+
+    <h3>With HandPose</h3>
+    <ul>
+        <li>Drawing in the air: your fingertip leaves a trail on the canvas</li>
+        <li>A sign language interpreter: recognise simple hand gestures and show the matching word</li>
+        <li>A virtual puppet that reacts to your finger movements</li>
+    </ul>
+
+    <h3>With FaceMesh</h3>
+    <ul>
+        <li>A digital mask that moves along with your face</li>
+        <li>Abstract art that reacts to facial expressions - a smile makes colours warmer</li>
+        <li>A mirror that distorts your face based on emotion</li>
+    </ul>
+
+    <h3>With ImageClassifier</h3>
+    <ul>
+        <li>A game where you hold objects in front of the camera that the model recognises</li>
+        <li>A poetry generator: the model recognises an object and generates a haiku about it</li>
+    </ul>
+
+    <h3>With SoundClassifier</h3>
+    <ul>
+        <li>A visualisation that reacts differently to speaking, clapping and whistling</li>
+        <li>An interactive installation where silence and sound create two different worlds</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Step-by-step plan</h2>
+    <p>A free experiment works best with some structure. Follow this plan:</p>
+    <ol>
+        <li><strong>Choose a model</strong> - Which input (camera, microphone) do you want to use?</li>
+        <li><strong>Start simple</strong> - Get the basic detection working first. Draw the raw data on screen.</li>
+        <li><strong>Add visual layer</strong> - Replace the raw points with shapes, colours or patterns that appeal to you.</li>
+        <li><strong>Make it interactive</strong> - Let the visual output react to the AI data in a meaningful way.</li>
+        <li><strong>Refine and iterate</strong> - Adjust colours, timing, size and composition until it feels like yours.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Code template: HandPose</h2>
+    <p>As a starting point for your experiment, you can use this template. It detects your hand and draws circles on the fingertips.</p>
+    <pre><code>let handPose;
+let video;
+let hands = [];
+
+async function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
+
+  // Wait until the HandPose model has loaded
+  handPose = await ml5.handPose();
+  handPose.detectStart(video, receiveHands);
+}
+
+function receiveHands(results) {
+  hands = results;
+}
+
+function draw() {
+  image(video, 0, 0);
+
+  for (let i = 0; i &lt; hands.length; i++) {
+    let hand = hands[i];
+    for (let j = 0; j &lt; hand.keypoints.length; j++) {
+      let point = hand.keypoints[j];
+      fill(255, 0, 100);
+      noStroke();
+      circle(point.x, point.y, 12);
+    }
+  }
+}</code></pre>
+    <p>Modify this: change the shapes, add trails, experiment with colours that react to the position of your fingers.</p>
+</section>
+
+<section>
+    <h2>Tips for the experiment</h2>
+    <ul>
+        <li><strong>Test early</strong> - Run your code often. Small steps work better than big leaps.</li>
+        <li><strong>Use AI as help</strong> - Paste your code into a chatbot and ask: "How do I add a trail effect to these points?"</li>
+        <li><strong>Document your process</strong> - Take screenshots or short videos of intermediate results. The process is at least as valuable as the end result.</li>
+        <li><strong>Combine models</strong> - Advanced users can use two models simultaneously, for example BodyPose and SoundClassifier.</li>
+        <li><strong>Think about presentation</strong> - How do you show this to others? Does it work as an installation? As screen art? As a performance?</li>
+    </ul>
+</section>

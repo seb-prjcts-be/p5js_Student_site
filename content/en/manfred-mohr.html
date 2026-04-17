@@ -1,0 +1,151 @@
+<div class="intro">
+    <p><strong>Manfred Mohr</strong> (1938-2023) was one of the first artists to use a computer as a creative instrument. Where Vera Molnar started with manual instructions, Mohr engaged in dialogue with the machine from the very beginning - first as a jazz musician, later as an algorithmic artist.</p>
+</div>
+
+<section>
+    <h2>From jazz to algorithms</h2>
+    <p>Mohr grew up in Pforzheim (Germany) and started out as an abstract painter and action painter. In the 1960s he played alto saxophone in a jazz ensemble - a discipline that places improvisation within rules at its core.</p>
+    <p>That balance between structure and freedom would define his entire body of work. In 1969 he began writing code for a plotter at the Centre de Calcul of the University of Paris. He was one of the first in Europe to exhibit algorithmic art in a major museum: the Musee d'Art Moderne de la Ville de Paris in 1971.</p>
+</section>
+
+<section>
+    <h2>The cube as a starting point</h2>
+    <p>From the mid-1970s onward, Mohr focused almost exclusively on the <strong>hypercube</strong> - the four-dimensional extension of a cube. Not as a mathematical curiosity, but as an inexhaustible source of visual relationships.</p>
+    <p>His method:</p>
+    <ol>
+        <li>Take a cube (or hypercube) as an abstract model</li>
+        <li>Write an algorithm that selects certain lines, planes, or angles</li>
+        <li>Let the computer calculate all possible variations</li>
+        <li>Choose from the results the compositions that are visually strongest</li>
+    </ol>
+    <p>Each series of work is numbered with a P-code (P-xxxx). Together they form a systematic exploration of form spanning more than fifty years.</p>
+</section>
+
+<section>
+    <h2>Important works and series</h2>
+
+    <h3>P-18 "Band" (1969)</h3>
+    <p>One of his earliest plotter works. Horizontal lines are systematically disrupted by an algorithm. Simple rules produce complex texture - the core principle that runs through his entire body of work.</p>
+
+    <h3>P-197 to P-200 "Cubic Limit" (1973-1977)</h3>
+    <p>The breakthrough. Mohr reduces the cube to individual line segments and lets the algorithm decide which combinations appear on paper. The result: abstract compositions that are both mathematically rigid and visually surprising.</p>
+
+    <h3>P-480 "Klangfarben" (1998-2003)</h3>
+    <p>Color enters the picture. The name refers to Arnold Schoenberg's concept of "Klangfarbenmelodie" - color as a structural element, not as decoration. Mohr applies the same algorithmic logic: color is calculated, not chosen.</p>
+
+    <h3>P-1414 "artificiata II" (2012-2015)</h3>
+    <p>Later works based on 11-dimensional hypercubes. The complexity of the source increases, but the visual output remains clear and readable - proof of Mohr's skill in selecting rules that resonate.</p>
+</section>
+
+<section>
+    <h2>What you can learn from Mohr</h2>
+    <ul>
+        <li><strong>Limit your vocabulary</strong> - Mohr worked for decades with the same geometric basis. Limitation leads to depth.</li>
+        <li><strong>Let the algorithm explore</strong> - write rules and see what comes out. Not every output is an artwork, but the selection is.</li>
+        <li><strong>Structure is not a prison</strong> - just like in jazz, the most interesting art emerges when you find room to play within a system.</li>
+        <li><strong>Numbering = discipline</strong> - Mohr's P-numbering forces you to document work and consciously build up series.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Mohr and p5.js</h2>
+    <p>Mohr's approach translates directly to p5.js: define a geometric basis, write rules that produce variations, and select the strongest results. Below is an example inspired by his "Cubic Limit" series.</p>
+</section>
+
+<div class="p5-example">
+    <h3>Interactive example: cube variations</h3>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-manfred-mohr"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experiment yourself</h2>
+    <p>This example generates a grid of cube variations in the style of Mohr. Each cube shows a different selection of line segments. Click to generate a new composition.</p>
+    <div class="p5-editor" data-width="600" data-height="600" data-autorun="true">
+        <script type="text/p5">
+// Geïnspireerd op Manfred Mohr - Cubic Limit
+// Elke cel toont een andere selectie van kubuslijnen
+
+let kolommen = 6;
+let marge = 40;
+
+function setup() {
+  createCanvas(600, 600);
+  genereer();
+}
+
+function genereer() {
+  background(255);
+  stroke(0);
+  strokeWeight(1.5);
+  noFill();
+
+  let celGrootte = (width - marge * 2) / kolommen;
+
+  for (let rij = 0; rij < kolommen; rij++) {
+    for (let kol = 0; kol < kolommen; kol++) {
+      let cx = marge + kol * celGrootte + celGrootte / 2;
+      let cy = marge + rij * celGrootte + celGrootte / 2;
+      let grootte = celGrootte * 0.7;
+
+      push();
+      translate(cx, cy);
+      tekenKubusVariatie(grootte);
+      pop();
+    }
+  }
+}
+
+function tekenKubusVariatie(g) {
+  // 12 lijnsegmenten van een kubus in 2D-projectie
+  let h = g / 2;
+  let d = g * 0.25; // diepte-offset
+
+  let punten = [
+    [-h, -h], [h, -h], [h, h], [-h, h],           // voorkant
+    [-h + d, -h - d], [h + d, -h - d],             // achterkant boven
+    [h + d, h - d], [-h + d, h - d]                // achterkant onder
+  ];
+
+  let lijnen = [
+    [0,1], [1,2], [2,3], [3,0],   // voorkant
+    [4,5], [5,6], [6,7], [7,4],   // achterkant
+    [0,4], [1,5], [2,6], [3,7]    // verbindingen
+  ];
+
+  // Selecteer willekeurig 4-8 lijnen
+  let selectie = [];
+  let aantal = floor(random(4, 9));
+  let indices = [...Array(12).keys()];
+
+  for (let i = indices.length - 1; i > 0; i--) {
+    let j = floor(random(i + 1));
+    [indices[i], indices[j]] = [indices[j], indices[i]];
+  }
+
+  for (let i = 0; i < aantal; i++) {
+    let l = lijnen[indices[i]];
+    let a = punten[l[0]];
+    let b = punten[l[1]];
+    line(a[0], a[1], b[0], b[1]);
+  }
+}
+
+function mousePressed() {
+  genereer();
+}
+        </script>
+    </div>
+    <p>Click on the canvas for a new variation. Try: adjusting the number of selected lines, changing the depth offset, or adding color based on the angle of each line.</p>
+</section>
+
+<section>
+    <h2>Further reading</h2>
+    <ul>
+        <li><a href="https://www.manfred-mohr.com" target="_blank">manfred-mohr.com</a> - official website with the complete body of work</li>
+        <li><a href="https://www.youtube.com/watch?v=1RJKbWkYtrI" target="_blank">Manfred Mohr - Cubic Limit</a> (video)</li>
+        <li><a href="#vera-molnar">Vera Molnar</a> - contemporary, different approach: from manual to digital</li>
+        <li><a href="#sol-lewitt">Sol LeWitt</a> - related idea: the instruction as artwork</li>
+    </ul>
+</section>

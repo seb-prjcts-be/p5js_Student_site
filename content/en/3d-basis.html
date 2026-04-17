@@ -1,0 +1,252 @@
+<div class="intro">
+    <p>p5.js can do more than just 2D! With the WEBGL renderer you can create 3D graphics: shapes in space, rotations, lighting, and materials.</p>
+</div>
+
+<section>
+    <h2>WEBGL Canvas</h2>
+    <p>To use 3D, pass <code>WEBGL</code> as the third argument:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400, WEBGL);
+}
+
+function draw() {
+  background(245);
+  box(100);  // Default cube in the center
+}</code></pre>
+    <p>In WEBGL mode, the center of the canvas is at coordinate (0, 0, 0). Use <code>translate()</code> to move objects.</p>
+    <figure>
+        <img src="assets/3d-basis/webgl-coordinaten.png" alt="Coordinate grid in WEBGL mode: center is 0,0 - negative x values go left, negative y values go up">
+        <figcaption>In WEBGL, (0, 0) is at the center. Left and up are negative, right and down are positive.</figcaption>
+    </figure>
+</section>
+
+<section>
+    <h2>3D Shapes</h2>
+    <p>p5.js has built-in 3D shapes:</p>
+    <ul>
+        <li><code>box(width, height, depth)</code> - cube or box</li>
+        <li><code>sphere(radius, detail)</code> - sphere</li>
+        <li><code>cylinder(radius, height)</code> - cylinder</li>
+        <li><code>cone(radius, height)</code> - cone</li>
+        <li><code>torus(radius, tubeRadius)</code> - donut shape</li>
+        <li><code>plane(width, height)</code> - flat surface</li>
+    </ul>
+
+    <pre><code>function draw() {
+  background(30);
+  rotateY(frameCount * 0.01);
+
+  // Three shapes side by side
+  push();
+    translate(-150, 0, 0);
+    box(70);
+  pop();
+
+  push();
+    translate(0, 0, 0);
+    sphere(45);
+  pop();
+
+  push();
+    translate(150, 0, 0);
+    torus(40, 15);
+  pop();
+}</code></pre>
+</section>
+
+<section>
+    <h2>Transformations in 3D</h2>
+    <p>In addition to <code>translate()</code> and <code>scale()</code>, you have three rotation directions:</p>
+    <pre><code>function draw() {
+  background(245);
+
+  rotateX(frameCount * 0.01);  // Tilts forward/backward
+  rotateY(frameCount * 0.02);  // Turns left/right
+  rotateZ(frameCount * 0.005); // Rolls
+
+  box(100);
+}</code></pre>
+    <p>Always use <code>push()</code> / <code>pop()</code> to isolate transformations:</p>
+    <pre><code>function draw() {
+  background(245);
+
+  push();
+    translate(-120, 0, 0);
+    rotateY(frameCount * 0.02);
+    box(80);
+  pop();
+
+  push();
+    translate(120, 0, 0);
+    rotateX(frameCount * 0.03);
+    sphere(50);
+  pop();
+}</code></pre>
+</section>
+
+<section>
+    <h2>Lighting</h2>
+    <p>Without light, 3D shapes look flat. p5.js has several light sources:</p>
+
+    <h3>ambientLight() - ambient light</h3>
+    <pre><code>function draw() {
+  background(0);
+  ambientLight(100);  // Value 0-255: how bright the ambient light is
+  sphere(100);
+}</code></pre>
+
+    <h3>directionalLight() - directional light</h3>
+    <pre><code>function draw() {
+  background(0);
+  // directionalLight(color, direction as vector)
+  directionalLight(255, 255, 255, -1, 1, -1);
+  sphere(100);
+}</code></pre>
+
+    <h3>pointLight() - point light</h3>
+    <pre><code>function draw() {
+  background(0);
+  // Light that shines from a single point
+  pointLight(255, 200, 100, mouseX - width/2, mouseY - height/2, 200);
+  sphere(100);
+}</code></pre>
+
+    <h3>Combination</h3>
+    <pre><code>function draw() {
+  background(0);
+  ambientLight(40);                             // Weak ambient light
+  directionalLight(255, 240, 200, 1, 1, -1);   // Sunlight effect
+  pointLight(100, 150, 255, -200, -100, 100);   // Blue accent
+  sphere(100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Materials</h2>
+    <p>Materials determine how a shape responds to light:</p>
+
+    <h3>normalMaterial() - colors based on normal vector</h3>
+    <pre><code>function draw() {
+  background(0);
+  normalMaterial();  // No extra parameters needed
+  box(100);
+}</code></pre>
+
+    <h3>ambientMaterial() - responds to ambient light</h3>
+    <pre><code>function draw() {
+  background(0);
+  ambientLight(200);
+  ambientMaterial(255, 100, 0);  // Orange material
+  sphere(100);
+}</code></pre>
+
+    <h3>specularMaterial() - shiny surface</h3>
+    <pre><code>function draw() {
+  background(0);
+  ambientLight(60);
+  directionalLight(255, 255, 255, 0, 0, -1);
+  specularMaterial(255);  // Shiny white
+  shininess(50);          // How sharp the glint is
+  sphere(100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Setting Up the Camera</h2>
+    <p>With <code>camera()</code> you determine where you're looking from:</p>
+    <pre><code>function draw() {
+  background(0);
+
+  // camera(eyeX, eyeY, eyeZ, targetX, targetY, targetZ, upX, upY, upZ)
+  camera(0, -200, 400,   // Camera position
+         0, 0, 0,        // Point you're looking at
+         0, 1, 0);       // "Up" direction
+
+  box(100);
+}
+
+// Simpler: orbitControl() for mouse-driven viewing
+function draw() {
+  background(30);
+  orbitControl();  // Click + drag to rotate, scroll to zoom in/out
+  box(100);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Loading Shaders</h2>
+    <p>Shaders are programs that run directly on the GPU. Load them with <code>await loadShader()</code> in <code>async function setup()</code>:</p>
+
+    <pre><code>let myShader;
+
+async function setup() {
+  createCanvas(600, 400, WEBGL);
+  myShader = await loadShader('shader.vert', 'shader.frag');
+}
+
+function draw() {
+  shader(myShader);
+  myShader.setUniform('uTime', millis() / 1000);
+  rect(-width / 2, -height / 2, width, height);
+}</code></pre>
+    <p>This is an advanced feature - useful when you want to fully control WEBGL. Shaders are small programs (GLSL) that determine how each pixel looks.</p>
+</section>
+
+<div class="p5-example">
+    <h3>Example: 3D with Lighting</h3>
+    <p>Move the mouse to reposition the point light:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-3d"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experiment Yourself!</h2>
+    <p>Change the shapes, colors, and light sources. Try adding <code>orbitControl()</code>!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400, WEBGL);
+}
+
+function draw() {
+  background(10, 10, 30);
+
+  // Lighting
+  ambientLight(40);
+  pointLight(255, 220, 150,
+    mouseX - width / 2,
+    mouseY - height / 2,
+    200);
+
+  // Cube
+  push();
+    translate(-130, 20, 0);
+    rotateX(frameCount * 0.01);
+    rotateY(frameCount * 0.015);
+    specularMaterial(100, 160, 255);
+    shininess(30);
+    box(90);
+  pop();
+
+  // Sphere
+  push();
+    translate(80, -10, 0);
+    rotateY(frameCount * 0.02);
+    specularMaterial(255, 120, 80);
+    shininess(60);
+    sphere(60);
+  pop();
+
+  // Torus
+  push();
+    translate(0, 120, 0);
+    rotateX(frameCount * 0.02);
+    normalMaterial();
+    torus(50, 18);
+  pop();
+}
+        </script>
+    </div>
+</section>

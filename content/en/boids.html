@@ -1,0 +1,184 @@
+<div class="intro">
+    <p>Boids are simple agents that together form flocking behavior. Each boid follows a few rules, but together they seem to move almost intelligently.</p>
+</div>
+
+<section>
+    <h2>Why this concept is fascinating</h2>
+    <p>Boids show that a group doesn't need a leader to appear coordinated. The order doesn't come from a central plan, but from the interaction between neighbors.</p>
+    <p><strong>Think about it:</strong> do you need a leader to get collective behavior?</p>
+</section>
+
+<section>
+    <h2>What you'll learn here</h2>
+    <ul>
+        <li>working with agents that each maintain their own state</li>
+        <li>using vectors for direction and velocity</li>
+        <li>seeing how local interaction creates a group pattern</li>
+        <li>balancing between attraction, repulsion, and alignment</li>
+    </ul>
+</section>
+
+<section>
+    <h2>The three classic rules</h2>
+    <ul>
+        <li><strong>alignment</strong> - move roughly in the same direction as your neighbors</li>
+        <li><strong>cohesion</strong> - stay close to the group</li>
+        <li><strong>separation</strong> - don't bump into each other</li>
+    </ul>
+    <p>These three rules together create flocking: behavior that resembles birds, fish, or a swarm of drones.</p>
+</section>
+
+<section>
+    <h2>In code</h2>
+    <p>Each boid calculates forces based on nearby boids:</p>
+    <pre><code>for (let other of boids) {
+  let d = dist(this.x, this.y, other.x, other.y);
+
+  if (d &lt; visionRadius) {
+    alignment.add(other.vel);
+    cohesion.add(other.pos);
+  }
+
+  if (d &gt; 0 &amp;&amp; d &lt; collisionRadius) {
+    separation.add(differenceVector);
+  }
+}</code></pre>
+    <p>Then those forces are limited and added to the velocity.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Build separation first. Then add alignment, and only then cohesion. This way you really feel what effect each rule has. Which combination looks calm, which one looks nervous?</p>
+</section>
+
+<section>
+    <h2>Experiment Yourself</h2>
+    <p>This editor starts with a small flock. Click to add extra boids and change the maximums for speed or force.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let boids = [];
+
+class Boid {
+  constructor(x, y) {
+    this.pos = createVector(x, y);
+    this.vel = p5.Vector.random2D().mult(random(1, 2));
+    this.acc = createVector(0, 0);
+  }
+
+  applyForce(force) {
+    this.acc.add(force);
+  }
+
+  flock(otherBoids) {
+    let alignment = createVector(0, 0);
+    let cohesion = createVector(0, 0);
+    let separation = createVector(0, 0);
+    let neighborCount = 0;
+    let tooClose = 0;
+
+    for (let other of otherBoids) {
+      if (other === this) continue;
+      let d = p5.Vector.dist(this.pos, other.pos);
+
+      if (d < 60) {
+        alignment.add(other.vel);
+        cohesion.add(other.pos);
+        neighborCount++;
+      }
+
+      if (d > 0 && d < 24) {
+        let diff = p5.Vector.sub(this.pos, other.pos);
+        diff.div(d * d);
+        separation.add(diff);
+        tooClose++;
+      }
+    }
+
+    if (neighborCount > 0) {
+      alignment.div(neighborCount);
+      alignment.setMag(2.2);
+      alignment.sub(this.vel);
+      alignment.limit(0.05);
+
+      cohesion.div(neighborCount);
+      cohesion.sub(this.pos);
+      cohesion.setMag(1.8);
+      cohesion.sub(this.vel);
+      cohesion.limit(0.03);
+
+      this.applyForce(alignment);
+      this.applyForce(cohesion);
+    }
+
+    if (tooClose > 0) {
+      separation.div(tooClose);
+      separation.setMag(2.8);
+      separation.sub(this.vel);
+      separation.limit(0.08);
+      this.applyForce(separation);
+    }
+  }
+
+  update() {
+    this.vel.add(this.acc);
+    this.vel.limit(2.6);
+    this.pos.add(this.vel);
+    this.acc.mult(0);
+    this.wrap();
+  }
+
+  wrap() {
+    if (this.pos.x < 0) this.pos.x = width;
+    if (this.pos.x > width) this.pos.x = 0;
+    if (this.pos.y < 0) this.pos.y = height;
+    if (this.pos.y > height) this.pos.y = 0;
+  }
+
+  draw() {
+    let angle = this.vel.heading();
+    push();
+    translate(this.pos.x, this.pos.y);
+    rotate(angle);
+    noStroke();
+    fill(30, 40, 80, 220);
+    triangle(10, 0, -8, 5, -8, -5);
+    pop();
+  }
+}
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 28; i++) {
+    boids.push(new Boid(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(247, 245, 239);
+
+  for (let boid of boids) {
+    boid.flock(boids);
+  }
+
+  for (let boid of boids) {
+    boid.update();
+    boid.draw();
+  }
+}
+
+function mousePressed() {
+  boids.push(new Boid(mouseX, mouseY));
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Live Demo</h2>
+    <p>Click to add extra boids and watch how the group adapts.</p>
+    <div class="p5-example">
+        <div class="p5-example-container">
+            <div class="p5-canvas-wrapper" id="example-boids"></div>
+        </div>
+    </div>
+</section>

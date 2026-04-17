@@ -166,7 +166,7 @@ Stijl via de klassen in `editor.css`, of overschrijf ze in je eigen CSS.
 De CDN-URL staat in `editor.js` in de iframe-HTML:
 
 ```javascript
-<script src="https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js"></script>
 ```
 
 Pas het versienummer in de jsDelivr-URL aan als je expliciet naar een andere p5.js-release wilt pinnen.
@@ -179,7 +179,7 @@ De editor is niet exclusief voor p5.js. Vervang de CDN-URL in de iframe-HTML (`r
 
 ```javascript
 // In editor.js, zoek naar:
-<script src="https://cdn.jsdelivr.net/npm/p5@2.2.1/lib/p5.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js"></script>
 // Vervang door bijv.:
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 ```

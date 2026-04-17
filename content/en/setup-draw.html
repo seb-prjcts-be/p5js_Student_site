@@ -1,0 +1,120 @@
+<div class="intro">
+    <p>Every p5.js sketch starts with two important functions: <code>setup()</code> and <code>draw()</code>. These form the foundation of your creation.</p>
+</div>
+
+<section>
+    <h2>setup() - The Start</h2>
+    <p><code>setup()</code> is executed <strong>once</strong> when your sketch starts. This is where you set up the basics:</p>
+    <pre><code>function setup() {
+  createCanvas(800, 600);  // Create a canvas of 800x600 pixels
+  background(245);          // Set background color
+}</code></pre>
+
+    <h3>What do you do in setup()?</h3>
+    <ul>
+        <li>Create a canvas with <code>createCanvas()</code></li>
+        <li>Set the initial state</li>
+        <li>Load assets (images, sounds)</li>
+    </ul>
+</section>
+
+<section>
+    <h2>draw() - The Loop</h2>
+    <p><code>draw()</code> runs <strong>continuously</strong> (usually 60 times per second). This is where you draw your animation:</p>
+    <pre><code>function draw() {
+  background(245);           // Clear the canvas
+  ellipse(mouseX, mouseY, 50, 50);  // Draw circle at mouse position
+}</code></pre>
+
+    <h3>Important</h3>
+    <ul>
+        <li><code>draw()</code> loops automatically</li>
+        <li>Without <code>background()</code> you'll see trails from previous frames</li>
+        <li>With <code>background()</code> you create a clean background</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Canvas size</h2>
+    <p>The canvas is your drawing area. You can create different sizes:</p>
+    <pre><code>createCanvas(400, 400);   // Square
+createCanvas(800, 600);   // Landscape
+createCanvas(600, 800);   // Portrait
+createCanvas(windowWidth, windowHeight);  // Full screen</code></pre>
+</section>
+
+<section>
+    <h2>Coordinate system</h2>
+    <p>A canvas has a <strong>coordinate system</strong> that lets you point to any location on the canvas. The origin <code>(0, 0)</code> is at the <strong>top-left</strong>. X goes to the right, Y goes down - different from math!</p>
+
+    <figure>
+        <img src="assets/setup-draw/assenstelsel.png" alt="The p5.js coordinate system: (0,0) top-left, X to the right, Y downward">
+        <figcaption>In p5.js the coordinate system starts at the top-left. A point at (400, 400) is at the bottom-right on a 400x400 canvas.</figcaption>
+    </figure>
+
+    <pre><code>// Point exactly in the center of a 400x400 canvas:
+point(200, 200);</code></pre>
+</section>
+
+<section>
+    <h2>Syntax rules</h2>
+    <p>p5.js follows the rules of JavaScript. A few important conventions:</p>
+    <ul>
+        <li>Every statement ends with a <strong>semicolon</strong> <code>;</code></li>
+        <li>Function names use <strong>lowerCamelCase</strong>: <code>createCanvas()</code>, <code>noStroke()</code></li>
+        <li>Code is <strong>case-sensitive</strong>: <code>background()</code> works, <code>Background()</code> does not</li>
+        <li>Curly braces <code>{ }</code> mark the beginning and end of a function</li>
+    </ul>
+
+    <h3>Comments</h3>
+    <p>Comments are text that is not read as code. Useful for making notes or temporarily disabling code:</p>
+    <pre><code>// This is a comment line - ignored by p5.js
+
+/* This is a block comment
+   that can span multiple lines */
+
+let x = 10;  // Set variable x to 10</code></pre>
+    <p>In the browser, use <kbd>Ctrl</kbd> + <kbd>/</kbd> to comment out a selection.</p>
+
+    <h3>Constants</h3>
+    <p>Some fixed values are always written in uppercase, such as <code>PI</code>, <code>TWO_PI</code>, <code>HALF_PI</code>, and <code>WEBGL</code>. They are called constants because their value never changes.</p>
+    <pre><code>// PI is always 3.14159...
+ellipse(200, 200, PI * 10, PI * 10);</code></pre>
+</section>
+
+<section>
+    <h2>frameRate() and noLoop()</h2>
+    <p>By default, <code>draw()</code> calls itself as fast as possible (often ~60 times per second). You can control the speed:</p>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  frameRate(30);  // Limit to 30 frames per second
+}
+
+function draw() {
+  background(220);
+  // Animation here
+}</code></pre>
+    <p>With <code>noLoop()</code> you stop the loop - <code>draw()</code> is then executed only once. Useful for static compositions.</p>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  noLoop();  // Draw once
+}</code></pre>
+</section>
+
+<section>
+    <h2>Try It Yourself</h2>
+    <p>Edit the code and see what happens. Try changing the background color or adding different shapes!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+  ellipse(mouseX, mouseY, 50, 50);
+}
+        </script>
+    </div>
+</section>

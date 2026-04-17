@@ -54,7 +54,7 @@ pre, code, textarea, kbd, samp {
     font-family: 'Courier New', Consolas, monospace;
 }
 
-/* Lettergrootte — op :root zodat alle rem-waarden en inherited tekst meeschalen */
+/* Lettergrootte - op :root zodat alle rem-waarden en inherited tekst meeschalen */
 :root {
     font-size: 20px; /* standaard: medium */
 }
@@ -106,6 +106,41 @@ header h1 {
     font-family: var(--font-title);
     letter-spacing: 0.9px;
     text-transform: uppercase;
+}
+
+/* Taalknop */
+.lang-controls {
+    display: flex;
+    align-items: flex-end;
+    gap: 2px;
+    flex-shrink: 0;
+    margin-right: 0.75rem;
+}
+
+.lang-btn {
+    border: 1px solid var(--border-color);
+    background: var(--bg-color);
+    color: var(--text-light);
+    cursor: pointer;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: normal;
+    font-size: 0.7rem;
+    line-height: 1;
+    padding: 0.25rem 0.4rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    transition: color 0.15s, border-color 0.15s;
+}
+
+.lang-btn:hover {
+    color: var(--text-color);
+    border-color: var(--text-color);
+}
+
+.lang-btn.is-active {
+    color: var(--text-color);
+    border-color: var(--text-color);
+    border-bottom: 2px solid var(--text-color);
 }
 
 /* Lettergrootte knoppen */
@@ -468,7 +503,7 @@ main {
 
 .onderwerp-page h2 {
     color: var(--text-color);
-    font-size: 1.3em;
+    font-size: 1.5em;
     margin-bottom: 1rem;
     margin-top: 2rem;
     font-weight: var(--font-title-regular);
@@ -498,11 +533,11 @@ main {
 
 .onderwerp-page ul, .onderwerp-page ol {
     margin-left: 2rem;
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
 }
 
 .onderwerp-page li {
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.3rem;
     line-height: 1.6;
     font-family: var(--font-body);
 }
@@ -782,6 +817,123 @@ main {
     }
 }
 
+/* Tabellen */
+.onderwerp-content table {
+    width: 100%;
+    border-collapse: collapse;
+    table-layout: fixed;
+    margin: 1em 0;
+    font-size: 0.95em;
+}
+
+.onderwerp-content th,
+.onderwerp-content td {
+    padding: 0.5em 0.75em;
+    text-align: left;
+    border-bottom: 1px solid var(--border-color, #ddd);
+    vertical-align: top;
+    word-wrap: break-word;
+}
+
+.onderwerp-content th {
+    font-family: var(--font-title, 'Oswald', sans-serif);
+    font-weight: 400;
+    text-transform: uppercase;
+    font-size: 0.85em;
+    letter-spacing: 0.03em;
+    border-bottom-width: 2px;
+}
+
+.onderwerp-content tbody tr:hover {
+    background: rgba(0, 0, 0, 0.02);
+}
+
+@media (max-width: 600px) {
+    .onderwerp-content table {
+        font-size: 0.85em;
+    }
+    .onderwerp-content th,
+    .onderwerp-content td {
+        padding: 0.4em 0.5em;
+    }
+}
+
+/* Live model data (OpenRouter + Arena) */
+.model-live-status {
+    font-style: italic;
+    color: var(--text-muted, #888);
+    font-size: 0.9em;
+    font-family: var(--font-body, 'Alegreya', Georgia, serif);
+}
+
+.model-live-card {
+    background: transparent;
+    border-left: 2px solid var(--text-muted, #ccc);
+    padding: 0.4em 0.8em;
+    margin-bottom: 0.8em;
+    font-family: var(--font-body, 'Alegreya', Georgia, serif);
+    font-size: 0.85em;
+    color: var(--text-muted, #777);
+    line-height: 1.5;
+}
+
+.model-live-note {
+    display: block;
+    font-style: italic;
+    color: var(--text-muted, #999);
+    margin-bottom: 0.3em;
+    font-size: 0.9em;
+}
+
+.model-live-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.15em 1.2em;
+}
+
+@media (max-width: 600px) {
+    .model-live-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.model-live-item {
+    display: flex;
+    gap: 0.3em;
+    align-items: baseline;
+}
+
+.model-live-label {
+    font-weight: 700;
+    white-space: nowrap;
+    font-family: var(--font-body, 'Alegreya', Georgia, serif);
+    font-size: 0.9em;
+}
+
+.model-live-label::after {
+    content: ':';
+}
+
+.model-live-value {
+    color: var(--text-muted, #777);
+    font-weight: 400;
+}
+
+.model-live-source {
+    display: block;
+    text-align: right;
+    font-size: 0.75em;
+    color: var(--text-muted, #bbb);
+    margin-top: 0.2em;
+    font-style: italic;
+}
+
+.model-live-unavailable {
+    color: var(--text-muted, #999);
+    font-style: italic;
+    font-size: 0.85em;
+}
+
 /* p5.js voorbeeld container */
 .p5-example {
     margin: 2rem 0;
@@ -880,4 +1032,111 @@ footer {
     border-radius: 0;
     font-weight: normal;
 }
+
+/* === Leerdoelen & Oefeningen (JSON-rendered topics) === */
+
+.topic-leerdoelen details,
+.topic-oefeningen details {
+    border: 1px solid var(--border-color, #e0e0e0);
+    border-radius: 6px;
+    padding: 0.75em 1em;
+    margin-top: 1em;
+}
+
+.topic-leerdoelen summary,
+.topic-oefeningen summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+
+.topic-leerdoelen summary::-webkit-details-marker,
+.topic-oefeningen summary::-webkit-details-marker {
+    display: none;
+}
+
+.topic-leerdoelen summary::before,
+.topic-oefeningen summary::before {
+    content: '▸';
+    font-size: 0.9em;
+    transition: transform 0.2s;
+}
+
+.topic-leerdoelen details[open] > summary::before,
+.topic-oefeningen details[open] > summary::before {
+    transform: rotate(90deg);
+}
+
+.topic-leerdoelen summary h2,
+.topic-oefeningen summary h2 {
+    margin: 0;
+    font-size: 1.2em;
+}
+
+.topic-leerdoelen ul {
+    margin-top: 0.75em;
+    padding-left: 1.5em;
+}
+
+.topic-leerdoelen li {
+    margin-bottom: 0.4em;
+}
+
+/* Oefening niveaus */
+.oefening-niveau {
+    margin-top: 1em;
+    padding-bottom: 0.5em;
+}
+
+.oefening-niveau h3 {
+    font-family: var(--font-title);
+    font-weight: var(--font-title-regular);
+    font-size: 1.1em;
+    margin-bottom: 0.25em;
+}
+
+.oefening-niveau-beschrijving {
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-bottom: 0.75em;
+}
+
+.oefening-kaart {
+    background: var(--hover-bg, #f8f8f8);
+    border-radius: 6px;
+    padding: 0.75em 1em;
+    margin-bottom: 0.5em;
+}
+
+.oefening-kaart h4 {
+    font-family: var(--font-title);
+    font-weight: var(--font-title-regular);
+    font-size: 1em;
+    margin-bottom: 0.3em;
+}
+
+.oefening-kaart p {
+    font-size: 0.95em;
+    margin-bottom: 0.4em;
+}
+
+.oefening-hint summary,
+.oefening-starter summary {
+    cursor: pointer;
+    font-size: 0.9em;
+    color: var(--text-light);
+    margin-top: 0.3em;
+}
+
+.oefening-hint pre,
+.oefening-starter pre {
+    margin-top: 0.5em;
+}
+
+/* Niveau-indicatoren */
+.oefening-niveau[data-niveau="1"] h3::before { content: '● '; color: #4caf50; }
+.oefening-niveau[data-niveau="2"] h3::before { content: '●● '; color: #ff9800; }
+.oefening-niveau[data-niveau="3"] h3::before { content: '●●● '; color: #f44336; }
 

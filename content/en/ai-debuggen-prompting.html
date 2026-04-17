@@ -1,0 +1,127 @@
+<div class="intro">
+    <p>Bugs are part of programming - they're not the problem, but the search process is the challenge. AI can help you find errors faster, but you need to learn to ask the right questions. Welcome to the world of prompting.</p>
+</div>
+
+<section>
+    <h2>Debugging with AI</h2>
+    <p>Traditional debugging uses <code>console.log()</code>, the error console and lots of patience. AI adds a new tool: you can <em>present</em> your code and ask what's going wrong.</p>
+    <p>That sounds simple, but the quality of the answer depends on how well you describe the problem. This is called <strong>prompting</strong> - the art of asking questions to AI.</p>
+</section>
+
+<section>
+    <h2>Bad prompt vs. good prompt</h2>
+    <p>Compare these two ways of asking for help:</p>
+
+    <h3>Bad prompt</h3>
+    <pre><code>"My code doesn't work. Fix it."</code></pre>
+    <p>This is too vague. The AI doesn't know what your code does, what's wrong, or what you expect. The answer will probably be vague too.</p>
+
+    <h3>Good prompt</h3>
+    <pre><code>"I have a p5.js sketch that should draw a circle
+that follows the mouse. But the circle stays in the
+top-left corner. Here's my code:
+
+function setup() {
+  createCanvas(400, 300);
+}
+
+function draw() {
+  background(220);
+  ellipse(mouseX, mouseX, 50, 50);
+}
+
+What's going wrong?"</code></pre>
+    <p>This is specific: you describe what you expect, what happens, and you provide the code. The AI can now look specifically - and will probably notice you used <code>mouseX</code> twice instead of <code>mouseX, mouseY</code>.</p>
+</section>
+
+<section>
+    <h2>The prompt formula</h2>
+    <p>An effective debugging prompt usually contains four parts:</p>
+    <ol>
+        <li><strong>Context</strong> - What are you trying to make? ("A p5.js sketch with colliding particles")</li>
+        <li><strong>Expectation</strong> - What should happen? ("The particles should bounce off the edges")</li>
+        <li><strong>Problem</strong> - What actually happens? ("The particles disappear outside the canvas")</li>
+        <li><strong>Code</strong> - The relevant code, complete and copyable</li>
+    </ol>
+    <pre><code>Prompt formula:
+"I'm making [context].
+It should [expectation],
+but instead [problem].
+Here's my code: [code]"</code></pre>
+</section>
+
+<section>
+    <h2>Type it out, don't copy-paste</h2>
+    <p>When the AI gives you a piece of code, it's tempting to just copy and paste it. <strong>Don't.</strong> Type the code out yourself, line by line.</p>
+    <p>Why? Typing it out forces you to read every line. You immediately notice which lines you don't understand - and then you can ask a targeted follow-up question. Copy-pasting skips that moment: you have working code, but no understanding. Next time something breaks, you're stuck again.</p>
+    <p>This rule matters most while you're still learning. Later, when you're fluent in p5.js, you can occasionally copy sections you fully understand (e.g. a repetitive block). In this course: always type it out.</p>
+    <p><strong>Try this:</strong> ask AI for code for an effect you don't know yet (e.g. a mouse trail, a noise landscape). Type it out. Which lines do you understand right away? Which ones don't? Ask a follow-up question about the ones you don't.</p>
+</section>
+
+<section>
+    <h2>Exercise: find the bugs</h2>
+    <p>The sketch below contains intentional errors. Coloured circles should move across the screen, but something goes wrong. Can you find the bugs - first yourself, then with AI?</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Buggy sketch - there are 3 bugs!
+// Goal: coloured circles moving horizontally
+
+let circles = [];
+
+function setup() {
+  createCanvas(600, 400);
+  colorMode(HSB, 360, 100, 100);
+
+  for (let i = 0; i < 5; i++) {
+    circles.push({
+      x: random(width),
+      y: random(height),
+      speed: random(1, 3),
+      colour: random(360),
+      size: random(20, 60)
+    });
+  }
+}
+
+function draw() {
+  background(0, 0, 95);
+
+  for (let i = 0; i <= circles.length; i++) {
+    let c = circles[i];
+
+    c.x += c.speed;
+
+    if (c.x > width) {
+      c.x = 0;
+    }
+
+    fill(c.colour, 70, 90);
+    noStroke();
+    circle(c.x, c.y, c.diameter);
+  }
+}
+        </script>
+    </div>
+    <p><strong>Hints:</strong> Look carefully at the loop condition, the property names, and what happens when a circle reaches the edge. There are three bugs.</p>
+</section>
+
+<section>
+    <h2>Prompting for more than debugging</h2>
+    <p>Good prompting is not only useful for bugs. You can use the same technique to:</p>
+    <ul>
+        <li><strong>Understand concepts</strong> - "Explain what <code>map()</code> does in p5.js, with a concrete example"</li>
+        <li><strong>Explore alternatives</strong> - "Are there other ways to achieve this effect?"</li>
+        <li><strong>Improve code</strong> - "How can I make this code more readable without changing its behaviour?"</li>
+        <li><strong>Generate ideas</strong> - "Give me five ways to add interaction to this sketch"</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Common prompting mistakes</h2>
+    <ul>
+        <li><strong>Too vague</strong> - "Help me with my code" gives vague results</li>
+        <li><strong>Too much context</strong> - Pasting a thousand lines of code without explanation overwhelms the model</li>
+        <li><strong>No expectation</strong> - If you don't say what <em>should</em> happen, the AI can't know what's wrong</li>
+        <li><strong>Blind trust</strong> - The AI can suggest a "fix" that moves the problem instead of solving it. Always test.</li>
+    </ul>
+</section>

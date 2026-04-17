@@ -1,0 +1,257 @@
+<div class="intro">
+    <p>With p5.js you can load images and draw them on the canvas. You can scale them, adjust colors, apply filters, and even edit individual pixels. This opens the door to creative image manipulation right in the browser.</p>
+</div>
+
+<section>
+    <h2>Loading and Drawing an Image</h2>
+    <p>In modern p5.js, typically use <code>async function setup()</code> with <code>await loadImage()</code>. This ensures the image is loaded before you draw it. In older sketches you may still encounter <code>preload()</code>.</p>
+
+    <pre><code>let photo;
+
+async function setup() {
+  photo = await loadImage('my-photo.jpg'); // load the image
+  createCanvas(600, 400);
+}
+
+function draw() {
+  background(245);
+  image(photo, 0, 0); // draw at position (0, 0)
+}</code></pre>
+
+    <h3>Position and size</h3>
+    <p>You can place an image at a specific position and adjust its size:</p>
+    <pre><code>// image(img, x, y)
+image(photo, 50, 50);
+
+// image(img, x, y, width, height)
+image(photo, 50, 50, 300, 200);  // scale to 300x200
+
+// Center the image
+imageMode(CENTER);
+image(photo, width / 2, height / 2, 200, 150);</code></pre>
+
+    <h3>Getting image dimensions</h3>
+    <pre><code>let photo;
+
+async function setup() {
+  photo = await loadImage('my-photo.jpg');
+  createCanvas(photo.width, photo.height); // canvas same size as photo
+  image(photo, 0, 0);
+  console.log('Width:', photo.width, 'Height:', photo.height);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Tint: Color and Transparency</h2>
+    <p>With <code>tint()</code> you give an image a color overlay or make it transparent. It works just like <code>fill()</code>, but for images.</p>
+
+    <pre><code>function draw() {
+  background(245);
+
+  // Red tint
+  tint(255, 0, 0);
+  image(photo, 0, 0);
+
+  // Half transparent
+  tint(255, 128); // second value = alpha (0-255)
+  image(photo, 100, 100);
+
+  // Blue tint + half transparent
+  tint(0, 100, 255, 180);
+  image(photo, 200, 200);
+
+  // Turn off tint
+  noTint();
+  image(photo, 300, 0);
+}</code></pre>
+
+    <h3>Fading an image</h3>
+    <pre><code>let alpha = 0;
+
+function draw() {
+  background(0);
+  alpha = (sin(frameCount * 0.05) + 1) * 127; // value between 0 and 255
+  tint(255, alpha);
+  image(photo, 0, 0, width, height);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Filters</h2>
+    <p>p5.js has built-in filters that you can apply to the canvas (or to an image):</p>
+
+    <pre><code>function draw() {
+  image(photo, 0, 0);
+
+  // Grayscale
+  filter(GRAY);
+
+  // Inverted colors
+  filter(INVERT);
+
+  // Blur (the number = strength, 1-20)
+  filter(BLUR, 5);
+
+  // Threshold (black/white based on brightness)
+  filter(THRESHOLD, 0.5); // value 0.0 - 1.0
+
+  // Posterize (limit number of color levels)
+  filter(POSTERIZE, 4); // 2-255
+}</code></pre>
+
+    <p><strong>Note:</strong> <code>filter()</code> applies the filter to everything already on the canvas. So always place it after <code>image()</code>.</p>
+</section>
+
+<section>
+    <h2>Pixel Manipulation</h2>
+    <p>With <code>loadPixels()</code> and <code>updatePixels()</code> you can read and modify every individual pixel of the canvas. This is powerful but also slower.</p>
+
+    <h3>Reading pixels</h3>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  background(100, 150, 200);
+  loadPixels(); // load pixel data into the 'pixels' array
+
+  // pixels is a flat array: [R, G, B, A, R, G, B, A, ...]
+  // Pixel at position (x, y):
+  let x = 100;
+  let y = 50;
+  let index = (y * width + x) * 4; // each pixel = 4 values
+
+  let red   = pixels[index];
+  let green = pixels[index + 1];
+  let blue  = pixels[index + 2];
+  let alpha = pixels[index + 3];
+
+  console.log('Pixel at (100, 50):', red, green, blue, alpha);
+}</code></pre>
+
+    <h3>Modifying pixels</h3>
+    <pre><code>function setup() {
+  createCanvas(400, 400);
+  image(photo, 0, 0, width, height);
+
+  loadPixels();
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height; y++) {
+      let index = (y * width + x) * 4;
+
+      // Get the color values
+      let r = pixels[index];
+      let g = pixels[index + 1];
+      let b = pixels[index + 2];
+
+      // Calculate brightness (average of RGB)
+      let brightness = (r + g + b) / 3;
+
+      // Convert to grayscale
+      pixels[index]     = brightness; // red
+      pixels[index + 1] = brightness; // green
+      pixels[index + 2] = brightness; // blue
+      // pixels[index + 3] = alpha, leave it alone
+    }
+  }
+
+  updatePixels(); // save the changes
+}</code></pre>
+
+    <h3>Creative use of pixels</h3>
+    <pre><code>// Mosaic effect: enlarge pixels into blocks
+function setup() {
+  createCanvas(400, 400);
+  image(photo, 0, 0, width, height);
+  loadPixels();
+
+  let blockSize = 10;
+
+  for (let x = 0; x < width; x += blockSize) {
+    for (let y = 0; y < height; y += blockSize) {
+      let index = (y * width + x) * 4;
+      let r = pixels[index];
+      let g = pixels[index + 1];
+      let b = pixels[index + 2];
+
+      // Draw a colored block
+      fill(r, g, b);
+      noStroke();
+      rect(x, y, blockSize, blockSize);
+    }
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Saving an Image</h2>
+    <p>You can save the canvas as an image with <code>saveCanvas()</code>:</p>
+
+    <pre><code>function keyPressed() {
+  if (key === 's') {
+    saveCanvas('my-sketch', 'png'); // save as PNG
+    // saveCanvas('my-sketch', 'jpg'); // or as JPG
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Interactive Example</h3>
+    <p>This example shows pixel manipulation: the canvas is filled with colors and converted to grayscale per row as you move the mouse.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-afbeeldingen"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experiment Yourself!</h2>
+    <p>This example draws a color gradient and applies pixel manipulation. Modify the code to create different effects!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noLoop(); // draws once
+}
+
+function draw() {
+  // Draw a color gradient
+  for (let x = 0; x < width; x++) {
+    let c = map(x, 0, width, 0, 255);
+    stroke(c, 100, 255 - c);
+    line(x, 0, x, height);
+  }
+
+  // Load pixels and apply an effect
+  loadPixels();
+
+  for (let x = 0; x < width; x++) {
+    for (let y = 0; y < height / 2; y++) { // top half only
+      let index = (y * width + x) * 4;
+      let r = pixels[index];
+      let g = pixels[index + 1];
+      let b = pixels[index + 2];
+
+      // Grayscale in the top half
+      let gray = (r + g + b) / 3;
+      pixels[index]     = gray;
+      pixels[index + 1] = gray;
+      pixels[index + 2] = gray;
+    }
+  }
+
+  updatePixels();
+
+  // Label
+  fill(255);
+  noStroke();
+  textSize(14);
+  textAlign(CENTER);
+  text('Top: grayscale - Bottom: original', width / 2, height / 2 + 20);
+  text('Click to redraw with different colors', width / 2, height - 15);
+}
+
+function mousePressed() {
+  redraw(); // try changing this!
+}
+        </script>
+    </div>
+</section>

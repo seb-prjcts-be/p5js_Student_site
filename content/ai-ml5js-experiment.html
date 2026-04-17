@@ -1,0 +1,150 @@
+<div class="intro">
+    <p>Je kent nu de basis van ml5.js. Tijd om je eigen richting te kiezen. Welk model spreekt je aan? Welk idee wil je uitwerken? Dit is het moment om te experimenteren  - zonder vaste uitkomst, maar met de vrijheid om iets eigens te maken.</p>
+</div>
+
+<section>
+    <h2>Kies je model</h2>
+    <p>ml5.js biedt verschillende modellen die elk een ander soort input verwerken. Kies het model dat het best past bij jouw idee:</p>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Model</th>
+                <th>Input</th>
+                <th>Wat het doet</th>
+                <th>Geschikt voor</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>BodyPose</strong></td>
+                <td>Webcam</td>
+                <td>Herkent lichaamspunten (17 keypoints)</td>
+                <td>Bewegingsinteractie, dans, sport</td>
+            </tr>
+            <tr>
+                <td><strong>HandPose</strong></td>
+                <td>Webcam</td>
+                <td>Herkent handpunten (21 per hand)</td>
+                <td>Gebaren, tekenen in de lucht, besturing</td>
+            </tr>
+            <tr>
+                <td><strong>FaceMesh</strong></td>
+                <td>Webcam</td>
+                <td>Detecteert 468 gezichtspunten</td>
+                <td>Filters, emotiedetectie, maskers</td>
+            </tr>
+            <tr>
+                <td><strong>ImageClassifier</strong></td>
+                <td>Webcam / afbeelding</td>
+                <td>Herkent objecten in beeld</td>
+                <td>Objectherkenning, sorteerspellen</td>
+            </tr>
+            <tr>
+                <td><strong>SoundClassifier</strong></td>
+                <td>Microfoon</td>
+                <td>Herkent geluidstypen</td>
+                <td>Geluidgestuurde kunst, spraakinteractie</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Ideeën ter inspiratie</h2>
+    <p>Hier zijn enkele projectideeën per model  - maar het mooiste is als je je eigen richting vindt.</p>
+
+    <h3>Met BodyPose</h3>
+    <ul>
+        <li>Een digitale schaduw die je bewegingen volgt maar met vertraging reageert</li>
+        <li>Deeltjes die worden aangetrokken door je handen en afgestoten door je hoofd</li>
+        <li>Een instrument dat je bespeelt door te bewegen  - positie bepaalt toonhoogte en volume</li>
+    </ul>
+
+    <h3>Met HandPose</h3>
+    <ul>
+        <li>Tekenen in de lucht: je vingertop laat een spoor achter op het canvas</li>
+        <li>Een gebarentolk: herken eenvoudige handgebaren en toon het bijbehorende woord</li>
+        <li>Een virtuele marionet die reageert op je vingerbewegingen</li>
+    </ul>
+
+    <h3>Met FaceMesh</h3>
+    <ul>
+        <li>Een digitaal masker dat meeschuift met je gezicht</li>
+        <li>Abstracte kunst die reageert op gezichtsexpressies  - glimlach maakt kleuren warmer</li>
+        <li>Een spiegel die je gezicht vertekent op basis van emotie</li>
+    </ul>
+
+    <h3>Met ImageClassifier</h3>
+    <ul>
+        <li>Een spel waarbij je objecten voor de camera moet houden die het model herkent</li>
+        <li>Een poëziegenerator: het model herkent een object en genereert er een haiku over</li>
+    </ul>
+
+    <h3>Met SoundClassifier</h3>
+    <ul>
+        <li>Een visualisatie die anders reageert op spreken, klappen en fluiten</li>
+        <li>Een interactieve installatie waar stilte en geluid twee verschillende werelden creëren</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Stappenplan</h2>
+    <p>Een vrij experiment werkt het best met wat structuur. Volg dit stappenplan:</p>
+    <ol>
+        <li><strong>Kies een model</strong>  - Welke input (camera, microfoon) wil je gebruiken?</li>
+        <li><strong>Begin simpel</strong>  - Krijg eerst de basisdetectie werkend. Teken de ruwe data op het scherm.</li>
+        <li><strong>Voeg visuele laag toe</strong>  - Vervang de ruwe punten door vormen, kleuren of patronen die je aanspreken.</li>
+        <li><strong>Maak het interactief</strong>  - Laat de visuele output reageren op de AI-data op een manier die betekenis heeft.</li>
+        <li><strong>Verfijn en itereer</strong>  - Pas kleuren, timing, grootte en compositie aan tot het voelt als iets van jou.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Code-sjabloon: HandPose</h2>
+    <p>Als startpunt voor je experiment kun je dit sjabloon gebruiken. Het detecteert je hand en tekent cirkels op de vingerpunten.</p>
+    <pre><code>let handPose;
+let video;
+let handen = [];
+
+async function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
+
+  // Wacht tot het HandPose-model geladen is
+  handPose = await ml5.handPose();
+  handPose.detectStart(video, ontvangHanden);
+}
+
+function ontvangHanden(resultaten) {
+  handen = resultaten;
+}
+
+function draw() {
+  image(video, 0, 0);
+
+  for (let i = 0; i &lt; handen.length; i++) {
+    let hand = handen[i];
+    for (let j = 0; j &lt; hand.keypoints.length; j++) {
+      let punt = hand.keypoints[j];
+      fill(255, 0, 100);
+      noStroke();
+      circle(punt.x, punt.y, 12);
+    }
+  }
+}</code></pre>
+    <p>Pas dit aan: verander de vormen, voeg trails toe, experimenteer met kleuren die reageren op de positie van je vingers.</p>
+</section>
+
+<section>
+    <h2>Tips voor het experiment</h2>
+    <ul>
+        <li><strong>Test vroeg</strong>  - Laat je code vaak draaien. Kleine stappen werken beter dan grote sprongen.</li>
+        <li><strong>Gebruik AI als hulp</strong>  - Plak je code in een chatbot en vraag: "Hoe voeg ik een trail-effect toe aan deze punten?"</li>
+        <li><strong>Documenteer je proces</strong>  - Maak screenshots of korte video's van tussenresultaten. Het proces is minstens zo waardevol als het eindresultaat.</li>
+        <li><strong>Combineer modellen</strong>  - Gevorderden kunnen twee modellen tegelijk gebruiken, bijvoorbeeld BodyPose én SoundClassifier.</li>
+        <li><strong>Denk na over presentatie</strong>  - Hoe toon je dit aan anderen? Werkt het als installatie? Als schermwerk? Als performance?</li>
+    </ul>
+</section>

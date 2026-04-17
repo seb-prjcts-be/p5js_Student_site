@@ -1,0 +1,372 @@
+<div class="intro">
+    <p>Here you will find all the links and resources from the course - from inspiring projects to books, videos, tools, and datasets. Use this list to explore further, learn, and experiment.</p>
+</div>
+
+<section>
+    <h2>Inspiring projects</h2>
+    <ul>
+        <li>
+            <strong><a href="http://listen.hatnote.com/" target="_blank" rel="noopener">Listen to Wikipedia</a></strong> - Hatnote<br>
+            Every edit on Wikipedia is converted into a tone in real time. A minimalist, meditative experience.
+        </li>
+        <li>
+            <strong><a href="http://mta.me/" target="_blank" rel="noopener">Conductor / MTA.ME</a></strong> - Alexander Chen<br>
+            The New York City subway map as an interactive string instrument.
+        </li>
+        <li>
+            <strong><a href="https://lines.chromeexperiments.com/" target="_blank" rel="noopener">Land Lines</a></strong> - Zach Lieberman &amp; Matt Felsen<br>
+            Satellite imagery from Google Maps linked to gesture recognition. Draw a line and find it back in the landscape.
+        </li>
+        <li>
+            <strong><a href="https://www.random-international.com/audience-2008" target="_blank" rel="noopener">Audience (2008)</a></strong> - Random International<br>
+            An installation of hundreds of small mirrors that respond to visitors - like a swarm that follows you.
+        </li>
+        <li>
+            <strong><a href="https://www.fuseworks.it/works/everything-in-existence/" target="_blank" rel="noopener">Everything in Existence</a></strong> - fuse* studio<br>
+            An immersive solo exhibition that merges data, imagery, and space.
+        </li>
+        <li>
+            <strong><a href="https://vimeo.com/259118398" target="_blank" rel="noopener">Technicontrol</a></strong> - GMUNK (Bradley Munkowitz)<br>
+            Robotics, code, and screen content combined into spectacular motion design.
+        </li>
+        <li>
+            <strong><a href="https://youtu.be/mtzOAEjqTnY" target="_blank" rel="noopener">XYZT: Abstract Landscapes</a></strong> - Adrien M &amp; Claire B<br>
+            Interactive installations that visualize abstract mathematical landscapes.
+        </li>
+        <li>
+            <strong><a href="https://nerdlab.be/byob" target="_blank" rel="noopener">Bring Your Own Beamer - Nerdlab Ghent</a></strong><br>
+            An event where everyone brings their own projector and fills a space with generative art.
+            <a href="https://youtu.be/We2xE40665o?si=qCybqMvwuf4lSaUf" target="_blank" rel="noopener">(Aftermovie 2022)</a>
+        </li>
+        <li>
+            <strong><a href="https://timrodenbroeker.de/" target="_blank" rel="noopener">Tim Rodenbroker</a></strong><br>
+            Creative coder and founder of the DEMO festival. Many tutorials and projects on typography and generative design.
+        </li>
+        <li>
+            <strong><a href="https://www.fionnbreen.com/" target="_blank" rel="noopener">Fionn Breen</a></strong><br>
+            Creative coder with a keen eye for movement and systems. An inspiring portfolio of generative works.
+        </li>
+        <li>
+            <strong><a href="https://experiments.withgoogle.com/tendrils" target="_blank" rel="noopener">Tendrils</a></strong> - Google Experiments<br>
+            Procedural drawing with flowing tentacles that follow your mouse. An elegant demo of how little code can produce great beauty.
+        </li>
+        <li>
+            <strong><a href="https://jeonghopark.github.io/scanseqjs/" target="_blank" rel="noopener">Scan Sequence</a></strong> - Jeongho Park<br>
+            Interactive generative work where lines and patterns glide across the screen like a scanner.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Follow on Instagram</h2>
+    <p>Creative coders, generative designers, and computational artists worth following:</p>
+    <ul>
+        <li>
+            <strong><a href="https://www.instagram.com/patternseeing/" target="_blank" rel="noopener">@patternseeing</a></strong><br>
+            Patterns in the everyday - a keen eye for grids, repetitions, and structures in the environment.
+        </li>
+        <li>
+            <strong><a href="https://www.instagram.com/reinfected.me/" target="_blank" rel="noopener">@reinfected.me</a></strong><br>
+            Generative art and digital aesthetics - sleek compositions, often on the boundary of code and graphic design.
+        </li>
+        <li>
+            <strong><a href="https://www.instagram.com/newnome_beauton/" target="_blank" rel="noopener">@newnome_beauton</a></strong><br>
+            Algorithmic imagery with attention to color, movement, and abstract visual language.
+        </li>
+        <li>
+            <strong><a href="https://www.instagram.com/tim_rodenbroeker/" target="_blank" rel="noopener">@tim_rodenbroeker</a></strong><br>
+            Creative coder and founder of the DEMO festival. Typography, systems, and generative processes.
+        </li>
+        <li>
+            <strong><a href="https://www.instagram.com/thebuildingisacamera/" target="_blank" rel="noopener">@thebuildingisacamera</a></strong><br>
+            Architecture as camera obscura - a unique intersection of space, light, and photography.
+        </li>
+        <li>
+            <strong><a href="https://www.instagram.com/wblut/" target="_blank" rel="noopener">@wblut</a></strong><br>
+            Mathematical-geometric generative art - precise, complex structures generated via algorithms.
+        </li>
+        <li>
+            <strong><a href="https://www.instagram.com/damienlooney/" target="_blank" rel="noopener">@damienlooney</a></strong><br>
+            Playful and energetic generative illustrations, often with a graphic punchline.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>John Whitney - harmonic motion</h2>
+    <p>John Whitney (1917-1995) is the founder of computer-generated animation. In the 1960s he made films by moving points based on sine waves with different frequencies. The result: abstract patterns that seem to breathe. Try it yourself:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Inspired by John Whitney - harmonic motion
+// Each point has its own speed; together they form ever-new patterns.
+
+let punten = 64;
+
+function setup() {
+  createCanvas(600, 400);
+  colorMode(RGB);
+  strokeWeight(3);
+  noFill();
+}
+
+function draw() {
+  background(10, 10);
+
+  let t = frameCount * 0.008;
+  let cx = width / 2;
+  let cy = height / 2;
+  let straal = min(width, height) * 0.42;
+
+  for (let i = 0; i < punten; i++) {
+    let freq = i + 1;
+    let hoek = t * freq;
+    let x = cx + cos(hoek) * straal * (i / punten);
+    let y = cy + sin(hoek * 0.5) * straal * (i / punten);
+
+    let helderheid = map(i, 0, punten, 80, 255);
+    stroke(helderheid);
+    point(x, y);
+  }
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Audience - mirrors that follow</h2>
+    <p>Random International's <em>Audience</em> consists of hundreds of small mirrors that each individually turn toward the visitor. As simple as the principle is, the effect is fascinating. Below is a version with lines that rotate toward your mouse:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Inspired by Audience (2008) - Random International
+// Each line rotates toward the mouse position, like a mirror.
+
+let rijen = 10;
+let kolommen = 16;
+
+function setup() {
+  createCanvas(600, 400);
+  stroke(220);
+  strokeWeight(1.5);
+}
+
+function draw() {
+  background(10);
+
+  let stapX = width / kolommen;
+  let stapY = height / rijen;
+
+  for (let ry = 0; ry < rijen; ry++) {
+    for (let kol = 0; kol < kolommen; kol++) {
+      let x = kol * stapX + stapX / 2;
+      let y = ry * stapY + stapY / 2;
+
+      let hoek = atan2(mouseY - y, mouseX - x);
+      let len = stapX * 0.35;
+
+      let x1 = x - cos(hoek) * len;
+      let y1 = y - sin(hoek) * len;
+      let x2 = x + cos(hoek) * len;
+      let y2 = y + sin(hoek) * len;
+
+      line(x1, y1, x2, y2);
+    }
+  }
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Videos &amp; documentaries</h2>
+    <ul>
+        <li>
+            <a href="https://youtu.be/jIv-EcX9tUs?si=vYoWUvqPHTwaLO9p" target="_blank" rel="noopener"><strong>John Whitney - Experiments in Motion Graphics (1968)</strong></a><br>
+            One of the first computer-generated animations ever made. Timeless and impressive.
+        </li>
+        <li>
+            <a href="https://youtu.be/9M7dTmvJxwA?si=vKK5Gjmjjn_GLHn6" target="_blank" rel="noopener"><strong>Zoom into the Mandelbrot fractal - factor 10^227</strong></a><br>
+            An endless zoom that shows what mathematical recursion looks like visually.
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=3jtCcBR7rv0" target="_blank" rel="noopener"><strong>Clouds Are Not Spheres - Netflix (trailer)</strong></a><br>
+            Documentary about Benoit Mandelbrot and the discovery of fractals.
+        </li>
+        <li>
+            <a href="https://youtu.be/fN9qLt0IPC0?si=gY1BygOWCcZ0HfBS" target="_blank" rel="noopener"><strong>Sonification of Meteorite Landings</strong></a><br>
+            A p5.js project that translates NASA meteorite data into visuals and sound.
+        </li>
+        <li>
+            <a href="https://youtu.be/fGR_VGTuQN4?si=pqPcSAz05EOfPcVC" target="_blank" rel="noopener"><strong>Livecoding challenge - Joana Cicau</strong></a><br>
+            Ten minutes of live coding: building a p5.js sketch from scratch for an audience.
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=Pb5oIIPO62g&list=PLbJ6hUkwmWtulngmPQvQ4Ob28qd_5MOX9" target="_blank" rel="noopener"><strong>On creativity - John Cleese</strong></a><br>
+            The Monty Python actor and writer on how creativity works, what blocks it, and how you can consciously cultivate it. A classic that remains just as relevant today.
+        </li>
+        <li>
+            <a href="https://www.youtube.com/watch?v=arj7oStGLkU" target="_blank" rel="noopener"><strong>Procrastination - Tim Urban</strong></a><br>
+            TED talk about procrastination: how the "instant gratification monkey" takes over the brain, and why deadlines (and life itself) force us to start anyway.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Data as imagery - meteorite landings</h2>
+    <p>Each dot below represents a meteorite that once landed on Earth. Size and brightness reflect the mass. Move the mouse to explore the map - click to let everything land again:</p>
+
+    <div class="p5-editor" data-width="600" data-height="360" data-autorun="true">
+        <script type="text/p5">
+// Inspired by data sonification and NASA open data
+// Simulated meteorite landings - each dot is an impact.
+
+let meteorieten = [];
+let aantalMeteorieten = 120;
+
+function setup() {
+  createCanvas(600, 360);
+  genereer();
+  noStroke();
+}
+
+function genereer() {
+  meteorieten = [];
+  for (let i = 0; i < aantalMeteorieten; i++) {
+    meteorieten.push({
+      x: random(width),
+      y: random(height),
+      massa: random(1, 6),
+      leeftijd: random(255),
+      snelheid: random(0.3, 1.5)
+    });
+  }
+}
+
+function draw() {
+  background(10, 15);
+
+  // Light grid lines as the earth's surface
+  stroke(40);
+  strokeWeight(0.3);
+  for (let x = 0; x < width; x += 40) line(x, 0, x, height);
+  for (let y = 0; y < height; y += 40) line(0, y, width, y);
+  noStroke();
+
+  let muisPX = mouseX / width;
+
+  for (let m of meteorieten) {
+    let afstand = dist(mouseX, mouseY, m.x, m.y);
+    let gloed = map(afstand, 0, 200, 255, m.leeftijd);
+    gloed = constrain(gloed, 30, 255);
+
+    fill(gloed);
+    circle(m.x, m.y, m.massa * 2);
+
+    // Small trail near the mouse
+    if (afstand < 80) {
+      stroke(gloed, 80);
+      strokeWeight(0.5);
+      line(m.x, m.y, mouseX + random(-2, 2), mouseY + random(-2, 2));
+      noStroke();
+    }
+  }
+}
+
+function mousePressed() {
+  genereer();
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Learning &amp; community</h2>
+    <ul>
+        <li>
+            <strong><a href="https://thecodingtrain.com/" target="_blank" rel="noopener">The Coding Train</a></strong> - Daniel Shiffman<br>
+            The best place to learn p5.js through hundreds of videos. Enthusiastic, funny, and thorough.
+            Also on <a href="https://www.youtube.com/@TheCodingTrain" target="_blank" rel="noopener">YouTube</a>
+            and in the <a href="https://discord.com/invite/hPuGy2g" target="_blank" rel="noopener">Discord community</a>.
+        </li>
+        <li>
+            <strong><a href="https://www.youtube.com/@pattvira" target="_blank" rel="noopener">Patt Vira</a></strong> - YouTube<br>
+            Clear and visually appealing tutorials on creative coding with p5.js.
+        </li>
+        <li>
+            <strong><a href="https://editor.p5js.org/" target="_blank" rel="noopener">p5.js Web Editor</a></strong><br>
+            Write and share p5.js sketches in the browser, no installation needed.
+        </li>
+        <li>
+            <strong><a href="https://p5js.org/reference/" target="_blank" rel="noopener">p5.js Reference</a></strong><br>
+            The official documentation of all functions, variables, and classes in p5.js 2.x.
+        </li>
+        <li>
+            <strong><a href="https://github.com/terkelg/awesome-creative-coding" target="_blank" rel="noopener">Awesome Creative Coding</a></strong> - Terkel Gjervig<br>
+            An extensive, community-maintained list of tools, libraries, books, courses, and communities around creative coding.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Books</h2>
+    <ul>
+        <li>
+            <strong><a href="https://nature-of-code-2nd-edition.netlify.app/" target="_blank" rel="noopener">The Nature of Code (2nd edition)</a></strong> - Daniel Shiffman<br>
+            Free online book about simulations, forces, particles, neural networks - all in p5.js.
+        </li>
+        <li>
+            <strong><a href="http://www.generative-gestaltung.de/2/" target="_blank" rel="noopener">Generative Gestaltung</a></strong> - Gross, Bohnacker, Laub, Lazzeroni<br>
+            The standard work on generative design with p5.js. All code examples are
+            <a href="https://github.com/generative-design/Code-Package-p5.js/releases/latest" target="_blank" rel="noopener">free to download</a>.
+        </li>
+        <li>
+            <strong>Getting Started with p5.js</strong> - Lauren McCarthy, Casey Reas &amp; Ben Fry<br>
+            The official beginner's book by the creators of p5.js themselves.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>p5.js libraries</h2>
+    <p>Extensions that add new capabilities to p5.js:</p>
+    <ul>
+        <li>
+            <strong><a href="https://github.com/tapioca24/p5.capture" target="_blank" rel="noopener">p5.Capture</a></strong><br>
+            Record your sketch as video (MP4, GIF, WebM) with a single line of code.
+        </li>
+        <li>
+            <strong><a href="https://cdnjs.com/libraries/p5play" target="_blank" rel="noopener">p5.play</a></strong><br>
+            Add physics, gravity, and collisions to your sketch - ideal for games.
+        </li>
+        <li>
+            <strong><a href="https://idmnyu.github.io/p5.js-speech/" target="_blank" rel="noopener">p5.speech</a></strong><br>
+            Speech recognition and text-to-speech in the browser via p5.js.
+        </li>
+    </ul>
+</section>
+
+<section>
+    <h2>Data &amp; APIs</h2>
+    <p>Sources for interesting datasets to visualize:</p>
+    <ul>
+        <li>
+            <strong><a href="https://github.com/dariusk/corpora/tree/master" target="_blank" rel="noopener">Corpora</a></strong><br>
+            Collection of hundreds of fun and useful JSON files: animal names, colors, countries, mythology, ...
+            Also available via the <a href="https://corpora-api.glitch.me/" target="_blank" rel="noopener">Corpora API</a>.
+        </li>
+        <li>
+            <strong><a href="https://data.stad.gent/" target="_blank" rel="noopener">Open Data City of Ghent</a></strong><br>
+            CSV, JSON, and APIs about Ghent: mobility, culture, environment, and more.
+        </li>
+        <li>
+            <strong><a href="https://data.gov.be/" target="_blank" rel="noopener">Open Data Belgium</a></strong><br>
+            Official Belgian open data portal with thousands of datasets.
+        </li>
+        <li>
+            <strong><a href="https://data.nasa.gov/" target="_blank" rel="noopener">NASA Open Data</a></strong><br>
+            Space data, satellite imagery, planets, meteorite landings - all freely accessible.
+            Also check the <a href="https://data.nasa.gov/Earth-Science/Meteorite-Landings-API/c2vx-j9ed" target="_blank" rel="noopener">Meteorite Landings API</a> as a concrete starting point.
+        </li>
+    </ul>
+</section>

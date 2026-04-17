@@ -1,0 +1,191 @@
+<div class="intro">
+    <p>p5.js is a calculator that draws. Almost everything you see - positions, sizes, colors, movement - is the result of calculations. How you write those calculations determines what appears on screen.</p>
+</div>
+
+<section>
+    <h2>The console as a calculator</h2>
+    <p>Before you put calculations into your sketch, you can test them with <code>console.log()</code>. It's the quickest way to check whether an expression does what you expect:</p>
+    <pre><code>console.log(10 / 3);          // 3.333...
+console.log(floor(10 / 3));   // 3
+console.log(width / 2);       // Half of the canvas</code></pre>
+    <p>Open the console in your browser (F12) or in the p5.js editor to see the result. Use it as an exploration tool: try out expressions before putting them in your code.</p>
+</section>
+
+<section>
+    <h2>The four basic operators</h2>
+    <pre><code>let a = 10 + 3;   // 13  addition
+let b = 10 - 3;   // 7   subtraction
+let c = 10 * 3;   // 30  multiplication
+let d = 10 / 4;   // 2.5 division</code></pre>
+
+    <p>Order of operations works just like in math: multiplication and division before addition and subtraction. Use parentheses to control the order:</p>
+    <pre><code>let x = 2 + 3 * 4;    // 14  (not 20)
+let y = (2 + 3) * 4;  // 20</code></pre>
+</section>
+
+<section>
+    <h2>Compound operators</h2>
+    <p>Shorthand notations for common operations:</p>
+    <pre><code>let x = 10;
+
+x += 5;   // x = x + 5  → 15
+x -= 3;   // x = x - 3  → 12
+x *= 2;   // x = x * 2  → 24
+x /= 4;   // x = x / 4  → 6
+
+x++;      // x = x + 1  → 7  (increment by one)
+x--;      // x = x - 1  → 6  (decrement by one)</code></pre>
+
+    <p>In p5.js you see <code>x += speed</code> and <code>angle += 0.02</code> everywhere - it's the standard way to make something move or rotate.</p>
+</section>
+
+<section>
+    <h2>The modulo operator: %</h2>
+    <p><code>%</code> returns the <strong>remainder after division</strong>. Think of clock arithmetic: after 59 seconds you go back to 0.</p>
+    <pre><code>7 % 3   // → 1  (7 ÷ 3 = 2, remainder 1)
+10 % 5  // → 0  (10 ÷ 5 = 2, remainder 0)
+4 % 2   // → 0  (even: remainder is always 0)
+5 % 2   // → 1  (odd: remainder is always 1)</code></pre>
+
+    <p>Use <code>%</code> to make a value <strong>wrap around</strong> when it reaches a boundary:</p>
+    <pre><code>let x = 0;
+
+function draw() {
+  x += 3;
+  circle(x % width, height / 2, 40);  // wraps automatically at the edge
+}</code></pre>
+
+    <p>Or to do something at a fixed rhythm:</p>
+    <pre><code>function draw() {
+  // Every 60 frames (≈ every second at 60fps)
+  if (frameCount % 60 === 0) {
+    background(random(255));
+  }
+
+  // Alternating per frame: even or odd
+  if (frameCount % 2 === 0) {
+    fill(255, 0, 0);
+  } else {
+    fill(0, 0, 255);
+  }
+}</code></pre>
+
+    <p>And in loops to calculate rows and columns:</p>
+    <pre><code>for (let i = 0; i < 12; i++) {
+  let col = i % 4;        // 0, 1, 2, 3, 0, 1, 2, 3, ...
+  let row = floor(i / 4); // 0, 0, 0, 0, 1, 1, 1, 1, ...
+  circle(col * 100 + 50, row * 100 + 50, 60);
+}</code></pre>
+</section>
+
+<section>
+    <h2>random() - random numbers</h2>
+    <p><code>random()</code> returns a different decimal number each time. This gives you a different result every time - essential for generative art.</p>
+    <pre><code>random(100)       // number from 0 to 99.99...  (never exactly 100!)
+random(50, 101)   // number from 50 to 100.99...
+
+fill(random(255), random(255), random(255));  // Random color</code></pre>
+
+    <h3>Need a whole number?</h3>
+    <p>If you want a random <em>integer</em>, use <code>floor()</code> to round down:</p>
+    <pre><code>// Random number from 0 to 100 (inclusive)
+let n = floor(random(101));
+
+// Coin flip: 0 or 1
+let side = floor(random(2));  // 0 = heads, 1 = tails</code></pre>
+    <p>Note: <code>random(100)</code> can never return exactly 100, so write <code>floor(random(101))</code> if you also want to be able to get 100.</p>
+</section>
+
+<section>
+    <h2>Math functions in p5.js</h2>
+    <p>p5.js has a set of built-in functions that save you a lot of writing.</p>
+
+    <h3>Rounding</h3>
+    <pre><code>round(3.7)   // → 4   (nearest integer)
+floor(3.9)   // → 3   (always round down)
+ceil(3.1)    // → 4   (always round up)
+abs(-5)      // → 5   (absolute value, always positive)</code></pre>
+
+    <h3>Minimum and maximum</h3>
+    <pre><code>min(3, 7, 1)    // → 1  (smallest value)
+max(3, 7, 1)    // → 7  (largest value)</code></pre>
+
+    <h3>constrain() - keep a value within bounds</h3>
+    <p>Handy to prevent something from going off screen:</p>
+    <pre><code>let x = constrain(mouseX, 50, width - 50);
+// x is never less than 50, never greater than width - 50</code></pre>
+
+    <h3>map() - translate one range to another</h3>
+    <p><code>map()</code> is one of the most used functions in generative art. The core idea: you have a value in range A and want to convert it to range B.</p>
+    <pre><code>// map(value, from_min, from_max, to_min, to_max)
+
+// mouseX (0 to width) → color value (0 to 255)
+let red = map(mouseX, 0, width, 0, 255);
+fill(red, 0, 150);
+
+// frameCount to an angle (0 to TWO_PI)
+let angle = map(frameCount % 120, 0, 120, 0, TWO_PI);
+
+// You can also reverse: big becomes small
+let size = map(mouseY, 0, height, 80, 10);  // Top is big, bottom is small</code></pre>
+    <p>Almost every interactive or generative effect starts with <code>map()</code>: mouse position to color, distance to size, time to rotation. If you learn one function well, make it this one.</p>
+
+    <h3>dist() - distance between two points</h3>
+    <pre><code>// Distance from the mouse to the center
+let d = dist(mouseX, mouseY, width / 2, height / 2);
+
+// Bigger when the mouse is farther away
+let size = map(d, 0, 300, 10, 80);
+circle(width / 2, height / 2, size);</code></pre>
+
+    <h3>sqrt() and sq()</h3>
+    <pre><code>sqrt(16)   // → 4   (square root)
+sq(4)      // → 16  (square, same as 4 * 4)</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Example: map() and dist()</h3>
+    <p>Move your mouse - each circle responds to its distance from the cursor:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-berekeningen"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experiment yourself</h2>
+    <p>Adjust the <code>map()</code> bounds and see how the colors and sizes change:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  noStroke();
+}
+
+function draw() {
+  background(20);
+
+  let gridSize = 8;
+  let stepX = width / gridSize;
+  let stepY = height / gridSize;
+
+  for (let col = 0; col < gridSize; col++) {
+    for (let row = 0; row < gridSize; row++) {
+      let x = col * stepX + stepX / 2;
+      let y = row * stepY + stepY / 2;
+
+      // Distance from this point to the mouse
+      let d = dist(mouseX, mouseY, x, y);
+
+      // map(): distance → size and color - try adjusting the numbers!
+      let size = map(d, 0, 300, 60, 5);
+      let brightness = map(d, 0, 300, 255, 40);
+
+      fill(brightness, 80, 180);
+      circle(x, y, size);
+    }
+  }
+}
+        </script>
+    </div>
+</section>

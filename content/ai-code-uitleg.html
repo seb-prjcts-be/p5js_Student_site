@@ -1,0 +1,96 @@
+<div class="intro">
+    <p>Stel je voor: je opent een p5.js-sketch die iemand anders heeft geschreven. Honderden regels code, geen commentaar. Wat doet dit programma? AI kan je helpen om onbekende code te ontcijferen  - als je de juiste vragen stelt.</p>
+</div>
+
+<section>
+    <h2>Code lezen met AI</h2>
+    <p>Code begrijpen is een vaardigheid. Niet alles wat je tegenkomt heb je zelf geschreven, en dat is prima. AI kan functioneren als een geduldige uitlegger die je door onbekende code loodst.</p>
+    <p>De sleutel is: <strong>stel gerichte vragen</strong>. In plaats van "leg deze code uit", probeer:</p>
+    <ul>
+        <li>"Wat doet de <code>draw()</code>-functie in deze sketch?"</li>
+        <li>"Waarom staat er <code>translate(width/2, height/2)</code> aan het begin?"</li>
+        <li>"Welke variabelen veranderen elke frame?"</li>
+        <li>"Wat zou er gebeuren als ik <code>noStroke()</code> weghaal?"</li>
+    </ul>
+    <p>Hoe specifieker je vraag, hoe bruikbaarder het antwoord.</p>
+</section>
+
+<section>
+    <h2>Oefening: mystery sketch</h2>
+    <p>Hieronder staat een sketch die je waarschijnlijk niet meteen begrijpt. Bestudeer de code en probeer te voorspellen wat er op het scherm verschijnt. Gebruik daarna een AI-tool om je vragen te stellen.</p>
+</section>
+
+<div class="p5-example">
+    <h3>Mystery sketch</h3>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-ai-code-uitleg"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Wat je kunt vragen</h2>
+    <p>Kopieer de code uit de editor hieronder en plak hem in een AI-tool. Probeer deze vragen:</p>
+    <ol>
+        <li><strong>"Wat doet deze code?"</strong>  - Vraag om een samenvatting in gewone taal.</li>
+        <li><strong>"Leg regel voor regel uit wat er gebeurt."</strong>  - Voor als je elk detail wilt snappen.</li>
+        <li><strong>"Welke p5.js-functies worden hier gebruikt en wat doen ze?"</strong>  - Om je woordenschat uit te breiden.</li>
+        <li><strong>"Hoe zou ik deze sketch kunnen aanpassen om [X] te doen?"</strong>  - Om van begrip naar creatie te gaan.</li>
+    </ol>
+</section>
+
+<section>
+    <h2>Probeer het zelf</h2>
+    <p>Hier is dezelfde mystery sketch in de editor. Pas de code aan en kijk wat er verandert. Kun je voorspellen wat elke aanpassing doet?</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Mystery sketch - wat doet deze code?
+let hoek = 0;
+let aantal = 12;
+
+function setup() {
+  createCanvas(600, 400);
+  colorMode(HSB, 360, 100, 100, 100);
+}
+
+function draw() {
+  background(220, 15, 95);
+  translate(width / 2, height / 2);
+
+  for (let i = 0; i < aantal; i++) {
+    let a = (TWO_PI / aantal) * i + hoek;
+    let r = 120 + sin(frameCount * 0.02 + i) * 40;
+    let x = cos(a) * r;
+    let y = sin(a) * r;
+    let grootte = 20 + sin(frameCount * 0.03 + i * 0.5) * 15;
+
+    fill((i * 30 + frameCount) % 360, 70, 90, 80);
+    noStroke();
+    ellipse(x, y, grootte, grootte);
+  }
+
+  hoek += 0.005;
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>AI vergelijken met je eigen begrip</h2>
+    <p>Een krachtige oefening: schrijf <em>eerst</em> in je eigen woorden op wat je denkt dat de code doet. Vraag <em>daarna</em> aan de AI om het uit te leggen. Vergelijk de twee:</p>
+    <ul>
+        <li>Klopte jouw inschatting?</li>
+        <li>Heeft de AI iets uitgelegd dat je over het hoofd zag?</li>
+        <li>Heeft de AI iets <em>fout</em> uitgelegd? (Ja, dat kan!)</li>
+    </ul>
+    <p>Dit vergelijken is waar je het meest van leert. Je traint jezelf om code te lezen én om AI-output kritisch te evalueren.</p>
+</section>
+
+<section>
+    <h2>Tips</h2>
+    <ul>
+        <li>Kopieer altijd de <strong>volledige code</strong> naar de AI  - niet alleen het stukje dat je niet snapt. Context is belangrijk.</li>
+        <li>Vraag door als een antwoord niet duidelijk is: "Kun je dat eenvoudiger uitleggen?"</li>
+        <li>Probeer de uitleg te <strong>testen</strong>: als de AI zegt "deze variabele bepaalt de snelheid", verander die variabele dan en kijk of het klopt.</li>
+        <li>Vergelijk uitleg van verschillende AI-modellen  - ze leggen soms op heel andere manieren uit.</li>
+    </ul>
+</section>

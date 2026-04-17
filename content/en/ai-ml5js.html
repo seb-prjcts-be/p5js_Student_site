@@ -1,0 +1,134 @@
+<div class="intro">
+    <p>What if your sketch could see, hear or react to movement - without having to build an AI model yourself? With ml5.js you can load ready-made AI models into p5.js and start creating right away.</p>
+</div>
+
+<section>
+    <h2>What is ml5.js?</h2>
+    <p><strong>ml5.js</strong> is a JavaScript library that makes machine learning accessible for makers and designers. It's specifically designed to work with p5.js.</p>
+    <p>The idea: you don't need to be a mathematician to use AI in your creative work. ml5.js offers pre-trained models you can use directly - for body recognition, sound classification, image recognition and more.</p>
+    <ul>
+        <li>Built on top of TensorFlow.js, but much simpler to use</li>
+        <li>Works directly in the browser - no installation needed</li>
+        <li>Open source and free</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Loading ml5.js</h2>
+    <p>To use ml5.js in your project, add it via a CDN link. In the live editor on this site you can use it directly in a <code>&lt;script&gt;</code> tag:</p>
+    <pre><code>&lt;script src="https://unpkg.com/ml5@1/dist/ml5.min.js"&gt;&lt;/script&gt;</code></pre>
+    <p>In your own HTML file, place this line in the <code>&lt;head&gt;</code>, next to your p5.js script.</p>
+</section>
+
+<section>
+    <h2>Available models</h2>
+    <p>ml5.js offers several pre-trained models. Here are the main ones:</p>
+
+    <h3>BodyPose</h3>
+    <p>Recognises the position of the human body via the webcam. Detects points like shoulders, elbows, wrists, knees and ankles. Ideal for interactive installations or movement-driven sketches.</p>
+
+    <h3>HandPose</h3>
+    <p>Recognises the position of hands and individual fingers. Can detect 21 points per hand. Useful for gesture recognition or drawing with your hands.</p>
+
+    <h3>FaceMesh</h3>
+    <p>Detects 468 points on the face. With this you can create face filters, analyse emotions or convert facial movements into visual effects.</p>
+
+    <h3>ImageClassifier</h3>
+    <p>Recognises objects in images. Returns a label ("cat", "car", "flower") with a confidence score. Works with photos and webcam images.</p>
+
+    <h3>SoundClassifier</h3>
+    <p>Recognises sounds via the microphone. Can distinguish between speaking, clapping, whistling and background noise.</p>
+</section>
+
+<section>
+    <h2>Your first ml5.js sketch: BodyPose</h2>
+    <p>Let's build a sketch step by step that detects your body via the webcam and draws the recognition points.</p>
+
+    <h3>Step 1: activate webcam</h3>
+    <pre><code>let video;
+
+function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide(); // Hide the HTML video element
+}
+
+function draw() {
+  image(video, 0, 0); // Draw the video on the canvas
+}</code></pre>
+
+    <h3>Step 2: load BodyPose</h3>
+    <p>In modern p5.js, use <code>async function setup()</code> with <code>await</code>, so the model is ready before you continue:</p>
+    <pre><code>let video;
+let bodyPose;
+let poses = [];
+
+async function setup() {
+  createCanvas(640, 480);
+  video = createCapture(VIDEO);
+  video.size(640, 480);
+  video.hide();
+
+  // Wait until the BodyPose model has loaded
+  bodyPose = await ml5.bodyPose();
+
+  // Start detecting poses
+  bodyPose.detectStart(video, receiveResults);
+}
+
+function receiveResults(results) {
+  poses = results;
+}</code></pre>
+
+    <h3>Step 3: draw points</h3>
+    <pre><code>function draw() {
+  image(video, 0, 0);
+
+  // Draw all detected points
+  for (let i = 0; i < poses.length; i++) {
+    let pose = poses[i];
+    for (let j = 0; j < pose.keypoints.length; j++) {
+      let point = pose.keypoints[j];
+      // Only draw if confidence is high enough
+      if (point.confidence > 0.2) {
+        fill(0, 255, 0);
+        noStroke();
+        circle(point.x, point.y, 10);
+      }
+    }
+  }
+}</code></pre>
+    <p>Each <code>keypoint</code> has an <code>x</code>, <code>y</code> and <code>confidence</code> value. The confidence indicates how certain the model is of the detection (0 to 1).</p>
+</section>
+
+<section>
+    <h2>From detection to creation</h2>
+    <p>It gets really interesting when you use the detected points to do something <em>visual</em>. Some ideas:</p>
+    <ul>
+        <li><strong>Lines between points</strong> - Connect the keypoints with lines to draw a skeleton</li>
+        <li><strong>Particles following</strong> - Let particles swarm around your hands or head</li>
+        <li><strong>Colour with your body</strong> - Use the position of your hands to mix colours</li>
+        <li><strong>Trigger sound</strong> - Link movement to sound parameters</li>
+        <li><strong>Abstract shapes</strong> - Replace the video image with abstract geometry that follows your body</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Important to know</h2>
+    <ul>
+        <li><strong>Webcam required</strong> - Most ml5.js models use the webcam. Make sure your browser has permission.</li>
+        <li><strong>First load takes a moment</strong> - The model is downloaded on first use. After that it's faster.</li>
+        <li><strong>Privacy</strong> - All processing happens locally in your browser. No images are sent to a server.</li>
+        <li><strong>Performance</strong> - AI models in the browser are heavier than regular sketches. On older computers it may run slower.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Learn more</h2>
+    <p>The official ml5.js documentation has examples and explanations for each model:</p>
+    <ul>
+        <li><a href="https://ml5js.org/" target="_blank" rel="noopener">ml5js.org</a> - Official site with documentation and examples</li>
+        <li><a href="https://docs.ml5js.org/" target="_blank" rel="noopener">docs.ml5js.org</a> - Detailed API reference</li>
+    </ul>
+</section>

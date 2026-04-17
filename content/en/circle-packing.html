@@ -1,0 +1,160 @@
+<div class="intro">
+    <p>Circle packing is an algorithm that tries to place as many non-overlapping circles as possible in a space. Each circle grows from a random point until it touches another circle or the edge. The result is a dense, organic pattern that is both mathematically precise and visually appealing.</p>
+</div>
+
+<section>
+    <h2>How does the algorithm work?</h2>
+    <p>The principle is simple:</p>
+    <ol>
+        <li>Pick a random point on the canvas.</li>
+        <li>Check if that point is far enough from all existing circles.</li>
+        <li>If so: add a new small circle at that point.</li>
+        <li>Each frame, let all growing circles get slightly larger.</li>
+        <li>A circle stops growing as soon as it touches another circle or the edge.</li>
+    </ol>
+    <p>You repeat steps 1-3 a few times each frame. Over time the space fills up so much that no new circles fit - then the packing is complete.</p>
+</section>
+
+<section>
+    <h2>Detecting overlap with dist()</h2>
+    <p>The core of the algorithm is checking whether two circles overlap. Two circles overlap when the distance between their centers is less than the sum of their radii:</p>
+
+    <pre><code>// Do circle A and circle B overlap?
+let distance = dist(a.x, a.y, b.x, b.y);
+if (distance < a.r + b.r) {
+  // They overlap
+}</code></pre>
+
+    <p>To maintain a safe margin, add a small buffer:</p>
+    <pre><code>if (distance < a.r + b.r + 2) {
+  // Too close - don't place
+}</code></pre>
+</section>
+
+<section>
+    <h2>Storing a circle as an object</h2>
+    <p>Each circle has a position, a radius, and a flag that tracks whether it is still growing:</p>
+
+    <pre><code>let circles = [];
+
+function addCircle(x, y) {
+  circles.push({ x: x, y: y, r: 2, growing: true });
+}
+
+function drawAndGrow() {
+  for (let c of circles) {
+    circle(c.x, c.y, c.r * 2);
+
+    if (c.growing) {
+      c.r += 0.5;
+      if (touchesEdge(c) || touchesOther(c)) {
+        c.r -= 0.5; // step back
+        c.growing = false;
+      }
+    }
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Checking edges and neighboring circles</h2>
+
+    <pre><code>function touchesEdge(c) {
+  return c.x - c.r <= 0 || c.x + c.r >= width ||
+         c.y - c.r <= 0 || c.y + c.r >= height;
+}
+
+function touchesOther(c) {
+  for (let other of circles) {
+    if (other === c) continue;
+    if (dist(c.x, c.y, other.x, other.y) < c.r + other.r + 1) {
+      return true;
+    }
+  }
+  return false;
+}</code></pre>
+
+    <p>The check <code>other === c</code> is important: a circle should not consider itself as a neighbor.</p>
+</section>
+
+<div class="p5-example">
+    <h3>Interactive example</h3>
+    <p>Circles grow until they touch each other or the edge. Click to restart.</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-circle-packing"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Experiment yourself</h2>
+    <p>Adjust the growth attempts per frame, the maximum radius, or the background color:</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+// Circle packing - circles grow until they touch
+// Try adjusting these values!
+
+let cirkels = [];
+let pogingPerFrame = 5;  // new circles to try per frame
+let maxStraal = 80;
+
+function setup() {
+  createCanvas(600, 400);
+  background(245);
+  noFill();
+  stroke(30);
+  strokeWeight(0.8);
+}
+
+function draw() {
+  // Try to add new circles
+  for (let p = 0; p < pogingPerFrame; p++) {
+    let x = random(width);
+    let y = random(height);
+    if (isGeldig(x, y, 2)) {
+      cirkels.push({ x, y, r: 2, groeit: true });
+    }
+  }
+
+  background(245);
+
+  for (let c of cirkels) {
+    if (c.groeit) {
+      c.r += 0.5;
+      if (raaktRand(c) || raaktAnder(c) || c.r > maxStraal) {
+        c.r -= 0.5;
+        c.groeit = false;
+      }
+    }
+    circle(c.x, c.y, c.r * 2);
+  }
+}
+
+function isGeldig(x, y, r) {
+  if (x - r < 0 || x + r > width || y - r < 0 || y + r > height) return false;
+  for (let c of cirkels) {
+    if (dist(x, y, c.x, c.y) < r + c.r + 2) return false;
+  }
+  return true;
+}
+
+function raaktRand(c) {
+  return c.x - c.r <= 1 || c.x + c.r >= width - 1 ||
+         c.y - c.r <= 1 || c.y + c.r >= height - 1;
+}
+
+function raaktAnder(c) {
+  for (let ander of cirkels) {
+    if (ander === c) continue;
+    if (dist(c.x, c.y, ander.x, ander.y) < c.r + ander.r + 1) return true;
+  }
+  return false;
+}
+
+function mousePressed() {
+  cirkels = [];
+  background(245);
+}
+        </script>
+    </div>
+</section>
