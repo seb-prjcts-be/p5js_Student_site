@@ -23,6 +23,69 @@
     <p><strong>Copilot Chat</strong> is inbegrepen in jullie schoollicentie - dit is de chatbot die je vragen kunt stellen, teksten kunt laten schrijven en code kunt laten uitleggen. De uitgebreide versie (<strong>Copilot voor Microsoft 365</strong>) met AI rechtstreeks in Word, Excel, PowerPoint en Teams is een betaalde add-on die de school apart moet aankopen.</p>
 </section>
 
+<section>
+    <h2>duck.ai (DuckDuckGo)</h2>
+    <p><strong>Maker:</strong> DuckDuckGo (VS) - proxy naar modellen van OpenAI, Anthropic, Mistral en Meta</p>
+    <p><strong>Gratis model:</strong> je kiest zelf uit GPT, Claude, Mistral, Llama en o3-mini</p>
+
+    <p><a href="https://duck.ai" target="_blank" rel="noopener">duck.ai</a> is een <strong>gratis toegangspunt zonder account</strong>. Geen registratie, geen leeftijdsgrens, geen wachtrij. Perfect als alternatief voor Copilot wanneer je schoolaccount niet werkt, of als je meerdere modellen snel wil vergelijken.</p>
+
+    <h3>Waarom duck.ai?</h3>
+    <ul>
+        <li>Geen registratie, geen login, geen leeftijdsgrens</li>
+        <li>Keuze uit meerdere modellen in één interface</li>
+        <li>Privacy-vriendelijk: chats worden niet bewaard of gebruikt om modellen te trainen</li>
+        <li>Beschikbaar via <a href="https://duck.ai" target="_blank" rel="noopener">duck.ai</a> in elke browser</li>
+    </ul>
+
+    <h3>Beperkingen</h3>
+    <ul>
+        <li>Geen bestandsuploads</li>
+        <li>Geen webzoeken ingebouwd</li>
+        <li>Geen geheugen tussen sessies - elke nieuwe chat begint leeg</li>
+    </ul>
+
+    <h3>Pre-prompt: maak van duck.ai een LAB44-assistent</h3>
+    <p>Omdat duck.ai geen geheugen heeft tussen sessies, moet je elke keer uitleggen wie je bent en wat je zoekt. Onderstaande <strong>pre-prompt</strong> doet dat in één keer voor je. Kopieer hem, plak hem als <em>eerste bericht</em> in een nieuwe duck.ai-chat, en daarna kan je je vraag stellen.</p>
+    <button type="button" class="preprompt-copy-btn" onclick="(async()=>{try{await navigator.clipboard.writeText(document.getElementById('lab44-preprompt').textContent.trim());this.textContent='Gekopieerd!';setTimeout(()=>this.textContent='Kopieer pre-prompt',1500);}catch(e){this.textContent='Selecteer en kopieer handmatig';}})()">Kopieer pre-prompt</button>
+    <pre><code id="lab44-preprompt">Je bent de LAB44 AI-assistent, speciaal voor leerlingen Creative Coding aan Kunsthumaniora Sint-Lucas Gent (KHSL, Belgie).
+
+ROL
+Je helpt leerlingen van 16+ met:
+- p5.js code schrijven en begrijpen
+- Fouten debuggen en oplossen
+- Concepten van generatieve kunst uitleggen
+- Ideeen genereren voor creative coding projecten
+
+TAAL EN TOON
+- Altijd Nederlands, geen Engels mengen
+- Gebruik "je", niet "u"
+- Eenvoudige, concrete taal. Geen jargon zonder uitleg.
+- Kort en helder. Geen lange inleidingen of disclaimers.
+
+P5.JS
+- Gebruik p5.js 2.x syntax (beta.p5js.org, huidige versie 2.2.3)
+- Global mode: function setup(), function draw() - GEEN instance mode met p.
+- Standaard canvas: createCanvas(600, 400)
+- Async asset loading in setup() met await, geen preload() tenzij ik daar expliciet om vraag
+- Commentaren in het Nederlands
+
+DIDACTIEK
+- Eerste antwoord: simpelste werkende versie
+- Voeg complexiteit stap voor stap toe wanneer ik erom vraag
+- Leg in 1-2 zinnen uit wat de code doet
+- Als mijn vraag onduidelijk is, stel dan eerst een verduidelijkingsvraag
+- Moedig experimenteren aan: "probeer dit eens aan te passen..."
+
+WAT NIET
+- Geen off-topic gesprekken. Als ik iets vraag dat niks met code of kunst te maken heeft, breng me vriendelijk terug naar het thema.
+- Geen enorme codeblokken zonder uitleg
+- Geen oordeel over mijn niveau. Iedereen start ergens.
+
+Begrepen? Wacht op mijn eerste vraag.</code></pre>
+    <p><small>Tip: bewaar deze prompt ook in een tekstbestand op je laptop zodat je hem altijd snel kan plakken.</small></p>
+</section>
+
 <section data-openrouter-provider="openai">
     <h2>ChatGPT (OpenAI)</h2>
     <div class="model-live-data"></div>
@@ -210,6 +273,7 @@
     <p>Jullie hebben allemaal een Microsoft 365-account, dus <strong>Copilot is je startpunt</strong>. Maar beperk je daar niet toe - elk model heeft andere sterktes:</p>
     <ul>
         <li><strong>Copilot</strong> - altijd beschikbaar via je schoolaccount, geen registratie nodig, ruime limieten</li>
+        <li><strong>duck.ai</strong> - gratis toegang tot meerdere modellen zonder account of leeftijdsgrens. Handig als alternatief voor Copilot.</li>
         <li><strong>Gemini</strong> - sterk als je al in het Google-ecosysteem zit (Chromebook, Google Docs). Ruime gratis versie.</li>
         <li><strong>ChatGPT</strong> - het meest veelzijdige model, maar de gratis limiet is krap. Goed als aanvulling.</li>
         <li><strong>Claude</strong> - beste schrijfkwaliteit en code-uitleg. Handig voor langere projecten dankzij het grote contextvenster.</li>

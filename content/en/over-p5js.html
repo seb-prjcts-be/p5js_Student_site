@@ -101,6 +101,15 @@ function draw() {
   background(245);
   ellipse(200, 200, 50, 50);
 }</code></pre>
+
+    <h3>What does <code>.min.js</code> mean?</h3>
+    <p>Almost every library comes in two versions:</p>
+    <ul>
+        <li><code>p5.js</code> - the <strong>readable version</strong> with indentation, comments and clear names. Handy if you want to read or debug the code.</li>
+        <li><code>p5.min.js</code> - the <strong>minified version</strong>: all whitespace, comments and long names have been stripped out. Same behavior, much smaller file.</li>
+    </ul>
+    <p>In <strong>production</strong> (your actual website) you always use <code>.min.js</code>: faster to load, less data for the visitor. While <strong>debugging</strong>, the non-minified version can be handier because error messages point to more readable line numbers. For this course and regular projects, <code>.min.js</code> is fine.</p>
+    <p><strong>In practice:</strong> this course site itself loads <code>p5.min.js</code> - on the main page and in every live editor on the site. If you right-click &rarr; <em>View page source</em>, you'll see the same line as in the example above.</p>
 </section>
 
 <div class="p5-example">

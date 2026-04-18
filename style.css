@@ -1140,3 +1140,25 @@ footer {
 .oefening-niveau[data-niveau="2"] h3::before { content: '●● '; color: #ff9800; }
 .oefening-niveau[data-niveau="3"] h3::before { content: '●●● '; color: #f44336; }
 
+/* Pre-prompt kopieerknop */
+.preprompt-copy-btn {
+    display: inline-block;
+    margin: 0.6em 0 0.4em;
+    padding: 0.5em 1em;
+    font-family: var(--font-title);
+    font-weight: 400;
+    font-size: 0.85rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #ffffff;
+    background: #000000;
+    border: 2px solid #000000;
+    cursor: pointer;
+    transition: background 0.15s, color 0.15s;
+}
+
+.preprompt-copy-btn:hover {
+    background: #ffffff;
+    color: #000000;
+}
+
