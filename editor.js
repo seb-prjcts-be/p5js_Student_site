@@ -54,11 +54,26 @@
             ? `Running on p5.js ${P5_VERSION}`
             : `Draait op p5.js ${P5_VERSION}`;
 
+        const runLabel = pageLang === 'en' ? 'Run' : 'Run';
+        const resetLabel = pageLang === 'en' ? 'Reset' : 'Reset';
+
         container.innerHTML = `
             <div class="p5-editor-container">
                 <div class="p5-editor-controls">
-                    <button class="p5-editor-btn p5-editor-run" data-action="run">Run</button>
-                    <button class="p5-editor-btn p5-editor-reset" data-action="reset">Reset</button>
+                    <div class="p5-editor-brand" aria-hidden="true">
+                        <i class="bi bi-braces"></i>
+                        <span>p5.js</span>
+                    </div>
+                    <div class="p5-editor-actions">
+                        <button class="p5-editor-btn p5-editor-btn--primary p5-editor-run" data-action="run" title="${runLabel}">
+                            <i class="bi bi-play-fill" aria-hidden="true"></i>
+                            <span>${runLabel}</span>
+                        </button>
+                        <button class="p5-editor-btn p5-editor-reset" data-action="reset" title="${resetLabel}">
+                            <i class="bi bi-arrow-counterclockwise" aria-hidden="true"></i>
+                            <span>${resetLabel}</span>
+                        </button>
+                    </div>
                 </div>
                 <div class="p5-editor-split">
                     <div class="p5-editor-code-panel">

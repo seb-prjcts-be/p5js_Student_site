@@ -1,22 +1,46 @@
 <div class="intro">
-    <p>'Vibe coding' is een manier van programmeren waarbij je in gewone taal beschrijft wat je wilt maken - en een AI genereert de code voor je. Je hoeft niet elke regel zelf te schrijven: je beschrijft, test, geeft feedback, en verfijnt. De term werd in februari 2025 geïntroduceerd door <strong>Andrej Karpathy</strong> (mede-oprichter van OpenAI).</p>
+    <p>'Vibe coding' is een manier van programmeren waarbij je in gewone taal beschrijft wat je wilt maken - en een AI genereert de code voor je. Je hoeft niet elke regel zelf te schrijven: je beschrijft, test, geeft feedback, en verfijnt.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Wat je leert</span>
+    <ul>
+        <li>Hoe je van idee naar werkende code komt in drie stappen</li>
+        <li>Welke gratis AI-tools geschikt zijn voor welk soort project</li>
+        <li>Hoe je goede prompts schrijft voor p5.js-sketches</li>
+        <li>Hoe je AI-gegenereerde code kritisch beoordeelt</li>
+    </ul>
 </div>
 
 <section>
     <h2>Hoe werkt het?</h2>
 
-    <h3>1. Beschrijf je idee</h3>
-    <p>Formuleer zo concreet mogelijk wat je wilt maken:</p>
-    <pre><code>"Maak een p5.js-sketch met 50 gekleurde cirkels die
+    <ol class="stappen">
+        <li>
+            <div>
+                <h3>Beschrijf je idee</h3>
+                <p>Formuleer zo concreet mogelijk wat je wilt maken:</p>
+                <pre><code>"Maak een p5.js-sketch met 50 gekleurde cirkels die
 van het scherm stuiteren. Elke cirkel heeft een
 willekeurige kleur en grootte."</code></pre>
-    <p>Hoe preciezer je beschrijving, hoe beter het resultaat. Denk aan: wat doet het, hoe ziet het eruit, wat gebeurt er bij interactie?</p>
-
-    <h3>2. Laat de AI genereren</h3>
-    <p>De AI maakt werkende code op basis van je beschrijving. Dit is wat Copilot genereerde voor de prompt hierboven:</p>
-    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+                <p>Hoe preciezer je beschrijving, hoe beter het resultaat. Denk aan: wat doet het, hoe ziet het eruit, wat gebeurt er bij interactie?</p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h3>Laat de AI genereren</h3>
+                <p>De AI maakt werkende code op basis van je beschrijving. Dit is wat Copilot genereerde voor de prompt hierboven:</p>
+                <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
 // Gegenereerd door Copilot met de prompt hierboven
+const kleuren = [
+  '#00ff00',
+  '#ff0000',
+  '#0000ff',
+  '#ff00ff',
+  '#ffff00',
+];
+
 let cirkels = [];
 
 function setup() {
@@ -28,13 +52,13 @@ function setup() {
       grootte: random(10, 40),
       vx: random(-2, 2),
       vy: random(-2, 2),
-      kleur: color(random(255), random(255), random(255))
+      kleur: random(kleuren)
     });
   }
 }
 
 function draw() {
-  background(30);
+  background(245);
   noStroke();
 
   for (let c of cirkels) {
@@ -50,15 +74,26 @@ function draw() {
   }
 }
         </script>
-    </div>
-    <p>Werkt, maar nog niet perfect. De kleuren zijn willekeurig en de cirkels gaan door elkaar heen.</p>
-
-    <h3>3. Verfijn iteratief</h3>
-    <p>Test het resultaat en geef feedback in een vervolgprompt:</p>
-    <pre><code>"De cirkels bewegen, maar ik wil dat ze van
+                </div>
+                <p>Werkt, maar nog niet perfect. De kleuren zijn willekeurig en de cirkels gaan door elkaar heen.</p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h3>Verfijn iteratief</h3>
+                <p>Test het resultaat en geef feedback in een vervolgprompt:</p>
+                <pre><code>"De cirkels bewegen, maar ik wil dat ze van
 elkaar afbotsen in plaats van door elkaar heen
 te gaan."</code></pre>
-    <p>Dit herhaal je tot het resultaat klopt. Elke ronde breng je het dichter bij wat je voor ogen hebt.</p>
+                <p>Dit herhaal je tot het resultaat klopt. Elke ronde breng je het dichter bij wat je voor ogen hebt.</p>
+            </div>
+        </li>
+    </ol>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>De term 'vibe coding' werd in februari 2025 geïntroduceerd door <strong>Andrej Karpathy</strong>, mede-oprichter van OpenAI. Zijn originele idee: als het werkt en voelt zoals je wilt, hoef je de code niet regel voor regel te begrijpen.</p>
+    </aside>
 </section>
 
 <section>
@@ -172,8 +207,13 @@ te gaan."</code></pre>
         </tbody>
     </table>
 
-    <p><strong>Tip:</strong> combineer tools. Gebruik bijvoorbeeld Lovable of v0 voor het design, en Replit of Bolt om het werkend te maken.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Combineer tools. Gebruik bijvoorbeeld Lovable of v0 voor het design, en Replit of Bolt om het werkend te maken.</p>
+    </aside>
 </section>
+
+<hr class="section-break">
 
 <section>
     <h2>Vibe coding met p5.js</h2>
@@ -291,6 +331,11 @@ function draw() {
 <section>
     <h2>Kritisch evalueren</h2>
     <p>AI-gegenereerde code werkt vaak op het eerste gezicht, maar is het ook <em>goed</em>? Leren beoordelen wat de AI oplevert is minstens zo belangrijk als het kunnen genereren.</p>
+
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Plak nooit blind AI-code in een opdracht of eindproject zonder te begrijpen wat er staat. Kleine fouten (verkeerde variabelenamen, loops die net te ver gaan) zijn makkelijk te missen als je niet leest, en je leert er ook niets van.</p>
+    </aside>
 
     <h3>Waar let je op?</h3>
     <ul>

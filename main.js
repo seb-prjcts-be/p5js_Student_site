@@ -2052,12 +2052,11 @@ document.addEventListener('DOMContentLoaded', () => {
 // Achtergrond ballen - vallen, stuiteren en wijken voor de muis
 function initBalls() {
     const kleuren = [
-        '#00ff00', '#00ff00', '#00ff00', '#00ff00', // groen - Lab44
-        '#ff0000', '#ff0000',                        // rood
-        '#0000ff', '#0000ff',                        // blauw
-        '#7d007d',                                   // paars
-        '#ff007d',                                   // roze
-        '#ffff00',                                   // geel
+        '#00ff00',
+        '#ff0000',
+        '#0000ff',
+        '#ff00ff',
+        '#ffff00',
     ];
 
     new p5(function(p) {
