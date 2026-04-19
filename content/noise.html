@@ -1,5 +1,21 @@
 <div class="intro">
-    <p>Perlin noise is een speciale wiskundige functie die vloeiende, "organische" willekeur genereert. Waar <code>random()</code> elk frame een compleet willekeurige waarde geeft, geeft <code>noise()</code> waarden die rustig in elkaar overlopen - ideaal voor vloeiende beweging, texturen en landschappen.</p>
+    <p>Noise is een speciale wiskundige functie die vloeiende, "organische" willekeur genereert. Waar <code>random()</code> elk frame een compleet willekeurige waarde geeft, geeft <code>noise()</code> waarden die rustig in elkaar overlopen - ideaal voor vloeiende beweging, texturen en landschappen.</p>
+</div>
+
+<aside class="callout callout--weetje">
+    <span class="callout-label">Weetje</span>
+    <p>De <code>noise()</code> die je hier gebruikt heet voluit <strong>Perlin noise</strong>, bedacht door <strong>Ken Perlin</strong> in 1983 terwijl hij aan de speciale effecten van de film <em>Tron</em> (1982) werkte. Hij zocht een manier om levendige texturen te maken zonder dat ze er digitaal of geblokt uitzagen. Zijn uitvinding werd een standaardtechniek in games, films en generatieve kunst. In 1997 kreeg hij er een Academy Award voor Technical Achievement voor.</p>
+</aside>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Verschil tussen <code>random()</code> (schokkerig) en <code>noise()</code> (vloeiend)</li>
+        <li><code>noise(t)</code> geeft altijd een waarde tussen 0 en 1 - stap traag door <code>t</code> voor vloeiende beweging</li>
+        <li>Waarden omzetten naar een bereik met <code>map()</code></li>
+        <li>2D noise <code>noise(x, y)</code> voor texturen, wolken en landschappen</li>
+        <li><code>noiseSeed()</code> voor herhaalbare patronen en <code>noiseDetail()</code> voor meer octaven</li>
+    </ul>
 </div>
 
 <section>
@@ -89,33 +105,43 @@ noiseDetail(8, 0.5);  // 8 octaven, amplitude halveert per octaaf</code></pre>
 </section>
 
 <section>
-    <h2>Noise voor Vloeiende Beweging</h2>
-    <p>Een klassieker: meerdere objecten die elk onafhankelijk door de noise-ruimte bewegen:</p>
-    <pre><code>let offsets = [];
-let N = 20;
+    <h2>Flow field: noise als richtingen</h2>
+    <p>De bekendste toepassing van noise in generatieve kunst is een <strong>flow field</strong>. Het idee is simpel: op elke plek <code>(x, y)</code> van het canvas vragen we een noise-waarde en gebruiken die als <em>hoek</em>. Deeltjes volgen die hoeken, alsof ze drijven op een onzichtbare stroom.</p>
+
+    <pre><code>let deeltjes = [];
+let schaal = 0.005;  // Kleiner = grotere wervels
 
 function setup() {
   createCanvas(600, 400);
-  // Geef elk object een ander startpunt in de noise-ruimte
-  for (let i = 0; i < N; i++) {
-    offsets.push({ x: random(1000), y: random(1000) });
+  background(10);
+  for (let i = 0; i &lt; 200; i++) {
+    deeltjes.push({ x: random(width), y: random(height) });
   }
 }
 
 function draw() {
-  background(30, 20);
+  background(10, 15);  // Spoor vervagen
 
-  noStroke();
-  fill(0, 0, 255, 180);
+  stroke(255, 150);
+  strokeWeight(1);
 
-  for (let off of offsets) {
-    let x = noise(off.x) * width;
-    let y = noise(off.y) * height;
+  for (let d of deeltjes) {
+    // Noise op (x, y) → hoek tussen 0 en 4π
+    let hoek = noise(d.x * schaal, d.y * schaal) * TWO_PI * 2;
 
-    circle(x, y, 15);
+    let nx = d.x + cos(hoek) * 1.5;
+    let ny = d.y + sin(hoek) * 1.5;
 
-    off.x += 0.007;  // Beweeg door de noise-ruimte
-    off.y += 0.007;
+    line(d.x, d.y, nx, ny);
+
+    d.x = nx;
+    d.y = ny;
+
+    // Nieuwe startpositie als een deeltje het canvas verlaat
+    if (d.x &lt; 0 || d.x &gt; width || d.y &lt; 0 || d.y &gt; height) {
+      d.x = random(width);
+      d.y = random(height);
+    }
   }
 }</code></pre>
 </section>
@@ -146,50 +172,56 @@ function draw() {
 </section>
 
 <div class="p5-example">
-    <h3>Voorbeeld: Noise Veld</h3>
-    <p>Deeltjes die door een Perlin noise-veld bewegen - elk met een eigen baan:</p>
+    <h3>Voorbeeld: Flow field</h3>
+    <p>Deeltjes volgen de hoeken die op elke plek uit <code>noise(x, y)</code> komen. Samen vormen hun sporen stromende curven.</p>
     <div class="p5-example-container">
         <div class="p5-canvas-wrapper" id="example-noise"></div>
     </div>
 </div>
 
 <section>
-    <h2>Experimenteer Zelf!</h2>
-    <p>Verander de noise-schaal, het aantal deeltjes of de kleur. Probeer <code>noiseSeed()</code> om een vast patroon te krijgen!</p>
+    <h2>Experimenteer zelf</h2>
+    <p>Pas de <code>schaal</code> aan (groter getal = fijnere wervels), verander het aantal deeltjes, of vervang de kleur. Probeer <code>noiseSeed()</code> voor een vast veld.</p>
 
-    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
         <script type="text/p5">
-let t = 0;
-let punten = [];
+let deeltjes = [];
+let schaal = 0.005;  // Probeer 0.002 of 0.02
 
 function setup() {
-  createCanvas(600, 400);
-  // Maak 60 punten aan met willekeurig startpunt in noise-ruimte
-  for (let i = 0; i < 60; i++) {
-    punten.push({
-      offX: random(1000),
-      offY: random(1000) + 500  // Ander startpunt dan offX
-    });
-  }
+  createCanvas(400, 400);
   background(10);
+
+  for (let i = 0; i < 200; i++) {
+    deeltjes.push({ x: random(width), y: random(height) });
+  }
 }
 
 function draw() {
-  background(10, 15);  // Semi-transparant → spoor vervagen
+  // Lichte zwarte laag → spoor vervaagt langzaam
+  noStroke();
+  fill(10, 15);
+  rect(0, 0, width, height);
 
-  for (let p of punten) {
-    let x = noise(p.offX) * width;
-    let y = noise(p.offY) * height;
+  stroke(255, 180);
+  strokeWeight(1);
 
-    // Kleur op basis van positie
-    let hue = map(x, 0, width, 160, 320);
-    fill(hue, 180, 255, 150);
-    noStroke();
-    circle(x, y, 8);
+  for (let d of deeltjes) {
+    // Hoek op deze plek in het veld
+    let hoek = noise(d.x * schaal, d.y * schaal) * TWO_PI * 2;
 
-    // Stap door de noise-ruimte
-    p.offX += 0.008; // Probeer dit aan te passen!
-    p.offY += 0.008;
+    let nx = d.x + cos(hoek) * 1.5;
+    let ny = d.y + sin(hoek) * 1.5;
+
+    line(d.x, d.y, nx, ny);
+
+    d.x = nx;
+    d.y = ny;
+
+    if (d.x < 0 || d.x > width || d.y < 0 || d.y > height) {
+      d.x = random(width);
+      d.y = random(height);
+    }
   }
 }
         </script>

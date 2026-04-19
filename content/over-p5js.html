@@ -1,87 +1,136 @@
 <div class="intro">
-    <p>p5.js is een JavaScript bibliotheek die creative coding toegankelijk maakt. Het is gebaseerd op Processing, maar werkt volledig in de browser zonder extra software.</p>
+    <p>Voor een heel lange tijd woonden programmeurs en ontwerpers in twee heel erg verschillende werelden. Ze spraken volledig andere (computer-)talen, kleedden zich anders, hadden andere computers en operating systems. In 2001 brachten enkele ontwikkelaars - <strong>Casey Reas</strong> en <strong>Ben Fry</strong> - voorgoed verandering in deze situatie.</p>
 </div>
 
 <section>
-    <h2>Wat is Processing?</h2>
-    <p>Processing is een programmeertaal en ontwikkelomgeving die in 2001 werd gemaakt door Casey Reas en Ben Fry aan het MIT Media Lab. Het doel was om programmeren toegankelijk te maken voor kunstenaars, designers en beginners.</p>
-    <p>Processing gebruikt Java en heeft zijn eigen editor. Het is krachtig, maar vereist dat je software installeert.</p>
+    <h2>Van Processing naar p5.js</h2>
+    <p>Ze lanceerden <strong>Processing</strong>. Het bood meteen ontelbare creatieve mogelijkheden aan kunstenaars, ontwerpers, hobbyisten en studenten zoals jullie. Coderen werd plots heel gemakkelijk. Processing is een grafische programmeertaal, boven op Java. Je hebt er een programma voor nodig.</p>
+    <p>De vernieuwde versie van Processing, <strong>p5.js</strong>, ontwikkeld door <strong>Lauren McCarthy</strong>, draait op JavaScript (vandaar de <em>.js</em>!) en werkt rechtstreeks in de internetbrowser van je computer. Het is een heel eenvoudige programmeeromgeving die enkel en alleen ten dienste staat van jouw eigen creativiteit.</p>
+    <p>Je "schetst" vlot en snel je eigen idee&euml;n in code. Onthoud goed het woord "schets" - dat woord dekt de lading bijzonder goed.</p>
+    <p>Er bestaat ook een <strong>Python-versie</strong> van Processing.</p>
+    <p>In deze cursus leer je over variabelen, kleuren, co&ouml;rdinaten, lussen en toeval. Je leert intu&iuml;tief punten en lijnen, cirkels en ellipsen, vierkanten en rechthoeken en zoveel meer tekenen met je eigen code. Je leert je eigen projecten opslaan, hergebruiken en het werk van anderen remixen.</p>
+</section>
+
+<section>
+    <h2>Processing, p5.js en Processing Python</h2>
+    <p>Processing is gratis en open source. Dat betekent dat er geen auteursrecht op staat en iedereen aan de software kan bijdragen. Er is in principe niemand die geld verdient als jij Processing gebruikt.</p>
+    <p>Je kan Processing zien als een extra laag bovenop een andere programmeertaal: een bibliotheek van nieuwe functies die jou toelaten om gemakkelijk kunstzinnige projecten te maken.</p>
+    <p>Processing als taal is meestal heel goed te herkennen. De talen waarbinnen Processing werkt hebben hun eigen specificiteiten. De programmeertalen zijn verwant aan elkaar en dus kan je vrij gemakkelijk verhuizen van de ene taal naar de andere. In deze cursus focussen we op <strong>p5.js</strong>.</p>
+
+    <h3>Overeenkomsten</h3>
+    <p>Laat je nog niet afschrikken, maar zie jij hoe Processing in de drie talen overeenkomt?</p>
+    <div class="talen-vergelijking">
+        <div>
+            <h4>Processing (Java)</h4>
+            <pre><code>void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  background(245);
+}</code></pre>
+        </div>
+        <div>
+            <h4>p5.js (JavaScript)</h4>
+            <pre><code>function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(245);
+}</code></pre>
+        </div>
+        <div>
+            <h4>Processing Python</h4>
+            <pre><code>def setup():
+    size(400, 400)
+
+def draw():
+    background(245)</code></pre>
+        </div>
+    </div>
 </section>
 
 <section>
     <h2>Welke p5.js-versie?</h2>
-    <p>Deze site gebruikt <strong>p5.js 2.2.3</strong>. De grootste verandering tegenover 1.x: assets (afbeeldingen, geluid, fonts) laad je niet meer in <code>preload()</code>, maar met <code>async function setup()</code> en <code>await loadImage(...)</code>. Je ziet dit patroon terug op de pagina's Afbeeldingen, Geluid en Text & typografie.</p>
-    <p>De officiële online editor op <a href="https://editor.p5js.org" target="_blank" rel="noopener">editor.p5js.org</a> staat standaard nog op p5.js 1.x tot augustus 2026. Wil je daar met 2.x werken, kies dan expliciet een 2.x-versie in de editor, of voeg <code>?version=2.2.3</code> toe aan de URL.</p>
+    <p>Deze site gebruikt <strong>p5.js 2.2.3</strong>. De grootste verandering tegenover 1.x: assets (afbeeldingen, geluid, fonts) laad je niet meer in <code>preload()</code>, maar met <code>async function setup()</code> en <code>await loadImage(...)</code>. Je ziet dit patroon terug op de pagina's Afbeeldingen, Geluid en Text &amp; typografie.</p>
+    <p>De offici&euml;le online editor op <a href="https://editor.p5js.org" target="_blank" rel="noopener">editor.p5js.org</a> staat standaard nog op p5.js 1.x tot augustus 2026. Wil je daar met 2.x werken, kies dan expliciet een 2.x-versie in de editor, of voeg <code>?version=2.2.3</code> toe aan de URL.</p>
     <p>In oudere tutorials zie je vaak nog <code>preload()</code>. Die code werkt niet meer zonder aanpassing in 2.x.</p>
 </section>
 
 <section>
-    <h2>Van Processing naar p5.js</h2>
-    <p>p5.js is de JavaScript-versie van Processing. Het werd ontwikkeld door Lauren McCarthy en een community van ontwikkelaars. Het belangrijkste verschil:</p>
-    <ul>
-        <li><strong>Processing:</strong> Java-gebaseerd, desktop applicatie</li>
-        <li><strong>p5.js:</strong> JavaScript-gebaseerd, werkt in de browser</li>
-    </ul>
-    <p>Met p5.js hoef je niets te installeren - je schrijft code in een editor en opent het in je browser!</p>
+    <h2>De thuisbasis: p5js.org</h2>
+    <p><a href="https://p5js.org" target="_blank" rel="noopener">p5js.org</a> is de officiële thuisbasis van het project: documentatie, tutorials, voorbeelden en toegang tot de online editor.</p>
 </section>
 
 <section>
     <h2>De p5.js Editor</h2>
-    <p>De officiële p5.js editor (editor.p5js.org) is een online ontwikkelomgeving waar je direct kunt beginnen met coden. Voordelen:</p>
-    <ul>
-        <li>Geen installatie nodig</li>
-        <li>Automatisch opslaan</li>
-        <li>Delen van sketches is eenvoudig</li>
-        <li>Werkt op elke computer met een browser</li>
-    </ul>
-    <p>Je kunt ook je eigen HTML-bestand maken en p5.js via een CDN laden (zoals we in deze cursus doen).</p>
+    <p>We kiezen voor de <strong>p5.js Editor</strong> om onze code te schrijven, maar het kan natuurlijk ook op veel andere manieren.</p>
+    <p>De editor is een online omgeving waarbinnen we eenvoudig kunnen coderen, zonder te moeten nadenken over servers, browsers, documenten en de JavaScript-bibliotheken die programmeren in p5.js mogelijk maken. Al deze documenten worden achter de schermen voor ons bijgehouden en georganiseerd. Het is erg handig als je gewoon onmiddellijk inlogt met je Google-account. Klik de eerste keer op <em>Sign up</em>.</p>
+
+    <h3>Vensters</h3>
+    <p>In het linker venster zien we een gebied waarin we rechtstreeks code kunnen schrijven. Onder dit gebied vinden we de <strong>console</strong>, een gebied waar we onmiddellijk informatie kunnen in tonen - waarover later meer. Het rechter gedeelte van het scherm - de <strong>preview</strong> - is de plaats waar we de resultaten van onze code tot leven zien komen.</p>
 </section>
 
 <section>
     <h2>De console</h2>
-    <p>Onder het code-venster in de editor zie je de <strong>console</strong>. Dat is je informatiescherm: je kunt er waarden in printen, en foutmeldingen verschijnen er automatisch.</p>
+    <p>De console vind je terug in de editor onder de code. In onderstaand voorbeeld berekenen we een deling en tonen het resultaat onderaan in de console.</p>
+    <p>Om een waarde te tonen in de console, gebruik je <code>console.log()</code>. Je kan ook <code>print()</code> gebruiken, maar alleen binnen p5.js, niet in JavaScript.</p>
     <pre><code>// Een waarde tonen in de console:
 console.log("Hallo!");
-console.log(mouseX);  // Toont de muispositie</code></pre>
-    <p>Je kunt de console ook gebruiken als rekenmachine: typ een berekening in en druk op Enter.</p>
+console.log(mouseX);  // Toont de muispositie
+
+// De console als rekenmachine:
+console.log(10 / 3);</code></pre>
+    <p>De console kan je beschouwen als het scherm van je rekenmachine en je kan ze dus als dusdanig gebruiken. De console is echter ook handig om tussendoor snel de waarden van een bepaalde variabele te controleren.</p>
 
     <h3>Vriendelijke foutmeldingen</h3>
-    <p>Het <strong>Friendly Error System</strong> van p5.js geeft begrijpelijke foutmeldingen in eenvoudige taal - inclusief een hint wat er mis is en hoe je het kunt oplossen. Als er een fout in je code zit, lees de console dus aandachtig!</p>
-    <p>Wil je de echte browser-ontwikkelaarsconsole zien? Druk op <kbd>F12</kbd> of <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd>.</p>
+    <p>Het <strong>Friendly Error System</strong> in de p5-editor geeft je in de console op een heel vriendelijke, slimme en ondersteunende manier feedback als er zich een probleem voordoet.</p>
+    <p>Het Friendly Error System is een functie binnen p5.js die specifiek is ontworpen om duidelijke en begrijpelijke foutmeldingen te geven. In plaats van cryptische foutmeldingen die vaak worden aangetroffen in andere programmeertalen, probeert FES de fout te beschrijven in eenvoudige taal en biedt het vriendelijke suggesties voor mogelijke oplossingen.</p>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>Het Friendly Error System is meer dan een foutafhandelingssysteem - het is een hulpmiddel voor onderwijs en toegankelijkheid. Door gebruikers te voorzien van duidelijke, begrijpelijke en actiegerichte feedback verlaagt FES de drempels voor beginners en maakt het creatief coderen toegankelijker voor iedereen.</p>
+    </aside>
+
+    <h3>De browser-ontwikkelaarsconsole</h3>
+    <p>De echte <strong>ontwikkelaarsconsole</strong> van je browser, bv. Chrome, kan je bekijken door op <kbd>F12</kbd> of <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd> te drukken. Je ziet hier hoe complex een schijnbaar eenvoudige webpagina kan zijn.</p>
+    <p>Met deze ontwikkelaarsconsole kan je op een volledig onschadelijke manier spelen met het uiterlijk van elke pagina in je browser, want de HTML-code is al gedownload naar je computer. Je kijkt dus altijd naar een lokale kopie van een internetpagina.</p>
 </section>
 
 <section>
-    <h2>De Reference</h2>
-    <p>De <a href="https://p5js.org/reference/" target="_blank" rel="noopener">p5.js Reference</a> is je woordenboek voor alles wat p5.js kan. Voor elke functie vind je:</p>
+    <h2>Reference</h2>
+    <p>Op onze p5.js-thuispagina en vanuit de editor hebben we altijd toegang tot de <a href="https://p5js.org/reference/" target="_blank" rel="noopener">Reference</a>: het woordenboek, de handleiding waar je altijd hulp kan vinden over alles wat met p5 te maken heeft.</p>
+    <p>Laat je niet overweldigen door de hoeveelheid informatie. We gaan er stap voor stap samen door.</p>
+    <p>Voor elke functie vind je:</p>
     <ul>
         <li>Uitleg wat een functie doet</li>
         <li>Welke parameters je kunt gebruiken</li>
         <li>Werkende voorbeelden</li>
     </ul>
-    <p><strong>Tip:</strong> Als je niet weet hoe iets werkt, zoek het op in de Reference. Je hoeft niet alles uit het hoofd te leren!</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Als je niet weet hoe iets werkt, zoek het op in de Reference. Je hoeft niet alles uit het hoofd te leren.</p>
+    </aside>
 </section>
 
 <section>
-    <h2>Schetsen bewaren en organiseren</h2>
-    <p>In de online editor worden je schetsen automatisch opgeslagen als je bent ingelogd. Toch loont het de moeite om goede gewoontes aan te leren:</p>
+    <h2>Over HTML, CSS en JavaScript</h2>
+    <h3>Schetsmap</h3>
+    <p>Onze schets is een map die we een naam geven. In die map zitten telkens drie bestanden die deel uitmaken van ons project. Als we de editor gebruiken, kunnen we de drie pagina's apart bekijken en bewerken. Klik je bestanden open door op de <code>&gt;</code> te klikken naast <code>sketch.js</code> - het venstertje met onze bestanden zal openschuiven.</p>
+    <p>Eigenlijk maken we een gewone internetpagina. De eerste pagina (homepage) in een map op het internet noemt altijd <code>index</code>. Zo weet de browser welk bestand eerst te openen. De <code>index.html</code>-pagina is de pagina waar alle delen samenkomen:</p>
     <ul>
-        <li><strong>Gebruik duidelijke namen</strong> - geen "sketch_01" maar iets als "LES_kleur_rainbow"</li>
-        <li><strong>Geen spaties</strong> in bestandsnamen - gebruik een underscore <code>_</code> of koppelteken <code>-</code></li>
-        <li><strong>Gebruik versienummers</strong> als je experimenten bijhoudt: <code>_v01</code>, <code>_v02</code></li>
-        <li><strong>Organiseer in collecties</strong> - de editor ondersteunt mappen per project of thema</li>
-        <li><strong>Maak regelmatig back-ups</strong> - download de bestanden lokaal voor langetermijnsprojecten</li>
+        <li>De p5.js-bibliotheken (<code>p5.js</code> en <code>p5.sound.min.js</code>)</li>
+        <li>Het <code>style.css</code>-bestand is verantwoordelijk voor de opmaak van onze pagina.</li>
+        <li>Het <code>sketch.js</code>-bestand waarin onze JavaScript-code zal komen.</li>
     </ul>
-</section>
 
-<section>
-    <h2>Projectstructuur</h2>
-    <p>Een eenvoudig p5.js project ziet er zo uit:</p>
+    <h3>Zelf een index.html schrijven</h3>
+    <p>Een eenvoudig p5.js-project dat je zelf opbouwt ziet er zo uit:</p>
     <pre><code>mijn-project/
   ├── index.html
   ├── sketch.js
   └── style.css (optioneel)</code></pre>
-    
-    <h3>index.html</h3>
     <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -91,8 +140,6 @@ console.log(mouseX);  // Toont de muispositie</code></pre>
 &lt;body&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-
-    <h3>sketch.js</h3>
     <pre><code>function setup() {
   createCanvas(400, 400);
 }
@@ -109,11 +156,48 @@ function draw() {
         <li><code>p5.min.js</code> - de <strong>minified versie</strong>: alle witruimte, commentaar en lange namen zijn weggehaald. Hetzelfde gedrag, maar veel kleiner bestand.</li>
     </ul>
     <p>In <strong>productie</strong> (je echte website) gebruik je altijd <code>.min.js</code>: sneller laden, minder data voor de bezoeker. Tijdens <strong>debuggen</strong> kan de niet-minified versie handiger zijn omdat foutmeldingen dan leesbaardere regelnummers geven. Voor deze cursus en voor gewone projecten volstaat <code>.min.js</code> prima.</p>
-    <p><strong>In de praktijk:</strong> ook deze cursussite laadt zelf <code>p5.min.js</code> - op de hoofdpagina en in elke live editor op de site. Als je met rechtermuisknop &rarr; <em>Pagina bron bekijken</em> kijkt, zie je dezelfde regel staan als in het voorbeeld hierboven.</p>
+    <p>Ook deze cursussite laadt zelf <code>p5.min.js</code> - op de hoofdpagina en in elke live editor op de site. Als je met rechtermuisknop &rarr; <em>Pagina bron bekijken</em> kijkt, zie je dezelfde regel staan als in het voorbeeld hierboven.</p>
+</section>
+
+<section>
+    <h2>Schetsen bewaren en organiseren</h2>
+    <p>Een goede organisatie van je p5.js-projecten is essentieel om je workflow soepel te laten verlopen en om gemakkelijk toegang te krijgen tot je bestanden. Hier zijn enkele richtlijnen om je projecten en schetsen te beheren.</p>
+
+    <h3>Gebruik duidelijke en beschrijvende namen</h3>
+    <ul>
+        <li><strong>Naamgeving:</strong> Geef je schetsen en collecties duidelijke en beschrijvende namen. Dit helpt je om snel specifieke bestanden te vinden en te begrijpen waar ze voor bedoeld zijn. Omdat de p5-editor momenteel geen visuele thumbnails ondersteunt, is een goede naamgeving cruciaal.</li>
+        <li><strong>Versiebeheer:</strong> Houd verschillende versies van je bestanden bij door versienummers te gebruiken, bijvoorbeeld <code>_v01</code>, <code>_v02</code>, enzovoort. Geef duidelijk aan welke versie definitief is.</li>
+    </ul>
+    <p>Een handige naamgevingsconventie ziet er bijvoorbeeld zo uit:</p>
+    <ul>
+        <li><code>LES_onderwerp_v01_klas_voornaam</code></li>
+        <li><code>OEF_onderwerp_v01_klas_voornaam</code></li>
+        <li><code>VRIJ_onderwerp_v01_klas_voornaam</code></li>
+    </ul>
+
+    <h3>Gebruik geen spaties</h3>
+    <p><strong>Bestandsnamen:</strong> Vermijd spaties in bestandsnamen. Gebruik in plaats daarvan underscores (<code>_</code>) om woorden te scheiden. Spaties in bestandsnamen kunnen onverwachte problemen veroorzaken bij het delen of uitvoeren van je code.</p>
+
+    <h3>Organiseer in collecties</h3>
+    <p>Organiseer je schetsen in drie hoofdcollecties:</p>
+    <ul>
+        <li><strong>LES</strong> - voor schetsen gemaakt tijdens de lessen.</li>
+        <li><strong>OEF</strong> - voor oefeningen en opdrachten.</li>
+        <li><strong>VRIJ</strong> - voor persoonlijke en vrije experimenten.</li>
+    </ul>
+    <p>Deel deze collecties met je leerkrachten om eenvoudig feedback te krijgen en je voortgang te tonen.</p>
+
+    <h3>Maak regelmatig back-ups</h3>
+    <p>Hoewel de p5.js Web Editor je projecten online opslaat, is het belangrijk om regelmatig back-ups te maken. Dit kan eenvoudig door je project te downloaden als een ZIP-bestand via <em>File &rarr; Download</em>. Hierdoor kun je je werk beschermen tegen gegevensverlies en kun je op elk moment offline verder werken.</p>
+</section>
+
+<section>
+    <h2>Conclusie</h2>
+    <p>De p5.js Web Editor is een krachtig hulpmiddel voor het maken en delen van interactieve projecten. Door je bestanden en collecties effectief te organiseren, kun je je workflow optimaliseren en je projecten overzichtelijk en beheersbaar houden.</p>
 </section>
 
 <div class="p5-example">
-    <h3>Je Eerste p5.js Sketch</h3>
+    <h3>Je eerste p5.js-sketch</h3>
     <p>Dit is een simpel voorbeeld dat laat zien hoe p5.js werkt:</p>
     <div class="p5-example-container">
         <div class="p5-canvas-wrapper" id="example-over-p5js"></div>
@@ -121,9 +205,9 @@ function draw() {
 </div>
 
 <section>
-    <h2>Probeer het Zelf!</h2>
-    <p>Maak je eerste p5.js sketch! Pas de code aan, voeg vormen toe, of maak het interactief met mouseX en mouseY.</p>
-    
+    <h2>Probeer het zelf!</h2>
+    <p>Maak je eerste p5.js-sketch. Pas de code aan, voeg vormen toe, of maak het interactief met <code>mouseX</code> en <code>mouseY</code>.</p>
+
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
 function setup() {
@@ -132,7 +216,7 @@ function setup() {
 
 function draw() {
   background(245);
-  
+
   // Cirkel die de muis volgt
   fill(0, 0, 255);
   ellipse(mouseX, mouseY, 50, 50);
@@ -144,4 +228,3 @@ function draw() {
         </script>
     </div>
 </section>
-

@@ -1,0 +1,218 @@
+<div class="intro">
+    <p>Data leven meestal buiten je sketch: in CSV-bestanden, JSON-bestanden of online via een API. Zodra je die data in p5.js binnenhaalt, opent er een wereld aan datagestuurde kunst: een klok die pulseert op live meteorietinslagen, een stad die verkleurt op basis van temperatuur, een compositie die groeit terwijl Wikipedia wordt bewerkt.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Verschil tussen CSV, JSON en API - en wanneer je welk formaat gebruikt</li>
+        <li>Async laden in <code>setup()</code> met <code>await loadTable()</code> en <code>await loadJSON()</code> (p5.js 2.x)</li>
+        <li>Data uitlezen: rijen, kolommen en genestelde velden</li>
+        <li>Live data ophalen van een API met <code>loadJSON()</code></li>
+        <li>Data omzetten naar beeld of geluid - data als creatief materiaal</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Over The Edges - data als kunst</h2>
+    <p>In 2000 organiseerde het SMAK in Gent de stadstentoonstelling <em>Over The Edges</em>. De Milanese kunstenaar <strong>Alberto Garutti</strong> (°1948) liet de straatlichten aan de Gentse Vrijdagmarkt oplichten bij elke nieuwe geboorte in Gent. Elke baby was een flikkering. Jaren later flikkert dit werk nog steeds na in de harten van veel Gentenaars.</p>
+    <p>Dat is wat datagestuurde kunst kan zijn: een onzichtbare stroom getallen - hier de geboortecijfers van een stad - wordt voelbaar gemaakt in een materiaal dat iedereen begrijpt, licht. Die beweging van <em>data naar beleving</em> is waar dit hoofdstuk over gaat.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>Garutti's werk staat bekend als "poëtische data-art". De mooiste sonificaties en datavisualisaties doen hetzelfde: ze laten je <em>voelen</em> wat een getal alleen niet kan doen.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>CSV - eenvoudige tabellen</h2>
+    <p>CSV staat voor <strong>Comma-Separated Values</strong>. Het is wellicht het eenvoudigste bestandsformaat dat er bestaat om data op te slaan: rijen met waarden, gescheiden door komma's.</p>
+    <pre><code>naam,leeftijd,stad
+Anne,24,Gent
+Frank,31,Brussel
+Laila,19,Antwerpen</code></pre>
+
+    <p>In p5.js 2.x laad je een CSV asynchroon in <code>setup()</code>:</p>
+    <pre><code>let tabel;
+
+async function setup() {
+  createCanvas(600, 400);
+
+  // Wacht tot het bestand geladen is
+  tabel = await loadTable('data.csv', 'csv', 'header');
+
+  // Toegang tot data
+  let aantalRijen = tabel.getRowCount();
+  let aantalKolommen = tabel.getColumnCount();
+
+  console.log(aantalRijen + ' rijen, ' + aantalKolommen + ' kolommen');
+
+  // Doorloop alle rijen
+  for (let r = 0; r &lt; aantalRijen; r++) {
+    let naam = tabel.getString(r, 'naam');
+    let leeftijd = tabel.getNum(r, 'leeftijd');
+    console.log(naam + ' is ' + leeftijd + ' jaar');
+  }
+}</code></pre>
+    <p>Het derde argument <code>'header'</code> zegt dat de eerste rij kolomkoppen bevat. Gebruik dan namen zoals <code>'leeftijd'</code>; anders moet je met indexen werken.</p>
+</section>
+
+<section>
+    <h2>JSON - genestelde data</h2>
+    <p>JSON staat voor <strong>JavaScript Object Notation</strong>. Het is een lichtgewicht formaat dat gemakkelijk te lezen en te schrijven is. Herinner je het <code>ikke</code>-object uit <a href="#objecten">Objecten &amp; klassen</a>? JSON gebruikt exact dezelfde schrijfwijze:</p>
+    <pre><code>{
+  "stad": "Gent",
+  "inwoners": 265000,
+  "wijken": ["Binnenstad", "Ledeberg", "Gentbrugge"],
+  "oprichting": 630
+}</code></pre>
+
+    <p>JSON kan dieper nestelen dan CSV: arrays binnen objecten, objecten binnen arrays. Dat maakt het ideaal voor rijkere data zoals locaties met coördinaten of spellen met meerdere spelers.</p>
+
+    <pre><code>let data;
+
+async function setup() {
+  createCanvas(600, 400);
+
+  data = await loadJSON('stad.json');
+
+  // Direct een veld lezen
+  console.log(data.stad);          // "Gent"
+  console.log(data.wijken.length); // 3
+
+  // Door een array loopen
+  for (let wijk of data.wijken) {
+    console.log(wijk);
+  }
+}</code></pre>
+
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Bouw altijd eerst je data-lezen op met <code>console.log()</code>. Pas als je ziet wat er binnenkomt, begin je met tekenen. Anders teken je in het luchtledige.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>API - live data van een server</h2>
+    <p>Een <strong>API</strong> (Application Programming Interface) is een set afspraken tussen softwaretoepassingen. Voor jouw sketch betekent het meestal: een URL waar je JSON kunt ophalen die <em>nu</em>, op dit moment, wordt samengesteld.</p>
+    <p>De functie blijft dezelfde - <code>loadJSON()</code> - maar je geeft een URL mee in plaats van een lokaal bestand:</p>
+    <pre><code>let kleuren;
+
+async function setup() {
+  createCanvas(600, 400);
+
+  // Live data van een publieke API
+  kleuren = await loadJSON('https://corpora-api.glitch.me/colors');
+
+  noStroke();
+  for (let i = 0; i &lt; kleuren.colors.length; i++) {
+    fill(kleuren.colors[i].rgb);
+    rect(i * 60, 0, 60, height);
+  }
+}</code></pre>
+
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Niet elke API laat zomaar requests uit een browser toe. Als je <em>"CORS error"</em> in de console ziet, betekent dat dat de server jouw domein niet toelaat. Zoek dan een publieke API die wel browser-vriendelijk is (zie hieronder).</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Bronnen van open data</h2>
+    <p>Hieronder een paar goede startpunten. Elke link is een schatkist aan materiaal voor je volgende sketch:</p>
+    <ul>
+        <li><a href="https://github.com/dariusk/corpora/tree/master" target="_blank" rel="noopener">Corpora</a> - honderden grappige JSON-bestanden: dierennamen, kleuren, mythologie, geuren, sterrenbeelden</li>
+        <li><a href="https://corpora-api.glitch.me/" target="_blank" rel="noopener">Corpora API</a> - dezelfde data, maar direct via URL op te halen</li>
+        <li><a href="https://data.stad.gent/" target="_blank" rel="noopener">Open Data Stad Gent</a> - mobiliteit, cultuur, lucht, evenementen</li>
+        <li><a href="https://data.gov.be/" target="_blank" rel="noopener">Open Data België</a> - duizenden datasets van overheden</li>
+        <li><a href="https://data.nasa.gov/" target="_blank" rel="noopener">NASA Open Data</a> - ruimte, klimaat, meteorieten</li>
+        <li><a href="https://data.nasa.gov/Earth-Science/Meteorite-Landings-API/c2vx-j9ed" target="_blank" rel="noopener">NASA Meteorite Landings API</a> - concreet startpunt voor data-sonificatie</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Creatieve toepassingen</h2>
+    <p>Nu je weet hoe je externe data laadt, kun je beginnen met het zoeken naar betekenis in getallen. Een paar ideeën om mee te starten:</p>
+    <ul>
+        <li>Een dag uit je leven als data: hartslag, stappen, slaap - en die in beeld zetten</li>
+        <li>Luchtkwaliteit uit <a href="https://data.stad.gent/" target="_blank" rel="noopener">Open Data Gent</a> koppelen aan kleur of beweging</li>
+        <li>De geboortecijfers van jouw stad vertalen naar flikkeringen, zoals Garutti deed</li>
+        <li>Een klok die bouwt op <a href="#datum-tijd">datum en tijd</a> + live weerdata</li>
+        <li>Een <a href="#sonificatie">sonificatie</a> van CSV-cijfers uit een spreadsheet die jou persoonlijk raakt</li>
+    </ul>
+    <p>Niet elke dataset wordt goede kunst. Zoek data die jou iets doen - een buurt, een hobby, een zorg - en laat daaruit iets ontstaan.</p>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Kies één JSON-bestand uit Corpora (bv. <code>colors.json</code> of <code>flowers.json</code>). Schrijf een sketch die:</p>
+    <ol class="stappen">
+        <li><div>Het bestand async laadt met <code>await loadJSON()</code> in <code>setup()</code>.</div></li>
+        <li><div>De eerste vijf items uit de lijst op de canvas tekent als kleurvlakken of tekst.</div></li>
+        <li><div>Bij een muisklik een willekeurig ander item uit de lijst toont.</div></li>
+    </ol>
+    <p>Schrijf drie zinnen over wat je opmerkte: was de data bruikbaar zoals ze binnenkwam, of moest je er eerst mee worstelen?</p>
+</section>
+
+<section>
+    <h2>Conclusie</h2>
+    <p>Externe data verbindt je sketch met de wereld. Of je nu een CSV uit je eigen spreadsheet laadt, een JSON-bestand van een collega krijgt of live data van een API gebruikt: de mogelijkheden zijn bijna eindeloos. Het mooiste werk ontstaat vaak niet door zo veel mogelijk data te gebruiken, maar door <em>die ene</em> betekenisvolle stroom te vinden en er iets aanraakbaars van te maken.</p>
+</section>
+
+<section>
+    <h2>Experimenteer zelf</h2>
+    <p>Deze sketch laadt een lijst kleuren via de Corpora API en tekent er gekleurde vlakjes mee. Klik om opnieuw te laden. Pas de API-URL aan om andere corpora te laden.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let data;
+let status = "Laden...";
+
+async function setup() {
+  createCanvas(600, 400);
+  textFont('Courier New');
+  textSize(12);
+
+  try {
+    data = await loadJSON('https://corpora-api.glitch.me/data/colors/xkcd.json');
+    status = "";
+  } catch (e) {
+    status = "Laden mislukt - klik om opnieuw te proberen";
+  }
+}
+
+function draw() {
+  background(245);
+
+  if (status) {
+    fill(0);
+    text(status, 20, 30);
+    return;
+  }
+
+  noStroke();
+  let kleuren = data.colors;
+  let kolommen = 12;
+  let rijen = ceil(kleuren.length / kolommen);
+  let w = width / kolommen;
+  let h = height / rijen;
+
+  for (let i = 0; i < kleuren.length; i++) {
+    let x = (i % kolommen) * w;
+    let y = floor(i / kolommen) * h;
+    fill(kleuren[i].hex);
+    rect(x, y, w, h);
+  }
+}
+
+async function mousePressed() {
+  status = "Herladen...";
+  data = null;
+  try {
+    data = await loadJSON('https://corpora-api.glitch.me/data/colors/xkcd.json');
+    status = "";
+  } catch (e) {
+    status = "Laden mislukt";
+  }
+}
+        </script>
+    </div>
+</section>

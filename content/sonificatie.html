@@ -1,0 +1,160 @@
+<div class="intro">
+    <p>Sonificatie is het proces van het omzetten van data in geluid. Waar we gewone data meestal visualiseren met grafieken en kleur, laat sonificatie je de data <em>horen</em>. Dat voegt een extra dimensie toe aan je p5.js-projecten, zeker als je werkt met externe data zoals CSV-bestanden, JSON of via API's.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Data uit een bestand of API mappen op eigenschappen van geluid (toonhoogte, duur, volume)</li>
+        <li>Werken met de <strong>p5.Sound</strong>-library voor oscillators en samples</li>
+        <li>Data beluisteren als een tweede laag naast visualisatie</li>
+        <li>Voorbeeld: NASA-meteorietendata beluisteren en tegelijk op een kaart tonen</li>
+        <li>Kritische reflectie: wanneer voegt geluid echt iets toe en wanneer stoort het?</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Wat is sonificatie?</h2>
+    <p>Sonificatie neemt getallen uit je data en vertaalt ze naar hoorbare eigenschappen. Een rij temperaturen kan een melodielijn worden waarin warmer = hoger, een dataset van aardbevingen kan pulsen met intensiteit geven, en een lange reeks verkoopscijfers kan een akkoord vormen dat zacht of fel klinkt.</p>
+    <p>Het voordeel? Ons gehoor pikt patronen op die we met het oog missen - ritme, herhaling, plotse pieken. Geluid speelt zich af in de tijd en sleept de luisteraar vanzelf door de data.</p>
+</section>
+
+<section>
+    <h2>De p5.Sound-library</h2>
+    <p>Om met geluid te werken in p5.js heb je de <strong>p5.Sound</strong>-bibliotheek nodig. Die biedt klassen voor oscillators, samples, filters en analyse.</p>
+    <p>p5.Sound moet apart ingeladen worden naast p5.js zelf:</p>
+    <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/addons/p5.sound.min.js"&gt;&lt;/script&gt;</code></pre>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Browsers laten geluid pas starten na een gebruikersactie (een klik of toetsaanslag). Zet je geluid dus bij voorkeur aan in <code>mousePressed()</code> of met <code>userStartAudio()</code>.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Een data-waarde hoorbaar maken</h2>
+    <p>De kleinste bouwsteen: een oscillator met een frequentie die je uit je data haalt.</p>
+    <pre><code>let osc;
+
+function setup() {
+  createCanvas(400, 200);
+  osc = new p5.Oscillator('sine');
+  osc.amp(0);
+  osc.start();
+}
+
+function draw() {
+  background(245);
+
+  // mouseX (0..width) mappen op 200 Hz..800 Hz
+  let freq = map(mouseX, 0, width, 200, 800);
+  osc.freq(freq);
+
+  text("Frequentie: " + round(freq) + " Hz", 20, 30);
+}
+
+function mousePressed() {
+  osc.amp(0.3, 0.1);  // Fade in
+}
+
+function mouseReleased() {
+  osc.amp(0, 0.5);    // Fade out
+}</code></pre>
+    <p>Dezelfde logica werkt voor elke datastroom: een waarde uit een CSV-kolom, een JSON-veld of een API-response mappen op frequentie, volume of duur.</p>
+</section>
+
+<section>
+    <h2>Voorbeeld: meteorieten beluisteren</h2>
+    <p>Seb maakte ooit - lang geleden, toen stemsoftware nog kraste - een sonificatie van meteorieteninslagen uit de <a href="https://data.nasa.gov/Earth-Science/Meteorite-Landings-API/c2vx-j9ed" target="_blank" rel="noopener">NASA Meteorite Landings API</a>. Elke landing werd een plekje op een wereldkaart, de locatienaam werd uitgesproken door spraaksynthese, en de massa bepaalde de toonhoogte. Stilaan verscheen de wereldkaart uit de data zelf.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>Sonificatie wordt ook serieus ingezet: NASA stuurt ruimte- en telescoopdata door sonificatie-software zodat blinde wetenschappers zwarte gaten kunnen "horen". Zoek eens naar <em>"NASA sonification black hole"</em>.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Mapping-strategieën</h2>
+    <p>De kunst van sonificatie zit in de <strong>mapping</strong>: welke data-eigenschap stuurt welke geluidseigenschap?</p>
+    <ul>
+        <li><strong>Waarde → toonhoogte</strong> - intuïtief: groot = hoog, klein = laag</li>
+        <li><strong>Frequentie → ritme</strong> - veel datapunten dichtbij elkaar worden snelle pulsen</li>
+        <li><strong>Categorie → timbre</strong> - verschillende data-soorten krijgen elk een eigen instrument</li>
+        <li><strong>Positie → stereo-panning</strong> - x-as bepaalt links/rechts in het geluidsbeeld</li>
+        <li><strong>Tijd in data → tijd in geluid</strong> - een jaar = een seconde, of desnoods een milliseconde</li>
+    </ul>
+    <p>Vermijd mapping die niets toevoegt. Als je data al rustig zijn, hoeft het geluid niet constant te piepen. Soms is stilte de beste sonificatie van "er is niets gebeurd".</p>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Kies een kleine dataset (bv. temperatuur per uur, een rij scores, wisselkoersen van een week). Kies één getal per datapunt en map dat op de frequentie van een oscillator. Speel de reeks af over vijf seconden. Beschrijf wat je hoort dat je op een grafiek niet meteen zou zien.</p>
+</section>
+
+<section>
+    <h2>Conclusie</h2>
+    <p>Sonificatie is een unieke manier om data te verkennen en te begrijpen. Het voegt een extra laag interactiviteit en beleving toe aan je p5.js-projecten. Door geluid te combineren met visuele data bouw je rijke, meeslepende, actuele ervaringen. Kortom: leer je oren kijken.</p>
+</section>
+
+<section>
+    <h2>Experimenteer zelf</h2>
+    <p>Deze sketch sonificeert een zelf-gegenereerde dataset. Elke waarde tekent een staafje én speelt een korte toon. Beweeg de muis om het tempo te bepalen, klik om een nieuwe dataset te genereren.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let data = [];
+let index = 0;
+let osc;
+let env;
+let laatsteTijd = 0;
+
+function setup() {
+  createCanvas(600, 400);
+  genereerData();
+
+  osc = new p5.Oscillator('triangle');
+  osc.amp(0);
+  osc.start();
+
+  env = new p5.Envelope();
+  env.setADSR(0.01, 0.1, 0.1, 0.2);
+  env.setRange(0.3, 0);
+}
+
+function genereerData() {
+  data = [];
+  for (let i = 0; i < 30; i++) {
+    data.push(random(20, 80));
+  }
+  index = 0;
+}
+
+function draw() {
+  background(245);
+
+  // Staafjes tekenen
+  let stapX = width / data.length;
+  for (let i = 0; i < data.length; i++) {
+    fill(i === index ? color(255, 0, 125) : color(200));
+    noStroke();
+    rect(i * stapX + 4, height - data[i] * 4, stapX - 8, data[i] * 4);
+  }
+
+  // Tempo op basis van muis
+  let interval = map(mouseX, 0, width, 400, 80);
+
+  if (millis() - laatsteTijd > interval) {
+    let waarde = data[index];
+    let freq = map(waarde, 20, 80, 200, 900);
+    osc.freq(freq);
+    env.play(osc);
+    index = (index + 1) % data.length;
+    laatsteTijd = millis();
+  }
+}
+
+function mousePressed() {
+  userStartAudio();
+  genereerData();
+}
+        </script>
+    </div>
+</section>

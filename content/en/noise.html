@@ -1,5 +1,21 @@
 <div class="intro">
-    <p>Perlin noise is a special mathematical function that generates smooth, "organic" randomness. Where <code>random()</code> gives a completely random value each frame, <code>noise()</code> gives values that transition smoothly into each other - ideal for fluid movement, textures, and landscapes.</p>
+    <p>Noise is a special mathematical function that generates smooth, "organic" randomness. Where <code>random()</code> gives a completely random value each frame, <code>noise()</code> gives values that transition smoothly into each other - ideal for fluid movement, textures, and landscapes.</p>
+</div>
+
+<aside class="callout callout--weetje">
+    <span class="callout-label">Did you know</span>
+    <p>The <code>noise()</code> you use here is formally called <strong>Perlin noise</strong>, invented by <strong>Ken Perlin</strong> in 1983 while he was working on the visual effects of the film <em>Tron</em> (1982). He was looking for a way to create lively textures that didn't look digital or blocky. His invention became a standard technique in games, films, and generative art. In 1997 he received an Academy Award for Technical Achievement for it.</p>
+</aside>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>The difference between <code>random()</code> (jerky) and <code>noise()</code> (smooth)</li>
+        <li><code>noise(t)</code> always returns a value between 0 and 1 - step slowly through <code>t</code> for smooth motion</li>
+        <li>Mapping values to a useful range with <code>map()</code></li>
+        <li>2D noise <code>noise(x, y)</code> for textures, clouds and landscapes</li>
+        <li><code>noiseSeed()</code> for repeatable patterns and <code>noiseDetail()</code> for extra octaves</li>
+    </ul>
 </div>
 
 <section>
@@ -89,33 +105,43 @@ noiseDetail(8, 0.5);  // 8 octaves, amplitude halves per octave</code></pre>
 </section>
 
 <section>
-    <h2>Noise for Smooth Movement</h2>
-    <p>A classic: multiple objects each moving independently through noise space:</p>
-    <pre><code>let offsets = [];
-let N = 20;
+    <h2>Flow field: noise as directions</h2>
+    <p>The best-known use of noise in generative art is a <strong>flow field</strong>. The idea is simple: at every point <code>(x, y)</code> on the canvas we ask for a noise value and use it as an <em>angle</em>. Particles follow those angles, as if drifting on an invisible current.</p>
+
+    <pre><code>let particles = [];
+let scale = 0.005;  // Smaller = bigger swirls
 
 function setup() {
   createCanvas(600, 400);
-  // Give each object a different starting point in noise space
-  for (let i = 0; i < N; i++) {
-    offsets.push({ x: random(1000), y: random(1000) });
+  background(10);
+  for (let i = 0; i &lt; 200; i++) {
+    particles.push({ x: random(width), y: random(height) });
   }
 }
 
 function draw() {
-  background(30, 20);
+  background(10, 15);  // Trails fade
 
-  noStroke();
-  fill(0, 0, 255, 180);
+  stroke(255, 150);
+  strokeWeight(1);
 
-  for (let off of offsets) {
-    let x = noise(off.x) * width;
-    let y = noise(off.y) * height;
+  for (let p of particles) {
+    // Noise at (x, y) → angle between 0 and 4π
+    let angle = noise(p.x * scale, p.y * scale) * TWO_PI * 2;
 
-    circle(x, y, 15);
+    let nx = p.x + cos(angle) * 1.5;
+    let ny = p.y + sin(angle) * 1.5;
 
-    off.x += 0.007;  // Move through noise space
-    off.y += 0.007;
+    line(p.x, p.y, nx, ny);
+
+    p.x = nx;
+    p.y = ny;
+
+    // New starting position when a particle leaves the canvas
+    if (p.x &lt; 0 || p.x &gt; width || p.y &lt; 0 || p.y &gt; height) {
+      p.x = random(width);
+      p.y = random(height);
+    }
   }
 }</code></pre>
 </section>
@@ -146,50 +172,56 @@ function draw() {
 </section>
 
 <div class="p5-example">
-    <h3>Example: Noise Field</h3>
-    <p>Particles moving through a Perlin noise field - each with its own path:</p>
+    <h3>Example: Flow field</h3>
+    <p>Particles follow the angles that <code>noise(x, y)</code> returns at each location. Together, their trails form flowing curves.</p>
     <div class="p5-example-container">
         <div class="p5-canvas-wrapper" id="example-noise"></div>
     </div>
 </div>
 
 <section>
-    <h2>Try It Yourself!</h2>
-    <p>Change the noise scale, the number of particles, or the color. Try <code>noiseSeed()</code> to get a fixed pattern!</p>
+    <h2>Try it yourself</h2>
+    <p>Change the <code>scale</code> (a larger number = finer swirls), tweak the number of particles, or swap the colour. Try <code>noiseSeed()</code> for a fixed field.</p>
 
-    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
         <script type="text/p5">
-let t = 0;
-let points = [];
+let particles = [];
+let scale = 0.005;  // Try 0.002 or 0.02
 
 function setup() {
-  createCanvas(600, 400);
-  // Create 60 points with random starting point in noise space
-  for (let i = 0; i < 60; i++) {
-    points.push({
-      offX: random(1000),
-      offY: random(1000) + 500  // Different starting point than offX
-    });
-  }
+  createCanvas(400, 400);
   background(10);
+
+  for (let i = 0; i < 200; i++) {
+    particles.push({ x: random(width), y: random(height) });
+  }
 }
 
 function draw() {
-  background(10, 15);  // Semi-transparent -> trail fades
+  // Faint black layer → trails slowly fade
+  noStroke();
+  fill(10, 15);
+  rect(0, 0, width, height);
 
-  for (let p of points) {
-    let x = noise(p.offX) * width;
-    let y = noise(p.offY) * height;
+  stroke(255, 180);
+  strokeWeight(1);
 
-    // Color based on position
-    let hue = map(x, 0, width, 160, 320);
-    fill(hue, 180, 255, 150);
-    noStroke();
-    circle(x, y, 8);
+  for (let p of particles) {
+    // Angle at this point in the field
+    let angle = noise(p.x * scale, p.y * scale) * TWO_PI * 2;
 
-    // Step through noise space
-    p.offX += 0.008; // Try changing this!
-    p.offY += 0.008;
+    let nx = p.x + cos(angle) * 1.5;
+    let ny = p.y + sin(angle) * 1.5;
+
+    line(p.x, p.y, nx, ny);
+
+    p.x = nx;
+    p.y = ny;
+
+    if (p.x < 0 || p.x > width || p.y < 0 || p.y > height) {
+      p.x = random(width);
+      p.y = random(height);
+    }
   }
 }
         </script>

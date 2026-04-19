@@ -2,6 +2,17 @@
     <p>p5.js has built-in functions to retrieve the current date and time. With these you can build clocks, create countdowns, or tie your sketch to the time of day.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Reading time with <code>year()</code>, <code>month()</code>, <code>day()</code>, <code>hour()</code>, <code>minute()</code>, <code>second()</code></li>
+        <li>Adding leading zeros with <code>nf(value, 2)</code></li>
+        <li>Translating time into angles via <code>map()</code> for analog clocks</li>
+        <li>Smooth hands using <code>millis()</code> instead of <code>second()</code></li>
+        <li>John Maeda's <em>12 o'clocks</em> as inspiration to rethink what a clock can be</li>
+    </ul>
+</div>
+
 <section>
     <h2>Getting the date and time</h2>
     <p>Six functions give you the current system time - they are re-evaluated each time you call them:</p>
@@ -30,7 +41,10 @@
   text(u + ":" + m + ":" + s, width / 2, height / 2);
 }</code></pre>
 
-    <p><code>nf(value, 2)</code> ensures a fixed width of 2 digits - so <code>9</code> is displayed as <code>09</code>.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p><code>nf(value, 2)</code> ensures a fixed width of 2 digits - so <code>9</code> is displayed as <code>09</code>.</p>
+    </aside>
 </section>
 
 <section>
@@ -79,10 +93,10 @@ let sAngle = map(smoothSec, 0, 60, 0, 360) - 90;</code></pre>
 
 <section>
     <h2>John Maeda - 12 o'clocks (1996)</h2>
-    <p>In 1996 the American designer and programmer <strong>John Maeda</strong> created a series of twelve small programs - each a different way to display time. He called them <em>12 o'clocks</em>.</p>
-    <p>None of the twelve looks like an ordinary clock. One shows only dots that shift. Another lets concentric circles pulse to the rhythm of the seconds. Yet another draws lines that together express the hour as an abstract pattern.</p>
-    <p>Maeda's thesis: <em>a clock is an interface for time</em> - and an interface can be reinvented endlessly. The only constraint is that the system must correctly show the current time. How you do that is entirely up to you.</p>
-    <p>12 o'clocks was one of the earliest examples of code as a design medium. Maeda worked in Java at the time; today you do the same thing in p5.js.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Did you know</span>
+        <p>In 1996 the American designer and programmer <strong>John Maeda</strong> created a series of twelve small programs - each a different way to display time. He called them <em>12 o'clocks</em>. None of them looks like an ordinary clock: dots shift, concentric circles pulse, lines trace patterns. Maeda's thesis: <em>a clock is an interface for time</em>, and an interface can be reinvented endlessly. 12 o'clocks was one of the earliest examples of code as a design medium - Maeda worked in Java, you do the same thing in p5.js.</p>
+    </aside>
 </section>
 
 <section>

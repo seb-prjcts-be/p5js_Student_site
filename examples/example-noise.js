@@ -1,54 +1,48 @@
-// Perlin noise voorbeeld - noise flow field met deeltjes
+// Flow field: 2D noise geeft op elke (x, y) een richting (hoek).
+// Deeltjes volgen het veld en laten sporen achter.
 window.sketch_example_noise = function (p) {
-    const N = 120;
+    const N = 250;
+    const schaal = 0.004;
+    const stap = 1.4;
     let particles = [];
-    let schaal = 0.004;
 
     p.setup = function () {
         p.createCanvas(600, 400);
-        p.colorMode(p.HSB, 360, 100, 100, 100);
-        p.background(220, 20, 10);
+        p.background(10);
 
         for (let i = 0; i < N; i++) {
             particles.push({
                 x: p.random(p.width),
                 y: p.random(p.height),
-                offX: p.random(1000),
-                offY: p.random(1000) + 500,
-                hue: p.random(360),
-                size: p.random(3, 8)
+                hue: p.random(180, 320)
             });
         }
+        p.colorMode(p.HSB, 360, 100, 100, 100);
     };
 
     p.draw = function () {
-        p.background(220, 20, 10, 8); // Spoor vervagen
+        p.noStroke();
+        p.fill(0, 0, 5, 6);
+        p.rect(0, 0, p.width, p.height);
+
+        p.strokeWeight(1.2);
 
         for (let par of particles) {
-            // Noise bepaalt positie
-            let x = p.noise(par.offX) * p.width;
-            let y = p.noise(par.offY) * p.height;
+            let hoek = p.noise(par.x * schaal, par.y * schaal) * p.TWO_PI * 2;
 
-            // Teken lijn van vorige naar nieuwe positie
-            p.stroke(par.hue, 70, 100, 60);
-            p.strokeWeight(par.size * 0.6);
-            p.point(x, y);
+            let nx = par.x + p.cos(hoek) * stap;
+            let ny = par.y + p.sin(hoek) * stap;
 
-            par.offX += schaal;
-            par.offY += schaal;
-            par.hue = (par.hue + 0.3) % 360;
+            p.stroke(par.hue, 70, 100, 50);
+            p.line(par.x, par.y, nx, ny);
 
-            // Reset als het deeltje te ver afwijkt
-            if (x < 0 || x > p.width || y < 0 || y > p.height) {
-                par.offX = p.random(1000);
-                par.offY = p.random(1000) + 500;
+            par.x = nx;
+            par.y = ny;
+
+            if (par.x < 0 || par.x > p.width || par.y < 0 || par.y > p.height) {
+                par.x = p.random(p.width);
+                par.y = p.random(p.height);
             }
         }
-
-        // Label
-        p.noStroke();
-        p.fill(0, 0, 80, 70);
-        p.textSize(12);
-        p.text('Perlin noise flow field', 10, 20);
     };
 };

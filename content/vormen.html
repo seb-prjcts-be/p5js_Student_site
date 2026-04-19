@@ -2,6 +2,17 @@
     <p>p5.js heeft ingebouwde functies voor basisvormen. Met deze functies kun je snel beginnen met tekenen.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Basisvormen tekenen: <code>point()</code>, <code>line()</code>, <code>circle()</code>, <code>ellipse()</code>, <code>square()</code>, <code>rect()</code>, <code>triangle()</code></li>
+        <li>Het verschil tussen hoekpunt- en middelpunt-coördinaten en <code>rectMode(CENTER)</code></li>
+        <li>Bogen en vierhoeken: <code>arc()</code> met <code>OPEN</code> / <code>CHORD</code> / <code>PIE</code>, en <code>quad()</code></li>
+        <li>Eigen veelhoeken met <code>beginShape()</code>, <code>vertex()</code> en <code>endShape(CLOSE)</code></li>
+        <li>Vloeiende curves met <code>splineVertex()</code>, <code>bezierVertex()</code> en <code>quadraticVertex()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Basiselementen: punt en lijn</h2>
     <p>De eenvoudigste vormen in p5.js zijn een punt en een lijn.</p>
@@ -15,10 +26,18 @@ point(100, 100);</code></pre>
     <p>Een lijn heeft twee eindpunten, elk met een x- en y-coördinaat.</p>
     <pre><code>line(x1, y1, x2, y2);
 line(0, 100, 400, 100);</code></pre>
-    <figure>
-        <img src="assets/vormen/line-preview.png" alt="p5.js editor met line(0,100,400,100) en de horizontale lijn in het preview-venster">
-        <figcaption>Een horizontale lijn van links naar rechts: de vier getallen zijn x1, y1, x2, y2.</figcaption>
-    </figure>
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  background(240);
+  stroke(30);
+  strokeWeight(2);
+  line(0, 200, 400, 200);
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">Een horizontale lijn van links naar rechts: de vier getallen zijn x1, y1, x2, y2.</p>
 </section>
 
 <section>
@@ -34,6 +53,20 @@ circle(200, 200, 150);  // Cirkel met diameter 150</code></pre>
     <pre><code>ellipse(x, y, breedte, hoogte);
 ellipse(200, 200, 100, 100);  // Cirkel via ellipse
 ellipse(200, 200, 150, 100);  // Ovaal</code></pre>
+
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  background(240);
+
+  circle(100, 200, 50);
+  circle(200, 200, 50);
+  circle(300, 200, 50);
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">Drie cirkels op dezelfde hoogte: alleen de x-coördinaat verandert.</p>
 </section>
 
 <section>
@@ -43,10 +76,6 @@ ellipse(200, 200, 150, 100);  // Ovaal</code></pre>
     <p>Een vierkant gebruik je wanneer alle zijden even lang zijn. Je geeft de linkerbovenhoek en de zijlengte op:</p>
     <pre><code>square(x, y, zijde);
 square(100, 100, 80);  // Vierkant van 80×80</code></pre>
-    <figure>
-        <img src="assets/vormen/square-diagram.png" alt="Diagram van een vierkant in p5.js met coördinaat linksboven en zijlengte">
-        <figcaption>Bij <code>square()</code> en <code>rect()</code> is <code>(x, y)</code> de <strong>linkerbovenhoek</strong>, niet het middelpunt.</figcaption>
-    </figure>
 
     <h3>rect() - Rechthoek</h3>
     <p>Een rechthoek heeft aparte breedte en hoogte. Net als <code>square()</code> is <code>(x, y)</code> de linkerbovenhoek:</p>
@@ -64,21 +93,26 @@ function draw() {
   rect(200, 200, 100, 60);  // Middelpunt op (200,200)
 }</code></pre>
 
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  background(240);
+
+  //rectMode(CENTER);
+
+  circle(100, 200, 50);
+  ellipse(200, 200, 50, 50);
+  rect(300, 200, 50, 50);
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">Bij <code>square()</code> en <code>rect()</code> is <code>(x, y)</code> de <strong>linkerbovenhoek</strong>, niet het middelpunt - daarom zit de rechthoek lager. Haal de <code>//</code> voor <code>rectMode(CENTER)</code> weg en zie het verschil.</p>
+
     <h3>triangle() - Driehoek</h3>
     <p>Een driehoek heeft drie hoekpunten, elk met een x- en y-coördinaat:</p>
     <pre><code>triangle(x1, y1, x2, y2, x3, y3);
 triangle(200, 50, 100, 200, 300, 200);</code></pre>
-</section>
-
-<section>
-    <h2>Coördinaten</h2>
-    <p>Het canvas gebruikt een coördinatensysteem waarbij:</p>
-    <ul>
-        <li><strong>(0,0)</strong> is linksboven</li>
-        <li><strong>X</strong> gaat naar rechts</li>
-        <li><strong>Y</strong> gaat naar beneden</li>
-    </ul>
-    <p>Dit is anders dan wiskunde waar Y omhoog gaat!</p>
 </section>
 
 <section>
@@ -175,6 +209,9 @@ function draw() {
         </script>
     </div>
     
-    <p><strong>Tip:</strong> Probeer de code aan te passen! Voeg bijvoorbeeld kleuren toe met <code>fill()</code>, verander de posities, of voeg meer vormen toe zoals een driehoek met <code>triangle()</code>.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Probeer de code aan te passen! Voeg bijvoorbeeld kleuren toe met <code>fill()</code>, verander de posities, of voeg meer vormen toe zoals een driehoek met <code>triangle()</code>.</p>
+    </aside>
 </section>
 

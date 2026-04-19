@@ -2,6 +2,16 @@
     <p>Every p5.js sketch starts with two important functions: <code>setup()</code> and <code>draw()</code>. These form the foundation of your creation.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>The role of <code>setup()</code> (runs once) and <code>draw()</code> (continuous loop)</li>
+        <li>Creating a canvas and choosing its size</li>
+        <li>Basic JavaScript syntax rules, comments, and constants like <code>PI</code></li>
+        <li>Controlling the framerate with <code>frameRate()</code> and pausing the loop with <code>noLoop()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>setup() - The Start</h2>
     <p><code>setup()</code> is executed <strong>once</strong> when your sketch starts. This is where you set up the basics:</p>
@@ -44,19 +54,6 @@ createCanvas(windowWidth, windowHeight);  // Full screen</code></pre>
 </section>
 
 <section>
-    <h2>Coordinate system</h2>
-    <p>A canvas has a <strong>coordinate system</strong> that lets you point to any location on the canvas. The origin <code>(0, 0)</code> is at the <strong>top-left</strong>. X goes to the right, Y goes down - different from math!</p>
-
-    <figure>
-        <img src="assets/setup-draw/assenstelsel.png" alt="The p5.js coordinate system: (0,0) top-left, X to the right, Y downward">
-        <figcaption>In p5.js the coordinate system starts at the top-left. A point at (400, 400) is at the bottom-right on a 400x400 canvas.</figcaption>
-    </figure>
-
-    <pre><code>// Point exactly in the center of a 400x400 canvas:
-point(200, 200);</code></pre>
-</section>
-
-<section>
     <h2>Syntax rules</h2>
     <p>p5.js follows the rules of JavaScript. A few important conventions:</p>
     <ul>
@@ -74,7 +71,10 @@ point(200, 200);</code></pre>
    that can span multiple lines */
 
 let x = 10;  // Set variable x to 10</code></pre>
-    <p>In the browser, use <kbd>Ctrl</kbd> + <kbd>/</kbd> to comment out a selection.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>In the browser, use <kbd>Ctrl</kbd> + <kbd>/</kbd> to comment out a selection.</p>
+    </aside>
 
     <h3>Constants</h3>
     <p>Some fixed values are always written in uppercase, such as <code>PI</code>, <code>TWO_PI</code>, <code>HALF_PI</code>, and <code>WEBGL</code>. They are called constants because their value never changes.</p>

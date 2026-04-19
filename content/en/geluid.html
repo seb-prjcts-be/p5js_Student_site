@@ -2,6 +2,17 @@
     <p>With the p5.sound library you can play, record, and analyze sounds in your sketch. Create audio visualizations, interactive music, or use sound as input for your animations.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Loading p5.sound as an additional script in your HTML</li>
+        <li>Playing, looping and stopping sounds with <code>loadSound()</code></li>
+        <li>Measuring volume with <code>p5.Amplitude</code> and frequencies with <code>p5.FFT</code></li>
+        <li>Microphone input through <code>p5.AudioIn</code> for live audio</li>
+        <li>Generating tones with <code>p5.Oscillator</code> in different waveforms</li>
+    </ul>
+</div>
+
 <section>
     <h2>Loading p5.sound</h2>
     <p>The p5.sound library is a separate file that you need to load alongside p5.js. Add it to your HTML before your sketch:</p>
@@ -9,7 +20,10 @@
     <pre><code>&lt;!-- Add to your HTML, after p5.js --&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/p5.sound@0.2.0/dist/p5.sound.min.js"&gt;&lt;/script&gt;</code></pre>
 
-    <p><strong>Note:</strong> p5.sound is not loaded in the live editor on this site. The code examples below are intended for use in your own HTML projects.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p>p5.sound is not loaded in the live editor on this site. The code examples below are intended for use in your own HTML projects.</p>
+    </aside>
 </section>
 
 <section>

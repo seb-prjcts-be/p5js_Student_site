@@ -1,0 +1,218 @@
+<div class="intro">
+    <p>Data usually lives outside your sketch: in CSV files, JSON files or online via an API. As soon as you pull that data into p5.js, a world of data-driven art opens up: a clock that pulses on live meteorite impacts, a city that changes colour based on temperature, a composition that grows while Wikipedia is being edited.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>The difference between CSV, JSON and API - and when to use which format</li>
+        <li>Async loading in <code>setup()</code> with <code>await loadTable()</code> and <code>await loadJSON()</code> (p5.js 2.x)</li>
+        <li>Reading data: rows, columns and nested fields</li>
+        <li>Fetching live data from an API with <code>loadJSON()</code></li>
+        <li>Turning data into image or sound - data as creative material</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Over The Edges - data as art</h2>
+    <p>In 2000 the SMAK in Ghent organised the city-wide exhibition <em>Over The Edges</em>. The Milanese artist <strong>Alberto Garutti</strong> (°1948) had the street lamps on Ghent's Vrijdagmarkt flicker on at every new birth in Ghent. Each baby was a flicker. Years later this work still flickers on in the hearts of many Ghent locals.</p>
+    <p>That is what data-driven art can be: an invisible stream of numbers - here the birth rates of a city - is made tangible in a material that everyone understands, light. That movement from <em>data to experience</em> is what this chapter is about.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Did you know</span>
+        <p>Garutti's work is known as "poetic data-art". The most beautiful sonifications and data visualisations do the same: they make you <em>feel</em> what a number alone cannot convey.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>CSV - simple tables</h2>
+    <p>CSV stands for <strong>Comma-Separated Values</strong>. It is probably the simplest file format that exists to store data: rows of values, separated by commas.</p>
+    <pre><code>name,age,city
+Anne,24,Ghent
+Frank,31,Brussels
+Laila,19,Antwerp</code></pre>
+
+    <p>In p5.js 2.x you load a CSV asynchronously in <code>setup()</code>:</p>
+    <pre><code>let table;
+
+async function setup() {
+  createCanvas(600, 400);
+
+  // Wait until the file is loaded
+  table = await loadTable('data.csv', 'csv', 'header');
+
+  // Access the data
+  let rowCount = table.getRowCount();
+  let columnCount = table.getColumnCount();
+
+  console.log(rowCount + ' rows, ' + columnCount + ' columns');
+
+  // Loop through all rows
+  for (let r = 0; r &lt; rowCount; r++) {
+    let name = table.getString(r, 'name');
+    let age = table.getNum(r, 'age');
+    console.log(name + ' is ' + age + ' years old');
+  }
+}</code></pre>
+    <p>The third argument <code>'header'</code> says that the first row contains column headers. That lets you use names like <code>'age'</code>; otherwise you have to work with indexes.</p>
+</section>
+
+<section>
+    <h2>JSON - nested data</h2>
+    <p>JSON stands for <strong>JavaScript Object Notation</strong>. It is a lightweight format that is easy to read and write. Remember the <code>me</code> object from <a href="#objecten">Objects &amp; classes</a>? JSON uses exactly the same notation:</p>
+    <pre><code>{
+  "city": "Ghent",
+  "population": 265000,
+  "districts": ["Inner city", "Ledeberg", "Gentbrugge"],
+  "founded": 630
+}</code></pre>
+
+    <p>JSON can nest deeper than CSV: arrays inside objects, objects inside arrays. That makes it ideal for richer data like locations with coordinates or games with multiple players.</p>
+
+    <pre><code>let data;
+
+async function setup() {
+  createCanvas(600, 400);
+
+  data = await loadJSON('city.json');
+
+  // Read a field directly
+  console.log(data.city);            // "Ghent"
+  console.log(data.districts.length); // 3
+
+  // Loop through an array
+  for (let district of data.districts) {
+    console.log(district);
+  }
+}</code></pre>
+
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Always build up your data reading first with <code>console.log()</code>. Only once you see what is coming in, start drawing. Otherwise you draw into the void.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>API - live data from a server</h2>
+    <p>An <strong>API</strong> (Application Programming Interface) is a set of agreements between software applications. For your sketch that usually means: a URL where you can fetch JSON that is being assembled <em>right now</em>, at this moment.</p>
+    <p>The function stays the same - <code>loadJSON()</code> - but you pass a URL instead of a local file:</p>
+    <pre><code>let colors;
+
+async function setup() {
+  createCanvas(600, 400);
+
+  // Live data from a public API
+  colors = await loadJSON('https://corpora-api.glitch.me/colors');
+
+  noStroke();
+  for (let i = 0; i &lt; colors.colors.length; i++) {
+    fill(colors.colors[i].rgb);
+    rect(i * 60, 0, 60, height);
+  }
+}</code></pre>
+
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p>Not every API allows requests from a browser. If you see <em>"CORS error"</em> in the console, it means the server does not allow your domain. Find a public API that is browser-friendly instead (see below).</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Sources of open data</h2>
+    <p>Here are a few good starting points. Each link is a treasure chest of material for your next sketch:</p>
+    <ul>
+        <li><a href="https://github.com/dariusk/corpora/tree/master" target="_blank" rel="noopener">Corpora</a> - hundreds of playful JSON files: animal names, colours, mythology, scents, constellations</li>
+        <li><a href="https://corpora-api.glitch.me/" target="_blank" rel="noopener">Corpora API</a> - the same data, but directly accessible via URL</li>
+        <li><a href="https://data.stad.gent/" target="_blank" rel="noopener">Open Data Ghent</a> - mobility, culture, air quality, events</li>
+        <li><a href="https://data.gov.be/" target="_blank" rel="noopener">Open Data Belgium</a> - thousands of datasets from governments</li>
+        <li><a href="https://data.nasa.gov/" target="_blank" rel="noopener">NASA Open Data</a> - space, climate, meteorites</li>
+        <li><a href="https://data.nasa.gov/Earth-Science/Meteorite-Landings-API/c2vx-j9ed" target="_blank" rel="noopener">NASA Meteorite Landings API</a> - a concrete starting point for data sonification</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Creative applications</h2>
+    <p>Now that you know how to load external data, you can start looking for meaning in numbers. A few ideas to get started:</p>
+    <ul>
+        <li>A day in your life as data: heart rate, steps, sleep - and put them on screen</li>
+        <li>Air quality from <a href="https://data.stad.gent/" target="_blank" rel="noopener">Open Data Ghent</a> mapped to colour or motion</li>
+        <li>The birth rates of your city translated into flickers, like Garutti did</li>
+        <li>A clock built on <a href="#datum-tijd">date and time</a> + live weather data</li>
+        <li>A <a href="#sonificatie">sonification</a> of CSV numbers from a spreadsheet that means something to you personally</li>
+    </ul>
+    <p>Not every dataset makes good art. Find data that moves you - a neighbourhood, a hobby, a worry - and let something emerge from it.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Pick one JSON file from Corpora (e.g. <code>colors.json</code> or <code>flowers.json</code>). Write a sketch that:</p>
+    <ol class="stappen">
+        <li><div>Loads the file async with <code>await loadJSON()</code> in <code>setup()</code>.</div></li>
+        <li><div>Draws the first five items from the list on the canvas as colour fields or text.</div></li>
+        <li><div>Shows a random other item from the list on a mouse click.</div></li>
+    </ol>
+    <p>Write three sentences about what you noticed: was the data usable as it arrived, or did you have to wrestle with it first?</p>
+</section>
+
+<section>
+    <h2>Conclusion</h2>
+    <p>External data connects your sketch to the world. Whether you load a CSV from your own spreadsheet, get a JSON file from a colleague or use live data from an API: the possibilities are almost endless. The most beautiful work often emerges not by using as much data as possible, but by finding <em>that one</em> meaningful stream and making something tangible from it.</p>
+</section>
+
+<section>
+    <h2>Try it yourself</h2>
+    <p>This sketch loads a list of colours via the Corpora API and draws coloured tiles with them. Click to reload. Change the API URL to load other corpora.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let data;
+let status = "Loading...";
+
+async function setup() {
+  createCanvas(600, 400);
+  textFont('Courier New');
+  textSize(12);
+
+  try {
+    data = await loadJSON('https://corpora-api.glitch.me/data/colors/xkcd.json');
+    status = "";
+  } catch (e) {
+    status = "Load failed - click to retry";
+  }
+}
+
+function draw() {
+  background(245);
+
+  if (status) {
+    fill(0);
+    text(status, 20, 30);
+    return;
+  }
+
+  noStroke();
+  let colors = data.colors;
+  let columns = 12;
+  let rows = ceil(colors.length / columns);
+  let w = width / columns;
+  let h = height / rows;
+
+  for (let i = 0; i < colors.length; i++) {
+    let x = (i % columns) * w;
+    let y = floor(i / columns) * h;
+    fill(colors[i].hex);
+    rect(x, y, w, h);
+  }
+}
+
+async function mousePressed() {
+  status = "Reloading...";
+  data = null;
+  try {
+    data = await loadJSON('https://corpora-api.glitch.me/data/colors/xkcd.json');
+    status = "";
+  } catch (e) {
+    status = "Load failed";
+  }
+}
+        </script>
+    </div>
+</section>

@@ -2,6 +2,16 @@
     <p>Elke p5.js sketch begint met twee belangrijke functies: <code>setup()</code> en <code>draw()</code>. Deze vormen de basis van je creatie.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>De rol van <code>setup()</code> (één keer) en <code>draw()</code> (continue lus)</li>
+        <li>Een canvas aanmaken en de maten kiezen</li>
+        <li>Basis-schrijfregels van JavaScript, commentaar en constanten zoals <code>PI</code></li>
+        <li>Framerate regelen met <code>frameRate()</code> en de lus pauzeren met <code>noLoop()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>setup() - De Start</h2>
     <p><code>setup()</code> wordt <strong>één keer</strong> uitgevoerd wanneer je sketch start. Hierin zet je de basis op:</p>
@@ -44,19 +54,6 @@ createCanvas(windowWidth, windowHeight);  // Volledig scherm</code></pre>
 </section>
 
 <section>
-    <h2>Assenstelsel</h2>
-    <p>Een canvas heeft een <strong>coördinatenstelsel</strong> waarmee je elk punt op het canvas kunt aanwijzen. De oorsprong <code>(0, 0)</code> ligt <strong>linksboven</strong>. X loopt naar rechts, Y loopt naar beneden - anders dan in wiskunde!</p>
-
-    <figure>
-        <img src="assets/setup-draw/assenstelsel.png" alt="Het coördinatenstelsel van p5.js: (0,0) linksboven, X naar rechts, Y naar beneden">
-        <figcaption>In p5.js begint het assenstelsel linksboven. Een punt op (400, 400) zit rechtsonder op een canvas van 400×400.</figcaption>
-    </figure>
-
-    <pre><code>// Punt precies in het midden van een 400×400 canvas:
-point(200, 200);</code></pre>
-</section>
-
-<section>
     <h2>Schrijfregels (syntaxis)</h2>
     <p>p5.js volgt de regels van JavaScript. Een paar belangrijke gewoontes:</p>
     <ul>
@@ -74,7 +71,10 @@ point(200, 200);</code></pre>
    dat meerdere regels kan beslaan */
 
 let x = 10;  // Variabele x instellen op 10</code></pre>
-    <p>Gebruik in de browser <kbd>Ctrl</kbd> + <kbd>/</kbd> om een selectie in commentaar te zetten.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Gebruik in de browser <kbd>Ctrl</kbd> + <kbd>/</kbd> om een selectie in commentaar te zetten.</p>
+    </aside>
 
     <h3>Constanten</h3>
     <p>Sommige vaste waarden zijn altijd in hoofdletters geschreven, zoals <code>PI</code>, <code>TWO_PI</code>, <code>HALF_PI</code> en <code>WEBGL</code>. Ze worden constanten genoemd omdat hun waarde nooit verandert.</p>

@@ -2,6 +2,17 @@
     <p>Mouse interaction makes your sketches responsive. p5.js has built-in variables and functions for mouse input.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Built-in mouse variables: <code>mouseX</code>, <code>mouseY</code>, <code>pmouseX</code>, <code>pmouseY</code></li>
+        <li>Mouse events: <code>mousePressed()</code>, <code>mouseDragged()</code>, <code>mouseReleased()</code></li>
+        <li>Pointer events (<code>pointerX</code>, <code>pointerPressed()</code>, ...) that work on mouse and touchscreen</li>
+        <li>Drawing trails by connecting <code>pmouseX/Y</code> to the current position</li>
+        <li>Choosing between mouse events and pointer events for new sketches</li>
+    </ul>
+</div>
+
 <section>
     <h2>Mouse Position</h2>
     <p>p5.js has built-in variables for mouse position:</p>
@@ -74,7 +85,10 @@ function pointerMoved() {
   strokeWeight(3);
   line(ppointerX, ppointerY, pointerX, pointerY);
 }</code></pre>
-    <p>You'll still encounter <code>mousePressed()</code> and <code>touchStarted()</code> a lot in existing learning materials. For new sketches that need to work on multiple devices, pointer events are the first choice.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>You'll still encounter <code>mousePressed()</code> and <code>touchStarted()</code> a lot in existing learning materials. For new sketches that need to work on multiple devices, pointer events are the first choice.</p>
+    </aside>
 </section>
 
 <section>

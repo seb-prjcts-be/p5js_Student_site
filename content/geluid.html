@@ -2,6 +2,17 @@
     <p>Met de p5.sound library kun je geluiden afspelen, opnemen en analyseren in je sketch. Maak audio-visualisaties, interactieve muziek of gebruik geluid als input voor je animaties.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>p5.sound apart inladen als extra script in je HTML</li>
+        <li>Geluiden afspelen, loopen en stoppen met <code>loadSound()</code></li>
+        <li>Volume meten met <code>p5.Amplitude</code> en frequenties met <code>p5.FFT</code></li>
+        <li>Microfoon-input via <code>p5.AudioIn</code> voor live audio</li>
+        <li>Tonen genereren met <code>p5.Oscillator</code> in verschillende golfvormen</li>
+    </ul>
+</div>
+
 <section>
     <h2>p5.sound Laden</h2>
     <p>De p5.sound library is een apart bestand dat je naast p5.js moet laden. Voeg het toe aan je HTML vóór je sketch:</p>
@@ -9,7 +20,10 @@
     <pre><code>&lt;!-- Voeg toe in je HTML, na p5.js --&gt;
 &lt;script src="https://cdn.jsdelivr.net/npm/p5.sound@0.2.0/dist/p5.sound.min.js"&gt;&lt;/script&gt;</code></pre>
 
-    <p><strong>Let op:</strong> in de live editor op deze site is p5.sound niet geladen. De codevoorbeelden hieronder zijn bedoeld voor gebruik in je eigen HTML-projecten.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>In de live editor op deze site is p5.sound niet geladen. De codevoorbeelden hieronder zijn bedoeld voor gebruik in je eigen HTML-projecten.</p>
+    </aside>
 </section>
 
 <section>

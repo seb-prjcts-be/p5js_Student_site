@@ -96,7 +96,6 @@ p5_cursus_site/
 │   └── vibe-coding.html
 ├── examples/           ← p5.js sketch scripts (window.sketch_* pattern)
 │   ├── example-basis.js
-│   ├── example-generative.js
 │   ├── example-over-p5js.js
 │   ├── example-interactie.js
 │   ├── example-animatie.js
@@ -383,6 +382,18 @@ function draw() {
 
 **Important:** Editor code uses **global p5.js mode** (no `p.` prefix), because it runs in an isolated iframe with its own p5.js instance.
 
+### Editor visuele stijl
+
+De editor gebruikt `--p5-pink: rgb(255, 0, 125)` als enige accentkleur (zie `editor.css`):
+
+- Brand-label linksboven: `<i class="bi bi-braces"></i> p5.js` in roze
+- Primary Run-knop: roze achtergrond + witte tekst; hover kantelt naar wit/roze
+- Reset-knop: neutraal zwart/wit
+- Code-panel krijgt een 2px roze accentlijn bij `:focus-within`
+- Caret-color en `::selection` zijn roze
+
+Pas deze stijlregels niet aan zonder de Lab44-minimalistische lijn te respecteren (alleen zwart/wit + het ene roze accent).
+
 ---
 
 ## Example Sketch: Global vs Instance Mode
@@ -474,6 +485,81 @@ p5.js 2.x features — taught as the default approach, distributed across releva
 
 ---
 
+## Visuele Ankers
+
+Lange tekstpagina's gebruiken een vast vocabulaire van blokken. Elke variant is een rechthoek met volledige rand; type wordt gesignaleerd door kleur, label en/of fontvariant. Gebruik ze in volgorde van belangrijkheid en herhaal gelijkaardige boodschappen op dezelfde manier.
+
+### Volgorde op een typische pagina
+
+1. `<div class="intro">` — korte inleiding in cursief met zwarte rand
+2. `<div class="kernpunten">` — leerdoelen of "wat je gaat leren"
+3. Inhoudelijke `<section>` blokken
+4. Callouts (`tip`, `weetje`, `let-op`) contextueel op de juiste plek binnen een sectie
+5. `<hr class="section-break">` tussen grote hoofdstukken
+
+### Kernpunten
+
+```html
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Wat je leert...</li>
+    </ul>
+</div>
+```
+
+### Callouts
+
+```html
+<aside class="callout callout--tip">
+    <span class="callout-label">Tip</span>
+    <p>Korte praktische tip.</p>
+</aside>
+
+<aside class="callout callout--weetje">
+    <span class="callout-label">Weetje</span>
+    <p>Context, historie of verdieping.</p>
+</aside>
+
+<aside class="callout callout--let-op">
+    <span class="callout-label">Let op</span>
+    <p>Kritische waarschuwing of ethische kanttekening.</p>
+</aside>
+```
+
+Kleurcode:
+- Blauw `rgb(0,0,255)` → praktische tip (`.callout--tip`)
+- Groen `rgb(0,255,0)` → weetje / context (`.callout--weetje`)
+- Zwart → waarschuwing (`.callout--let-op`)
+
+### Genummerde stappen
+
+```html
+<ol class="stappen">
+    <li>Eerste stap...</li>
+    <li>Tweede stap...</li>
+</ol>
+```
+
+De nummers verschijnen als zwarte vierkantjes links van elke stap (CSS counter).
+
+### Sectiebreuk
+
+```html
+<hr class="section-break">
+```
+
+Gebruik spaarzaam tussen echt onafhankelijke hoofdstukken binnen één pagina.
+
+### Vuistregels
+
+- Alle visuele ankers bestaan zowel in `content/<id>.html` (NL) als `content/en/<id>.html` (EN)
+- Herhaal nooit dezelfde boodschap in twee verschillende anker-types
+- De `.intro` is altijd eerste, `.kernpunten` altijd tweede
+- Callouts komen op de plek waar ze contextueel relevant zijn, niet bovenaan opgestapeld
+
+---
+
 ## CSS Patterns
 
 ### Grid layout areas (in `style.css`)
@@ -499,7 +585,15 @@ Desktop layout currently uses the full available width with an approximate 20% /
 
 | Class | Usage |
 |---|---|
-| `.intro` | First paragraph of a topic — slightly styled intro block |
+| `.intro` | First paragraph of a topic — italic body text wrapped in a full 2px black border |
+| `.kernpunten` | Leerdoelen-blok met label "KERNPUNTEN" / "WHAT YOU WILL LEARN" en 1px grijze rand |
+| `.callout` | Full-border accentblok; combineer met een variant-klasse |
+| `.callout--tip` | Blauwe rand `rgb(0,0,255)` + blauw label (praktische tip) |
+| `.callout--weetje` | Groene rand `rgb(0,255,0)` + zwart label (weetje / context) |
+| `.callout--let-op` | Zwarte rand + zwart label (waarschuwing / kritische noot) |
+| `.callout-label` | Oswald uppercase label bovenaan een callout |
+| `ol.stappen` | Genummerde stappenlijst; tellers renderen in zwarte vierkantjes links |
+| `hr.section-break` | 80px zwart gecentreerd scheidingsteken tussen hoofdstukken |
 | `.p5-example` | Wrapper for an interactive canvas demo |
 | `.p5-example-container` | Inner container for the canvas |
 | `.p5-canvas-wrapper` | Direct container for the p5 instance (needs `id`) |
@@ -532,6 +626,15 @@ Fonts are loaded via Google Fonts in `index.html` (`<head>`):
 - Gebruik Oswald 400 voor navigatie, subtitels en tussenkoppen zodat de hiërarchie duidelijker blijft
 - `--font-body` → `font-family: 'Alegreya', Georgia, serif` — `body`, lopende tekst
 - Koppen schalen mee via `em` eenheden zodat de lettergrootte-knoppen correct werken
+- `.onderwerp-page h2` → `text-transform: uppercase; letter-spacing: 1px` voor een consistente hoofdstuk-uitstraling
+
+**Bootstrap Icons** worden geladen via CDN in `index.html` `<head>`:
+
+```html
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+```
+
+Gebruikt voor de editor brand (`bi-braces`), Run-knop (`bi-play-fill`) en Reset-knop (`bi-arrow-counterclockwise`).
 
 **Lettergrootte-switcher** (knoppen in header, opgeslagen in `localStorage`):
 
@@ -690,6 +793,13 @@ Content gap-fill pass completed 2026-03-24 against `data/pdf/Lab44_EDU - p5.js_F
 - `variabelen.html` — toegevoegd: `windowWidth`/`windowHeight`, `windowResized()`
 - `vormen.html` — toegevoegd: `arc()`, `quad()`, `beginShape()`/`vertex()`/`endShape(CLOSE)`, `LINES`/`POINTS` modi
 
+Visuele ankers + editor-redesign afgerond 2026-04-18:
+- Nieuwe anker-klassen in `style.css`: `.intro` (volle rand + cursief), `.kernpunten`, `.callout` + varianten, `ol.stappen`, `hr.section-break`
+- `.onderwerp-page h2` krijgt uppercase + letter-spacing
+- Editor gerestyled in `editor.css` + `editor.js` met Bootstrap Icons en `--p5-pink: rgb(255, 0, 125)` accent
+- `initBalls()` palette in `main.js` teruggebracht tot 5 evenwaardige primary/secondary kleuren; dezelfde palette in het `vibe-coding`-voorbeeld (NL + EN)
+- Eerste pagina met volledig toegepaste ankers: `vibe-coding.html` (NL + EN)
+
 ---
 
 ## Testing Checklist Before Committing
@@ -707,8 +817,13 @@ For any content or code change:
 - [ ] Desktop layout uses the intended wide 20 / 50 / 30 flow and still stacks correctly on smaller screens
 - [ ] `.p5-example` canvas renders and animates
 - [ ] `.p5-editor` shows textarea + iframe, auto-runs
+- [ ] Editor toont het roze `bi-braces` brand-label, roze Run-knop met `bi-play-fill`, neutrale Reset met `bi-arrow-counterclockwise`
+- [ ] Klik in het code-panel — linker accentrand wordt roze (focus-within)
 - [ ] Click Reset — code reverts and re-runs
 - [ ] Modify code in editor, click Run — new output appears
+- [ ] Visuele ankers tonen correct: `.intro` (cursief, zwarte rand), `.kernpunten`, callouts (`tip` blauw / `weetje` groen / `let-op` zwart), `ol.stappen` met zwarte nummer-vierkantjes, `hr.section-break`
+- [ ] `h2` op een onderwerppagina is in UPPERCASE met letter-spacing
+- [ ] Same visual anchors renderen ook op de Engelse versie van de pagina
 - [ ] Search for a keyword from the topic — result appears
 - [ ] Resize browser below 768px — layout stacks correctly
 - [ ] No JavaScript errors in browser console

@@ -2,6 +2,17 @@
     <p>p5.js has built-in functions for basic shapes. With these functions you can quickly start drawing.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Drawing the basic shapes: <code>point()</code>, <code>line()</code>, <code>circle()</code>, <code>ellipse()</code>, <code>square()</code>, <code>rect()</code>, <code>triangle()</code></li>
+        <li>The difference between corner and center coordinates, and <code>rectMode(CENTER)</code></li>
+        <li>Arcs and quads: <code>arc()</code> with <code>OPEN</code> / <code>CHORD</code> / <code>PIE</code>, and <code>quad()</code></li>
+        <li>Custom polygons with <code>beginShape()</code>, <code>vertex()</code> and <code>endShape(CLOSE)</code></li>
+        <li>Smooth curves with <code>splineVertex()</code>, <code>bezierVertex()</code> and <code>quadraticVertex()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Basic elements: point and line</h2>
     <p>The simplest shapes in p5.js are a point and a line.</p>
@@ -15,10 +26,18 @@ point(100, 100);</code></pre>
     <p>A line has two endpoints, each with an x and y coordinate.</p>
     <pre><code>line(x1, y1, x2, y2);
 line(0, 100, 400, 100);</code></pre>
-    <figure>
-        <img src="assets/vormen/line-preview.png" alt="p5.js editor with line(0,100,400,100) and the horizontal line in the preview window">
-        <figcaption>A horizontal line from left to right: the four numbers are x1, y1, x2, y2.</figcaption>
-    </figure>
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  background(240);
+  stroke(30);
+  strokeWeight(2);
+  line(0, 200, 400, 200);
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">A horizontal line from left to right: the four numbers are x1, y1, x2, y2.</p>
 </section>
 
 <section>
@@ -34,6 +53,20 @@ circle(200, 200, 150);  // Circle with diameter 150</code></pre>
     <pre><code>ellipse(x, y, width, height);
 ellipse(200, 200, 100, 100);  // Circle via ellipse
 ellipse(200, 200, 150, 100);  // Oval</code></pre>
+
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  background(240);
+
+  circle(100, 200, 50);
+  circle(200, 200, 50);
+  circle(300, 200, 50);
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">Three circles at the same height: only the x coordinate changes.</p>
 </section>
 
 <section>
@@ -43,10 +76,6 @@ ellipse(200, 200, 150, 100);  // Oval</code></pre>
     <p>Use a square when all sides are equal length. You specify the top-left corner and the side length:</p>
     <pre><code>square(x, y, side);
 square(100, 100, 80);  // Square of 80x80</code></pre>
-    <figure>
-        <img src="assets/vormen/square-diagram.png" alt="Diagram of a square in p5.js with coordinate at top-left and side length">
-        <figcaption>With <code>square()</code> and <code>rect()</code>, <code>(x, y)</code> is the <strong>top-left corner</strong>, not the center.</figcaption>
-    </figure>
 
     <h3>rect() - Rectangle</h3>
     <p>A rectangle has a separate width and height. Just like <code>square()</code>, <code>(x, y)</code> is the top-left corner:</p>
@@ -64,21 +93,26 @@ function draw() {
   rect(200, 200, 100, 60);  // Center at (200,200)
 }</code></pre>
 
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  background(240);
+
+  //rectMode(CENTER);
+
+  circle(100, 200, 50);
+  ellipse(200, 200, 50, 50);
+  rect(300, 200, 50, 50);
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">With <code>square()</code> and <code>rect()</code>, <code>(x, y)</code> is the <strong>top-left corner</strong>, not the center - that's why the rectangle sits lower. Remove the <code>//</code> before <code>rectMode(CENTER)</code> to see the difference.</p>
+
     <h3>triangle() - Triangle</h3>
     <p>A triangle has three corner points, each with an x and y coordinate:</p>
     <pre><code>triangle(x1, y1, x2, y2, x3, y3);
 triangle(200, 50, 100, 200, 300, 200);</code></pre>
-</section>
-
-<section>
-    <h2>Coordinates</h2>
-    <p>The canvas uses a coordinate system where:</p>
-    <ul>
-        <li><strong>(0,0)</strong> is the top-left</li>
-        <li><strong>X</strong> goes to the right</li>
-        <li><strong>Y</strong> goes downward</li>
-    </ul>
-    <p>This is different from math where Y goes upward!</p>
 </section>
 
 <section>
@@ -175,6 +209,9 @@ function draw() {
         </script>
     </div>
 
-    <p><strong>Tip:</strong> Try modifying the code! For example, add colors with <code>fill()</code>, change the positions, or add more shapes like a triangle with <code>triangle()</code>.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Try modifying the code! For example, add colors with <code>fill()</code>, change the positions, or add more shapes like a triangle with <code>triangle()</code>.</p>
+    </aside>
 </section>
 

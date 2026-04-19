@@ -2,6 +2,17 @@
     <p>p5.js is een rekenmachine die tekent. Bijna alles wat je ziet - posities, maten, kleuren, beweging - is het resultaat van berekeningen. Hoe je die berekeningen schrijft, bepaalt wat er op het scherm verschijnt.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>De vier basisoperatoren en voorrang met haakjes</li>
+        <li>Samengestelde operatoren (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>) en <code>x++</code> / <code>x--</code></li>
+        <li>De modulo-operator <code>%</code> voor omslaan, ritme en raster</li>
+        <li>Willekeurige waarden met <code>random()</code>, inclusief integers via <code>floor(random())</code></li>
+        <li>Kernfuncties: <code>constrain()</code>, <code>map()</code>, <code>dist()</code>, <code>min()</code>, <code>max()</code>, <code>floor()</code>, <code>round()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>De console als rekenmachine</h2>
     <p>Voordat je berekeningen in je sketch stopt, kun je ze uittesten met <code>console.log()</code>. Het is de snelste manier om te checken of een expressie doet wat je verwacht:</p>
@@ -93,7 +104,10 @@ let n = floor(random(101));
 
 // Muntje opgooien: 0 of 1
 let kant = floor(random(2));  // 0 = kop, 1 = munt</code></pre>
-    <p>Let op: <code>random(100)</code> kan nooit precies 100 teruggeven, dus schrijf <code>floor(random(101))</code> als je ook 100 wilt kunnen krijgen.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p><code>random(100)</code> kan nooit precies 100 teruggeven, dus schrijf <code>floor(random(101))</code> als je ook 100 wilt kunnen krijgen.</p>
+    </aside>
 </section>
 
 <section>
@@ -128,7 +142,10 @@ let hoek = map(frameCount % 120, 0, 120, 0, TWO_PI);
 
 // Je kunt ook omdraaien: groot wordt klein
 let grootte = map(mouseY, 0, height, 80, 10);  // Bovenaan groot, onderaan klein</code></pre>
-    <p>Bijna elk interactief of generatief effect begint met <code>map()</code>: muispositie naar kleur, afstand naar grootte, tijd naar rotatie. Als je één functie goed leert kennen, laat het deze zijn.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Bijna elk interactief of generatief effect begint met <code>map()</code>: muispositie naar kleur, afstand naar grootte, tijd naar rotatie. Als je één functie goed leert kennen, laat het deze zijn.</p>
+    </aside>
 
     <h3>dist() - afstand tussen twee punten</h3>
     <pre><code>// Afstand van de muis tot het midden

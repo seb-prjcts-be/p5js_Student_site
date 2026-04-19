@@ -1,0 +1,151 @@
+<div class="intro">
+    <p>The chaos game is one of the most astonishing demonstrations of generative art: you follow a few very simple rules, roll a die, and a perfect fractal pattern appears all by itself - the <strong>Sierpinski triangle</strong>. Order out of randomness, in just a handful of lines of code.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>A simple rule system can produce unexpected, complex patterns</li>
+        <li>Randomness via <code>floor(random(3))</code> as a digital die with three values</li>
+        <li>Calculating the halfway point between two points: <code>(x1 + x2) / 2</code></li>
+        <li>The Sierpinski triangle as a spontaneously visible fractal</li>
+        <li>Varying the number of corners or jump ratio for other fractals</li>
+    </ul>
+</div>
+
+<section>
+    <h2>The recipe</h2>
+    <p>The rules of the chaos game are almost absurdly simple:</p>
+    <ol class="stappen">
+        <li><div>Pick three points on your canvas that together form a triangle.</div></li>
+        <li><div>Number the corners 0 to 2.</div></li>
+        <li><div>Pick a fourth point <code>P</code> somewhere inside the triangle.</div></li>
+        <li><div>Make a digital die with three values: <code>floor(random(3))</code>.</div></li>
+        <li><div>Roll the die.</div></li>
+        <li><div>Draw a new point halfway between <code>P</code> and the rolled corner.</div></li>
+        <li><div>That new point becomes the next <code>P</code>. Repeat thousands of times.</div></li>
+    </ol>
+    <p>What appears? Not a random cloud, but a sharp, self-similar fractal: the Sierpinski triangle.</p>
+</section>
+
+<section>
+    <h2>Why does this work?</h2>
+    <p>At every step you move the point <strong>halfway</strong> towards a corner. That means the point can never escape the triangle - the triangle is an "attractor". Inside that triangle there are regions you can never reach by always jumping halfway. Those unreachable zones form the white triangles of the fractal.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Did you know</span>
+        <p>This kind of system - simple rules producing rich patterns - is called an <strong>Iterated Function System (IFS)</strong>. Michael Barnsley described them in 1988 and used them to generate a hyperrealistic fern with just four transformations.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>In p5.js</h2>
+    <pre><code>let corners = [];
+let p;
+
+function setup() {
+  createCanvas(600, 500);
+  background(245);
+
+  // 3 corner points: a triangle
+  corners = [
+    { x: width / 2, y: 40 },
+    { x: 40, y: height - 40 },
+    { x: width - 40, y: height - 40 }
+  ];
+
+  // Starting point somewhere inside
+  p = { x: width / 2, y: height / 2 };
+
+  stroke(0);
+  strokeWeight(1);
+}
+
+function draw() {
+  // Hundreds of jumps per frame
+  for (let i = 0; i &lt; 500; i++) {
+    let choice = floor(random(3));      // Die with 3 values
+    let target = corners[choice];
+
+    p.x = (p.x + target.x) / 2;         // Halfway to the chosen corner
+    p.y = (p.y + target.y) / 2;
+
+    point(p.x, p.y);
+  }
+}</code></pre>
+    <p>Notice that <em>nothing</em> in this code mentions fractals. And yet the Sierpinski triangle appears by itself once enough points have been drawn.</p>
+</section>
+
+<section>
+    <h2>Variations</h2>
+    <ul>
+        <li><strong>Four corners (square)</strong> with the halfway rule: gives... a square that fills up almost completely. No fractal.</li>
+        <li><strong>Four corners</strong> with the rule "don't pick the same corner twice": now structure does appear.</li>
+        <li><strong>Five corners</strong> with jump ratio 0.5: soft self-similar shape.</li>
+        <li><strong>Colour per corner</strong>: colour the new point according to the rolled direction - each fractal gets three colour zones.</li>
+    </ul>
+    <p>Try variations. It makes painfully clear that not every rule system automatically produces a fractal - there is a subtle balance at play.</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Start with the basic version and let it run for several minutes. Then change one thing at a time: the jump ratio (try 0.4 or 0.618), the number of corners, or a colour code per die roll. For each variant, describe whether the image becomes more chaotic or more structured.</p>
+</section>
+
+<section>
+    <h2>Try it yourself</h2>
+    <p>This version draws 500 points per frame. Wait a few seconds and watch the Sierpinski triangle appear. Change the jump ratio or add a fourth corner.</p>
+    <div class="p5-editor" data-width="600" data-height="500" data-autorun="true">
+        <script type="text/p5">
+let corners = [];
+let p;
+let jump = 0.5;  // Try 0.4 or 0.618
+
+function setup() {
+  createCanvas(600, 500);
+  background(245);
+
+  corners = [
+    { x: width / 2, y: 40 },
+    { x: 40, y: height - 40 },
+    { x: width - 40, y: height - 40 }
+  ];
+
+  p = { x: width / 2, y: height / 2 };
+
+  stroke(255, 0, 125);
+  strokeWeight(1);
+}
+
+function draw() {
+  for (let i = 0; i < 500; i++) {
+    let choice = floor(random(corners.length));
+    let target = corners[choice];
+
+    p.x = p.x + (target.x - p.x) * jump;
+    p.y = p.y + (target.y - p.y) * jump;
+
+    point(p.x, p.y);
+  }
+}
+
+function mousePressed() {
+  background(245);
+}
+        </script>
+    </div>
+</section>
+
+<ul class="video-cards">
+    <li>
+        <a class="video-card" href="https://www.youtube.com/watch?v=kbKtFN71Lfs" target="_blank" rel="noopener">
+            <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/kbKtFN71Lfs/hqdefault.jpg" alt="Thumbnail of the Chaos Game video on YouTube">
+            </div>
+            <div class="video-card-body">
+                <p class="video-card-maker">Numberphile</p>
+                <h3 class="video-card-title">Chaos Game</h3>
+                <p class="video-card-desc">Roll a die, jump halfway to a corner, and watch the Sierpinski triangle emerge all by itself.</p>
+            </div>
+        </a>
+    </li>
+</ul>

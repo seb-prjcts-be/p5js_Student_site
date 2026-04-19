@@ -2,6 +2,17 @@
     <p>With p5.js you can load images and draw them on the canvas. You can scale them, adjust colors, apply filters, and even edit individual pixels. This opens the door to creative image manipulation right in the browser.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Loading images with <code>async setup()</code> and <code>await loadImage()</code></li>
+        <li>Placing, scaling and centring with <code>image()</code> and <code>imageMode(CENTER)</code></li>
+        <li>Adjusting colour and transparency via <code>tint()</code> and <code>noTint()</code></li>
+        <li>Built-in filters: <code>GRAY</code>, <code>INVERT</code>, <code>BLUR</code>, <code>THRESHOLD</code>, <code>POSTERIZE</code></li>
+        <li>Pixel manipulation with <code>loadPixels()</code> / <code>updatePixels()</code> and saving via <code>saveCanvas()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Loading and Drawing an Image</h2>
     <p>In modern p5.js, typically use <code>async function setup()</code> with <code>await loadImage()</code>. This ensures the image is loaded before you draw it. In older sketches you may still encounter <code>preload()</code>.</p>
@@ -99,7 +110,10 @@ function draw() {
   filter(POSTERIZE, 4); // 2-255
 }</code></pre>
 
-    <p><strong>Note:</strong> <code>filter()</code> applies the filter to everything already on the canvas. So always place it after <code>image()</code>.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p><code>filter()</code> applies the filter to everything already on the canvas. So always place it after <code>image()</code>.</p>
+    </aside>
 </section>
 
 <section>

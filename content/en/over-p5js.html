@@ -1,87 +1,136 @@
 <div class="intro">
-    <p>p5.js is a JavaScript library that makes creative coding accessible. It's based on Processing, but works entirely in the browser without extra software.</p>
+    <p>For a very long time, programmers and designers lived in two very different worlds. They spoke entirely different (computer) languages, dressed differently, and used different computers and operating systems. In 2001 a handful of developers - <strong>Casey Reas</strong> and <strong>Ben Fry</strong> - changed this situation for good.</p>
 </div>
 
 <section>
-    <h2>What is Processing?</h2>
-    <p>Processing is a programming language and development environment created in 2001 by Casey Reas and Ben Fry at the MIT Media Lab. The goal was to make programming accessible to artists, designers, and beginners.</p>
-    <p>Processing uses Java and has its own editor. It's powerful, but requires you to install software.</p>
+    <h2>From Processing to p5.js</h2>
+    <p>They launched <strong>Processing</strong>. It immediately offered countless creative possibilities to artists, designers, hobbyists and students like you. Coding suddenly became easy. Processing is a graphical programming language on top of Java. You need a separate program for it.</p>
+    <p>The renewed version of Processing, <strong>p5.js</strong>, developed by <strong>Lauren McCarthy</strong>, runs on JavaScript (hence the <em>.js</em>!) and works directly in your computer's web browser. It is a very simple programming environment that exists solely to serve your own creativity.</p>
+    <p>You "sketch" your own ideas in code, fluidly and quickly. Remember the word "sketch" - it captures what we do here remarkably well.</p>
+    <p>There is also a <strong>Python version</strong> of Processing.</p>
+    <p>In this course you will learn about variables, colours, coordinates, loops and randomness. You will intuitively learn to draw points and lines, circles and ellipses, squares and rectangles and much more with your own code. You will learn how to save and reuse your own projects and remix other people's work.</p>
+</section>
+
+<section>
+    <h2>Processing, p5.js and Processing Python</h2>
+    <p>Processing is free and open source. That means there is no copyright on it and anyone can contribute to the software. In principle no one earns money when you use Processing.</p>
+    <p>You can think of Processing as an extra layer on top of another programming language: a library of new functions that allow you to easily create artistic projects.</p>
+    <p>Processing as a language is usually very recognisable. The languages Processing works within have their own specifics. The programming languages are related, so you can fairly easily move from one language to another. In this course we focus on <strong>p5.js</strong>.</p>
+
+    <h3>Similarities</h3>
+    <p>Don't be discouraged yet, but can you see how Processing is the same across the three languages?</p>
+    <div class="talen-vergelijking">
+        <div>
+            <h4>Processing (Java)</h4>
+            <pre><code>void setup() {
+  size(400, 400);
+}
+
+void draw() {
+  background(245);
+}</code></pre>
+        </div>
+        <div>
+            <h4>p5.js (JavaScript)</h4>
+            <pre><code>function setup() {
+  createCanvas(400, 400);
+}
+
+function draw() {
+  background(245);
+}</code></pre>
+        </div>
+        <div>
+            <h4>Processing Python</h4>
+            <pre><code>def setup():
+    size(400, 400)
+
+def draw():
+    background(245)</code></pre>
+        </div>
+    </div>
 </section>
 
 <section>
     <h2>Which p5.js version?</h2>
-    <p>This site uses <strong>p5.js 2.2.3</strong>. The biggest change compared to 1.x: you no longer load assets (images, sound, fonts) in <code>preload()</code>, but with <code>async function setup()</code> and <code>await loadImage(...)</code>. You'll see this pattern on the Images, Sound and Text & typography pages.</p>
+    <p>This site uses <strong>p5.js 2.2.3</strong>. The biggest change compared to 1.x: you no longer load assets (images, sound, fonts) in <code>preload()</code>, but with <code>async function setup()</code> and <code>await loadImage(...)</code>. You'll see this pattern on the Images, Sound and Text &amp; typography pages.</p>
     <p>The official online editor at <a href="https://editor.p5js.org" target="_blank" rel="noopener">editor.p5js.org</a> still defaults to p5.js 1.x until August 2026. To work with 2.x there, explicitly pick a 2.x version in the editor, or add <code>?version=2.2.3</code> to the URL.</p>
     <p>In older tutorials you'll often still see <code>preload()</code>. That code no longer works in 2.x without changes.</p>
 </section>
 
 <section>
-    <h2>From Processing to p5.js</h2>
-    <p>p5.js is the JavaScript version of Processing. It was developed by Lauren McCarthy and a community of developers. The key difference:</p>
-    <ul>
-        <li><strong>Processing:</strong> Java-based, desktop application</li>
-        <li><strong>p5.js:</strong> JavaScript-based, works in the browser</li>
-    </ul>
-    <p>With p5.js you don't need to install anything - you write code in an editor and open it in your browser!</p>
+    <h2>The home base: p5js.org</h2>
+    <p><a href="https://p5js.org" target="_blank" rel="noopener">p5js.org</a> is the official home base of the project: documentation, tutorials, examples and access to the online editor.</p>
 </section>
 
 <section>
     <h2>The p5.js Editor</h2>
-    <p>The official p5.js editor (editor.p5js.org) is an online development environment where you can start coding right away. Advantages:</p>
-    <ul>
-        <li>No installation needed</li>
-        <li>Auto-save</li>
-        <li>Sharing sketches is easy</li>
-        <li>Works on any computer with a browser</li>
-    </ul>
-    <p>You can also create your own HTML file and load p5.js via a CDN (like we do in this course).</p>
+    <p>We chose the <strong>p5.js Editor</strong> to write our code, but of course there are many other ways to do this.</p>
+    <p>The editor is an online environment where we can easily code without having to think about servers, browsers, documents and the JavaScript libraries that make programming in p5.js possible. All of those files are kept and organised behind the scenes for us. It is very convenient to just log in directly with your Google account. The first time, click <em>Sign up</em>.</p>
+
+    <h3>Windows</h3>
+    <p>In the left window we see an area where we can write code directly. Below it we find the <strong>console</strong>, an area where we can instantly show information - more on that later. The right part of the screen - the <strong>preview</strong> - is where we see the results of our code come to life.</p>
 </section>
 
 <section>
     <h2>The console</h2>
-    <p>Below the code window in the editor you'll see the <strong>console</strong>. That's your information screen: you can print values to it, and error messages appear there automatically.</p>
+    <p>You'll find the console in the editor below the code. In the example below we calculate a division and show the result at the bottom in the console.</p>
+    <p>To show a value in the console, use <code>console.log()</code>. You can also use <code>print()</code>, but only inside p5.js, not in plain JavaScript.</p>
     <pre><code>// Show a value in the console:
 console.log("Hello!");
-console.log(mouseX);  // Shows the mouse position</code></pre>
-    <p>You can also use the console as a calculator: type a calculation and press Enter.</p>
+console.log(mouseX);  // Shows the mouse position
+
+// The console as a calculator:
+console.log(10 / 3);</code></pre>
+    <p>You can think of the console as the screen of your calculator and use it as such. The console is also handy for quickly checking the value of a variable along the way.</p>
 
     <h3>Friendly error messages</h3>
-    <p>The <strong>Friendly Error System</strong> of p5.js gives understandable error messages in simple language - including a hint about what's wrong and how you can fix it. If there's an error in your code, read the console carefully!</p>
-    <p>Want to see the real browser developer console? Press <kbd>F12</kbd> or <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd>.</p>
+    <p>The <strong>Friendly Error System</strong> in the p5 editor gives you feedback in the console in a very friendly, smart and supportive way when something goes wrong.</p>
+    <p>The Friendly Error System is a feature in p5.js specifically designed to provide clear and understandable error messages. Instead of the cryptic errors often encountered in other programming languages, FES tries to describe the error in simple language and offers friendly suggestions for possible solutions.</p>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Did you know</span>
+        <p>The Friendly Error System is more than just error handling - it is a tool for education and accessibility. By providing users with clear, understandable and actionable feedback, FES lowers the barrier for beginners and makes creative coding accessible to everyone.</p>
+    </aside>
+
+    <h3>The browser developer console</h3>
+    <p>The real <strong>developer console</strong> of your browser - e.g. Chrome - can be opened by pressing <kbd>F12</kbd> or <kbd>Shift</kbd> + <kbd>Ctrl</kbd> + <kbd>I</kbd>. You'll see how complex a seemingly simple web page can be.</p>
+    <p>With this developer console you can play safely with the appearance of every page in your browser, because the HTML code has already been downloaded to your computer. You are always looking at a local copy of a web page.</p>
 </section>
 
 <section>
-    <h2>The Reference</h2>
-    <p>The <a href="https://p5js.org/reference/" target="_blank" rel="noopener">p5.js Reference</a> is your dictionary for everything p5.js can do. For every function you'll find:</p>
+    <h2>Reference</h2>
+    <p>From our p5.js home page and from the editor, we always have access to the <a href="https://p5js.org/reference/" target="_blank" rel="noopener">Reference</a>: the dictionary, the manual, where you can always find help on anything p5.js related.</p>
+    <p>Don't be overwhelmed by the amount of information. We'll go through it step by step, together.</p>
+    <p>For every function you'll find:</p>
     <ul>
-        <li>Explanation of what a function does</li>
-        <li>What parameters you can use</li>
+        <li>An explanation of what the function does</li>
+        <li>Which parameters you can use</li>
         <li>Working examples</li>
     </ul>
-    <p><strong>Tip:</strong> If you don't know how something works, look it up in the Reference. You don't need to memorize everything!</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>If you don't know how something works, look it up in the Reference. You don't need to memorise everything.</p>
+    </aside>
 </section>
 
 <section>
-    <h2>Saving and organizing sketches</h2>
-    <p>In the online editor your sketches are automatically saved when you're logged in. Still, it's worth developing good habits:</p>
+    <h2>About HTML, CSS and JavaScript</h2>
+    <h3>Sketch folder</h3>
+    <p>Our sketch is a folder that we give a name. That folder always contains three files that make up our project. When we use the editor, we can view and edit the three pages separately. Open your files by clicking the <code>&gt;</code> next to <code>sketch.js</code> - the little panel with our files will slide open.</p>
+    <p>We are really just building a regular web page. The first page (homepage) in a folder on the internet is always called <code>index</code>. That way the browser knows which file to open first. The <code>index.html</code> page is where all the parts come together:</p>
     <ul>
-        <li><strong>Use clear names</strong> - not "sketch_01" but something like "LES_color_rainbow"</li>
-        <li><strong>No spaces</strong> in file names - use an underscore <code>_</code> or hyphen <code>-</code></li>
-        <li><strong>Use version numbers</strong> when tracking experiments: <code>_v01</code>, <code>_v02</code></li>
-        <li><strong>Organize in collections</strong> - the editor supports folders per project or theme</li>
-        <li><strong>Make regular backups</strong> - download the files locally for long-term projects</li>
+        <li>The p5.js libraries (<code>p5.js</code> and <code>p5.sound.min.js</code>)</li>
+        <li>The <code>style.css</code> file is responsible for the styling of our page.</li>
+        <li>The <code>sketch.js</code> file where our JavaScript code will live.</li>
     </ul>
-</section>
 
-<section>
-    <h2>Project structure</h2>
-    <p>A simple p5.js project looks like this:</p>
+    <h3>Writing your own index.html</h3>
+    <p>A simple p5.js project that you set up yourself looks like this:</p>
     <pre><code>my-project/
   ├── index.html
   ├── sketch.js
   └── style.css (optional)</code></pre>
-
-    <h3>index.html</h3>
     <pre><code>&lt;!DOCTYPE html&gt;
 &lt;html&gt;
 &lt;head&gt;
@@ -91,8 +140,6 @@ console.log(mouseX);  // Shows the mouse position</code></pre>
 &lt;body&gt;
 &lt;/body&gt;
 &lt;/html&gt;</code></pre>
-
-    <h3>sketch.js</h3>
     <pre><code>function setup() {
   createCanvas(400, 400);
 }
@@ -106,14 +153,51 @@ function draw() {
     <p>Almost every library comes in two versions:</p>
     <ul>
         <li><code>p5.js</code> - the <strong>readable version</strong> with indentation, comments and clear names. Handy if you want to read or debug the code.</li>
-        <li><code>p5.min.js</code> - the <strong>minified version</strong>: all whitespace, comments and long names have been stripped out. Same behavior, much smaller file.</li>
+        <li><code>p5.min.js</code> - the <strong>minified version</strong>: all whitespace, comments and long names have been stripped out. Same behaviour, much smaller file.</li>
     </ul>
     <p>In <strong>production</strong> (your actual website) you always use <code>.min.js</code>: faster to load, less data for the visitor. While <strong>debugging</strong>, the non-minified version can be handier because error messages point to more readable line numbers. For this course and regular projects, <code>.min.js</code> is fine.</p>
-    <p><strong>In practice:</strong> this course site itself loads <code>p5.min.js</code> - on the main page and in every live editor on the site. If you right-click &rarr; <em>View page source</em>, you'll see the same line as in the example above.</p>
+    <p>This course site itself loads <code>p5.min.js</code> - on the main page and in every live editor on the site. If you right-click &rarr; <em>View page source</em>, you'll see the same line as in the example above.</p>
+</section>
+
+<section>
+    <h2>Saving and organising sketches</h2>
+    <p>Good organisation of your p5.js projects is essential to keep your workflow smooth and to give you easy access to your files. Here are some guidelines for managing your projects and sketches.</p>
+
+    <h3>Use clear and descriptive names</h3>
+    <ul>
+        <li><strong>Naming:</strong> Give your sketches and collections clear and descriptive names. This helps you quickly find specific files and understand what they are for. Because the p5 editor does not currently support visual thumbnails, good naming is crucial.</li>
+        <li><strong>Versioning:</strong> Keep multiple versions of your files using version numbers, for example <code>_v01</code>, <code>_v02</code>, and so on. Clearly indicate which version is final.</li>
+    </ul>
+    <p>A handy naming convention looks like this:</p>
+    <ul>
+        <li><code>LES_topic_v01_class_firstname</code></li>
+        <li><code>OEF_topic_v01_class_firstname</code></li>
+        <li><code>VRIJ_topic_v01_class_firstname</code></li>
+    </ul>
+
+    <h3>Don't use spaces</h3>
+    <p><strong>File names:</strong> Avoid spaces in file names. Use underscores (<code>_</code>) to separate words instead. Spaces in file names can cause unexpected problems when sharing or running your code.</p>
+
+    <h3>Organise in collections</h3>
+    <p>Organise your sketches in three main collections:</p>
+    <ul>
+        <li><strong>LES</strong> (lessons) - for sketches made during class.</li>
+        <li><strong>OEF</strong> (exercises) - for exercises and assignments.</li>
+        <li><strong>VRIJ</strong> (free) - for personal and free experiments.</li>
+    </ul>
+    <p>Share these collections with your teachers so you can easily get feedback and show your progress.</p>
+
+    <h3>Make regular back-ups</h3>
+    <p>Although the p5.js Web Editor stores your projects online, it is important to make regular back-ups. You can do this easily by downloading your project as a ZIP via <em>File &rarr; Download</em>. This protects your work against data loss and lets you keep working offline at any time.</p>
+</section>
+
+<section>
+    <h2>Conclusion</h2>
+    <p>The p5.js Web Editor is a powerful tool for making and sharing interactive projects. By organising your files and collections effectively you can optimise your workflow and keep your projects clear and manageable.</p>
 </section>
 
 <div class="p5-example">
-    <h3>Your First p5.js Sketch</h3>
+    <h3>Your first p5.js sketch</h3>
     <p>This is a simple example showing how p5.js works:</p>
     <div class="p5-example-container">
         <div class="p5-canvas-wrapper" id="example-over-p5js"></div>
@@ -121,8 +205,8 @@ function draw() {
 </div>
 
 <section>
-    <h2>Try It Yourself!</h2>
-    <p>Create your first p5.js sketch! Modify the code, add shapes, or make it interactive with mouseX and mouseY.</p>
+    <h2>Try it yourself!</h2>
+    <p>Create your first p5.js sketch. Modify the code, add shapes, or make it interactive with <code>mouseX</code> and <code>mouseY</code>.</p>
 
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">

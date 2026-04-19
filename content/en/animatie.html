@@ -2,6 +2,17 @@
     <p>Animation happens because <code>draw()</code> is executed over and over - 60 times per second by default. By changing values slightly each frame, you get motion.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Building motion by changing a variable each frame inside <code>draw()</code></li>
+        <li>Using <code>frameCount</code> and <code>millis()</code> as a time base</li>
+        <li>Organic motion with <code>sin()</code>, <code>cos()</code> and <code>tan()</code></li>
+        <li>Easing: smoothly move toward a target value</li>
+        <li>Transformations with <code>translate()</code>, <code>rotate()</code> and <code>push()</code>/<code>pop()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Simple Movement</h2>
     <p>The simplest animation: increment a variable each frame.</p>
@@ -117,7 +128,10 @@ function draw() {
   rect(-40, -40, 80, 80);
 }</code></pre>
 
-    <p>Always use <code>translate()</code> <em>before</em> <code>rotate()</code> to rotate an object around its own center, not around the top-left corner.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Always use <code>translate()</code> <em>before</em> <code>rotate()</code> to rotate an object around its own center, not around the top-left corner.</p>
+    </aside>
 
     <h3>Watch out: translate() stacks up</h3>
     <p>Transformations are <strong>cumulative</strong>. Calling <code>translate(100, 0)</code> twice is the same as calling <code>translate(200, 0)</code> once. This leads to surprises if you don't expect it:</p>
@@ -143,7 +157,10 @@ function draw() {
     circle(0, 0, 40);   // At (200, 200) - independent
   pop();
 }</code></pre>
-    <p>Remember: without <code>push()</code>/<code>pop()</code>, every <code>translate()</code> and <code>rotate()</code> is an <em>extra shift</em> on top of everything that came before.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p>Without <code>push()</code>/<code>pop()</code>, every <code>translate()</code> and <code>rotate()</code> is an <em>extra shift</em> on top of everything that came before.</p>
+    </aside>
 </section>
 
 <section>

@@ -2,6 +2,17 @@
     <p>Kleur maakt je sketches levend. p5.js biedt verschillende manieren om kleuren te gebruiken.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Kleur instellen met <code>background()</code>, <code>fill()</code> en <code>stroke()</code>, dikte met <code>strokeWeight()</code></li>
+        <li>Kleuren schrijven als grijswaarde, RGB, RGBA, hexadecimaal en CSS-kleurnaam</li>
+        <li>Transparantie gebruiken voor spoor- en ghosteffecten via <code>background(0, 15)</code></li>
+        <li>Wisselen tussen <code>RGB</code> en <code>HSB</code> via <code>colorMode()</code></li>
+        <li>Kleuren opslaan in variabelen met <code>color()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Kleur functies</h2>
     <p>Je stelt kleur altijd in <em>vóór</em> je de vorm tekent. p5.js leest de code van boven naar onder:</p>
@@ -94,7 +105,10 @@ fill(random(255), random(255), random(255), 180);</code></pre>
     <p>Hoe lager het getal, hoe langer het spoor blijft hangen. Probeer waarden tussen 5 en 30.</p>
 
     <h3>Lijnen en punten hebben geen fill</h3>
-    <p>Een veelgemaakte beginnersfout: <code>fill()</code> aanroepen voor een <code>line()</code> of <code>point()</code>. Dat heeft geen effect - lijnen en punten reageren alleen op <code>stroke()</code> en <code>strokeWeight()</code>.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Een veelgemaakte beginnersfout: <code>fill()</code> aanroepen voor een <code>line()</code> of <code>point()</code>. Dat heeft geen effect - lijnen en punten reageren alleen op <code>stroke()</code> en <code>strokeWeight()</code>.</p>
+    </aside>
     <pre><code>stroke(255, 0, 0);
 strokeWeight(3);
 line(10, 10, 200, 200);  // Rode lijn van 3 pixels

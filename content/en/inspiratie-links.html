@@ -2,6 +2,17 @@
     <p>Here you will find all the links and resources from the course - from inspiring projects to books, videos, tools, and datasets. Use this list to explore further, learn, and experiment.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Inspiring projects: Listen to Wikipedia, MTA.ME, Land Lines, Audience and more</li>
+        <li>Creative coders worth following on Instagram</li>
+        <li>Videos and documentaries about Whitney, Mandelbrot, data sonification and creativity</li>
+        <li>Learning resources: The Coding Train, p5.js Reference, Awesome Creative Coding</li>
+        <li>Books, p5.js libraries and open data to experiment with</li>
+    </ul>
+</div>
+
 <section>
     <h2>Inspiring projects</h2>
     <ul>
@@ -180,34 +191,102 @@ function draw() {
 
 <section>
     <h2>Videos &amp; documentaries</h2>
-    <ul>
+    <ul class="video-cards">
         <li>
-            <a href="https://youtu.be/jIv-EcX9tUs?si=vYoWUvqPHTwaLO9p" target="_blank" rel="noopener"><strong>John Whitney - Experiments in Motion Graphics (1968)</strong></a><br>
-            One of the first computer-generated animations ever made. Timeless and impressive.
+            <a class="video-card" href="https://youtu.be/jIv-EcX9tUs?si=vYoWUvqPHTwaLO9p" target="_blank" rel="noopener">
+                <div class="video-card-thumb">
+                    <img src="https://img.youtube.com/vi/jIv-EcX9tUs/hqdefault.jpg" alt="Thumbnail John Whitney - Experiments in Motion Graphics">
+                </div>
+                <div class="video-card-body">
+                    <p class="video-card-maker">John Whitney · 1968</p>
+                    <h3 class="video-card-title">Experiments in Motion Graphics</h3>
+                    <p class="video-card-desc">One of the first computer-generated animations ever made. Timeless and impressive.</p>
+                </div>
+            </a>
         </li>
         <li>
-            <a href="https://youtu.be/9M7dTmvJxwA?si=vKK5Gjmjjn_GLHn6" target="_blank" rel="noopener"><strong>Zoom into the Mandelbrot fractal - factor 10^227</strong></a><br>
-            An endless zoom that shows what mathematical recursion looks like visually.
+            <a class="video-card" href="https://youtu.be/9M7dTmvJxwA?si=vKK5Gjmjjn_GLHn6" target="_blank" rel="noopener">
+                <div class="video-card-thumb">
+                    <img src="https://img.youtube.com/vi/9M7dTmvJxwA/hqdefault.jpg" alt="Thumbnail Mandelbrot zoom">
+                </div>
+                <div class="video-card-body">
+                    <p class="video-card-maker">Maths Town</p>
+                    <h3 class="video-card-title">Mandelbrot fractal zoom 10^227</h3>
+                    <p class="video-card-desc">An endless zoom that shows what mathematical recursion looks like visually.</p>
+                </div>
+            </a>
         </li>
         <li>
-            <a href="https://www.youtube.com/watch?v=3jtCcBR7rv0" target="_blank" rel="noopener"><strong>Clouds Are Not Spheres - Netflix (trailer)</strong></a><br>
-            Documentary about Benoit Mandelbrot and the discovery of fractals.
+            <a class="video-card" href="https://www.youtube.com/watch?v=3jtCcBR7rv0" target="_blank" rel="noopener">
+                <div class="video-card-thumb">
+                    <img src="https://img.youtube.com/vi/3jtCcBR7rv0/hqdefault.jpg" alt="Thumbnail Clouds Are Not Spheres">
+                </div>
+                <div class="video-card-body">
+                    <p class="video-card-maker">Netflix · trailer</p>
+                    <h3 class="video-card-title">Clouds Are Not Spheres</h3>
+                    <p class="video-card-desc">Documentary about Benoit Mandelbrot and the discovery of fractals.</p>
+                </div>
+            </a>
         </li>
         <li>
-            <a href="https://youtu.be/fN9qLt0IPC0?si=gY1BygOWCcZ0HfBS" target="_blank" rel="noopener"><strong>Sonification of Meteorite Landings</strong></a><br>
-            A p5.js project that translates NASA meteorite data into visuals and sound.
+            <a class="video-card" href="https://youtu.be/fN9qLt0IPC0?si=gY1BygOWCcZ0HfBS" target="_blank" rel="noopener">
+                <div class="video-card-thumb">
+                    <img src="https://img.youtube.com/vi/fN9qLt0IPC0/hqdefault.jpg" alt="Thumbnail Sonification of Meteorite Landings">
+                </div>
+                <div class="video-card-body">
+                    <p class="video-card-maker">Sebastien Vanblaere</p>
+                    <h3 class="video-card-title">Sonification of Meteorite Landings</h3>
+                    <p class="video-card-desc">A p5.js project that translates NASA meteorite data into visuals and sound.</p>
+                </div>
+            </a>
         </li>
         <li>
-            <a href="https://youtu.be/fGR_VGTuQN4?si=pqPcSAz05EOfPcVC" target="_blank" rel="noopener"><strong>Livecoding challenge - Joana Cicau</strong></a><br>
-            Ten minutes of live coding: building a p5.js sketch from scratch for an audience.
+            <a class="video-card" href="https://youtu.be/fGR_VGTuQN4?si=pqPcSAz05EOfPcVC" target="_blank" rel="noopener">
+                <div class="video-card-thumb">
+                    <img src="https://img.youtube.com/vi/fGR_VGTuQN4/hqdefault.jpg" alt="Thumbnail Livecoding challenge Joana Cicau">
+                </div>
+                <div class="video-card-body">
+                    <p class="video-card-maker">Joana Cicau</p>
+                    <h3 class="video-card-title">10 Minute Livecoding Challenge S01E07</h3>
+                    <p class="video-card-desc">Ten minutes of live coding: building a p5.js sketch from scratch for an audience.</p>
+                </div>
+            </a>
         </li>
         <li>
-            <a href="https://www.youtube.com/watch?v=Pb5oIIPO62g&list=PLbJ6hUkwmWtulngmPQvQ4Ob28qd_5MOX9" target="_blank" rel="noopener"><strong>On creativity - John Cleese</strong></a><br>
-            The Monty Python actor and writer on how creativity works, what blocks it, and how you can consciously cultivate it. A classic that remains just as relevant today.
+            <a class="video-card" href="https://www.youtube.com/watch?v=Pb5oIIPO62g&list=PLbJ6hUkwmWtulngmPQvQ4Ob28qd_5MOX9" target="_blank" rel="noopener">
+                <div class="video-card-thumb">
+                    <img src="https://img.youtube.com/vi/Pb5oIIPO62g/hqdefault.jpg" alt="Thumbnail John Cleese on creativity">
+                </div>
+                <div class="video-card-body">
+                    <p class="video-card-maker">John Cleese</p>
+                    <h3 class="video-card-title">On creativity</h3>
+                    <p class="video-card-desc">The Monty Python actor on how creativity works, what blocks it, and how you can consciously cultivate it.</p>
+                </div>
+            </a>
         </li>
         <li>
-            <a href="https://www.youtube.com/watch?v=arj7oStGLkU" target="_blank" rel="noopener"><strong>Procrastination - Tim Urban</strong></a><br>
-            TED talk about procrastination: how the "instant gratification monkey" takes over the brain, and why deadlines (and life itself) force us to start anyway.
+            <a class="video-card" href="https://www.youtube.com/watch?v=arj7oStGLkU" target="_blank" rel="noopener">
+                <div class="video-card-thumb">
+                    <img src="https://img.youtube.com/vi/arj7oStGLkU/hqdefault.jpg" alt="Thumbnail Tim Urban - Procrastination">
+                </div>
+                <div class="video-card-body">
+                    <p class="video-card-maker">TED · Tim Urban</p>
+                    <h3 class="video-card-title">Inside the mind of a master procrastinator</h3>
+                    <p class="video-card-desc">TED talk about procrastination: how the "instant gratification monkey" takes over the brain, and why deadlines (and life) force us to start anyway.</p>
+                </div>
+            </a>
+        </li>
+        <li>
+            <a class="video-card" href="https://youtu.be/We2xE40665o?si=qCybqMvwuf4lSaUf" target="_blank" rel="noopener">
+                <div class="video-card-thumb">
+                    <img src="https://img.youtube.com/vi/We2xE40665o/hqdefault.jpg" alt="Thumbnail Aftermovie Bring Your Own Beamer Ghent 22">
+                </div>
+                <div class="video-card-body">
+                    <p class="video-card-maker">Nerdlab Ghent · 2022</p>
+                    <h3 class="video-card-title">Aftermovie Bring Your Own Beamer</h3>
+                    <p class="video-card-desc">Creative coders fill a space with generative projections - every beamer a work of its own.</p>
+                </div>
+            </a>
         </li>
     </ul>
 </section>

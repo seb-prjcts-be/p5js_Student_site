@@ -42,6 +42,8 @@ const i18n = {
             2: 'Breid een voorbeeld uit met eigen aanpassingen.',
             3: 'Bouw iets nieuws met de concepten die je hebt geleerd.'
         },
+        prev: "Vorige",
+        next: "Volgende",
         categories: {
             "Introductie": "Introductie",
             "p5.js basis": "p5.js basis",
@@ -93,6 +95,8 @@ const i18n = {
             2: 'Extend an example with your own tweaks.',
             3: 'Build something new with the concepts you have learned.'
         },
+        prev: "Previous",
+        next: "Next",
         categories: {
             "Introductie": "Introduction",
             "p5.js basis": "p5.js basics",
@@ -314,6 +318,18 @@ const onderwerpen = [
         categorie: "p5.js basis"
     },
     {
+        id: "coordinaten",
+        titel: "Coördinaten",
+        samenvatting: "Het assenstelsel van p5.js: (0, 0) linksboven, X naar rechts, Y naar beneden.",
+        en: {
+            titel: "Coordinates",
+            samenvatting: "The p5.js coordinate system: (0, 0) at top-left, X to the right, Y going down."
+        },
+        tags: ["coördinaten", "assenstelsel", "x", "y", "canvas", "width", "height", "basis"],
+        contentFile: "content/coordinaten.html",
+        categorie: "p5.js basis"
+    },
+    {
         id: "vormen",
         titel: "Vormen tekenen",
         samenvatting: "Leer hoe je basisvormen tekent: cirkels, rechthoeken, lijnen en meer.",
@@ -321,7 +337,7 @@ const onderwerpen = [
             titel: "Drawing shapes",
             samenvatting: "Learn how to draw basic shapes: circles, rectangles, lines and more."
         },
-        tags: ["vormen", "ellipse", "rect", "line", "triangle", "arc", "quad", "beginShape", "vertex", "endShape", "splineVertex", "bezierVertex", "quadraticVertex", "basis"],
+        tags: ["vormen", "circle", "ellipse", "square", "rect", "rectMode", "line", "point", "triangle", "arc", "quad", "beginShape", "vertex", "endShape", "splineVertex", "bezierVertex", "quadraticVertex", "basis"],
         contentFile: "content/vormen.html",
         categorie: "p5.js basis"
     },
@@ -483,13 +499,13 @@ const onderwerpen = [
     },
     {
         id: "noise",
-        titel: "Noise & Perlin noise",
+        titel: "Noise",
         samenvatting: "Ontdek noise(): een functie voor vloeiende, organische willekeur. Maak bewegende landschappen, texturen en flow fields.",
         en: {
-            titel: "Noise & Perlin noise",
+            titel: "Noise",
             samenvatting: "Discover noise(): a function for smooth, organic randomness. Create moving landscapes, textures and flow fields."
         },
-        tags: ["noise", "Perlin noise", "willekeur", "organisch", "textuur", "flow field", "landschap"],
+        tags: ["noise", "willekeur", "organisch", "textuur", "flow field", "landschap", "Perlin"],
         contentFile: "content/noise.html",
         categorie: "p5.js +"
     },
@@ -530,6 +546,18 @@ const onderwerpen = [
         categorie: "p5.js +"
     },
     {
+        id: "externe-data",
+        titel: "Externe data",
+        samenvatting: "Laad CSV, JSON en live API-data in je sketch met await loadTable() en await loadJSON(). Van data naar beeld en geluid.",
+        en: {
+            titel: "External data",
+            samenvatting: "Load CSV, JSON and live API data into your sketch with await loadTable() and await loadJSON(). From data to image and sound."
+        },
+        tags: ["data", "externe data", "CSV", "JSON", "API", "loadTable", "loadJSON", "async", "await", "fetch", "Corpora", "NASA", "Stad Gent", "Alberto Garutti"],
+        contentFile: "content/externe-data.html",
+        categorie: "p5.js +"
+    },
+    {
         id: "strudel",
         titel: "Strudel: live coding muziek",
         samenvatting: "Leer live-coding muziek maken in je browser met Strudel: ritme, samples, noten en stack.",
@@ -563,6 +591,18 @@ const onderwerpen = [
         },
         tags: ["boids", "flocking", "zwerm", "vectoren", "emergentie", "agents", "code concepten"],
         contentFile: "content/boids.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "chaos-game",
+        titel: "Chaos game",
+        samenvatting: "Gooi een digitale dobbelsteen en spring telkens halverwege naar een hoekpunt. Uit zuiver toeval verschijnt de Sierpinski-driehoek.",
+        en: {
+            titel: "Chaos game",
+            samenvatting: "Roll a digital die and jump halfway to a corner each time. Out of pure randomness the Sierpinski triangle emerges."
+        },
+        tags: ["chaos game", "sierpinski", "fractal", "iterated function system", "random", "floor", "code concepten"],
+        contentFile: "content/chaos-game.html",
         categorie: "Code concepten"
     },
     {
@@ -671,6 +711,18 @@ const onderwerpen = [
         },
         tags: ["recursie", "fractal", "boom", "zelfde patroon", "functie", "stopvoorwaarde", "code concepten"],
         contentFile: "content/recursie.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "sonificatie",
+        titel: "Sonificatie",
+        samenvatting: "Data hoorbaar maken: map waarden uit een CSV, JSON of API op toonhoogte, ritme en volume met de p5.Sound-library.",
+        en: {
+            titel: "Sonification",
+            samenvatting: "Making data audible: map values from a CSV, JSON or API onto pitch, rhythm and volume using the p5.Sound library."
+        },
+        tags: ["sonificatie", "sonification", "geluid", "p5.Sound", "oscillator", "data", "mapping", "code concepten"],
+        contentFile: "content/sonificatie.html",
         categorie: "Code concepten"
     },
     {
@@ -1429,12 +1481,26 @@ async function renderOnderwerp(onderwerp) {
                 <div id="tag-context" class="tag-context" aria-live="polite"></div>
             </aside>` : '';
 
+        const idx = onderwerpen.indexOf(onderwerp);
+        const prev = idx > 0 ? onderwerpen[idx - 1] : null;
+        const next = idx >= 0 && idx < onderwerpen.length - 1 ? onderwerpen[idx + 1] : null;
+        const prevHtml = prev
+            ? `<a class="page-nav-link page-nav-prev" href="#${prev.id}" aria-label="${t('prev')}: ${escapeHtml(topicTitle(prev))}"><i class="bi bi-chevron-left"></i><span class="page-nav-label">${t('prev')}</span><span class="page-nav-title">${escapeHtml(topicTitle(prev))}</span></a>`
+            : '<span class="page-nav-spacer"></span>';
+        const nextHtml = next
+            ? `<a class="page-nav-link page-nav-next" href="#${next.id}" aria-label="${t('next')}: ${escapeHtml(topicTitle(next))}"><span class="page-nav-title">${escapeHtml(topicTitle(next))}</span><span class="page-nav-label">${t('next')}</span><i class="bi bi-chevron-right"></i></a>`
+            : '<span class="page-nav-spacer"></span>';
+
         content.innerHTML = `
             <div class="onderwerp-page">
                 <h1>${topicTitle(onderwerp)}</h1>
                 <div class="onderwerp-layout">
                     <div class="onderwerp-content">
                         ${htmlContent}
+                        <nav class="page-nav" aria-label="${t('prev')} / ${t('next')}">
+                            ${prevHtml}
+                            ${nextHtml}
+                        </nav>
                     </div>
                     ${tagsSidebarHtml}
                 </div>
@@ -2052,11 +2118,18 @@ document.addEventListener('DOMContentLoaded', () => {
 // Achtergrond ballen - vallen, stuiteren en wijken voor de muis
 function initBalls() {
     const kleuren = [
-        '#00ff00',
         '#ff0000',
-        '#0000ff',
-        '#ff00ff',
+        '#ff8000',
         '#ffff00',
+        '#80ff00',
+        '#00ff00',
+        '#00ff80',
+        '#00ffff',
+        '#0080ff',
+        '#0000ff',
+        '#8000ff',
+        '#ff00ff',
+        '#ff0080'
     ];
 
     new p5(function(p) {

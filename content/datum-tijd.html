@@ -2,6 +2,17 @@
     <p>p5.js heeft ingebouwde functies om de huidige datum en tijd op te vragen. Daarmee kun je klokken bouwen, countdowns maken of je sketch aan het moment van de dag koppelen.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Tijd opvragen met <code>year()</code>, <code>month()</code>, <code>day()</code>, <code>hour()</code>, <code>minute()</code>, <code>second()</code></li>
+        <li>Voorloopnullen toevoegen met <code>nf(waarde, 2)</code></li>
+        <li>Tijd vertalen naar hoeken via <code>map()</code> voor analoge klokken</li>
+        <li>Vloeiende wijzers via <code>millis()</code> in plaats van <code>second()</code></li>
+        <li>John Maeda's <em>12 o'clocks</em> als inspiratie om een klok zelf te herdenken</li>
+    </ul>
+</div>
+
 <section>
     <h2>Datum en tijd opvragen</h2>
     <p>Zes functies geven je de huidige systeemtijd - ze worden elke keer opnieuw uitgevoerd als je ze aanroept:</p>
@@ -30,7 +41,10 @@
   text(u + ":" + m + ":" + s, width / 2, height / 2);
 }</code></pre>
 
-    <p><code>nf(waarde, 2)</code> zorgt voor een vaste breedte van 2 cijfers - zodat <code>9</code> wordt weergegeven als <code>09</code>.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p><code>nf(waarde, 2)</code> zorgt voor een vaste breedte van 2 cijfers - zodat <code>9</code> wordt weergegeven als <code>09</code>.</p>
+    </aside>
 </section>
 
 <section>
@@ -79,10 +93,10 @@ let sHoek = map(secVloeiend, 0, 60, 0, 360) - 90;</code></pre>
 
 <section>
     <h2>John Maeda - 12 o'clocks (1996)</h2>
-    <p>In 1996 maakte de Amerikaanse ontwerper en programmeur <strong>John Maeda</strong> een reeks van twaalf kleine programma's - elk een andere manier om de tijd te tonen. Hij noemde ze <em>12 o'clocks</em>.</p>
-    <p>Geen van de twaalf lijkt op een gewone klok. Eén toont alleen stippen die verschuiven. Een andere laat concentrische cirkels pulseren op het ritme van de seconden. Weer een andere tekent lijnen die samen het uur uitdrukken als abstract patroon.</p>
-    <p>Maeda's stelling: <em>een klok is een interface voor tijd</em> - en een interface kan eindeloos opnieuw worden uitgevonden. De enige beperking is dat het systeem de huidige tijd correct moet weergeven. Hoe je dat doet, is volledig vrij.</p>
-    <p>12 o'clocks was een van de vroegste voorbeelden van code als ontwerpmedium. Maeda werkte destijds in Java; vandaag doe jij hetzelfde in p5.js.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>In 1996 maakte de Amerikaanse ontwerper en programmeur <strong>John Maeda</strong> een reeks van twaalf kleine programma's - elk een andere manier om de tijd te tonen. Hij noemde ze <em>12 o'clocks</em>. Geen van de twaalf lijkt op een gewone klok: stippen verschuiven, cirkels pulseren, lijnen vormen patronen. Maeda's stelling: <em>een klok is een interface voor tijd</em> en een interface kan eindeloos opnieuw worden uitgevonden. 12 o'clocks was een van de vroegste voorbeelden van code als ontwerpmedium - Maeda werkte in Java, jij doet het in p5.js.</p>
+    </aside>
 </section>
 
 <section>

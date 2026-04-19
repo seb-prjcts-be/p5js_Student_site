@@ -2,6 +2,17 @@
     <p>Loops repeat code. They're perfect for drawing multiple elements or iterating through data.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>The three parts of a <code>for</code> loop: start, condition, and step</li>
+        <li>Using the loop variable <code>i</code> to compute positions, colors, or sizes</li>
+        <li>Nested loops for 2D grids and patterns</li>
+        <li>Working with a <code>cellSize</code> variable instead of fixed distances</li>
+        <li>When to prefer a <code>while</code> loop - and how to avoid infinite loops</li>
+    </ul>
+</div>
+
 <section>
     <h2>For Loop</h2>
     <p>The for loop is the most commonly used. It has three parts:</p>
@@ -63,7 +74,10 @@ while (x < width) {
   line(x, 0, x, height);
   x += 20;
 }</code></pre>
-    <p>Watch out: make sure the condition eventually becomes false, otherwise you'll get an infinite loop!</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p>Make sure the condition eventually becomes <code>false</code>, otherwise you'll get an infinite loop that freezes your browser.</p>
+    </aside>
 </section>
 
 <div class="p5-example">

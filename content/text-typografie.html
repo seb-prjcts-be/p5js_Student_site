@@ -2,6 +2,17 @@
     <p>Met p5.js kun je tekst tekenen op het canvas. Je bepaalt zelf de grootte, het lettertype, de uitlijning en de kleur. Tekst is een krachtig onderdeel van generatieve kunst, data visualisatie en interactieve sketches.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Tekst tekenen met <code>text()</code>, <code>textSize()</code> en <code>textStyle()</code></li>
+        <li>Uitlijnen met <code>textAlign(LEFT/CENTER/RIGHT, TOP/CENTER/BOTTOM)</code></li>
+        <li>Automatisch wrappen in een rechthoek en regelafstand via <code>textLeading()</code></li>
+        <li>Tekstbreedte meten met <code>textWidth()</code> voor precieze posities</li>
+        <li>Eigen lettertypes laden via <code>loadFont()</code> of Google Fonts in <code>index.html</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Basis: Tekst Tekenen</h2>
     <p>Gebruik <code>text()</code> om tekst te tekenen. Stel altijd een grootte in met <code>textSize()</code>.</p>
@@ -178,7 +189,10 @@ function draw() {
   text('Custom lettertype!', 50, 200);
 }</code></pre>
 
-    <p><strong>Tip:</strong> Download het font bestand en sla het op in je projectmap - dat is het meest betrouwbaar.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Download het font bestand en sla het op in je projectmap - dat is het meest betrouwbaar.</p>
+    </aside>
 </section>
 
 <section>
@@ -211,7 +225,10 @@ function draw() {
   text('Game Over', 160, 200);
 }</code></pre>
 
-    <p><strong>Let op:</strong> het font moet geladen zijn vóór je sketch het gebruikt. Als je het font in <code>index.html</code> importeert, is het bij normaal gebruik al beschikbaar wanneer p5.js opstart. Als je werkt met een lokale schets (los HTML-bestand), voeg je de <code>&lt;link&gt;</code>-tag toe aan dat bestand.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Het font moet geladen zijn vóór je sketch het gebruikt. Als je het font in <code>index.html</code> importeert, is het bij normaal gebruik al beschikbaar wanneer p5.js opstart. Werk je met een lokale sketch (los HTML-bestand), voeg dan de <code>&lt;link&gt;</code>-tag toe aan dat bestand.</p>
+    </aside>
 
     <h3>Welke fonts werken goed in p5.js?</h3>
     <ul>

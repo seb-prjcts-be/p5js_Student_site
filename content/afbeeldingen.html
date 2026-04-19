@@ -2,6 +2,17 @@
     <p>Met p5.js kun je afbeeldingen laden en op het canvas tekenen. Je kunt ze schalen, kleuren aanpassen, filters toepassen en zelfs losse pixels bewerken. Dit opent de deur naar creatieve beeldbewerking rechtstreeks in de browser.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Afbeeldingen laden via <code>async setup()</code> met <code>await loadImage()</code></li>
+        <li>Plaatsen, schalen en centreren met <code>image()</code> en <code>imageMode(CENTER)</code></li>
+        <li>Kleur en transparantie bijsturen met <code>tint()</code> en <code>noTint()</code></li>
+        <li>Ingebouwde filters: <code>GRAY</code>, <code>INVERT</code>, <code>BLUR</code>, <code>THRESHOLD</code>, <code>POSTERIZE</code></li>
+        <li>Pixelmanipulatie via <code>loadPixels()</code> / <code>updatePixels()</code> en opslaan met <code>saveCanvas()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Een Afbeelding Laden en Tekenen</h2>
     <p>Gebruik in moderne p5.js meestal <code>async function setup()</code> met <code>await loadImage()</code>. Zo weet je zeker dat de afbeelding geladen is vóór je ze tekent. In oudere sketches kom je <code>preload()</code> nog tegen.</p>
@@ -99,7 +110,10 @@ function draw() {
   filter(POSTERIZE, 4); // 2-255
 }</code></pre>
 
-    <p><strong>Let op:</strong> <code>filter()</code> past het filter toe op alles wat al op het canvas staat. Zet het dus altijd ná <code>image()</code>.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p><code>filter()</code> past het filter toe op alles wat al op het canvas staat. Zet het dus altijd ná <code>image()</code>.</p>
+    </aside>
 </section>
 
 <section>

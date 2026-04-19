@@ -2,6 +2,17 @@
     <p>Circle packing is an algorithm that tries to place as many non-overlapping circles as possible in a space. Each circle grows from a random point until it touches another circle or the edge. The result is a dense, organic pattern that is both mathematically precise and visually appealing.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>A simple growth algorithm that starts from random points</li>
+        <li>Detecting overlap with <code>dist()</code> and the sum of the radii</li>
+        <li>Storing each circle as an object with <code>x</code>, <code>y</code>, <code>r</code> and a <code>growing</code> flag</li>
+        <li>Combining edge and neighbor checks to stop growth at the right moment</li>
+        <li>Adjusting parameters like attempts per frame and maximum radius to get different patterns</li>
+    </ul>
+</div>
+
 <section>
     <h2>How does the algorithm work?</h2>
     <p>The principle is simple:</p>

@@ -1,0 +1,74 @@
+<div class="intro">
+    <p>Every shape you draw in p5.js needs coordinates. The canvas has its own coordinate system that by default is slightly different from the one you know from math class.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>The p5.js coordinate system: <code>(0, 0)</code> is at the top-left</li>
+        <li>X goes to the right, Y goes down - different from math</li>
+        <li>Canvas size defines the boundaries of your coordinates</li>
+        <li>Every point on the canvas has an <code>(x, y)</code> coordinate</li>
+        <li>Experimenting with coordinates in a live editor</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Coordinate system</h2>
+    <p>A canvas has a <strong>coordinate system</strong> that lets you point to any location on the canvas. The origin <code>(0, 0)</code> is at the <strong>top-left</strong>. X goes to the right, Y goes down.</p>
+
+    <figure>
+        <img src="assets/setup-draw/assenstelsel.png" alt="The p5.js coordinate system: (0,0) top-left, X to the right, Y downward">
+        <figcaption>In p5.js the coordinate system starts at the top-left. A point at (400, 400) is at the bottom-right on a 400x400 canvas.</figcaption>
+    </figure>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Did you know</span>
+        <p>This is different from math where Y goes upward! Many image-processing tools use the top-left origin because screen pixels are also addressed from top to bottom.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>From coordinate to shape</h2>
+    <p>Every point on the canvas has an x and y value. If you draw a circle at <code>(200, 200)</code>, the centre of that circle sits exactly where x=200 and y=200.</p>
+    <pre><code>// Point exactly in the centre of a 400x400 canvas:
+point(200, 200);
+
+// Circle top-left:
+circle(50, 50, 40);
+
+// Circle bottom-right:
+circle(350, 350, 40);</code></pre>
+
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  background(240);
+
+  // Try changing the coordinates
+  circle(50, 50, 40);      // Top-left
+  circle(350, 50, 40);     // Top-right
+  circle(200, 200, 40);    // Centre
+  circle(50, 350, 40);     // Bottom-left
+  circle(350, 350, 40);    // Bottom-right
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">Five circles at recognisable positions. Change the numbers to see where the circles appear.</p>
+</section>
+
+<section>
+    <h2>Canvas size and coordinates</h2>
+    <p>The canvas size determines which coordinates you can use. On a <code>400 x 300</code> canvas, x runs from <code>0</code> to <code>400</code> and y from <code>0</code> to <code>300</code>. A point at <code>(500, 100)</code> falls outside the canvas and won't be visible.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Use <code>width</code> and <code>height</code> instead of literal numbers. That way your code keeps working when you change the canvas size.</p>
+    </aside>
+    <pre><code>function setup() {
+  createCanvas(400, 300);
+
+  // Centre, regardless of canvas size:
+  circle(width / 2, height / 2, 60);
+}</code></pre>
+</section>

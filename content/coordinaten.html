@@ -1,0 +1,74 @@
+<div class="intro">
+    <p>Elke vorm die je in p5.js tekent heeft coördinaten nodig. Het canvas heeft een eigen assenstelsel dat standaard een beetje afwijkt van wat je uit de wiskundeles kent.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Het p5.js-assenstelsel: <code>(0, 0)</code> ligt linksboven</li>
+        <li>X loopt naar rechts, Y loopt naar beneden - anders dan in de wiskunde</li>
+        <li>De canvasgrootte bepaalt de grenzen van je coördinaten</li>
+        <li>Elk punt op het canvas heeft een <code>(x, y)</code>-coördinaat</li>
+        <li>Experimenteren met coördinaten via een live editor</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Assenstelsel</h2>
+    <p>Een canvas heeft een <strong>coördinatenstelsel</strong> waarmee je elk punt op het canvas kunt aanwijzen. De oorsprong <code>(0, 0)</code> ligt <strong>linksboven</strong>. X loopt naar rechts, Y loopt naar beneden.</p>
+
+    <figure>
+        <img src="assets/setup-draw/assenstelsel.png" alt="Het coördinatenstelsel van p5.js: (0,0) linksboven, X naar rechts, Y naar beneden">
+        <figcaption>In p5.js begint het assenstelsel linksboven. Een punt op (400, 400) zit rechtsonder op een canvas van 400×400.</figcaption>
+    </figure>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>Dit is anders dan wiskunde waar Y omhoog gaat! Veel beeldbewerking gebruikt de linksboven-oorsprong omdat ook de pixels van een scherm van boven naar beneden worden geadresseerd.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Van coördinaat naar vorm</h2>
+    <p>Elk punt op het canvas heeft een x- en y-waarde. Als je een cirkel op <code>(200, 200)</code> tekent, staat het middelpunt van die cirkel precies op de plek waar x=200 en y=200 is.</p>
+    <pre><code>// Punt precies in het midden van een 400×400 canvas:
+point(200, 200);
+
+// Cirkel linksboven:
+circle(50, 50, 40);
+
+// Cirkel rechtsonder:
+circle(350, 350, 40);</code></pre>
+
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(400, 400);
+  background(240);
+
+  // Probeer de coördinaten aan te passen
+  circle(50, 50, 40);      // Linksboven
+  circle(350, 50, 40);     // Rechtsboven
+  circle(200, 200, 40);    // Midden
+  circle(50, 350, 40);     // Linksonder
+  circle(350, 350, 40);    // Rechtsonder
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">Vijf cirkels op herkenbare plekken. Pas de getallen aan en zie waar de cirkels verschijnen.</p>
+</section>
+
+<section>
+    <h2>Canvasgrootte en coördinaten</h2>
+    <p>De canvasgrootte bepaalt welke coördinaten je kunt gebruiken. Op een canvas van <code>400 × 300</code> loopt x van <code>0</code> tot <code>400</code> en y van <code>0</code> tot <code>300</code>. Een punt op <code>(500, 100)</code> valt buiten het canvas en is dus niet zichtbaar.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Gebruik <code>width</code> en <code>height</code> in plaats van de getallen zelf. Zo blijft je code kloppen als je de canvasgrootte verandert.</p>
+    </aside>
+    <pre><code>function setup() {
+  createCanvas(400, 300);
+
+  // Middelpunt, ongeacht de canvasgrootte:
+  circle(width / 2, height / 2, 60);
+}</code></pre>
+</section>

@@ -2,6 +2,17 @@
     <p>Loops herhalen code. Ze zijn perfect voor het tekenen van meerdere elementen of het doorlopen van data.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>De drie onderdelen van een <code>for</code>-loop: start, voorwaarde en stap</li>
+        <li>De loop-variabele <code>i</code> gebruiken om posities, kleuren of maten te berekenen</li>
+        <li>Geneste loops voor 2D-rasters en patronen</li>
+        <li>Werken met een <code>celgrootte</code> in plaats van vaste afstanden</li>
+        <li>Wanneer je beter een <code>while</code>-loop kiest - en oneindige loops vermijden</li>
+    </ul>
+</div>
+
 <section>
     <h2>For-Loop</h2>
     <p>De for-loop is het meest gebruikt. Hij heeft drie delen:</p>
@@ -63,7 +74,10 @@ while (x < width) {
   line(x, 0, x, height);
   x += 20;
 }</code></pre>
-    <p>Let op: zorg dat de voorwaarde ooit false wordt, anders krijg je een oneindige loop!</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Zorg dat de voorwaarde ooit <code>false</code> wordt, anders krijg je een oneindige loop die je browser laat vastlopen.</p>
+    </aside>
 </section>
 
 <div class="p5-example">

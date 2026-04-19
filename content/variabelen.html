@@ -2,6 +2,17 @@
     <p>Variabelen slaan waarden op die je later kunt gebruiken. Ze zijn essentieel voor dynamische en interactieve sketches.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Variabelen declareren met <code>let</code> (veranderlijk) en <code>const</code> (vast)</li>
+        <li>De basistypes herkennen: integer, float, string, boolean</li>
+        <li>Het verschil tussen <strong>globale</strong> en <strong>lokale</strong> scope</li>
+        <li>Ingebouwde systeemvariabelen zoals <code>width</code>, <code>height</code>, <code>windowWidth</code>, <code>windowHeight</code></li>
+        <li>Waarden onthouden tussen frames door variabelen buiten <code>setup()</code> en <code>draw()</code> te zetten</li>
+    </ul>
+</div>
+
 <section>
     <h2>Variabelen Aanmaken</h2>
     <p>In JavaScript gebruik je <code>let</code> of <code>const</code> om variabelen aan te maken:</p>
@@ -42,7 +53,10 @@ let x = 100;
 let zin = naam + " heeft " + x + " appels.";
 console.log(zin);
 // → Els heeft 100 appels.</code></pre>
-    <p>Let op: het totale aantal aanhalingstekens moet altijd even zijn.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Het totale aantal aanhalingstekens moet altijd even zijn.</p>
+    </aside>
 
     <h3>Boolean (waar/onwaar)</h3>
     <p>Een boolean heeft maar twee mogelijke waarden: <code>true</code> of <code>false</code>. Met een uitroepteken <code>!</code> kun je de waarde omdraaien:</p>

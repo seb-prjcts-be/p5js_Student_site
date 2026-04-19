@@ -2,6 +2,17 @@
     <p>Color brings your sketches to life. p5.js offers several ways to use colors.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Setting color with <code>background()</code>, <code>fill()</code>, and <code>stroke()</code>, and thickness with <code>strokeWeight()</code></li>
+        <li>Writing colors as grayscale, RGB, RGBA, hexadecimal, and CSS color names</li>
+        <li>Using transparency for trail and ghost effects via <code>background(0, 15)</code></li>
+        <li>Switching between <code>RGB</code> and <code>HSB</code> with <code>colorMode()</code></li>
+        <li>Storing colors in variables with <code>color()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Color functions</h2>
     <p>You always set the color <em>before</em> you draw the shape. p5.js reads code from top to bottom:</p>
@@ -94,7 +105,10 @@ fill(random(255), random(255), random(255), 180);</code></pre>
     <p>The lower the number, the longer the trail lingers. Try values between 5 and 30.</p>
 
     <h3>Lines and points have no fill</h3>
-    <p>A common beginner mistake: calling <code>fill()</code> before a <code>line()</code> or <code>point()</code>. That has no effect - lines and points only respond to <code>stroke()</code> and <code>strokeWeight()</code>.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p>A common beginner mistake: calling <code>fill()</code> before a <code>line()</code> or <code>point()</code>. That has no effect - lines and points only respond to <code>stroke()</code> and <code>strokeWeight()</code>.</p>
+    </aside>
     <pre><code>stroke(255, 0, 0);
 strokeWeight(3);
 line(10, 10, 200, 200);  // Red line of 3 pixels

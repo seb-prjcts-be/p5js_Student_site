@@ -1,0 +1,158 @@
+<div class="intro">
+    <p>Sonification is the process of turning data into sound. Where we usually visualise data with charts and colour, sonification lets you <em>hear</em> it. That adds an extra dimension to your p5.js projects, especially when working with external data such as CSV files, JSON or APIs.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Mapping data from a file or API onto sound properties (pitch, duration, volume)</li>
+        <li>Working with the <strong>p5.Sound</strong> library for oscillators and samples</li>
+        <li>Listening to data as a second layer alongside visualisation</li>
+        <li>Example: hearing NASA meteorite data while also plotting it on a map</li>
+        <li>Critical reflection: when does sound add something and when does it get in the way?</li>
+    </ul>
+</div>
+
+<section>
+    <h2>What is sonification?</h2>
+    <p>Sonification takes numbers from your data and translates them into audible properties. A row of temperatures can become a melody line where warmer = higher, an earthquake dataset can pulse with intensity, and a long series of sales figures can form a chord that sounds soft or harsh.</p>
+    <p>The advantage? Our hearing picks up patterns we miss with the eye - rhythm, repetition, sudden spikes. Sound unfolds over time and pulls the listener through the data.</p>
+</section>
+
+<section>
+    <h2>The p5.Sound library</h2>
+    <p>To work with sound in p5.js you need the <strong>p5.Sound</strong> library. It provides classes for oscillators, samples, filters and analysis.</p>
+    <p>p5.Sound must be loaded separately alongside p5.js itself:</p>
+    <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/p5.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/p5@2.2.3/lib/addons/p5.sound.min.js"&gt;&lt;/script&gt;</code></pre>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Heads up</span>
+        <p>Browsers only allow sound to start after a user action (a click or key press). So preferably enable sound inside <code>mousePressed()</code> or with <code>userStartAudio()</code>.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Making a data value audible</h2>
+    <p>The smallest building block: an oscillator with a frequency taken from your data.</p>
+    <pre><code>let osc;
+
+function setup() {
+  createCanvas(400, 200);
+  osc = new p5.Oscillator('sine');
+  osc.amp(0);
+  osc.start();
+}
+
+function draw() {
+  background(245);
+
+  // Map mouseX (0..width) to 200 Hz..800 Hz
+  let freq = map(mouseX, 0, width, 200, 800);
+  osc.freq(freq);
+
+  text("Frequency: " + round(freq) + " Hz", 20, 30);
+}
+
+function mousePressed() {
+  osc.amp(0.3, 0.1);  // Fade in
+}
+
+function mouseReleased() {
+  osc.amp(0, 0.5);    // Fade out
+}</code></pre>
+    <p>The same logic works for any data stream: a value from a CSV column, a JSON field or an API response mapped onto frequency, volume or duration.</p>
+</section>
+
+<section>
+    <h2>Example: listening to meteorites</h2>
+    <p>Seb once made - a long time ago, when speech synthesis was still scratchy - a sonification of meteorite impacts from the <a href="https://data.nasa.gov/Earth-Science/Meteorite-Landings-API/c2vx-j9ed" target="_blank" rel="noopener">NASA Meteorite Landings API</a>. Every landing became a dot on a world map, the location name was spoken by a speech synthesiser, and the mass determined the pitch. Gradually the world map emerged from the data itself.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Did you know</span>
+        <p>Sonification is also used seriously: NASA runs space and telescope data through sonification software so that blind scientists can "hear" black holes. Try searching for <em>"NASA sonification black hole"</em>.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Mapping strategies</h2>
+    <p>The art of sonification lies in the <strong>mapping</strong>: which data property drives which sound property?</p>
+    <ul>
+        <li><strong>Value → pitch</strong> - intuitive: large = high, small = low</li>
+        <li><strong>Frequency → rhythm</strong> - many data points close together become fast pulses</li>
+        <li><strong>Category → timbre</strong> - different data types each get their own instrument</li>
+        <li><strong>Position → stereo panning</strong> - the x-axis determines left/right in the sound image</li>
+        <li><strong>Time in data → time in sound</strong> - a year = a second, or even a millisecond</li>
+    </ul>
+    <p>Avoid mapping that adds nothing. If your data is already calm, the sound does not need to beep constantly. Sometimes silence is the best sonification of "nothing happened".</p>
+</section>
+
+<section>
+    <h2>Exercise</h2>
+    <p>Pick a small dataset (e.g. hourly temperatures, a row of scores, a week of exchange rates). Choose one number per data point and map it onto the frequency of an oscillator. Play the sequence over five seconds. Describe what you hear that you would not immediately see on a chart.</p>
+</section>
+
+<section>
+    <h2>Conclusion</h2>
+    <p>Sonification is a unique way to explore and understand data. It adds an extra layer of interactivity and experience to your p5.js projects. By combining sound with visual data you build rich, immersive, live experiences. In short: teach your ears to see.</p>
+</section>
+
+<section>
+    <h2>Try it yourself</h2>
+    <p>This sketch sonifies a self-generated dataset. Each value draws a bar <em>and</em> plays a short tone. Move the mouse to control tempo, click to generate a new dataset.</p>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let data = [];
+let index = 0;
+let osc;
+let env;
+let lastTime = 0;
+
+function setup() {
+  createCanvas(600, 400);
+  generateData();
+
+  osc = new p5.Oscillator('triangle');
+  osc.amp(0);
+  osc.start();
+
+  env = new p5.Envelope();
+  env.setADSR(0.01, 0.1, 0.1, 0.2);
+  env.setRange(0.3, 0);
+}
+
+function generateData() {
+  data = [];
+  for (let i = 0; i < 30; i++) {
+    data.push(random(20, 80));
+  }
+  index = 0;
+}
+
+function draw() {
+  background(245);
+
+  let stepX = width / data.length;
+  for (let i = 0; i < data.length; i++) {
+    fill(i === index ? color(255, 0, 125) : color(200));
+    noStroke();
+    rect(i * stepX + 4, height - data[i] * 4, stepX - 8, data[i] * 4);
+  }
+
+  let interval = map(mouseX, 0, width, 400, 80);
+
+  if (millis() - lastTime > interval) {
+    let value = data[index];
+    let freq = map(value, 20, 80, 200, 900);
+    osc.freq(freq);
+    env.play(osc);
+    index = (index + 1) % data.length;
+    lastTime = millis();
+  }
+}
+
+function mousePressed() {
+  userStartAudio();
+  generateData();
+}
+        </script>
+    </div>
+</section>

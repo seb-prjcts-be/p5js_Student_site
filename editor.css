@@ -1,8 +1,5 @@
 /* p5.js Live Editor Styling - Lab44 Minimalistische Stijl */
-
-:root {
-    --p5-pink: rgb(255, 0, 125);
-}
+/* --p5-pink is gedefinieerd in style.css :root */
 
 .p5-editor {
     margin: 2rem 0;

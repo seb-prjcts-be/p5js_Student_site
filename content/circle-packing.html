@@ -2,6 +2,17 @@
     <p>Circle packing is een algoritme dat probeert zo veel mogelijk niet-overlappende cirkels in een ruimte te plaatsen. Elke cirkel groeit vanuit een willekeurig punt totdat hij een andere cirkel of de rand raakt. Het resultaat is een dicht, organisch patroon dat tegelijk wiskundig precies en visueel aantrekkelijk is.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Een eenvoudig groei-algoritme dat vanuit willekeurige punten start</li>
+        <li>Overlap detecteren met <code>dist()</code> en de som van de stralen</li>
+        <li>Elke cirkel opslaan als object met <code>x</code>, <code>y</code>, <code>r</code> en een <code>groeit</code>-vlag</li>
+        <li>Rand- en buurcontroles combineren om groei op het juiste moment te stoppen</li>
+        <li>Parameters zoals pogingen per frame en maximale straal aanpassen voor andere patronen</li>
+    </ul>
+</div>
+
 <section>
     <h2>Hoe werkt het algoritme?</h2>
     <p>Het principe is eenvoudig:</p>

@@ -43,7 +43,6 @@ p5_cursus_site/
 │   ├── 3d-basis.html
 │   └── p5js-2.0.html
 ├── examples/           # p5.js voorbeelden per onderwerp
-│   ├── example-generative.js
 │   ├── example-over-p5js.js
 │   ├── example-basis.js
 │   ├── example-interactie.js

@@ -2,6 +2,17 @@
     <p>Muis interactie maakt je sketches responsief. p5.js heeft ingebouwde variabelen en functies voor muis input.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Ingebouwde muis-variabelen: <code>mouseX</code>, <code>mouseY</code>, <code>pmouseX</code>, <code>pmouseY</code></li>
+        <li>Muis-events: <code>mousePressed()</code>, <code>mouseDragged()</code>, <code>mouseReleased()</code></li>
+        <li>Pointer events (<code>pointerX</code>, <code>pointerPressed()</code>, ...) werken op muis én touchscreen</li>
+        <li>Trails tekenen door <code>pmouseX/Y</code> te verbinden met de huidige positie</li>
+        <li>De keuze tussen muis-events en pointer-events voor nieuwe sketches</li>
+    </ul>
+</div>
+
 <section>
     <h2>Muis Positie</h2>
     <p>p5.js heeft ingebouwde variabelen voor muispositie:</p>
@@ -74,7 +85,10 @@ function pointerMoved() {
   strokeWeight(3);
   line(ppointerX, ppointerY, pointerX, pointerY);
 }</code></pre>
-    <p>Je zult <code>mousePressed()</code> en <code>touchStarted()</code> nog veel tegenkomen in bestaand lesmateriaal. Voor nieuwe sketches die op meerdere toestellen moeten werken, zijn pointer events de eerste keuze.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Je zult <code>mousePressed()</code> en <code>touchStarted()</code> nog veel tegenkomen in bestaand lesmateriaal. Voor nieuwe sketches die op meerdere toestellen moeten werken, zijn pointer events de eerste keuze.</p>
+    </aside>
 </section>
 
 <section>

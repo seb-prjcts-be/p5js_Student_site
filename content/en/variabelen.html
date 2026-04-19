@@ -2,6 +2,17 @@
     <p>Variables store values that you can use later. They are essential for dynamic and interactive sketches.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Declaring variables with <code>let</code> (mutable) and <code>const</code> (fixed)</li>
+        <li>Recognising the basic types: integer, float, string, boolean</li>
+        <li>The difference between <strong>global</strong> and <strong>local</strong> scope</li>
+        <li>Built-in system variables like <code>width</code>, <code>height</code>, <code>windowWidth</code>, <code>windowHeight</code></li>
+        <li>Persisting values between frames by declaring variables outside <code>setup()</code> and <code>draw()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>Creating Variables</h2>
     <p>In JavaScript you use <code>let</code> or <code>const</code> to create variables:</p>
@@ -42,7 +53,10 @@ let x = 100;
 let sentence = name + " has " + x + " apples.";
 console.log(sentence);
 // → Els has 100 apples.</code></pre>
-    <p>Note: the total number of quotation marks must always be even.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p>The total number of quotation marks must always be even.</p>
+    </aside>
 
     <h3>Boolean (true/false)</h3>
     <p>A boolean has only two possible values: <code>true</code> or <code>false</code>. With an exclamation mark <code>!</code> you can flip the value:</p>

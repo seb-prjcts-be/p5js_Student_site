@@ -1,0 +1,151 @@
+<div class="intro">
+    <p>Het chaos-spel is een van de meest verbluffende demonstraties van generatieve kunst: je volgt een paar heel simpele regels, gooit een dobbelsteen, en er ontstaat vanzelf een perfect fractaal patroon - de <strong>Sierpinski-driehoek</strong>. Orde uit toeval, in enkele regels code.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Een eenvoudig regelsysteem kan onverwachte, complexe patronen voortbrengen</li>
+        <li>Toeval via <code>floor(random(3))</code> als digitale dobbelsteen met drie waarden</li>
+        <li>De helft van de afstand berekenen tussen twee punten: <code>(x1 + x2) / 2</code></li>
+        <li>De Sierpinski-driehoek als spontaan zichtbaar fractaal</li>
+        <li>Varieer het aantal hoekpunten of de sprongverhouding voor andere fractals</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Het recept</h2>
+    <p>De regels van het chaos-spel zijn bijna belachelijk eenvoudig:</p>
+    <ol class="stappen">
+        <li><div>Kies drie punten op je canvas die samen een driehoek vormen.</div></li>
+        <li><div>Nummer de hoekpunten van 0 tot 2.</div></li>
+        <li><div>Kies een vierde punt <code>P</code> ergens binnen de driehoek.</div></li>
+        <li><div>Maak een digitale dobbelsteen met drie waarden: <code>floor(random(3))</code>.</div></li>
+        <li><div>Gooi de dobbelsteen.</div></li>
+        <li><div>Teken een nieuw punt halverwege <code>P</code> en het geworpen hoekpunt.</div></li>
+        <li><div>Dat nieuwe punt wordt het volgende <code>P</code>. Herhaal duizenden keren.</div></li>
+    </ol>
+    <p>Wat ontstaat? Geen willekeurige wolk, maar een scherpe, zelfgelijkende fractaal: de Sierpinski-driehoek.</p>
+</section>
+
+<section>
+    <h2>Waarom werkt dit?</h2>
+    <p>Bij elke stap schuif je het punt <strong>halverwege</strong> naar een hoekpunt op. Dat betekent dat je het punt nooit buiten de driehoek kunt krijgen - de driehoek is een "aantrekker". Binnen die driehoek zijn er regio's die je nooit kunt bereiken door altijd halverwege te springen. Die onbereikbare zones vormen de witte driehoeken van het fractaal.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>Dit soort systemen - eenvoudige regels die rijke patronen opleveren - heet een <strong>Iterated Function System (IFS)</strong>. Michael Barnsley beschreef ze in 1988 en gebruikte ze om bijvoorbeeld een hyperrealistische varen te genereren met slechts vier transformaties.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>In p5.js</h2>
+    <pre><code>let hoeken = [];
+let p;
+
+function setup() {
+  createCanvas(600, 500);
+  background(245);
+
+  // 3 hoekpunten: een driehoek
+  hoeken = [
+    { x: width / 2, y: 40 },
+    { x: 40, y: height - 40 },
+    { x: width - 40, y: height - 40 }
+  ];
+
+  // Startpunt ergens binnen
+  p = { x: width / 2, y: height / 2 };
+
+  stroke(0);
+  strokeWeight(1);
+}
+
+function draw() {
+  // Honderden sprongen per frame
+  for (let i = 0; i &lt; 500; i++) {
+    let keuze = floor(random(3));       // Dobbelsteen met 3 waarden
+    let doel = hoeken[keuze];
+
+    p.x = (p.x + doel.x) / 2;           // Halverwege naar het geworpen hoekpunt
+    p.y = (p.y + doel.y) / 2;
+
+    point(p.x, p.y);
+  }
+}</code></pre>
+    <p>Merk op dat er <em>niets</em> over fractals in deze code staat. Toch verschijnt de Sierpinski-driehoek vanzelf zodra er genoeg punten zijn getekend.</p>
+</section>
+
+<section>
+    <h2>Variaties</h2>
+    <ul>
+        <li><strong>Vier hoekpunten (vierkant)</strong> met halve-afstandregel: geeft... een vierkant dat bijna vol wordt. Geen fractaal.</li>
+        <li><strong>Vier hoekpunten</strong> met de regel "niet twee keer hetzelfde hoekpunt kiezen": nu verschijnt er wel structuur.</li>
+        <li><strong>Vijf hoekpunten</strong> met sprongverhouding 0,5: zachte zelfgelijkende vorm.</li>
+        <li><strong>Kleur per hoekpunt</strong>: kleur het nieuwe punt volgens de gegooide richting - elk fractaal krijgt zo drie kleurzones.</li>
+    </ul>
+    <p>Probeer variaties. Het maakt pijnlijk duidelijk dat niet elk regelsysteem automatisch een fractaal oplevert - er zit een subtiele balans in.</p>
+</section>
+
+<section>
+    <h2>Oefening</h2>
+    <p>Begin met de basisversie en laat ze minutenlang lopen. Verander daarna één ding tegelijk: de sprongverhouding (probeer 0.4 of 0.618), het aantal hoekpunten, of een kleurcode per dobbelsteenworp. Beschrijf per variant of het beeld meer chaos of meer structuur krijgt.</p>
+</section>
+
+<section>
+    <h2>Experimenteer zelf</h2>
+    <p>Deze versie tekent 500 punten per frame. Wacht een paar seconden en zie de Sierpinski-driehoek verschijnen. Verander de sprongverhouding of voeg een vierde hoekpunt toe.</p>
+    <div class="p5-editor" data-width="600" data-height="500" data-autorun="true">
+        <script type="text/p5">
+let hoeken = [];
+let p;
+let sprong = 0.5;  // Probeer 0.4 of 0.618
+
+function setup() {
+  createCanvas(600, 500);
+  background(245);
+
+  hoeken = [
+    { x: width / 2, y: 40 },
+    { x: 40, y: height - 40 },
+    { x: width - 40, y: height - 40 }
+  ];
+
+  p = { x: width / 2, y: height / 2 };
+
+  stroke(255, 0, 125);
+  strokeWeight(1);
+}
+
+function draw() {
+  for (let i = 0; i < 500; i++) {
+    let keuze = floor(random(hoeken.length));
+    let doel = hoeken[keuze];
+
+    p.x = p.x + (doel.x - p.x) * sprong;
+    p.y = p.y + (doel.y - p.y) * sprong;
+
+    point(p.x, p.y);
+  }
+}
+
+function mousePressed() {
+  background(245);
+}
+        </script>
+    </div>
+</section>
+
+<ul class="video-cards">
+    <li>
+        <a class="video-card" href="https://www.youtube.com/watch?v=kbKtFN71Lfs" target="_blank" rel="noopener">
+            <div class="video-card-thumb">
+                <img src="https://img.youtube.com/vi/kbKtFN71Lfs/hqdefault.jpg" alt="Thumbnail van de Chaos Game video op YouTube">
+            </div>
+            <div class="video-card-body">
+                <p class="video-card-maker">Numberphile</p>
+                <h3 class="video-card-title">Chaos Game</h3>
+                <p class="video-card-desc">Rol een dobbelsteen, spring halverwege naar een hoekpunt en bekijk hoe vanzelf de Sierpinski-driehoek tevoorschijn komt.</p>
+            </div>
+        </a>
+    </li>
+</ul>

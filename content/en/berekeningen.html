@@ -2,6 +2,17 @@
     <p>p5.js is a calculator that draws. Almost everything you see - positions, sizes, colors, movement - is the result of calculations. How you write those calculations determines what appears on screen.</p>
 </div>
 
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>The four basic operators and precedence with parentheses</li>
+        <li>Compound operators (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>) and <code>x++</code> / <code>x--</code></li>
+        <li>The modulo operator <code>%</code> for wrapping, rhythm, and grids</li>
+        <li>Random values with <code>random()</code>, and integers via <code>floor(random())</code></li>
+        <li>Core functions: <code>constrain()</code>, <code>map()</code>, <code>dist()</code>, <code>min()</code>, <code>max()</code>, <code>floor()</code>, <code>round()</code></li>
+    </ul>
+</div>
+
 <section>
     <h2>The console as a calculator</h2>
     <p>Before you put calculations into your sketch, you can test them with <code>console.log()</code>. It's the quickest way to check whether an expression does what you expect:</p>
@@ -93,7 +104,10 @@ let n = floor(random(101));
 
 // Coin flip: 0 or 1
 let side = floor(random(2));  // 0 = heads, 1 = tails</code></pre>
-    <p>Note: <code>random(100)</code> can never return exactly 100, so write <code>floor(random(101))</code> if you also want to be able to get 100.</p>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p><code>random(100)</code> can never return exactly 100, so write <code>floor(random(101))</code> if you also want to be able to get 100.</p>
+    </aside>
 </section>
 
 <section>
@@ -128,7 +142,10 @@ let angle = map(frameCount % 120, 0, 120, 0, TWO_PI);
 
 // You can also reverse: big becomes small
 let size = map(mouseY, 0, height, 80, 10);  // Top is big, bottom is small</code></pre>
-    <p>Almost every interactive or generative effect starts with <code>map()</code>: mouse position to color, distance to size, time to rotation. If you learn one function well, make it this one.</p>
+    <aside class="callout callout--tip">
+        <span class="callout-label">Tip</span>
+        <p>Almost every interactive or generative effect starts with <code>map()</code>: mouse position to color, distance to size, time to rotation. If you learn one function well, make it this one.</p>
+    </aside>
 
     <h3>dist() - distance between two points</h3>
     <pre><code>// Distance from the mouse to the center
