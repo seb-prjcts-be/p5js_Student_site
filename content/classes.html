@@ -1,0 +1,263 @@
+<div class="intro">
+    <p>Een <strong>class</strong> is een blauwdruk voor objecten. Ze bundelt eigenschappen (data) en gedrag (methoden) in één geheel. Handig als je <em>veel</em> soortgelijke objecten wilt: ballen, deeltjes, vijanden in een spel - elk met hun eigen toestand.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Het verschil tussen een object literal en een <code>class</code></li>
+        <li>Een <code>constructor()</code> schrijven om beginwaarden per instantie vast te leggen</li>
+        <li>Nieuwe instanties aanmaken met <code>new</code> en ze in een array beheren</li>
+        <li>Methoden voor gedrag (<code>update()</code>, <code>teken()</code>) en methoden die waarden teruggeven</li>
+        <li>Gebruik van <code>this</code> om eigenschappen van het object te onderscheiden</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Van Object Literal naar Class</h2>
+    <p>In het vorige hoofdstuk maakte je een bal met een object literal:</p>
+    <pre><code>let bal = { x: 100, y: 200, vx: 2, vy: 0 };</code></pre>
+    <p>Maar wat als je tientallen ballen wilt, elk met eigen gedrag? Dan is een class handiger - je schrijft de blauwdruk één keer en maakt er daarna zoveel instanties van als je wilt:</p>
+    <pre><code>class Bal {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.vx = random(-2, 2);
+    this.vy = random(-3, -1);
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+    this.vy += 0.1;  // Zwaartekracht
+  }
+
+  teken() {
+    circle(this.x, this.y, 20);
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Objecten Aanmaken met new</h2>
+    <p>Je maakt een instantie van een class met <code>new</code>:</p>
+    <pre><code>let mijnBal = new Bal(200, 300);  // Roept de constructor aan
+
+mijnBal.update();  // Voer een methode uit
+mijnBal.teken();</code></pre>
+
+    <h3>Meerdere Objecten in een Array</h3>
+    <pre><code>let ballen = [];
+
+function setup() {
+  createCanvas(600, 400);
+
+  // Maak 10 ballen aan
+  for (let i = 0; i < 10; i++) {
+    ballen.push(new Bal(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(245);
+
+  for (let bal of ballen) {
+    bal.update();
+    bal.teken();
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Een Volledig Class Voorbeeld</h2>
+    <p>Een bal die stuitert tegen de randen van het canvas:</p>
+    <pre><code>class StuitendeBal {
+  constructor(x, y, diameter) {
+    this.x = x;
+    this.y = y;
+    this.d = diameter;
+    this.vx = random(-3, 3);
+    this.vy = random(-3, 3);
+    this.kleur = color(random(255), random(255), random(255));
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // Stuit tegen linker/rechter rand
+    if (this.x < this.d / 2 || this.x > width - this.d / 2) {
+      this.vx *= -1;
+    }
+    // Stuit tegen boven/onder rand
+    if (this.y < this.d / 2 || this.y > height - this.d / 2) {
+      this.vy *= -1;
+    }
+  }
+
+  teken() {
+    fill(this.kleur);
+    noStroke();
+    circle(this.x, this.y, this.d);
+  }
+}
+
+let ballen = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 15; i++) {
+    ballen.push(new StuitendeBal(
+      random(width), random(height), random(20, 60)
+    ));
+  }
+}
+
+function draw() {
+  background(30);
+  for (let bal of ballen) {
+    bal.update();
+    bal.teken();
+  }
+}</code></pre>
+</section>
+
+<section>
+    <h2>Methoden die Iets Teruggeven</h2>
+    <p>Methoden kunnen ook waarden berekenen en teruggeven:</p>
+    <pre><code>class Bal {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.d = 30;
+  }
+
+  // Geeft true als twee ballen elkaar overlappen
+  raakvlak(andereBal) {
+    let afstand = dist(this.x, this.y, andereBal.x, andereBal.y);
+    return afstand < (this.d + andereBal.d) / 2;
+  }
+
+  teken(geraakt) {
+    fill(geraakt ? 255 : 0, 0, 255);
+    circle(this.x, this.y, this.d);
+  }
+}
+
+let a, b;
+
+function setup() {
+  createCanvas(400, 300);
+  a = new Bal(100, 150);
+  b = new Bal(300, 150);
+}
+
+function draw() {
+  background(245);
+  b.x = mouseX;
+  b.y = mouseY;
+
+  let overlapt = a.raakvlak(b);
+  a.teken(overlapt);
+  b.teken(overlapt);
+}</code></pre>
+</section>
+
+<section>
+    <h2>this Sleutelwoord</h2>
+    <p><code>this</code> verwijst altijd naar het huidige object. Zo onderscheid je eigenschappen van het object van lokale variabelen:</p>
+    <pre><code>class Teller {
+  constructor(startWaarde) {
+    this.waarde = startWaarde;  // Eigenschap van het object
+  }
+
+  verhoog(stap) {
+    this.waarde += stap;     // Werkt op het object
+  }
+}</code></pre>
+</section>
+
+<div class="p5-example">
+    <h3>Voorbeeld: Stuitende Ballen</h3>
+    <p>Elke bal is een eigen instantie van een class die zijn positie en snelheid bijhoudt. Klik om een nieuwe bal toe te voegen:</p>
+    <div class="p5-example-container">
+        <div class="p5-canvas-wrapper" id="example-classes"></div>
+    </div>
+</div>
+
+<section>
+    <h2>Probeer ook in de editor</h2>
+    <p>Bekijk deze sketches uit de cursus:</p>
+    <ul>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/TyAr3UwLO" target="_blank" rel="noopener">LES_LAB_Intro_object_movement_x++</a> - een bewegend object als introductie tot OOP</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/rEONpF6LgB" target="_blank" rel="noopener">Les_objecten</a> - classes en objecten uitgelegd</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/EnWIBsQHe" target="_blank" rel="noopener">LES_Rondom_walker01</a> - random walker als losse functies</li>
+        <li><a href="https://editor.p5js.org/seb_prjcts.be/sketches/vN5P6jyl1" target="_blank" rel="noopener">LES_Rondom_walker_CLASS</a> - dezelfde random walker herschreven als class</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Experimenteer Zelf!</h2>
+    <p>Pas de class aan: voeg zwaartekracht toe, verander de grootte bij botsingen, of laat ballen van kleur wisselen!</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+class Bal {
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+    this.d = random(20, 50);
+    this.vx = random(-3, 3);
+    this.vy = random(-3, 3);
+    this.r = random(100, 255);
+    this.g = random(100, 255);
+    this.b = random(100, 255);
+  }
+
+  update() {
+    this.x += this.vx;
+    this.y += this.vy;
+
+    // Stuit tegen randen
+    if (this.x < this.d / 2 || this.x > width - this.d / 2) {
+      this.vx *= -1;
+    }
+    if (this.y < this.d / 2 || this.y > height - this.d / 2) {
+      this.vy *= -1;
+    }
+  }
+
+  teken() {
+    noStroke();
+    fill(this.r, this.g, this.b, 200);
+    circle(this.x, this.y, this.d);
+  }
+}
+
+let ballen = [];
+
+function setup() {
+  createCanvas(600, 400);
+  for (let i = 0; i < 8; i++) {
+    ballen.push(new Bal(random(width), random(height)));
+  }
+}
+
+function draw() {
+  background(20);
+
+  for (let bal of ballen) {
+    bal.update();
+    bal.teken();
+  }
+
+  fill(200);
+  text("Klik om een bal toe te voegen: " + ballen.length, 10, 20);
+}
+
+function mousePressed() {
+  ballen.push(new Bal(mouseX, mouseY)); // Probeer dit aan te passen!
+}
+        </script>
+    </div>
+</section>

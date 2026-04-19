@@ -5,9 +5,9 @@
 <div class="kernpunten">
     <span class="kernpunten-label">Kernpunten</span>
     <ul>
-        <li>De vier basisoperatoren en voorrang met haakjes</li>
-        <li>Samengestelde operatoren (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>) en <code>x++</code> / <code>x--</code></li>
-        <li>De modulo-operator <code>%</code> voor omslaan, ritme en raster</li>
+        <li>De vier basisbewerkingen en voorrang met haakjes</li>
+        <li>Samengestelde bewerkingen (<code>+=</code>, <code>-=</code>, <code>*=</code>, <code>/=</code>) en <code>x++</code> / <code>x--</code></li>
+        <li>De modulobewerking <code>%</code> voor omslaan, ritme en raster</li>
         <li>Willekeurige waarden met <code>random()</code>, inclusief integers via <code>floor(random())</code></li>
         <li>Kernfuncties: <code>constrain()</code>, <code>map()</code>, <code>dist()</code>, <code>min()</code>, <code>max()</code>, <code>floor()</code>, <code>round()</code></li>
     </ul>
@@ -23,7 +23,7 @@ console.log(width / 2);       // Helft van het canvas</code></pre>
 </section>
 
 <section>
-    <h2>De vier basisoperatoren</h2>
+    <h2>De vier basisbewerkingen</h2>
     <pre><code>let a = 10 + 3;   // 13  optellen
 let b = 10 - 3;   // 7   aftrekken
 let c = 10 * 3;   // 30  vermenigvuldigen
@@ -35,7 +35,7 @@ let y = (2 + 3) * 4;  // 20</code></pre>
 </section>
 
 <section>
-    <h2>Samengestelde operatoren</h2>
+    <h2>Samengestelde bewerkingen</h2>
     <p>Verkorte schrijfwijzen voor veelgebruikte bewerkingen:</p>
     <pre><code>let x = 10;
 
@@ -51,7 +51,7 @@ x--;      // x = x - 1  → 6  (één verlagen)</code></pre>
 </section>
 
 <section>
-    <h2>De modulo-operator: %</h2>
+    <h2>De modulobewerking: %</h2>
     <p><code>%</code> geeft de <strong>rest na deling</strong> terug. Denk aan klokrekenen: na 59 seconden kom je terug bij 0.</p>
     <pre><code>7 % 3   // → 1  (7 ÷ 3 = 2, rest 1)
 10 % 5  // → 0  (10 ÷ 5 = 2, rest 0)
@@ -65,6 +65,10 @@ function draw() {
   x += 3;
   circle(x % width, height / 2, 40);  // slaat vanzelf om aan de rand
 }</code></pre>
+
+    <aside class="callout callout--tip">
+        <p>De volgende voorbeelden gebruiken <code>if</code> en <code>for</code>-loops. Die komen in de volgende twee hoofdstukken uitgebreid aan bod - hier zie je alleen waarvoor <code>%</code> handig is. Geen paniek als de syntax nog wat onbekend aanvoelt.</p>
+    </aside>
 
     <p>Of om iets te doen op een vast ritme:</p>
     <pre><code>function draw() {

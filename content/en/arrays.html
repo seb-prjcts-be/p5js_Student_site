@@ -6,7 +6,7 @@
     <span class="kernpunten-label">What you will learn</span>
     <ul>
         <li>Creating arrays with <code>[]</code> and accessing them via index (starts at 0)</li>
-        <li>Adding and removing elements with <code>push()</code>, <code>pop()</code>, <code>splice()</code></li>
+        <li>Adding elements with <code>push()</code></li>
         <li>Looping through arrays with <code>for</code> and the modern <code>for...of</code></li>
         <li>Object arrays as the basis of a simple <em>particle system</em></li>
         <li>Working functionally with <code>filter()</code>, <code>map()</code> and <code>forEach()</code></li>
@@ -17,20 +17,29 @@
     <h2>Creating Arrays</h2>
     <p>You create an array like this:</p>
     <pre><code>let numbers = [10, 20, 30, 40];
-let names = ["red", "green", "blue"];
-let empty = [];  // Empty array
+let colors = ["red", "green", "blue"];
+let empty = [];  // Empty array</code></pre>
 
-// Access via index (starts at 0)
-console.log(numbers[0]);  // 10
-console.log(names[2]);    // "blue"</code></pre>
+    <h3>How does an index work?</h3>
+    <p>Every element has an <strong>index</strong>: its position number in the array. The first slot is <code>0</code>, not <code>1</code>.</p>
+    <pre><code>let colors = ["red", "green", "blue", "yellow"];
+//            ↑      ↑        ↑       ↑
+// index:     0      1        2       3
+
+console.log(colors[0]);  // "red"    (first)
+console.log(colors[2]);  // "blue"
+console.log(colors[3]);  // "yellow" (last)
+console.log(colors[4]);  // undefined — doesn't exist</code></pre>
 
     <h3>Array length</h3>
+    <p><code>.length</code> returns the number of elements. So the <em>last</em> element sits at index <code>length - 1</code>:</p>
     <pre><code>let numbers = [10, 20, 30, 40];
-console.log(numbers.length);  // 4</code></pre>
+console.log(numbers.length);                    // 4
+console.log(numbers[numbers.length - 1]);       // 40 — last element</code></pre>
 </section>
 
 <section>
-    <h2>Adding and Removing Elements</h2>
+    <h2>Adding Elements</h2>
     <p>Use <code>push()</code> to add elements to the end:</p>
     <pre><code>let balls = [];
 
@@ -39,19 +48,11 @@ function mousePressed() {
 }
 
 console.log(balls);  // [120, 340, 55, ...]</code></pre>
-
-    <p>Other useful methods:</p>
-    <ul>
-        <li><code>push(value)</code> - add to the end</li>
-        <li><code>pop()</code> - remove the last element (and return it)</li>
-        <li><code>splice(index, count)</code> - remove elements at a position</li>
-        <li><code>indexOf(value)</code> - find the index of a value</li>
-    </ul>
 </section>
 
 <section>
     <h2>Looping Through Arrays</h2>
-    <p>Use a <code>for</code> loop to process each element:</p>
+    <p>In a <code>for</code> loop <code>i</code> counts from 0 up to <code>positions.length - 1</code>. At each step <code>positions[i]</code> grabs the matching element:</p>
     <pre><code>let positions = [50, 150, 250, 350, 450];
 
 function draw() {
@@ -60,6 +61,13 @@ function draw() {
     circle(positions[i], height / 2, 40);
   }
 }</code></pre>
+
+    <p>What happens at each step?</p>
+    <pre><code>// i = 0 → positions[0] = 50   → circle(50,  height/2, 40)
+// i = 1 → positions[1] = 150  → circle(150, height/2, 40)
+// i = 2 → positions[2] = 250  → circle(250, height/2, 40)
+// i = 3 → positions[3] = 350  → circle(350, height/2, 40)
+// i = 4 → positions[4] = 450  → circle(450, height/2, 40)</code></pre>
 
     <p>Or the modern <code>for...of</code> loop - shorter and more readable:</p>
     <pre><code>for (let x of positions) {
@@ -86,55 +94,9 @@ function draw() {
     <p>This is the basis of a <strong>particle system</strong>: an array of objects that each track their own properties.</p>
 </section>
 
-<section>
-    <h2>Dynamic Object Arrays</h2>
-    <p>You can create and add objects while your sketch is running:</p>
-    <pre><code>let balls = [];
-
-function mousePressed() {
-  // Add a new object on click
-  balls.push({
-    x: mouseX,
-    y: mouseY,
-    vx: random(-2, 2),   // Horizontal speed
-    vy: random(-4, -1),  // Vertical speed (upward)
-    size: random(15, 40)
-  });
-}
-
-function draw() {
-  background(245);
-
-  for (let ball of balls) {
-    ball.x += ball.vx;
-    ball.y += ball.vy;
-    ball.vy += 0.15;  // Gravity
-
-    circle(ball.x, ball.y, ball.size);
-  }
-
-  // Remove balls that are off screen
-  balls = balls.filter(ball => ball.y < height + 50);
-}</code></pre>
-</section>
-
-<section>
-    <h2>Useful Array Methods</h2>
-    <h3>filter() - select elements</h3>
-    <pre><code>// Remove dead particles (life <= 0)
-particles = particles.filter(p => p.life > 0);</code></pre>
-
-    <h3>map() - transform each element</h3>
-    <pre><code>let numbers = [1, 2, 3, 4, 5];
-let doubled = numbers.map(n => n * 2);
-// doubled = [2, 4, 6, 8, 10]</code></pre>
-
-    <h3>forEach() - do something with each element</h3>
-    <pre><code>balls.forEach(ball => {
-  ball.x += ball.vx;
-  ball.y += ball.vy;
-});</code></pre>
-</section>
+<aside class="callout callout--tip">
+    <p>In the <strong>Objects & classes</strong> chapter you will see how to build an array of <em>class instances</em>. That is the next step: each item in the array then gets its own methods.</p>
+</aside>
 
 <div class="p5-example">
     <h3>Example: Particle System</h3>
@@ -161,7 +123,7 @@ let doubled = numbers.map(n => n * 2);
 
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
-let balls = [];
+let circles = [];
 
 function setup() {
   createCanvas(600, 400);
@@ -171,36 +133,27 @@ function setup() {
 function draw() {
   background(30);
 
-  for (let ball of balls) {
-    ball.x += ball.vx;
-    ball.y += ball.vy;
-    ball.vy += 0.15; // Gravity
-
-    fill(ball.r, ball.g, ball.b, 200);
-    circle(ball.x, ball.y, ball.size);
+  // Draw every circle in the array
+  for (let i = 0; i < circles.length; i++) {
+    let c = circles[i];
+    fill(c.r, c.g, c.b);
+    circle(c.x, c.y, c.size);
   }
 
-  // Remove balls off screen
-  balls = balls.filter(ball => ball.y < height + 50);
-
   fill(255);
-  text("Click to spawn balls: " + balls.length, 10, 20);
+  text("Number of circles: " + circles.length, 10, 20);
 }
 
 function mousePressed() {
-  // Add 5 new balls per click
-  for (let i = 0; i < 5; i++) {
-    balls.push({
-      x: mouseX,
-      y: mouseY,
-      vx: random(-3, 3),
-      vy: random(-5, -1),
-      size: random(15, 45),
-      r: random(100, 255),
-      g: random(50, 200),
-      b: random(100, 255)
-    });
-  }
+  // Add a new circle at the mouse position
+  circles.push({
+    x: mouseX,
+    y: mouseY,
+    size: random(20, 60),
+    r: random(100, 255),
+    g: random(50, 200),
+    b: random(100, 255)
+  });
 }
         </script>
     </div>

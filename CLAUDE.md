@@ -682,7 +682,8 @@ Input & tijd
 
 Structuren
   ├── Arrays                             (arrays)
-  └── Objecten & classes                 (objecten)
+  ├── Objecten                           (objecten)
+  └── Classes                            (classes)
 
 Media
   ├── Text & typografie                  (text-typografie)
@@ -715,6 +716,7 @@ Inspiratie
   ├── Vera Molnar - code zonder computer  (vera-molnar)
   ├── Manfred Mohr - de kubus als algoritme (manfred-mohr)
   ├── Sol LeWitt - instructies als kunst (sol-lewitt)
+  ├── Nam June Paik - scherm als materiaal (nam-june-paik)
   └── Links & bronnen                    (inspiratie-links)
 
 AI

@@ -6,7 +6,7 @@
     <span class="kernpunten-label">Kernpunten</span>
     <ul>
         <li>Arrays aanmaken met <code>[]</code> en benaderen via index (start op 0)</li>
-        <li>Elementen toevoegen en verwijderen met <code>push()</code>, <code>pop()</code>, <code>splice()</code></li>
+        <li>Elementen toevoegen met <code>push()</code></li>
         <li>Arrays doorlopen met <code>for</code> en het modernere <code>for...of</code></li>
         <li>Object-arrays als basis voor een eenvoudig <em>particle system</em></li>
         <li>Functioneel werken met <code>filter()</code>, <code>map()</code> en <code>forEach()</code></li>
@@ -17,20 +17,29 @@
     <h2>Arrays Aanmaken</h2>
     <p>Een array maak je zo aan:</p>
     <pre><code>let getallen = [10, 20, 30, 40];
-let namen = ["rood", "groen", "blauw"];
-let leeg = [];  // Lege array
+let kleuren = ["rood", "groen", "blauw"];
+let leeg = [];  // Lege array</code></pre>
 
-// Toegang via index (begint bij 0)
-console.log(getallen[0]);  // 10
-console.log(namen[2]);     // "blauw"</code></pre>
+    <h3>Hoe werkt een index?</h3>
+    <p>Elk element heeft een <strong>index</strong>: zijn plaatsnummer in de array. De eerste plek is <code>0</code>, niet <code>1</code>.</p>
+    <pre><code>let kleuren = ["rood", "groen", "blauw", "geel"];
+//            ↑       ↑        ↑        ↑
+// index:     0       1        2        3
+
+console.log(kleuren[0]);  // "rood"   (eerste)
+console.log(kleuren[2]);  // "blauw"
+console.log(kleuren[3]);  // "geel"   (laatste)
+console.log(kleuren[4]);  // undefined — bestaat niet</code></pre>
 
     <h3>Array lengte</h3>
+    <p><code>.length</code> geeft het aantal elementen terug. Het <em>laatste</em> element vind je dus op index <code>length - 1</code>:</p>
     <pre><code>let getallen = [10, 20, 30, 40];
-console.log(getallen.length);  // 4</code></pre>
+console.log(getallen.length);                   // 4
+console.log(getallen[getallen.length - 1]);     // 40 — laatste element</code></pre>
 </section>
 
 <section>
-    <h2>Elementen Toevoegen en Verwijderen</h2>
+    <h2>Elementen Toevoegen</h2>
     <p>Gebruik <code>push()</code> om elementen toe te voegen aan het einde:</p>
     <pre><code>let ballen = [];
 
@@ -39,19 +48,11 @@ function mousePressed() {
 }
 
 console.log(ballen);  // [120, 340, 55, ...]</code></pre>
-
-    <p>Andere handige methoden:</p>
-    <ul>
-        <li><code>push(waarde)</code> - voeg toe aan einde</li>
-        <li><code>pop()</code> - verwijder laatste element (en geef het terug)</li>
-        <li><code>splice(index, aantal)</code> - verwijder elementen op een positie</li>
-        <li><code>indexOf(waarde)</code> - zoek de index van een waarde</li>
-    </ul>
 </section>
 
 <section>
     <h2>Arrays Doorlopen met een Loop</h2>
-    <p>Gebruik een <code>for</code>-loop om elk element te verwerken:</p>
+    <p>Met een <code>for</code>-loop telt <code>i</code> van 0 tot <code>posities.length - 1</code>. Bij elke stap haalt <code>posities[i]</code> het bijhorende element op:</p>
     <pre><code>let posities = [50, 150, 250, 350, 450];
 
 function draw() {
@@ -60,6 +61,13 @@ function draw() {
     circle(posities[i], height / 2, 40);
   }
 }</code></pre>
+
+    <p>Wat gebeurt er bij elke stap?</p>
+    <pre><code>// i = 0 → posities[0] = 50   → circle(50,  height/2, 40)
+// i = 1 → posities[1] = 150  → circle(150, height/2, 40)
+// i = 2 → posities[2] = 250  → circle(250, height/2, 40)
+// i = 3 → posities[3] = 350  → circle(350, height/2, 40)
+// i = 4 → posities[4] = 450  → circle(450, height/2, 40)</code></pre>
 
     <p>Of de moderne <code>for...of</code> loop - korter en leesbaarder:</p>
     <pre><code>for (let x of posities) {
@@ -86,55 +94,9 @@ function draw() {
     <p>Dit is de basis van een <strong>particle system</strong>: een array van objecten die elk hun eigen eigenschappen bijhouden.</p>
 </section>
 
-<section>
-    <h2>Dynamische Object Arrays</h2>
-    <p>Je kunt objecten aanmaken en toevoegen terwijl je sketch draait:</p>
-    <pre><code>let ballen = [];
-
-function mousePressed() {
-  // Voeg een nieuw object toe bij klik
-  ballen.push({
-    x: mouseX,
-    y: mouseY,
-    vx: random(-2, 2),   // Horizontale snelheid
-    vy: random(-4, -1),  // Verticale snelheid (omhoog)
-    grootte: random(15, 40)
-  });
-}
-
-function draw() {
-  background(245);
-
-  for (let bal of ballen) {
-    bal.x += bal.vx;
-    bal.y += bal.vy;
-    bal.vy += 0.15;  // Zwaartekracht
-
-    circle(bal.x, bal.y, bal.grootte);
-  }
-
-  // Verwijder ballen die buiten het scherm zijn
-  ballen = ballen.filter(bal => bal.y < height + 50);
-}</code></pre>
-</section>
-
-<section>
-    <h2>Handige Array Methoden</h2>
-    <h3>filter() - elementen selecteren</h3>
-    <pre><code>// Verwijder dode particles (life <= 0)
-particles = particles.filter(p => p.life > 0);</code></pre>
-
-    <h3>map() - elk element omzetten</h3>
-    <pre><code>let getallen = [1, 2, 3, 4, 5];
-let verdubbeld = getallen.map(n => n * 2);
-// verdubbeld = [2, 4, 6, 8, 10]</code></pre>
-
-    <h3>forEach() - iets doen met elk element</h3>
-    <pre><code>ballen.forEach(bal => {
-  bal.x += bal.vx;
-  bal.y += bal.vy;
-});</code></pre>
-</section>
+<aside class="callout callout--tip">
+    <p>In het hoofdstuk <strong>Objecten & classes</strong> zie je hoe je een array van <em>class-instanties</em> bouwt. Dat is de volgende stap: elk item in de array krijgt dan eigen methoden.</p>
+</aside>
 
 <div class="p5-example">
     <h3>Voorbeeld: Particle System</h3>
@@ -161,7 +123,7 @@ let verdubbeld = getallen.map(n => n * 2);
 
     <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
         <script type="text/p5">
-let ballen = [];
+let cirkels = [];
 
 function setup() {
   createCanvas(600, 400);
@@ -171,36 +133,27 @@ function setup() {
 function draw() {
   background(30);
 
-  for (let bal of ballen) {
-    bal.x += bal.vx;
-    bal.y += bal.vy;
-    bal.vy += 0.15; // Zwaartekracht
-
-    fill(bal.r, bal.g, bal.b, 200);
-    circle(bal.x, bal.y, bal.grootte);
+  // Teken elke cirkel in de array
+  for (let i = 0; i < cirkels.length; i++) {
+    let c = cirkels[i];
+    fill(c.r, c.g, c.b);
+    circle(c.x, c.y, c.grootte);
   }
 
-  // Verwijder ballen buiten het scherm
-  ballen = ballen.filter(bal => bal.y < height + 50);
-
   fill(255);
-  text("Klik om ballen te spawnen: " + ballen.length, 10, 20);
+  text("Aantal cirkels: " + cirkels.length, 10, 20);
 }
 
 function mousePressed() {
-  // Voeg 5 nieuwe ballen toe per klik
-  for (let i = 0; i < 5; i++) {
-    ballen.push({
-      x: mouseX,
-      y: mouseY,
-      vx: random(-3, 3),
-      vy: random(-5, -1),
-      grootte: random(15, 45),
-      r: random(100, 255),
-      g: random(50, 200),
-      b: random(100, 255)
-    });
-  }
+  // Voeg een nieuwe cirkel toe op de muispositie
+  cirkels.push({
+    x: mouseX,
+    y: mouseY,
+    grootte: random(20, 60),
+    r: random(100, 255),
+    g: random(50, 200),
+    b: random(100, 255)
+  });
 }
         </script>
     </div>

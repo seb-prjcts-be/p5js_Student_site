@@ -1,0 +1,102 @@
+<div class="intro">
+    <p>Nam June Paik (1932-2006) was een Koreaans-Amerikaanse kunstenaar en de onbetwiste pionier van de video-kunst. Hij maakte van televisie geen venster, maar <strong>materiaal</strong>: iets om te stapelen, te vervormen, te mengen en te sculpteren. Scherm, storing, muziek, performance - alles was voor hem bruikbaar.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Het scherm is geen venster maar materiaal: je kunt erin ingrijpen</li>
+        <li>Storing, ruis en glitch zijn geen fouten maar esthetische bouwstenen</li>
+        <li>Herhaling en montage: meerdere schermen als één compositie</li>
+        <li>Van analoge magneten op een buistelevisie tot hedendaagse shaders en webcamfilters</li>
+        <li>Paiks denkwijze leeft door in elke p5.js-sketch die met beeld speelt</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Waarom kijken we naar Paik?</h2>
+    <p>In de jaren 60 was televisie een passief meubel: je keek naar wat de omroep besliste. Paik zag iets anders. Hij opende het toestel, legde er magneten op, filmde zijn eigen camera en stapelde schermen als bouwstenen. Wat wij vandaag vanzelfsprekend vinden - beeld manipuleren, remixen, storen - begon bij hem.</p>
+    <p>Voor creative coding is Paik belangrijk omdat hij één idee heel helder maakt: <strong>een pixel is boetseerklei</strong>. Elke shader, elke webcamsketch, elke glitch-effect is een vertakking van zijn vraag: "Wat als ik hier in het signaal ingrijp?"</p>
+</section>
+
+<section>
+    <h2>Drie sleutelwerken</h2>
+
+    <h3>TV Buddha (1974)</h3>
+    <p>Een boeddhabeeld zit tegenover een televisie die live zijn eigen beeld uitzendt via een camera. De boeddha kijkt naar zichzelf, eindeloos.</p>
+    <p><strong>Kernwoorden:</strong> meditatie, lus, zelfreflectie, oost en west.</p>
+    <aside class="callout callout--tip">
+        <p>Herken je dit? Het is een analoge versie van een <code>draw()</code>-loop: hetzelfde beeld opnieuw en opnieuw, met minieme variaties door ruis in het signaal.</p>
+    </aside>
+
+    <h3>Global Groove (1973)</h3>
+    <p>Een videocollage met dansers, muzikanten, reclame en politici, snel gemonteerd en overlapt. Vaak gezien als de geboorte van de muziekvideo.</p>
+    <p><strong>Kernwoorden:</strong> montage, ritme, kakofonie, wereldomspannende cultuur.</p>
+
+    <h3>Electronic Superhighway (1995)</h3>
+    <p>Een wandinstallatie van honderden tv's die samen een gekleurde kaart van de Verenigde Staten vormen, elk met eigen beelden per staat.</p>
+    <p><strong>Kernwoorden:</strong> netwerk, raster, identiteit, het internet avant la lettre.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>Paik gebruikte de term <em>"electronic superhighway"</em> al in 1974 - twintig jaar vóór het woord <em>internet</em> gangbaar werd.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Wat kunnen wij hiervan leren?</h2>
+    <p>Paik geeft ons vijf lessen die direct toepasbaar zijn in p5.js:</p>
+    <ol class="stappen">
+        <li><div><strong>Het scherm is een canvas.</strong> Niet alleen een display, maar een oppervlak om in te grijpen.</div></li>
+        <li><div><strong>Herhaling creëert betekenis.</strong> Dezelfde vorm op een raster wordt een compositie.</div></li>
+        <li><div><strong>Storing is een materiaal.</strong> Ruis, vertraging en kleurvervorming zijn geen bugs, maar expressie.</div></li>
+        <li><div><strong>Montage maakt verhaal.</strong> Twee beelden naast elkaar zetten verandert betekenis.</div></li>
+        <li><div><strong>Technologie mag speels zijn.</strong> Paik lachte met zijn machines en noemde zichzelf de grootste slechte pianist ter wereld.</div></li>
+    </ol>
+</section>
+
+<section>
+    <h2>Als Paik vandaag p5.js gebruikte...</h2>
+    <p>Paik werkte met magneten en buis-tv's. Wij werken met <code>createCanvas()</code> en <code>createCapture()</code>. Dit zijn ideeën om zijn denken naar code te vertalen:</p>
+    <ul>
+        <li><strong>Webcam-feedback</strong>: film je eigen scherm met de webcam - een digitale TV Buddha</li>
+        <li><strong>Kleurkanalen splitsen</strong>: trek het rode, groene en blauwe kanaal uit elkaar en verschuif ze</li>
+        <li><strong>Vertraagde videobuffer</strong>: bewaar de laatste 30 frames en teken ze getrapt over elkaar</li>
+        <li><strong>Rastercompositie</strong>: verdeel het canvas in 12 cellen en vul elk met een andere videofilter</li>
+        <li><strong>Glitches op geluid</strong>: laat de amplitude van een microfoon de pixels verstoren</li>
+    </ul>
+    <aside class="callout callout--tip">
+        <p>Voor de eerste drie heb je vooral het hoofdstuk <a href="#camera">Camera &amp; createCapture()</a> nodig. Voor kleurkanalen splitsen raad je ook <a href="#afbeeldingen">Afbeeldingen</a> aan voor pixelmanipulatie.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Vragen voor leerlingen</h2>
+    <ul>
+        <li>Welke hedendaagse kunstenaars, TikTokkers of muziekvideomakers werken volgens hetzelfde principe als Paik?</li>
+        <li>Wanneer is een glitch een fout en wanneer is het expressie?</li>
+        <li>Paik had in 1963 moeite om aan tv's te geraken. Wat is vandaag het equivalent: wat is moeilijk <em>niet</em> beschikbaar voor creative coders?</li>
+        <li>Als televisies materiaal zijn, wat is dan het materiaal van een webbrowser?</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Mini-opdracht: Maak een Paik-machine</h2>
+    <p>Bouw in p5.js een "Paik-machine": een klein videokunstwerk in de geest van Paik. Je hebt de volgende bouwstenen:</p>
+    <ol class="stappen">
+        <li><div>Open de webcam met <code>createCapture(VIDEO)</code>.</div></li>
+        <li><div>Kies minstens één ingreep: filter, kleurkanaal verschuiven, vertraging, raster of opgestapelde kopieën.</div></li>
+        <li><div>Voeg één element van interactie toe: muis, toetsenbord of microfoon.</div></li>
+        <li><div>Geef je werk een titel die iets zegt over wat de kijker ziet.</div></li>
+    </ol>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Je browser vraagt toestemming voor de camera. Getest werk je in je eigen browser; publiceren of streamen is niet nodig voor deze oefening. Respecteer privacy: film geen medeleerlingen zonder toestemming.</p>
+    </aside>
+</section>
+
+<hr class="section-break">
+
+<aside class="callout callout--weetje">
+    <span class="callout-label">Wist je dat</span>
+    <p>Als je een camera op het scherm richt waar die camera zelf op te zien is, krijg je <strong>video-feedback</strong>: een oneindig teruglopende tunnel van zichzelf. Het is de analoge broer van recursie in code. Paik wist dit. Jij weet dit nu ook.</p>
+</aside>

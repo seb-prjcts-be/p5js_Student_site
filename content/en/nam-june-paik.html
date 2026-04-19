@@ -1,0 +1,102 @@
+<div class="intro">
+    <p>Nam June Paik (1932-2006) was a Korean-American artist and the undisputed pioneer of video art. He turned television into something other than a window: for him it was <strong>material</strong> - something to stack, distort, mix and sculpt. Screen, interference, music, performance - it was all usable.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>The screen is not a window but material: you can intervene in it</li>
+        <li>Interference, noise and glitch are not errors but aesthetic building blocks</li>
+        <li>Repetition and montage: multiple screens as a single composition</li>
+        <li>From analog magnets on a CRT to today's shaders and webcam filters</li>
+        <li>Paik's way of thinking lives on in every p5.js sketch that plays with images</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Why are we looking at Paik?</h2>
+    <p>In the 1960s television was passive furniture: you watched whatever the broadcaster decided. Paik saw something else. He opened the set, placed magnets on top of it, filmed its own camera, and stacked screens like building blocks. What we now take for granted - manipulating images, remixing, distorting - started with him.</p>
+    <p>For creative coding, Paik matters because he makes one idea crystal clear: <strong>a pixel is modelling clay</strong>. Every shader, every webcam sketch, every glitch effect is a branch of his question: "What if I intervene in the signal here?"</p>
+</section>
+
+<section>
+    <h2>Three key works</h2>
+
+    <h3>TV Buddha (1974)</h3>
+    <p>A Buddha statue sits opposite a television that broadcasts its own live image via a camera. The Buddha watches itself, endlessly.</p>
+    <p><strong>Keywords:</strong> meditation, loop, self-reflection, east and west.</p>
+    <aside class="callout callout--tip">
+        <p>Recognise this? It's an analog version of a <code>draw()</code> loop: the same image again and again, with tiny variations from noise in the signal.</p>
+    </aside>
+
+    <h3>Global Groove (1973)</h3>
+    <p>A video collage of dancers, musicians, commercials and politicians, rapidly edited and overlapping. Often seen as the birth of the music video.</p>
+    <p><strong>Keywords:</strong> montage, rhythm, cacophony, global culture.</p>
+
+    <h3>Electronic Superhighway (1995)</h3>
+    <p>A wall installation of hundreds of TVs that together form a coloured map of the United States, each playing its own images per state.</p>
+    <p><strong>Keywords:</strong> network, grid, identity, the internet avant la lettre.</p>
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Did you know</span>
+        <p>Paik used the term <em>"electronic superhighway"</em> as early as 1974 - twenty years before the word <em>internet</em> became common.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>What can we learn from this?</h2>
+    <p>Paik gives us five lessons you can apply directly in p5.js:</p>
+    <ol class="stappen">
+        <li><div><strong>The screen is a canvas.</strong> Not just a display, but a surface to intervene in.</div></li>
+        <li><div><strong>Repetition creates meaning.</strong> The same shape on a grid becomes a composition.</div></li>
+        <li><div><strong>Interference is a material.</strong> Noise, delay and colour distortion are not bugs but expression.</div></li>
+        <li><div><strong>Montage makes narrative.</strong> Placing two images side by side changes meaning.</div></li>
+        <li><div><strong>Technology is allowed to be playful.</strong> Paik laughed with his machines and called himself the greatest bad pianist in the world.</div></li>
+    </ol>
+</section>
+
+<section>
+    <h2>If Paik used p5.js today...</h2>
+    <p>Paik worked with magnets and CRT TVs. We work with <code>createCanvas()</code> and <code>createCapture()</code>. Here are ideas to translate his thinking into code:</p>
+    <ul>
+        <li><strong>Webcam feedback</strong>: film your own screen with the webcam - a digital TV Buddha</li>
+        <li><strong>Splitting colour channels</strong>: pull the red, green and blue channels apart and shift them</li>
+        <li><strong>Delayed video buffer</strong>: keep the last 30 frames and draw them staggered over each other</li>
+        <li><strong>Grid composition</strong>: divide the canvas into 12 cells and fill each with a different video filter</li>
+        <li><strong>Sound-driven glitches</strong>: let microphone amplitude distort the pixels</li>
+    </ul>
+    <aside class="callout callout--tip">
+        <p>For the first three you mainly need the chapter <a href="#camera">Camera &amp; createCapture()</a>. For splitting colour channels, also read <a href="#afbeeldingen">Images</a> for pixel manipulation.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Questions for students</h2>
+    <ul>
+        <li>Which contemporary artists, TikTokkers or music video makers work on the same principle as Paik?</li>
+        <li>When is a glitch an error and when is it expression?</li>
+        <li>In 1963 Paik had trouble getting hold of TVs. What is today's equivalent: what is <em>not</em> easily available to creative coders?</li>
+        <li>If televisions are material, what is the material of a web browser?</li>
+    </ul>
+</section>
+
+<section>
+    <h2>Mini-assignment: Build a Paik machine</h2>
+    <p>Build a "Paik machine" in p5.js: a small video artwork in Paik's spirit. You have these building blocks:</p>
+    <ol class="stappen">
+        <li><div>Open the webcam with <code>createCapture(VIDEO)</code>.</div></li>
+        <li><div>Pick at least one intervention: filter, colour channel shift, delay, grid or stacked copies.</div></li>
+        <li><div>Add one interaction element: mouse, keyboard or microphone.</div></li>
+        <li><div>Give your work a title that says something about what the viewer sees.</div></li>
+    </ol>
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Watch out</span>
+        <p>Your browser asks permission for the camera. You can test the work in your own browser; publishing or streaming is not needed for this exercise. Respect privacy: don't film classmates without permission.</p>
+    </aside>
+</section>
+
+<hr class="section-break">
+
+<aside class="callout callout--weetje">
+    <span class="callout-label">Did you know</span>
+    <p>If you point a camera at the screen that's showing that same camera, you get <strong>video feedback</strong>: an infinite tunnel of itself. It's the analog sibling of recursion in code. Paik knew this. Now you do too.</p>
+</aside>

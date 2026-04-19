@@ -1,5 +1,5 @@
-// Objecten & Classes voorbeeld - stuitende ballen als class-instanties
-window.sketch_example_objecten = function (p) {
+// Classes voorbeeld - stuitende ballen als class-instanties
+window.sketch_example_classes = function (p) {
 
     class Bal {
         constructor(x, y, diameter) {

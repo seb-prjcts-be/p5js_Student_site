@@ -501,14 +501,26 @@ const onderwerpen = [
     },
     {
         id: "objecten",
-        titel: "Objecten & classes",
-        samenvatting: "Leer hoe je classes gebruikt om objecten te maken met eigen eigenschappen en gedrag. De basis van object-georiënteerd programmeren in p5.js.",
+        titel: "Objecten",
+        samenvatting: "Gebruik object literals om meerdere gegevens onder één naam te bundelen met sleutel/waarde-paren.",
         en: {
-            titel: "Objects & classes",
-            samenvatting: "Learn how to use classes to create objects with their own properties and behaviour. The basics of object-oriented programming in p5.js."
+            titel: "Objects",
+            samenvatting: "Use object literals to bundle multiple pieces of data under one name with key/value pairs."
         },
-        tags: ["class", "object", "constructor", "OOP", "this", "instantie", "methoden"],
+        tags: ["object", "object literal", "eigenschappen", "sleutel", "waarde", "puntnotatie", "data"],
         contentFile: "content/objecten.html",
+        categorie: "Structuren"
+    },
+    {
+        id: "classes",
+        titel: "Classes",
+        samenvatting: "Schrijf herbruikbare blauwdrukken voor objecten met eigen eigenschappen en methoden. De basis van object-georiënteerd programmeren.",
+        en: {
+            titel: "Classes",
+            samenvatting: "Write reusable blueprints for objects with their own properties and methods. The basics of object-oriented programming."
+        },
+        tags: ["class", "constructor", "OOP", "this", "instantie", "methoden", "new", "blauwdruk"],
+        contentFile: "content/classes.html",
         categorie: "Structuren"
     },
     {
@@ -821,6 +833,18 @@ const onderwerpen = [
         },
         tags: ["sol lewitt", "instructie", "conceptuele kunst", "wall drawing", "algoritme", "lijnen", "systeem"],
         contentFile: "content/sol-lewitt.html",
+        categorie: "Inspiratie"
+    },
+    {
+        id: "nam-june-paik",
+        titel: "Nam June Paik - scherm als materiaal",
+        samenvatting: "Pionier van de video-kunst. Paik behandelde het tv-scherm niet als venster maar als materiaal: stapelen, storen, mengen, sculpteren. Zijn werk is de voorloper van elke glitch, feedback-lus en webcam-sketch in p5.js.",
+        en: {
+            titel: "Nam June Paik - screen as material",
+            samenvatting: "Pioneer of video art. Paik treated the TV screen not as a window but as material: stacking, distorting, mixing, sculpting. His work is the ancestor of every glitch, feedback loop and webcam sketch in p5.js."
+        },
+        tags: ["nam june paik", "video-kunst", "glitch", "feedback", "scherm", "Fluxus", "Global Groove", "TV Buddha", "Electronic Superhighway", "kunstgeschiedenis"],
+        contentFile: "content/nam-june-paik.html",
         categorie: "Inspiratie"
     },
     {
