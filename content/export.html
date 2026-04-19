@@ -1,0 +1,352 @@
+<div class="intro">
+    <p>Je sketch leeft in de browser, maar vroeg of laat wil je iets delen: een poster, een GIF voor Instagram, een videoclip voor een project. Er zijn drie manieren om dat te doen, elk met een eigen gebruik.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Ingebouwd: <code>saveCanvas()</code> voor PNG/JPG en <code>saveGif()</code> voor korte GIF-animaties</li>
+        <li>Frame-per-frame opnemen met <code>frameCount</code> en <code>nf()</code> voor zero-padding</li>
+        <li><strong>p5.capture</strong>: eenvoudige UI-knopjes voor video- en GIF-opname tijdens je sketch</li>
+        <li><strong>p5.export</strong>: verliesvrije, frame-perfecte MP4-export - ook als je sketch traag is</li>
+        <li>Welk systeem past bij welk doel: stilstaand beeld, snelle loop, of publicatie-kwaliteit</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Welk systeem wanneer?</h2>
+    <ul>
+        <li><strong>Eén beeld of een paar frames?</strong> Gebruik de ingebouwde <code>saveCanvas()</code>.</li>
+        <li><strong>Snel een GIF of WebM delen?</strong> Gebruik <code>p5.capture</code> met de UI-knopjes.</li>
+        <li><strong>Lossless MP4 voor een publicatie, Instagram Reel of videoproject?</strong> Gebruik <code>p5.export</code>.</li>
+    </ul>
+</section>
+
+<hr class="section-break">
+
+<section>
+    <h2>1. Ingebouwd: saveCanvas, saveGif &amp; frames</h2>
+    <p>p5.js zelf heeft alles aan boord om een canvas op te slaan. Geen extra library nodig.</p>
+
+    <h3>Statische afbeelding met saveCanvas()</h3>
+    <p><code>saveCanvas()</code> downloadt het huidige canvas als PNG of JPG:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 600);
+  background(240);
+  // ... teken je beeld ...
+  saveCanvas('mijn-beeld', 'png');
+}</code></pre>
+    <p>Roep <code>saveCanvas()</code> <strong>onderaan in <code>setup()</code></strong> voor een statisch beeld, of in een event zoals <code>mousePressed()</code> om op commando op te slaan:</p>
+    <pre><code>function mousePressed() {
+  saveCanvas('snapshot-' + frameCount, 'png');
+}</code></pre>
+
+    <h3>Frame-per-frame opnemen</h3>
+    <p>Voor animatie kun je elke frame apart opslaan en later samenvoegen tot video met bijvoorbeeld ffmpeg of DaVinci Resolve.</p>
+
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>Zet <code>frameRate()</code> laag (bv. 2) voordat je elke frame opneemt. Anders schrijft je browser honderden bestanden per seconde en loopt alles vast.</p>
+    </aside>
+
+    <p>Met de functie <code>nf()</code> (number format) zet je <code>frameCount</code> om in <code>0001</code>, <code>0002</code>, ... zodat je bestanden in de juiste volgorde staan:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 400);
+  frameRate(2);          // traag, zodat opname kan bijhouden
+}
+
+function draw() {
+  background(240);
+  // ... je animatie ...
+
+  // 4 cijfers, geen cijfers na de komma: 0001, 0002, ...
+  saveCanvas('frame-' + nf(frameCount, 4, 0), 'png');
+
+  if (frameCount >= 120) noLoop();  // stop na 120 frames
+}</code></pre>
+    <p>Resultaat: <code>frame-0001.png</code>, <code>frame-0002.png</code>, ... Later samenvoegen met ffmpeg:</p>
+    <pre><code>ffmpeg -framerate 30 -i frame-%04d.png -c:v libx264 -pix_fmt yuv420p animatie.mp4</code></pre>
+
+    <h3>GIF opnemen met saveGif()</h3>
+    <p>Sinds p5.js 2.x is <code>saveGif()</code> ingebouwd. Je geeft een bestandsnaam en het aantal seconden op:</p>
+    <pre><code>function keyPressed() {
+  if (key === 'g') {
+    saveGif('mijn-loop', 3);  // 3 seconden opnemen
+  }
+}</code></pre>
+    <p>Extra opties zijn mogelijk via een options-object:</p>
+    <pre><code>saveGif('mijn-loop', 3, {
+  units: 'seconds',   // of 'frames'
+  delay: 0,           // start-vertraging in seconden
+  silent: false       // toon voortgangsbalk
+});</code></pre>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p><code>saveGif()</code> is bedoeld voor korte loops (enkele seconden). Voor langere of hoge-kwaliteit video's zijn <code>p5.capture</code> of <code>p5.export</code> beter.</p>
+    </aside>
+
+    <h3>Voordelen &amp; grenzen</h3>
+    <ul>
+        <li>Geen externe library nodig - werkt overal waar p5.js werkt.</li>
+        <li>Frame-sequentie geeft <em>maximale</em> kwaliteit (elk frame is een aparte PNG).</li>
+        <li>Maar: geen video-container, geen audio, en voor GIF beperkt tot korte clips.</li>
+    </ul>
+</section>
+
+<hr class="section-break">
+
+<section>
+    <h2>2. p5.capture: video-opname met UI-knoppen</h2>
+    <p><a href="https://github.com/tapioca24/p5.capture" target="_blank" rel="noopener">p5.capture</a> is een externe library van tapioca24 die een klein bedieningspaneeltje aan je sketch toevoegt: een rode opnameknop, een formaat-selector en een voortgangsindicator.</p>
+
+    <h3>Installatie</h3>
+    <p>Voeg de library toe in je <code>index.html</code>, na p5.js:</p>
+    <pre><code>&lt;script src="https://cdn.jsdelivr.net/npm/p5@2/lib/p5.min.js"&gt;&lt;/script&gt;
+&lt;script src="https://cdn.jsdelivr.net/npm/p5.capture@1.4.1/dist/p5.capture.min.js"&gt;&lt;/script&gt;</code></pre>
+    <p>Meer hoef je niet te doen: de knopjes verschijnen automatisch linksboven in je sketch.</p>
+
+    <h3>Ondersteunde formaten</h3>
+    <ul>
+        <li><strong>WebM</strong> - video voor het web (kleine bestanden, Chrome-vriendelijk)</li>
+        <li><strong>GIF</strong> - animatie, ideaal voor social media</li>
+        <li><strong>MP4</strong> - universele video (vereist extra encoder)</li>
+        <li><strong>PNG-sequentie</strong> - frames als ZIP-bestand</li>
+        <li><strong>JPG-sequentie</strong> - frames als ZIP-bestand</li>
+        <li><strong>WebP</strong> - efficiente animatie-container</li>
+    </ul>
+
+    <h3>Programmatisch opnemen</h3>
+    <p>Naast de knoppen kun je ook vanuit code starten en stoppen:</p>
+    <pre><code>function setup() {
+  createCanvas(600, 600);
+}
+
+function keyPressed() {
+  if (key === 'r') P5Capture.getInstance().start({
+    format: 'gif',
+    framerate: 30,
+    duration: 180,      // aantal frames
+    quality: 1.0
+  });
+  if (key === 's') P5Capture.getInstance().stop();
+}</code></pre>
+
+    <h3>Wanneer gebruiken?</h3>
+    <ul>
+        <li>Je wilt snel een GIF of WebM exporteren zonder installatie-gedoe.</li>
+        <li>Je hebt een real-time sketch die al op de gewenste framerate draait.</li>
+        <li>Voor een clip voor Instagram Stories, een Discord-kanaal of een snelle demo.</li>
+    </ul>
+
+    <aside class="callout callout--tip">
+        <p>Bij een zware sketch (veel deeltjes, WEBGL) zakt de effectieve framerate en loopt je opname <em>trager</em> dan je bedoelt. Voor publicatie-kwaliteit: gebruik <code>p5.export</code>.</p>
+    </aside>
+</section>
+
+<hr class="section-break">
+
+<section>
+    <h2>3. p5.export: verliesvrije, frame-perfecte MP4</h2>
+    <p><a href="https://prjcts.be/services/p5.export" target="_blank" rel="noopener">p5.export</a> is een tool van <a href="https://prjcts.be" target="_blank" rel="noopener">prjcts.be</a> die een fundamenteel ander probleem oplost dan <code>saveCanvas()</code> of <code>p5.capture</code>: <strong>offline encoding</strong>. Elk frame wordt eerst volledig gerenderd, dan pas geencodeerd. De wall-clock tijd van je browser is dus losgekoppeld van de playback-tijd van de video.</p>
+
+    <p>Concreet: zelfs als je sketch 5 fps haalt in de browser, krijg je een vloeiende 60 fps MP4-video. Er gaan geen frames verloren en er worden geen artefacten toegevoegd door real-time compressie.</p>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p>p5.export is geinspireerd op p5.capture (MIT, tapioca24), maar gebruikt <a href="https://github.com/Vanilagy/mediabunny" target="_blank" rel="noopener">Mediabunny</a> + de WebCodecs API voor H.264-encoding en de File System Access API om direct in je projectmap te schrijven. Bron: <a href="https://github.com/seb-prjcts-be/p5.export" target="_blank" rel="noopener">github.com/seb-prjcts-be/p5.export</a>.</p>
+    </aside>
+
+    <h3>Wat kan je ermee?</h3>
+    <ul>
+        <li><strong>Lossless MP4</strong> (H.264) met gegarandeerde framerate - geen dropped frames</li>
+        <li><strong>PNG-sequentie</strong> voor maximale kwaliteit (later samenvoegen met ffmpeg)</li>
+        <li><strong>Drie profielen</strong>: Social (Instagram), Edit master, Lossless</li>
+        <li><strong>Automatisch opslaan</strong> in <code>[projectmap]/export/YYYYMMDD_HHMMSS.mp4</code></li>
+        <li><strong>Editor-modus</strong>: voer een URL van editor.p5js.org in en exporteer zonder lokale installatie</li>
+    </ul>
+
+    <h3>Twee werkmodi</h3>
+    <ol class="stappen">
+        <li>
+            <div>
+                <h3>File System Access (aanbevolen)</h3>
+                <p>Je selecteert je projectmap in Chrome of Edge. p5.export krijgt lees/schrijfrechten en plaatst je exports direct in een <code>export/</code>-submap. Geen uploads, geen downloads - alles lokaal.</p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h3>Editor-modus</h3>
+                <p>Werk je online in <a href="https://editor.p5js.org" target="_blank" rel="noopener">editor.p5js.org</a>? Plak de publieke URL van je sketch of download de ZIP en sleep die in de drop-zone. p5.export laadt je project in een iframe, injecteert een path-map voor <code>loadImage</code> en <code>loadJSON</code>, en rendert.</p>
+            </div>
+        </li>
+    </ol>
+
+    <h3>Workflow</h3>
+    <ol class="stappen">
+        <li>
+            <div>
+                <h3>Open p5.export</h3>
+                <p>Ga naar <a href="https://prjcts.be/services/p5.export" target="_blank" rel="noopener">prjcts.be/services/p5.export</a> in Chrome of Edge (File System Access API is nodig).</p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h3>Kies je bron</h3>
+                <p>Klik op <em>Pick folder...</em> voor een lokale map, of plak een editor.p5js.org-URL.</p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h3>Stel je profiel in</h3>
+                <p>Kies <strong>Social</strong> (3.5 Mbps, Instagram-ready), <strong>Edit master</strong> (20 Mbps, post-production) of <strong>Lossless PNG</strong>. Stel FPS (24/30/60) en duur (seconden) in.</p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h3>Record</h3>
+                <p>Klik op <em>Record</em>. Elk frame wordt in je eigen tempo geteld - niet in realtime. De export loopt tot het gewenste aantal frames.</p>
+            </div>
+        </li>
+        <li>
+            <div>
+                <h3>Klaar</h3>
+                <p>Je krijgt <code>YYYYMMDD_HHMMSS.mp4</code> in je <code>export/</code>-map. Geen verdere actie nodig.</p>
+            </div>
+        </li>
+    </ol>
+
+    <h3>Profielen in detail</h3>
+    <table>
+        <thead>
+            <tr><th>Profiel</th><th>Bitrate</th><th>FPS</th><th>Formaat</th><th>Gebruik</th></tr>
+        </thead>
+        <tbody>
+            <tr><td>Social</td><td>3.5 Mbps</td><td>60</td><td>MP4 (H.264, mp42)</td><td>Instagram Feed/Reels, TikTok</td></tr>
+            <tr><td>Edit master</td><td>20 Mbps</td><td>60</td><td>MP4 (H.264)</td><td>DaVinci Resolve, Premiere, hergebruik</td></tr>
+            <tr><td>Lossless PNG</td><td>-</td><td>render 2, playback 60</td><td>PNG-sequentie</td><td>ffmpeg assembly, maximale kwaliteit</td></tr>
+        </tbody>
+    </table>
+
+    <h3>Instagram-tuning</h3>
+    <p>Het Social-profiel is specifiek getuned voor Instagram:</p>
+    <ul>
+        <li><code>moov</code>-atom aan het begin van het bestand (faststart voor streaming)</li>
+        <li><code>mp42</code>-brand (iOS/Instagram herkent dit beter dan standaard MP4)</li>
+        <li>Keyframe elke seconde geforceerd (betere scrubbing en upload)</li>
+        <li>Video-only, geen stille audio-track (kleinere bestanden)</li>
+        <li>Aanbevolen canvas: <code>1080x1080</code> (feed) of <code>1080x1920</code> (Reels/Stories)</li>
+    </ul>
+
+    <h3>API voor eigen integratie</h3>
+    <p>Wie p5.export wil aanroepen vanuit eigen code kan de publieke API gebruiken:</p>
+    <pre><code>const canvas = document.querySelector('canvas');
+
+const { tick, stop } = p5export.startCapture({
+  canvas: canvas,
+  frames: 300,          // totaal aantal frames
+  playbackFps: 60,      // framerate van de output-video
+  profile: 'social',    // 'social' | 'edit' | 'master'
+  format: 'mp4',        // 'mp4' | 'png'
+  bitrateMbps: 20,
+  onDone: (blob, info) => console.log('klaar', info),
+  onFrame: (n) => console.log('frame', n)
+});
+
+// In je draw-loop, na het tekenen:
+function draw() {
+  // ... je sketch ...
+  tick();               // tel dit frame mee
+}
+
+// Stoppen kan ook handmatig:
+// stop();</code></pre>
+
+    <h3>Wanneer gebruiken?</h3>
+    <ul>
+        <li>Je wilt publiceren op Instagram, een festival-submission, of een archief.</li>
+        <li>Je sketch is <em>te zwaar</em> om in realtime op 60 fps te lopen.</li>
+        <li>Je wilt exact controle over duur, FPS en bitrate.</li>
+        <li>Je wilt geen compressie-artefacten van real-time encoders.</li>
+    </ul>
+
+    <aside class="callout callout--let-op">
+        <span class="callout-label">Let op</span>
+        <p>p5.export vereist een Chromium-browser (Chrome, Edge, Brave) vanwege de File System Access API. Firefox en Safari ondersteunen deze API nog niet volledig.</p>
+    </aside>
+</section>
+
+<hr class="section-break">
+
+<section>
+    <h2>Vergelijking op een rij</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Feature</th>
+                <th>saveCanvas / saveGif</th>
+                <th>p5.capture</th>
+                <th>p5.export</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Installatie</td><td>geen</td><td>1 script-tag</td><td>externe tool</td></tr>
+            <tr><td>PNG / JPG</td><td>ja</td><td>sequentie (ZIP)</td><td>sequentie</td></tr>
+            <tr><td>GIF</td><td>ja (kort)</td><td>ja</td><td>nee</td></tr>
+            <tr><td>MP4</td><td>nee</td><td>ja</td><td>ja (H.264)</td></tr>
+            <tr><td>WebM</td><td>nee</td><td>ja</td><td>nee</td></tr>
+            <tr><td>Realtime</td><td>handmatig</td><td>ja</td><td>offline, frame-perfect</td></tr>
+            <tr><td>Zware sketches</td><td>-</td><td>dropped frames</td><td>altijd vloeiend</td></tr>
+            <tr><td>Instagram-tuning</td><td>nee</td><td>nee</td><td>ja</td></tr>
+            <tr><td>Browser</td><td>alle</td><td>alle</td><td>Chrome/Edge</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section>
+    <h2>Experimenteer zelf</h2>
+    <p>Deze sketch slaat een PNG op bij elke muisklik en een GIF bij druk op <kbd>g</kbd>. Open je downloads-map om de bestanden te zien.</p>
+
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+function setup() {
+  createCanvas(600, 400);
+  background(245);
+  noStroke();
+}
+
+function draw() {
+  // Vloeiende, kleurige beweging
+  let t = frameCount * 0.02;
+  let x = width / 2 + cos(t) * 150;
+  let y = height / 2 + sin(t * 1.3) * 100;
+  fill(255, 0, 125, 30);
+  circle(x, y, 80);
+}
+
+function mousePressed() {
+  // Sla het huidige frame op als PNG
+  saveCanvas('snapshot-' + frameCount, 'png');
+}
+
+function keyPressed() {
+  if (key === 'g' || key === 'G') {
+    // Neem 2 seconden op als GIF
+    saveGif('mijn-loop', 2);
+  }
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Meer bronnen</h2>
+    <ul>
+        <li><a href="https://p5js.org/reference/p5/saveCanvas/" target="_blank" rel="noopener">p5.js reference: saveCanvas()</a></li>
+        <li><a href="https://p5js.org/reference/p5/saveGif/" target="_blank" rel="noopener">p5.js reference: saveGif()</a></li>
+        <li><a href="https://github.com/tapioca24/p5.capture" target="_blank" rel="noopener">p5.capture op GitHub</a></li>
+        <li><a href="https://prjcts.be/services/p5.export" target="_blank" rel="noopener">p5.export tool (prjcts.be)</a></li>
+        <li><a href="https://github.com/seb-prjcts-be/p5.export" target="_blank" rel="noopener">p5.export broncode (GitHub)</a></li>
+        <li><a href="https://ffmpeg.org/" target="_blank" rel="noopener">ffmpeg.org</a> - video-assembler voor PNG-sequenties</li>
+    </ul>
+</section>

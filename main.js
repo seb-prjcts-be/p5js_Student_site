@@ -620,6 +620,18 @@ const onderwerpen = [
         categorie: "Media"
     },
     {
+        id: "export",
+        titel: "Export: beeld, GIF & video",
+        samenvatting: "Sla je sketch op als PNG, frame-sequentie, GIF of MP4 met saveCanvas, saveGif, p5.capture en p5.export.",
+        en: {
+            titel: "Export: image, GIF & video",
+            samenvatting: "Save your sketch as PNG, frame sequence, GIF or MP4 with saveCanvas, saveGif, p5.capture and p5.export."
+        },
+        tags: ["export", "saveCanvas", "saveGif", "frameCount", "nf", "p5.capture", "p5.export", "mp4", "gif", "png", "video", "opnemen"],
+        contentFile: "content/export.html",
+        categorie: "Media"
+    },
+    {
         id: "lissajous",
         titel: "Lissajous-figuren",
         samenvatting: "Combineer twee sinusgolven tot vloeiende figuren en ontdek hoe verhoudingen, ritme en faseverschuiving zichtbaar worden in beeld.",
