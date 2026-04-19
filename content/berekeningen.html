@@ -92,8 +92,8 @@ function draw() {
 <section>
     <h2>random() - willekeurige getallen</h2>
     <p><code>random()</code> geeft elke keer een ander kommagetal terug. Daardoor krijg je steeds een ander resultaat - essentieel voor generatieve kunst.</p>
-    <pre><code>random(100)       // getal van 0 tot 99.99...  (nooit precies 100!)
-random(50, 101)   // getal van 50 tot 100.99...
+    <pre><code>random(100)       // getal van 0 tot net vóór 100 (bovengrens exclusief)
+random(50, 101)   // getal van 50 tot net vóór 101
 
 fill(random(255), random(255), random(255));  // Willekeurige kleur</code></pre>
 
@@ -106,7 +106,7 @@ let n = floor(random(101));
 let kant = floor(random(2));  // 0 = kop, 1 = munt</code></pre>
     <aside class="callout callout--let-op">
         <span class="callout-label">Let op</span>
-        <p><code>random(100)</code> kan nooit precies 100 teruggeven, dus schrijf <code>floor(random(101))</code> als je ook 100 wilt kunnen krijgen.</p>
+        <p><code>random(100)</code> geeft een getal tussen 0 en 100, maar de bovengrens is <em>exclusief</em>: 100 zelf komt er nooit uit. Daarom geeft <code>floor(random(100))</code> integers <strong>0 t/m 99</strong>. Wil je ook 100 kunnen krijgen, schrijf dan <code>floor(random(101))</code>.</p>
     </aside>
 </section>
 
@@ -143,7 +143,6 @@ let hoek = map(frameCount % 120, 0, 120, 0, TWO_PI);
 // Je kunt ook omdraaien: groot wordt klein
 let grootte = map(mouseY, 0, height, 80, 10);  // Bovenaan groot, onderaan klein</code></pre>
     <aside class="callout callout--tip">
-        <span class="callout-label">Tip</span>
         <p>Bijna elk interactief of generatief effect begint met <code>map()</code>: muispositie naar kleur, afstand naar grootte, tijd naar rotatie. Als je één functie goed leert kennen, laat het deze zijn.</p>
     </aside>
 

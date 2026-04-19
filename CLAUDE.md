@@ -173,7 +173,7 @@ Flow:
 
 Topics are grouped by `categorie`. Categories are defined in:
 ```javascript
-const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "AI", "Inspiratie"];
+const navCategories = ["Introductie", "Fundamenten", "Input & tijd", "Structuren", "Media", "Code concepten", "Inspiratie", "AI"];
 ```
 
 Each group renders as a collapsible `<li class="nav-group">` in a click-to-toggle accordion. The active topic's group auto-opens; opening another group closes the others. The menu shows the category title and expand/collapse icon only; there is no per-group counter badge.
@@ -225,11 +225,11 @@ Code runs inside an `srcdoc` iframe that loads p5.js 2.2.1 from CDN. The iframe 
     samenvatting: "...",          // Used in search results
     tags: ["tag1", "tag2"],       // Used in search and tag relations
     contentFile: "content/mijn-onderwerp.html",
-    categorie: "p5.js basis"      // Must match a value in navCategories[]
+    categorie: "Fundamenten"      // Must match a value in navCategories[]
 }
 ```
 
-Valid `categorie` values: `"Introductie"`, `"p5.js basis"`, `"p5.js +"`, `"Code concepten"`, `"Strudel"`, `"Inspiratie"`, `"AI"`
+Valid `categorie` values: `"Introductie"`, `"Fundamenten"`, `"Input & tijd"`, `"Structuren"`, `"Media"`, `"Code concepten"`, `"Inspiratie"`, `"AI"`
 
 **Titelconventie:**
 - Gebruik sentence case voor `titel` en categorienamen in `main.js`
@@ -338,7 +338,7 @@ Add to the `onderwerpen` array in the correct position (order matters for nav di
     samenvatting: "Korte beschrijving voor zoekresultaten (1-2 zinnen).",
     tags: ["tag1", "tag2", "trefwoord"],
     contentFile: "content/mijn-onderwerp.html",
-    categorie: "p5.js basis"
+    categorie: "Fundamenten"
 }
 ```
 
@@ -658,33 +658,48 @@ Current categories and their topics:
 
 ```
 Introductie
+  ├── Voorwoord - Lab44 & coderen        (voorwoord)
   ├── Generative design & geschiedenis   (generative-design)
   └── Over p5.js                         (over-p5js)
 
-p5.js basis
+Fundamenten
   ├── setup() en draw()                  (setup-draw)
+  ├── Coördinaten                        (coordinaten)
   ├── Vormen tekenen                     (vormen)
   ├── Kleur                              (kleur)
   ├── Variabelen                         (variabelen)
   ├── Berekeningen                       (berekeningen)
   ├── If-statements                      (if-statements)
   ├── Loops                              (loops)
-  ├── Functies                           (functies)
-  └── Muis interactie                    (muis-interactie)
+  ├── Noise                              (noise)
+  └── Functies                           (functies)
 
-p5.js +
+Input & tijd
+  ├── Muis interactie                    (muis-interactie)
   ├── Toetsenbord input                  (toetsenbord)
   ├── Animatie                           (animatie)
-  ├── Datum en tijd                      (datum-tijd)
+  └── Datum en tijd                      (datum-tijd)
+
+Structuren
   ├── Arrays                             (arrays)
-  ├── 3D basis                           (3d-basis)
-  ├── Objecten & classes                 (objecten)
-  ├── Noise & Perlin noise               (noise)
-  ├── Afbeeldingen                       (afbeeldingen)
+  └── Objecten & classes                 (objecten)
+
+Media
   ├── Text & typografie                  (text-typografie)
-  └── Geluid                             (geluid)
+  ├── Afbeeldingen                       (afbeeldingen)
+  ├── Camera & createCapture()           (camera)
+  ├── 3D basis                           (3d-basis)
+  ├── DOM-elementen                      (dom-elementen)
+  ├── Geluid                             (geluid)
+  ├── Externe data                       (externe-data)
+  └── Strudel: live coding muziek        (strudel)
 
 Code concepten
+  ├── Lissajous-figuren                  (lissajous)
+  ├── Random walk                        (random-walk)
+  ├── Chaos game                         (chaos-game)
+  ├── Flowfield                          (flowfield)
+  ├── Sonificatie                        (sonificatie)
   ├── 1D cellulaire automaten            (1d-automaten)
   ├── Boids                              (boids)
   ├── Circle packing                     (circle-packing)
@@ -692,35 +707,34 @@ Code concepten
   ├── Kleurenfamilie                     (kleurenfamilie)
   ├── L-systemen                         (l-systems)
   ├── Langton's Ant                      (langtons-ant)
-  ├── Lissajous-figuren                  (lissajous)
   ├── Quine                              (quine)
-  ├── Random walk                        (random-walk)
   ├── Recursie                           (recursie)
   └── Turtle geometry                    (turtle)
 
-Strudel
-  └── Strudel: live coding muziek        (strudel)
+Inspiratie
+  ├── Vera Molnar - code zonder computer  (vera-molnar)
+  ├── Manfred Mohr - de kubus als algoritme (manfred-mohr)
+  ├── Sol LeWitt - instructies als kunst (sol-lewitt)
+  └── Links & bronnen                    (inspiratie-links)
 
 AI
   ├── AI & ecologische kost              (ai-ecologische-kost)
   ├── AI-tools en playgrounds            (ai-tools)
   ├── AI-modellen vergelijken            (ai-modellen)
   ├── Vibe coding                        (vibe-coding)
-  ├── Wat is educatieve AI?              (ai-introductie)
+  ├── De 4D's: AI bewust gebruiken       (ai-4ds)
   ├── AI legt code uit                   (ai-code-uitleg)
   ├── Debuggen & prompting               (ai-debuggen-prompting)
   ├── Eigen stijl bewaren                (ai-eigen-stijl)
   ├── ml5.js introductie                 (ai-ml5js)
   ├── ml5.js vrij experiment             (ai-ml5js-experiment)
-  └── Eindproject & reflectie            (ai-eindproject)
-
-Inspiratie
-  ├── Vera Molnar — code zonder computer  (vera-molnar)
-  ├── Sol LeWitt — instructies als kunst (sol-lewitt)
-  └── Links & bronnen                    (inspiratie-links)
+  ├── Eindproject & reflectie            (ai-eindproject)
+  └── De dialoog tussen mens en machine  (ai-dialoog)
 ```
 
-To add a new category: add its name to `navCategories[]` in `main.js`. Current order: `["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "AI", "Inspiratie"]`.
+To add a new category: add its name to `navCategories[]` in `main.js`. Current order: `["Introductie", "Fundamenten", "Input & tijd", "Structuren", "Media", "Code concepten", "Inspiratie", "AI"]`.
+
+De categorie-refactor (2026-04-19) verving de arbitraire `p5.js basis` / `p5.js +` split met functionele groepen: Fundamenten (syntax + primitieven), Input & tijd (events + animatie), Structuren (data-containers), Media (beeld/klank/data). Strudel is nu onderdeel van Media in plaats van een eigen categorie.
 
 ---
 
@@ -781,11 +795,10 @@ The site uses `fetch()` to load content files. This requires HTTP — opening `i
 
 - **Vera Molnar** — deepen with practical generative art exercises
 - **Strudel** — add more examples: polyrhythm, samples, effects
-- **Camera/webcam** — `createCapture()`, pixel arrays; no page yet (source: `25_camera_en_createcapture.html`)
-- **Externe data** — JSON/CSV laden via fetch; geen pagina (source: `37_werken_met_externe_data_in_p5_js.html`)
-- **DOM-elementen** — `createButton()`, `createInput()`, sliders; geen pagina (source: `32_dom-elementen.html`)
 
 All core p5.js topics are complete as of 2026-03-24. New Inspiratie topics added: ai-tools, ai-modellen (2026-03-24). Moderne p5.js topic removed 2026-03-24 — content verdeeld over vormen, muis-interactie en 3d-basis.
+
+PDF-volgorde consolidatie 2026-04-19: `voorwoord` (Lab44 + Sagan/Obama-citaten), `camera`, `dom-elementen`, `flowfield` en het slothoofdstuk `ai-dialoog` (CodeGuru) toegevoegd. Alle categorieën herschikt naar PDF-volgorde. Totaal nu 58 onderwerpen.
 
 Content gap-fill pass completed 2026-03-24 against `data/pdf/Lab44_EDU - p5.js_FULL_def_Update_25/pages/`. Updates made:
 - `animatie.html` — toegevoegd: `translate()`, `rotate()`, `angleMode(DEGREES)`, `tan()`

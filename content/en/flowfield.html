@@ -1,0 +1,98 @@
+<div class="intro">
+    <p>A <strong>flowfield</strong> is an invisible current across the canvas. At every point <code>noise()</code> decides an angle, and lines, particles or shapes follow those angles. The result: coherent waves, swirls and currents that feel alive.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>What a flowfield is: a grid of angles generated with <code>noise()</code></li>
+        <li><code>map()</code> to translate noise values (0-1) into angles (0-360)</li>
+        <li><code>translate()</code> and <code>rotate()</code> to rotate each cell locally</li>
+        <li><code>push()</code> and <code>pop()</code> to isolate transformations</li>
+        <li>Animation by shifting noise with a <code>t</code> variable</li>
+    </ul>
+</div>
+
+<section>
+    <h2>What is a flowfield?</h2>
+    <p>A flowfield is a region that uses a <code>noise()</code> function to generate coherent drawings or animations. Picture it as an invisible wind blowing across the canvas, where at every point the wind has a different direction. We use <code>map()</code> to translate the values between 0 and 1 into something useful - for instance a rotation from 0 to 360.</p>
+</section>
+
+<section>
+    <h2>Basic example</h2>
+    <p>We walk through a grid of cells with a double <code>for</code> loop. For each cell we request a noise value, convert it to an angle, and draw a small cross rotated to that angle.</p>
+    <pre><code>let cell = 15;
+let s = 300;
+let t = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+  rectMode(CENTER);
+}
+
+function draw() {
+  background(245);
+  translate(60, 60);
+  for (let y = cell; y < s - 10; y += cell) {
+    for (let x = cell; x < s - 20; x += cell) {
+      let n = map(noise(x * 0.01 + t, y * 0.01 + t), 0, 1, 0, 360);
+      push();
+        translate(x + cell / 2, y + cell / 2);
+        rotate(n);
+        line(0, cell, cell, cell);
+        line(cell / 2, cell / 2, cell / 2, cell);
+      pop();
+    }
+  }
+  t += 0.008;
+}</code></pre>
+</section>
+
+<section>
+    <h2>Experiment yourself</h2>
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let cell = 15;
+let s = 300;
+let t = 0;
+
+function setup() {
+  createCanvas(400, 400);
+  angleMode(DEGREES);
+  rectMode(CENTER);
+}
+
+function draw() {
+  background(245);
+  translate(60, 60);
+  for (let y = cell; y < s - 10; y += cell) {
+    for (let x = cell; x < s - 20; x += cell) {
+      let n = map(noise(x * 0.01 + t, y * 0.01 + t), 0, 1, 0, 360);
+      push();
+        translate(x + cell / 2, y + cell / 2);
+        rotate(n);
+        line(0, cell, cell, cell);
+        line(cell / 2, cell / 2, cell / 2, cell);
+      pop();
+    }
+  }
+  t += 0.008;
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">Tweak the <code>cell</code> size, or the step <code>t += 0.008</code>, and watch the current change.</p>
+</section>
+
+<section>
+    <h2>Variations</h2>
+    <ul>
+        <li>Replace the crosses with short lines or arrows that flow <em>with</em> the current.</li>
+        <li>Let particles at random starting positions shift slightly every frame along the local angle.</li>
+        <li>Use <code>strokeWeight()</code> to vary line thickness with the noise value.</li>
+        <li>Combine with a colour scale: map the angle to a <code>hue</code> in HSB mode as well.</li>
+    </ul>
+    <aside class="callout callout--tip">
+        <p>Flowfields work beautifully with <a href="#boids">boids</a>-style agents: give each particle a position and let it accelerate along the local flowfield angle every frame.</p>
+    </aside>
+</section>

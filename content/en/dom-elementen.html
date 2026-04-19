@@ -1,0 +1,103 @@
+<div class="intro">
+    <p>So far we drew everything onto the canvas. But what if you want buttons, sliders or text fields? That is where DOM (Document Object Model) elements come in: the regular HTML building blocks, but created from your p5.js code.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>What DOM elements are and why they matter</li>
+        <li>Creating buttons with <code>createButton()</code></li>
+        <li>Creating and reading sliders with <code>createSlider()</code></li>
+        <li>Reading text fields with <code>createInput()</code></li>
+        <li>Positioning and styling with <code>position()</code> and <code>style()</code></li>
+        <li>Adding interaction with <code>mousePressed()</code> events</li>
+    </ul>
+</div>
+
+<section>
+    <h2>What are DOM elements?</h2>
+    <p>DOM elements are objects you can use to influence the structure and content of a web page. Think of buttons, sliders, text fields and much more. p5.js makes it easy to create them directly from your sketch.</p>
+</section>
+
+<section>
+    <h2>Text field</h2>
+    <pre><code>// Text field with "First name" as placeholder
+let firstName = createInput("First name");
+
+// Read the value
+print(firstName.value());</code></pre>
+</section>
+
+<section>
+    <h2>Slider</h2>
+    <pre><code>// Slider from 0 to 100, starting at 50, in steps of 2
+let slider = createSlider(0, 100, 50, 2);
+
+// Read the value
+print(slider.value());</code></pre>
+</section>
+
+<section>
+    <h2>Button</h2>
+    <pre><code>// Button with the text "Click me"
+let button = createButton("Click me");</code></pre>
+</section>
+
+<section>
+    <h2>Position and style</h2>
+    <p>Besides the CSS file you can also set position and style of DOM elements directly from p5.js.</p>
+    <pre><code>button.position(100, 100);
+button.style('background-color', 'purple');</code></pre>
+</section>
+
+<section>
+    <h2>Interaction and events</h2>
+    <p>DOM elements can respond to user actions like clicking or typing. The button below calls <code>changeColor()</code> when you click it.</p>
+    <pre><code>button.mousePressed(changeColor);
+
+function changeColor() {
+  button.style('background-color', 'lime');
+}</code></pre>
+    <p>This leads us straight to the next chapter on <a href="#functies">functions</a>: your own piece of code that you can hook up to an event.</p>
+</section>
+
+<section>
+    <h2>All together - experiment</h2>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let slider, button, name;
+
+function setup() {
+  createCanvas(600, 400);
+  background(240);
+
+  name = createInput("First name");
+  name.position(20, 420);
+
+  slider = createSlider(0, 255, 128, 1);
+  slider.position(180, 430);
+
+  button = createButton("Click me");
+  button.position(340, 425);
+  button.mousePressed(changeColor);
+}
+
+function draw() {
+  background(slider.value());
+  textSize(32);
+  fill(255);
+  text("Hello " + name.value(), 30, height / 2);
+}
+
+function changeColor() {
+  button.style('background-color', 'lime');
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">A slider drives the background colour, a text field sets the greeting, and a button changes colour when you click it.</p>
+</section>
+
+<section>
+    <h2>Conclusion</h2>
+    <p>DOM elements provide a powerful way to make your p5.js projects more interactive and user-friendly. Whether you want simple buttons or complex forms, the p5.js DOM functions make it easy to create and manage these elements.</p>
+</section>

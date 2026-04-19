@@ -1,0 +1,93 @@
+<div class="intro">
+    <p>With a single function p5.js can access your webcam: <code>createCapture()</code>. That opens the door to real-time interaction, live effects and artworks that respond to whatever happens in front of the screen.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">What you will learn</span>
+    <ul>
+        <li>Webcam access through <code>createCapture(VIDEO)</code></li>
+        <li>Hiding the video element with <code>v.hide()</code> so only the canvas shows</li>
+        <li>Applying filters: <code>GRAY</code>, <code>INVERT</code>, <code>POSTERIZE</code>, <code>BLUR</code></li>
+        <li>Combining the webcam with other p5.js functions for interactive sketches</li>
+    </ul>
+</div>
+
+<aside class="callout callout--let-op">
+    <span class="callout-label">Watch out</span>
+    <p>Make sure your laptop's camera works and that no cover is slid over it. Test your camera by typing "Camera" in your Windows search bar. The browser will ask for permission the first time you use the webcam.</p>
+</aside>
+
+<section>
+    <h2>A simple webcam sketch</h2>
+    <p>With <code>createCapture(VIDEO)</code> you get a video object that continuously delivers new frames from your webcam. You draw it on the canvas with <code>image()</code>, just like a regular image. Hide the separate HTML video element that p5 creates with <code>v.hide()</code>, otherwise you see the feed twice.</p>
+    <pre><code>let v;
+
+function setup() {
+  createCanvas(400, 400);
+  v = createCapture(VIDEO);
+  v.hide(); // otherwise you see the same video twice
+}
+
+function draw() {
+  image(v, 0, 0);
+}</code></pre>
+</section>
+
+<section>
+    <h2>Interacting with the webcam</h2>
+    <p>You can combine webcam data with other p5.js functions to build interactive applications. For example: draw an object that reacts to motion in the image, or add a crazy noise effect.</p>
+</section>
+
+<section>
+    <h2>Effects and filters</h2>
+    <p>Filters can be applied to images, videos and basically to your entire canvas. Whether you want a vintage look or real-time effects on a webcam feed: one line of code can go a long way.</p>
+    <p>p5.js offers a set of ready-made filters via the <code>filter()</code> function. Common constants are <code>GRAY</code>, <code>INVERT</code>, <code>POSTERIZE</code> and <code>BLUR</code>.</p>
+
+    <h3>Filter on the webcam</h3>
+    <pre><code>let v;
+
+function setup() {
+  createCanvas(400, 400);
+  v = createCapture(VIDEO);
+  v.hide();
+}
+
+function draw() {
+  image(v, 0, 0);
+  filter(INVERT);
+}</code></pre>
+
+    <aside class="callout callout--tip">
+        <p>Try <code>POSTERIZE(3)</code> or <code>BLUR(5)</code> with a parameter, or stack several filters for unexpected combinations.</p>
+    </aside>
+</section>
+
+<section>
+    <h2>Experiment yourself</h2>
+    <p>The live editor below does <em>not</em> autorun - click Run first and grant the browser access to your webcam.</p>
+    <div class="p5-editor" data-width="400" data-height="400" data-autorun="false">
+        <script type="text/p5">
+let v;
+
+function setup() {
+  createCanvas(400, 400);
+  v = createCapture(VIDEO);
+  v.hide();
+}
+
+function draw() {
+  image(v, 0, 0, width, height);
+  // Try: filter(GRAY); or filter(INVERT); or filter(POSTERIZE, 3);
+  filter(INVERT);
+}
+        </script>
+    </div>
+</section>
+
+<section>
+    <h2>Further exploration</h2>
+    <ul>
+        <li>ml5.js adds AI models that run on the webcam - see <a href="#ai-ml5js">ml5.js introduction</a></li>
+        <li>Reading and manipulating pixels: see the <a href="#afbeeldingen">Images</a> chapter</li>
+    </ul>
+</section>

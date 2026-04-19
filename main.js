@@ -46,10 +46,11 @@ const i18n = {
         next: "Volgende",
         categories: {
             "Introductie": "Introductie",
-            "p5.js basis": "p5.js basis",
-            "p5.js +": "p5.js +",
+            "Fundamenten": "Fundamenten",
+            "Input & tijd": "Input & tijd",
+            "Structuren": "Structuren",
+            "Media": "Media",
             "Code concepten": "Code concepten",
-            "Strudel": "Strudel",
             "AI": "AI",
             "Inspiratie": "Inspiratie"
         },
@@ -99,10 +100,11 @@ const i18n = {
         next: "Next",
         categories: {
             "Introductie": "Introduction",
-            "p5.js basis": "p5.js basics",
-            "p5.js +": "p5.js +",
+            "Fundamenten": "Fundamentals",
+            "Input & tijd": "Input & time",
+            "Structuren": "Structures",
+            "Media": "Media",
             "Code concepten": "Code concepts",
-            "Strudel": "Strudel",
             "AI": "AI",
             "Inspiratie": "Inspiration"
         },
@@ -282,6 +284,18 @@ function topicContentFile(onderwerp) {
 // Data structuur met alle onderwerpen
 const onderwerpen = [
     {
+        id: "voorwoord",
+        titel: "Voorwoord - Lab44 & coderen",
+        samenvatting: "Waarom leerlingen vandaag leren coderen bij Lab44, met quotes van Carl Sagan en Barack Obama.",
+        en: {
+            titel: "Foreword - Lab44 & coding",
+            samenvatting: "Why students learn to code at Lab44 today, with quotes from Carl Sagan and Barack Obama."
+        },
+        tags: ["lab44", "voorwoord", "coderen", "AI", "onderwijs", "Carl Sagan", "Obama", "citaten"],
+        contentFile: "content/voorwoord.html",
+        categorie: "Introductie"
+    },
+    {
         id: "generative-design",
         titel: "Generative design & geschiedenis",
         samenvatting: "Ontdek de geschiedenis van generative design, van John Whitney tot moderne creative coding.",
@@ -315,7 +329,7 @@ const onderwerpen = [
         },
         tags: ["setup", "draw", "createCanvas", "frameRate", "background", "basis", "fundamenten", "canvas"],
         contentFile: "content/setup-draw.html",
-        categorie: "p5.js basis"
+        categorie: "Fundamenten"
     },
     {
         id: "coordinaten",
@@ -327,7 +341,7 @@ const onderwerpen = [
         },
         tags: ["coördinaten", "assenstelsel", "x", "y", "canvas", "width", "height", "basis"],
         contentFile: "content/coordinaten.html",
-        categorie: "p5.js basis"
+        categorie: "Fundamenten"
     },
     {
         id: "vormen",
@@ -339,7 +353,7 @@ const onderwerpen = [
         },
         tags: ["vormen", "circle", "ellipse", "square", "rect", "rectMode", "line", "point", "triangle", "arc", "quad", "beginShape", "vertex", "endShape", "splineVertex", "bezierVertex", "quadraticVertex", "basis"],
         contentFile: "content/vormen.html",
-        categorie: "p5.js basis"
+        categorie: "Fundamenten"
     },
     {
         id: "kleur",
@@ -351,7 +365,7 @@ const onderwerpen = [
         },
         tags: ["kleur", "fill", "stroke", "background", "RGB", "HSB"],
         contentFile: "content/kleur.html",
-        categorie: "p5.js basis"
+        categorie: "Fundamenten"
     },
     {
         id: "variabelen",
@@ -363,7 +377,7 @@ const onderwerpen = [
         },
         tags: ["variabelen", "let", "const", "width", "height", "windowWidth", "windowHeight", "windowResized", "data", "basis"],
         contentFile: "content/variabelen.html",
-        categorie: "p5.js basis"
+        categorie: "Fundamenten"
     },
     {
         id: "berekeningen",
@@ -375,7 +389,7 @@ const onderwerpen = [
         },
         tags: ["berekeningen", "operatoren", "modulo", "map", "constrain", "dist", "floor", "ceil", "round", "abs", "random", "%", "rekenen"],
         contentFile: "content/berekeningen.html",
-        categorie: "p5.js basis"
+        categorie: "Fundamenten"
     },
     {
         id: "if-statements",
@@ -387,7 +401,7 @@ const onderwerpen = [
         },
         tags: ["if", "else", "voorwaarden", "logica", "beslissingen"],
         contentFile: "content/if-statements.html",
-        categorie: "p5.js basis"
+        categorie: "Fundamenten"
     },
     {
         id: "loops",
@@ -399,103 +413,7 @@ const onderwerpen = [
         },
         tags: ["loops", "for", "while", "herhalen", "patronen"],
         contentFile: "content/loops.html",
-        categorie: "p5.js basis"
-    },
-    {
-        id: "functies",
-        titel: "Functies",
-        samenvatting: "Maak herbruikbare code met functies. Organiseer je code en maak het overzichtelijker.",
-        en: {
-            titel: "Functions",
-            samenvatting: "Create reusable code with functions. Organise your code and keep it clear."
-        },
-        tags: ["functies", "function", "herbruikbaar", "organisatie"],
-        contentFile: "content/functies.html",
-        categorie: "p5.js basis"
-    },
-    {
-        id: "muis-interactie",
-        titel: "Muis interactie",
-        samenvatting: "Leer hoe je reageert op muisbewegingen en klikken.",
-        en: {
-            titel: "Mouse interaction",
-            samenvatting: "Learn how to respond to mouse movements and clicks."
-        },
-        tags: ["muis", "mouseX", "mouseY", "pmouseX", "pmouseY", "mousePressed", "mouseDragged", "mouseReleased", "pointerPressed", "interactie", "events"],
-        contentFile: "content/muis-interactie.html",
-        categorie: "p5.js basis"
-    },
-    {
-        id: "toetsenbord",
-        titel: "Toetsenbord input",
-        samenvatting: "Gebruik toetsenbord input om je sketches te besturen.",
-        en: {
-            titel: "Keyboard input",
-            samenvatting: "Use keyboard input to control your sketches."
-        },
-        tags: ["toetsenbord", "keyboard", "keyPressed", "input"],
-        contentFile: "content/toetsenbord.html",
-        categorie: "p5.js +"
-    },
-    {
-        id: "animatie",
-        titel: "Animatie",
-        samenvatting: "Maak animaties door waarden te veranderen in draw(). Leer over tijd, beweging en sinus/cosinus.",
-        en: {
-            titel: "Animation",
-            samenvatting: "Create animations by changing values in draw(). Learn about time, movement and sine/cosine."
-        },
-        tags: ["animatie", "frameCount", "translate", "rotate", "angleMode", "beweging", "tijd", "millis", "sin", "cos", "tan"],
-        contentFile: "content/animatie.html",
-        categorie: "p5.js +"
-    },
-    {
-        id: "datum-tijd",
-        titel: "Datum en tijd",
-        samenvatting: "Vraag de huidige datum en tijd op met year(), month(), day(), hour(), minute() en second(). Bouw klokken en tijdgestuurde sketches, geïnspireerd op John Maeda's 12 o'clocks (1996).",
-        en: {
-            titel: "Date and time",
-            samenvatting: "Retrieve the current date and time with year(), month(), day(), hour(), minute() and second(). Build clocks and time-driven sketches, inspired by John Maeda's 12 o'clocks (1996)."
-        },
-        tags: ["datum", "tijd", "hour", "minute", "second", "year", "klok", "John Maeda", "12 o'clocks", "map", "angleMode"],
-        contentFile: "content/datum-tijd.html",
-        categorie: "p5.js +"
-    },
-    {
-        id: "arrays",
-        titel: "Arrays",
-        samenvatting: "Gebruik arrays om meerdere waarden op te slaan en door te lopen.",
-        en: {
-            titel: "Arrays",
-            samenvatting: "Use arrays to store multiple values and loop through them."
-        },
-        tags: ["arrays", "lijsten", "data", "opslag"],
-        contentFile: "content/arrays.html",
-        categorie: "p5.js +"
-    },
-    {
-        id: "3d-basis",
-        titel: "3D basis",
-        samenvatting: "Ontdek 3D graphics met WEBGL. Leer 3D vormen tekenen en transformeren.",
-        en: {
-            titel: "3D basics",
-            samenvatting: "Discover 3D graphics with WEBGL. Learn to draw and transform 3D shapes."
-        },
-        tags: ["3D", "WEBGL", "box", "sphere", "rotatie", "transformatie"],
-        contentFile: "content/3d-basis.html",
-        categorie: "p5.js +"
-    },
-    {
-        id: "objecten",
-        titel: "Objecten & classes",
-        samenvatting: "Leer hoe je classes gebruikt om objecten te maken met eigen eigenschappen en gedrag. De basis van object-georiënteerd programmeren in p5.js.",
-        en: {
-            titel: "Objects & classes",
-            samenvatting: "Learn how to use classes to create objects with their own properties and behaviour. The basics of object-oriented programming in p5.js."
-        },
-        tags: ["class", "object", "constructor", "OOP", "this", "instantie", "methoden"],
-        contentFile: "content/objecten.html",
-        categorie: "p5.js +"
+        categorie: "Fundamenten"
     },
     {
         id: "noise",
@@ -507,19 +425,91 @@ const onderwerpen = [
         },
         tags: ["noise", "willekeur", "organisch", "textuur", "flow field", "landschap", "Perlin"],
         contentFile: "content/noise.html",
-        categorie: "p5.js +"
+        categorie: "Fundamenten"
     },
     {
-        id: "afbeeldingen",
-        titel: "Afbeeldingen",
-        samenvatting: "Leer afbeeldingen laden en tekenen met loadImage() en image(). Ontdek ook pixelmanipulatie en filters.",
+        id: "functies",
+        titel: "Functies",
+        samenvatting: "Maak herbruikbare code met functies. Organiseer je code en maak het overzichtelijker.",
         en: {
-            titel: "Images",
-            samenvatting: "Learn to load and draw images with loadImage() and image(). Also discover pixel manipulation and filters."
+            titel: "Functions",
+            samenvatting: "Create reusable code with functions. Organise your code and keep it clear."
         },
-        tags: ["afbeelding", "loadImage", "image", "pixels", "filter", "tint", "pixelArray"],
-        contentFile: "content/afbeeldingen.html",
-        categorie: "p5.js +"
+        tags: ["functies", "function", "herbruikbaar", "organisatie"],
+        contentFile: "content/functies.html",
+        categorie: "Fundamenten"
+    },
+    {
+        id: "muis-interactie",
+        titel: "Muis interactie",
+        samenvatting: "Leer hoe je reageert op muisbewegingen en klikken.",
+        en: {
+            titel: "Mouse interaction",
+            samenvatting: "Learn how to respond to mouse movements and clicks."
+        },
+        tags: ["muis", "mouseX", "mouseY", "pmouseX", "pmouseY", "mousePressed", "mouseDragged", "mouseReleased", "pointerPressed", "interactie", "events"],
+        contentFile: "content/muis-interactie.html",
+        categorie: "Input & tijd"
+    },
+    {
+        id: "toetsenbord",
+        titel: "Toetsenbord input",
+        samenvatting: "Gebruik toetsenbord input om je sketches te besturen.",
+        en: {
+            titel: "Keyboard input",
+            samenvatting: "Use keyboard input to control your sketches."
+        },
+        tags: ["toetsenbord", "keyboard", "keyPressed", "input"],
+        contentFile: "content/toetsenbord.html",
+        categorie: "Input & tijd"
+    },
+    {
+        id: "animatie",
+        titel: "Animatie",
+        samenvatting: "Maak animaties door waarden te veranderen in draw(). Leer over tijd, beweging en sinus/cosinus.",
+        en: {
+            titel: "Animation",
+            samenvatting: "Create animations by changing values in draw(). Learn about time, movement and sine/cosine."
+        },
+        tags: ["animatie", "frameCount", "translate", "rotate", "angleMode", "beweging", "tijd", "millis", "sin", "cos", "tan"],
+        contentFile: "content/animatie.html",
+        categorie: "Input & tijd"
+    },
+    {
+        id: "datum-tijd",
+        titel: "Datum en tijd",
+        samenvatting: "Vraag de huidige datum en tijd op met year(), month(), day(), hour(), minute() en second(). Bouw klokken en tijdgestuurde sketches, geïnspireerd op John Maeda's 12 o'clocks (1996).",
+        en: {
+            titel: "Date and time",
+            samenvatting: "Retrieve the current date and time with year(), month(), day(), hour(), minute() and second(). Build clocks and time-driven sketches, inspired by John Maeda's 12 o'clocks (1996)."
+        },
+        tags: ["datum", "tijd", "hour", "minute", "second", "year", "klok", "John Maeda", "12 o'clocks", "map", "angleMode"],
+        contentFile: "content/datum-tijd.html",
+        categorie: "Input & tijd"
+    },
+    {
+        id: "arrays",
+        titel: "Arrays",
+        samenvatting: "Gebruik arrays om meerdere waarden op te slaan en door te lopen.",
+        en: {
+            titel: "Arrays",
+            samenvatting: "Use arrays to store multiple values and loop through them."
+        },
+        tags: ["arrays", "lijsten", "data", "opslag"],
+        contentFile: "content/arrays.html",
+        categorie: "Structuren"
+    },
+    {
+        id: "objecten",
+        titel: "Objecten & classes",
+        samenvatting: "Leer hoe je classes gebruikt om objecten te maken met eigen eigenschappen en gedrag. De basis van object-georiënteerd programmeren in p5.js.",
+        en: {
+            titel: "Objects & classes",
+            samenvatting: "Learn how to use classes to create objects with their own properties and behaviour. The basics of object-oriented programming in p5.js."
+        },
+        tags: ["class", "object", "constructor", "OOP", "this", "instantie", "methoden"],
+        contentFile: "content/objecten.html",
+        categorie: "Structuren"
     },
     {
         id: "text-typografie",
@@ -531,7 +521,55 @@ const onderwerpen = [
         },
         tags: ["tekst", "text", "font", "typografie", "textSize", "textFont", "loadFont", "textAlign"],
         contentFile: "content/text-typografie.html",
-        categorie: "p5.js +"
+        categorie: "Media"
+    },
+    {
+        id: "afbeeldingen",
+        titel: "Afbeeldingen",
+        samenvatting: "Leer afbeeldingen laden en tekenen met loadImage() en image(). Ontdek ook pixelmanipulatie en filters.",
+        en: {
+            titel: "Images",
+            samenvatting: "Learn to load and draw images with loadImage() and image(). Also discover pixel manipulation and filters."
+        },
+        tags: ["afbeelding", "loadImage", "image", "pixels", "filter", "tint", "pixelArray"],
+        contentFile: "content/afbeeldingen.html",
+        categorie: "Media"
+    },
+    {
+        id: "camera",
+        titel: "Camera & createCapture()",
+        samenvatting: "Open je webcam met createCapture(VIDEO) en pas filters toe zoals GRAY, INVERT, POSTERIZE en BLUR voor real-time effecten.",
+        en: {
+            titel: "Camera & createCapture()",
+            samenvatting: "Access your webcam with createCapture(VIDEO) and apply filters like GRAY, INVERT, POSTERIZE and BLUR for real-time effects."
+        },
+        tags: ["camera", "webcam", "createCapture", "VIDEO", "filter", "INVERT", "POSTERIZE", "BLUR", "real-time"],
+        contentFile: "content/camera.html",
+        categorie: "Media"
+    },
+    {
+        id: "3d-basis",
+        titel: "3D basis",
+        samenvatting: "Ontdek 3D graphics met WEBGL. Leer 3D vormen tekenen en transformeren.",
+        en: {
+            titel: "3D basics",
+            samenvatting: "Discover 3D graphics with WEBGL. Learn to draw and transform 3D shapes."
+        },
+        tags: ["3D", "WEBGL", "box", "sphere", "rotatie", "transformatie"],
+        contentFile: "content/3d-basis.html",
+        categorie: "Media"
+    },
+    {
+        id: "dom-elementen",
+        titel: "DOM-elementen",
+        samenvatting: "Maak knoppen, sliders en tekstvelden vanuit je p5.js-code met createButton(), createSlider() en createInput().",
+        en: {
+            titel: "DOM elements",
+            samenvatting: "Create buttons, sliders and text fields from your p5.js code with createButton(), createSlider() and createInput()."
+        },
+        tags: ["DOM", "createButton", "createSlider", "createInput", "interactie", "HTML", "position", "style", "events"],
+        contentFile: "content/dom-elementen.html",
+        categorie: "Media"
     },
     {
         id: "geluid",
@@ -543,7 +581,7 @@ const onderwerpen = [
         },
         tags: ["geluid", "sound", "audio", "p5.sound", "loadSound", "SoundFile", "Amplitude", "FFT", "muziek"],
         contentFile: "content/geluid.html",
-        categorie: "p5.js +"
+        categorie: "Media"
     },
     {
         id: "externe-data",
@@ -555,7 +593,7 @@ const onderwerpen = [
         },
         tags: ["data", "externe data", "CSV", "JSON", "API", "loadTable", "loadJSON", "async", "await", "fetch", "Corpora", "NASA", "Stad Gent", "Alberto Garutti"],
         contentFile: "content/externe-data.html",
-        categorie: "p5.js +"
+        categorie: "Media"
     },
     {
         id: "strudel",
@@ -567,7 +605,67 @@ const onderwerpen = [
         },
         tags: ["strudel", "live coding", "muziek", "samples", "ritme", "notes", "stack"],
         contentFile: "content/strudel.html",
-        categorie: "Strudel"
+        categorie: "Media"
+    },
+    {
+        id: "lissajous",
+        titel: "Lissajous-figuren",
+        samenvatting: "Combineer twee sinusgolven tot vloeiende figuren en ontdek hoe verhoudingen, ritme en faseverschuiving zichtbaar worden in beeld.",
+        en: {
+            titel: "Lissajous figures",
+            samenvatting: "Combine two sine waves into flowing figures and discover how ratios, rhythm and phase shift become visible in image."
+        },
+        tags: ["lissajous", "sinus", "parametrisch", "wiskunde", "animatie", "golven", "code concepten"],
+        contentFile: "content/lissajous.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "random-walk",
+        titel: "Random walk",
+        samenvatting: "Een punt zet stap voor stap willekeurige bewegingen. Simpel idee, verrassend rijke patronen: toeval wordt zichtbaar als spoor.",
+        en: {
+            titel: "Random walk",
+            samenvatting: "A dot takes random steps one by one. A simple idea with surprisingly rich patterns: chance becomes visible as a trail."
+        },
+        tags: ["random walk", "toeval", "walker", "stappen", "pad", "simulatie", "code concepten"],
+        contentFile: "content/random-walk.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "chaos-game",
+        titel: "Chaos game",
+        samenvatting: "Gooi een digitale dobbelsteen en spring telkens halverwege naar een hoekpunt. Uit zuiver toeval verschijnt de Sierpinski-driehoek.",
+        en: {
+            titel: "Chaos game",
+            samenvatting: "Roll a digital die and jump halfway to a corner each time. Out of pure randomness the Sierpinski triangle emerges."
+        },
+        tags: ["chaos game", "sierpinski", "fractal", "iterated function system", "random", "floor", "code concepten"],
+        contentFile: "content/chaos-game.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "flowfield",
+        titel: "Flowfield",
+        samenvatting: "Een onzichtbaar stromingsveld over het canvas: op elk punt bepaalt noise() een hoek, en lijnen of deeltjes volgen die richtingen.",
+        en: {
+            titel: "Flowfield",
+            samenvatting: "An invisible flow field across the canvas: at every point noise() sets an angle, and lines or particles follow those directions."
+        },
+        tags: ["flowfield", "noise", "map", "translate", "rotate", "push", "pop", "raster", "generative", "code concepten"],
+        contentFile: "content/flowfield.html",
+        categorie: "Code concepten"
+    },
+    {
+        id: "sonificatie",
+        titel: "Sonificatie",
+        samenvatting: "Data hoorbaar maken: map waarden uit een CSV, JSON of API op toonhoogte, ritme en volume met de p5.Sound-library.",
+        en: {
+            titel: "Sonification",
+            samenvatting: "Making data audible: map values from a CSV, JSON or API onto pitch, rhythm and volume using the p5.Sound library."
+        },
+        tags: ["sonificatie", "sonification", "geluid", "p5.Sound", "oscillator", "data", "mapping", "code concepten"],
+        contentFile: "content/sonificatie.html",
+        categorie: "Code concepten"
     },
     {
         id: "1d-automaten",
@@ -591,18 +689,6 @@ const onderwerpen = [
         },
         tags: ["boids", "flocking", "zwerm", "vectoren", "emergentie", "agents", "code concepten"],
         contentFile: "content/boids.html",
-        categorie: "Code concepten"
-    },
-    {
-        id: "chaos-game",
-        titel: "Chaos game",
-        samenvatting: "Gooi een digitale dobbelsteen en spring telkens halverwege naar een hoekpunt. Uit zuiver toeval verschijnt de Sierpinski-driehoek.",
-        en: {
-            titel: "Chaos game",
-            samenvatting: "Roll a digital die and jump halfway to a corner each time. Out of pure randomness the Sierpinski triangle emerges."
-        },
-        tags: ["chaos game", "sierpinski", "fractal", "iterated function system", "random", "floor", "code concepten"],
-        contentFile: "content/chaos-game.html",
         categorie: "Code concepten"
     },
     {
@@ -666,18 +752,6 @@ const onderwerpen = [
         categorie: "Code concepten"
     },
     {
-        id: "lissajous",
-        titel: "Lissajous-figuren",
-        samenvatting: "Combineer twee sinusgolven tot vloeiende figuren en ontdek hoe verhoudingen, ritme en faseverschuiving zichtbaar worden in beeld.",
-        en: {
-            titel: "Lissajous figures",
-            samenvatting: "Combine two sine waves into flowing figures and discover how ratios, rhythm and phase shift become visible in image."
-        },
-        tags: ["lissajous", "sinus", "parametrisch", "wiskunde", "animatie", "golven", "code concepten"],
-        contentFile: "content/lissajous.html",
-        categorie: "Code concepten"
-    },
-    {
         id: "quine",
         titel: "Quine",
         samenvatting: "Een programma dat zijn eigen broncode toont zonder bestanden te lezen. Zelfverwijzing als denkoefening in code.",
@@ -690,18 +764,6 @@ const onderwerpen = [
         categorie: "Code concepten"
     },
     {
-        id: "random-walk",
-        titel: "Random walk",
-        samenvatting: "Een punt zet stap voor stap willekeurige bewegingen. Simpel idee, verrassend rijke patronen: toeval wordt zichtbaar als spoor.",
-        en: {
-            titel: "Random walk",
-            samenvatting: "A dot takes random steps one by one. A simple idea with surprisingly rich patterns: chance becomes visible as a trail."
-        },
-        tags: ["random walk", "toeval", "walker", "stappen", "pad", "simulatie", "code concepten"],
-        contentFile: "content/random-walk.html",
-        categorie: "Code concepten"
-    },
-    {
         id: "recursie",
         titel: "Recursie",
         samenvatting: "Een functie die zichzelf opnieuw oproept. Ideaal om vertakkingen, fractals en herhaling op meerdere schalen te begrijpen.",
@@ -711,18 +773,6 @@ const onderwerpen = [
         },
         tags: ["recursie", "fractal", "boom", "zelfde patroon", "functie", "stopvoorwaarde", "code concepten"],
         contentFile: "content/recursie.html",
-        categorie: "Code concepten"
-    },
-    {
-        id: "sonificatie",
-        titel: "Sonificatie",
-        samenvatting: "Data hoorbaar maken: map waarden uit een CSV, JSON of API op toonhoogte, ritme en volume met de p5.Sound-library.",
-        en: {
-            titel: "Sonification",
-            samenvatting: "Making data audible: map values from a CSV, JSON or API onto pitch, rhythm and volume using the p5.Sound library."
-        },
-        tags: ["sonificatie", "sonification", "geluid", "p5.Sound", "oscillator", "data", "mapping", "code concepten"],
-        contentFile: "content/sonificatie.html",
         categorie: "Code concepten"
     },
     {
@@ -750,18 +800,6 @@ const onderwerpen = [
         categorie: "Inspiratie"
     },
     {
-        id: "sol-lewitt",
-        titel: "Sol LeWitt - instructies als kunst",
-        samenvatting: "Sol LeWitt schreef instructies naar musea in plaats van werken te maken. Code is ook een instructie - ontdek conceptuele kunst als algoritme.",
-        en: {
-            titel: "Sol LeWitt - instructions as art",
-            samenvatting: "Sol LeWitt sent instructions to museums instead of creating works. Code is also an instruction - discover conceptual art as algorithm."
-        },
-        tags: ["sol lewitt", "instructie", "conceptuele kunst", "wall drawing", "algoritme", "lijnen", "systeem"],
-        contentFile: "content/sol-lewitt.html",
-        categorie: "Inspiratie"
-    },
-    {
         id: "manfred-mohr",
         titel: "Manfred Mohr - de kubus als algoritme",
         samenvatting: "Van jazz naar plotters: Manfred Mohr verkende vijftig jaar lang de kubus met code. Zijn werk toont hoe beperking tot diepgang leidt.",
@@ -771,6 +809,18 @@ const onderwerpen = [
         },
         tags: ["manfred mohr", "kubus", "hyperkubus", "plotter", "algoritmische kunst", "generatieve kunst", "lijnen", "systeem"],
         contentFile: "content/manfred-mohr.html",
+        categorie: "Inspiratie"
+    },
+    {
+        id: "sol-lewitt",
+        titel: "Sol LeWitt - instructies als kunst",
+        samenvatting: "Sol LeWitt schreef instructies naar musea in plaats van werken te maken. Code is ook een instructie - ontdek conceptuele kunst als algoritme.",
+        en: {
+            titel: "Sol LeWitt - instructions as art",
+            samenvatting: "Sol LeWitt sent instructions to museums instead of creating works. Code is also an instruction - discover conceptual art as algorithm."
+        },
+        tags: ["sol lewitt", "instructie", "conceptuele kunst", "wall drawing", "algoritme", "lijnen", "systeem"],
+        contentFile: "content/sol-lewitt.html",
         categorie: "Inspiratie"
     },
     {
@@ -916,10 +966,22 @@ const onderwerpen = [
         tags: ["AI", "eindproject", "presentatie", "reflectie", "auteurschap", "creatief proces", "portfolio"],
         contentFile: "content/ai-eindproject.html",
         categorie: "AI"
+    },
+    {
+        id: "ai-dialoog",
+        titel: "De dialoog tussen mens en machine",
+        samenvatting: "Het slothoofdstuk van de cursus, bewust geschreven door een AI-model (\"CodeGuru\"): reflectie over creativiteit, coderen, auteurschap en menselijkheid in een AI-tijdperk.",
+        en: {
+            titel: "The dialogue between human and machine",
+            samenvatting: "The closing chapter of the course, deliberately written by an AI model (\"CodeGuru\"): reflection on creativity, coding, authorship and humanity in an AI era."
+        },
+        tags: ["AI", "dialoog", "mens en machine", "creativiteit", "auteurschap", "ethiek", "CodeGuru", "slothoofdstuk", "reflectie"],
+        contentFile: "content/ai-dialoog.html",
+        categorie: "AI"
     }
 ];
 
-const navCategories = ["Introductie", "p5.js basis", "p5.js +", "Code concepten", "Strudel", "AI", "Inspiratie"];
+const navCategories = ["Introductie", "Fundamenten", "Input & tijd", "Structuren", "Media", "Code concepten", "Inspiratie", "AI"];
 
 const MAX_IN_PAGE_RELATIONS = 5;
 const MAX_RELATED_TAGS = 6;

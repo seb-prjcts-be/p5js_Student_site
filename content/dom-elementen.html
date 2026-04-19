@@ -1,0 +1,103 @@
+<div class="intro">
+    <p>Tot nu toe tekenden we alles op het canvas. Maar wat als je knoppen, sliders of tekstvelden wil? Dat is waar DOM (Document Object Model) elementen in het spel komen: de gewone HTML-bouwstenen, maar dan aangemaakt vanuit je p5.js-code.</p>
+</div>
+
+<div class="kernpunten">
+    <span class="kernpunten-label">Kernpunten</span>
+    <ul>
+        <li>Wat DOM-elementen zijn en waarom ze nuttig zijn</li>
+        <li>Knoppen maken met <code>createButton()</code></li>
+        <li>Sliders aanmaken en uitlezen met <code>createSlider()</code></li>
+        <li>Tekstvelden lezen via <code>createInput()</code></li>
+        <li>Positie en stijl bepalen met <code>position()</code> en <code>style()</code></li>
+        <li>Interactie toevoegen met <code>mousePressed()</code>-events</li>
+    </ul>
+</div>
+
+<section>
+    <h2>Wat zijn DOM-elementen?</h2>
+    <p>DOM-elementen zijn objecten die je kunt gebruiken om de structuur en inhoud van een webpagina te beïnvloeden. Denk aan knoppen, sliders, tekstvelden en nog veel meer. p5.js maakt het eenvoudig om ze vanuit je sketch te creëren.</p>
+</section>
+
+<section>
+    <h2>Tekstveld</h2>
+    <pre><code>// Tekstveld met "Voornaam" als placeholder
+let voornaam = createInput("Voornaam");
+
+// Uitlezen
+print(voornaam.value());</code></pre>
+</section>
+
+<section>
+    <h2>Slider</h2>
+    <pre><code>// Slider van 0 tot 100, startstand 50, stappen van 2
+let slider = createSlider(0, 100, 50, 2);
+
+// Uitlezen
+print(slider.value());</code></pre>
+</section>
+
+<section>
+    <h2>Knop</h2>
+    <pre><code>// Knop met de tekst "Klik mij"
+let knop = createButton("Klik mij");</code></pre>
+</section>
+
+<section>
+    <h2>Positie en stijl</h2>
+    <p>Naast het CSS-bestand kan je ook vanuit p5.js de positie en stijl van DOM-elementen bepalen.</p>
+    <pre><code>knop.position(100, 100);
+knop.style('background-color', 'purple');</code></pre>
+</section>
+
+<section>
+    <h2>Interactie en events</h2>
+    <p>DOM-elementen kunnen reageren op gebruikersacties zoals klikken of typen. De knop hieronder roept de <code>veranderKleur()</code>-functie aan wanneer je erop klikt.</p>
+    <pre><code>knop.mousePressed(veranderKleur);
+
+function veranderKleur() {
+  knop.style('background-color', 'lime');
+}</code></pre>
+    <p>Dit leidt ons naadloos naar het volgende hoofdstuk over <a href="#functies">functies</a>: een eigen stuk code dat je kan koppelen aan een event.</p>
+</section>
+
+<section>
+    <h2>Alles samen - experimenteer</h2>
+    <div class="p5-editor" data-width="600" data-height="400" data-autorun="true">
+        <script type="text/p5">
+let slider, knop, naam;
+
+function setup() {
+  createCanvas(600, 400);
+  background(240);
+
+  naam = createInput("Voornaam");
+  naam.position(20, 420);
+
+  slider = createSlider(0, 255, 128, 1);
+  slider.position(180, 430);
+
+  knop = createButton("Klik mij");
+  knop.position(340, 425);
+  knop.mousePressed(veranderKleur);
+}
+
+function draw() {
+  background(slider.value());
+  textSize(32);
+  fill(255);
+  text("Hallo " + naam.value(), 30, height / 2);
+}
+
+function veranderKleur() {
+  knop.style('background-color', 'lime');
+}
+        </script>
+    </div>
+    <p class="figuurbijschrift">Een slider stuurt de achtergrondkleur, een tekstveld bepaalt de begroeting en een knop verandert van kleur wanneer je erop klikt.</p>
+</section>
+
+<section>
+    <h2>Conclusie</h2>
+    <p>DOM-elementen bieden een krachtige manier om je p5.js-projecten interactiever en gebruiksvriendelijker te maken. Of je nu eenvoudige knoppen of complexe formulieren wilt toevoegen, de DOM-functies van p5.js maken het gemakkelijk om deze elementen te creëren en te beheren.</p>
+</section>

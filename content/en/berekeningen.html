@@ -92,8 +92,8 @@ function draw() {
 <section>
     <h2>random() - random numbers</h2>
     <p><code>random()</code> returns a different decimal number each time. This gives you a different result every time - essential for generative art.</p>
-    <pre><code>random(100)       // number from 0 to 99.99...  (never exactly 100!)
-random(50, 101)   // number from 50 to 100.99...
+    <pre><code>random(100)       // number from 0 up to (but not including) 100
+random(50, 101)   // number from 50 up to (but not including) 101
 
 fill(random(255), random(255), random(255));  // Random color</code></pre>
 
@@ -106,7 +106,7 @@ let n = floor(random(101));
 let side = floor(random(2));  // 0 = heads, 1 = tails</code></pre>
     <aside class="callout callout--let-op">
         <span class="callout-label">Watch out</span>
-        <p><code>random(100)</code> can never return exactly 100, so write <code>floor(random(101))</code> if you also want to be able to get 100.</p>
+        <p><code>random(100)</code> returns a number between 0 and 100, but the upper bound is <em>exclusive</em>: 100 itself never comes out. That means <code>floor(random(100))</code> gives integers <strong>0 to 99</strong>. If you also want 100, write <code>floor(random(101))</code>.</p>
     </aside>
 </section>
 
@@ -143,7 +143,6 @@ let angle = map(frameCount % 120, 0, 120, 0, TWO_PI);
 // You can also reverse: big becomes small
 let size = map(mouseY, 0, height, 80, 10);  // Top is big, bottom is small</code></pre>
     <aside class="callout callout--tip">
-        <span class="callout-label">Tip</span>
         <p>Almost every interactive or generative effect starts with <code>map()</code>: mouse position to color, distance to size, time to rotation. If you learn one function well, make it this one.</p>
     </aside>
 
