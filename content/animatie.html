@@ -43,6 +43,24 @@ function draw() {
   let x = (seconden * 120) % width;  // 120 pixels per seconde
   circle(x, height / 2, 50);
 }</code></pre>
+
+    <h3>t += ... als eigen tijdteller</h3>
+    <p>In veel voorbeelden (zeker bij <code>sin()</code>, <code>cos()</code> en <code>noise()</code>) zie je een eigen tijdteller <code>t</code> die elke frame een beetje opschuift. De gekozen stapgrootte bepaalt hoe snel de animatie voelt:</p>
+    <pre><code>let t = 0;
+
+function draw() {
+  t += 0.01;            // ~60% van real time (rustig, makkelijk getal)
+  // t += 0.02;         // ~120% (iets sneller dan real time)
+  // t += 1/60;         // precies 1 seconde per seconde op 60 fps
+  // t += deltaTime/1000; // exact, ook bij framedrops
+}</code></pre>
+    <p>Op 60 fps duurt één frame <code>1/60 ≈ 0.0167</code> seconde. <code>t += 1/60</code> is dus hetzelfde als <code>millis()/1000</code>, zolang de framerate stabiel is.</p>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Weetje</span>
+        <p><strong>Wat is een framedrop?</strong> p5.js probeert 60 keer per seconde een frame te tekenen. Soms haalt de browser dat niet: je sketch doet veel werk, er draait een zware pagina op de achtergrond, of de laptop schakelt terug naar een spaarstand. Zo'n gemist frame noemen we een <em>framedrop</em>. Je animatie schokt dan heel even. <code>deltaTime</code> meet hoe lang het vorige frame echt duurde (in milliseconden), dus <code>t += deltaTime/1000</code> blijft kloppen, ook als frames haperen.</p>
+        <p><strong>millis() vs deltaTime:</strong> <code>millis()</code> begint op 0 als je sketch start en telt gewoon door. Na 5 seconden is het 5000. <code>deltaTime</code> is veel kleiner, meestal rond de 17: dat is hoe lang één frame duurde in milliseconden. Voor een eigen tijdteller wil je dat kleine stapje, niet het totaal.</p>
+    </aside>
 </section>
 
 <section>

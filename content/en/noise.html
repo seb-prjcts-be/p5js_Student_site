@@ -49,6 +49,7 @@ function draw() {
   t += 0.01;  // Speed: smaller = slower and smoother
 }</code></pre>
     <p>By using <code>t + 100</code> for the y-coordinate, we ensure that x and y move independently of each other.</p>
+    <p>Why <code>0.01</code> and not <code>1/60</code>? See <a href="#animatie">Animation</a> for how these step sizes relate to real time, and what <code>deltaTime</code> does when frames drop.</p>
 </section>
 
 <section>

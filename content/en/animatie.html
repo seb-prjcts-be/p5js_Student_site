@@ -43,6 +43,24 @@ function draw() {
   let x = (seconds * 120) % width;  // 120 pixels per second
   circle(x, height / 2, 50);
 }</code></pre>
+
+    <h3>t += ... as your own time counter</h3>
+    <p>In many examples (especially with <code>sin()</code>, <code>cos()</code> and <code>noise()</code>) you see a custom time counter <code>t</code> that nudges forward every frame. The step size you pick decides how fast the animation feels:</p>
+    <pre><code>let t = 0;
+
+function draw() {
+  t += 0.01;            // ~60% of real time (calm, easy number)
+  // t += 0.02;         // ~120% (a bit faster than real time)
+  // t += 1/60;         // exactly 1 second per second at 60 fps
+  // t += deltaTime/1000; // exact, even with frame drops
+}</code></pre>
+    <p>At 60 fps one frame lasts <code>1/60 ≈ 0.0167</code> seconds. So <code>t += 1/60</code> matches <code>millis()/1000</code>, as long as the framerate stays stable.</p>
+
+    <aside class="callout callout--weetje">
+        <span class="callout-label">Did you know</span>
+        <p><strong>What is a frame drop?</strong> p5.js tries to draw a new frame 60 times per second. Sometimes the browser can't keep up: your sketch does a lot of work, a heavy page runs in the background, or your laptop switches to power-saving mode. Such a missed frame is called a <em>frame drop</em>. Your animation stutters for a split second. <code>deltaTime</code> measures how long the previous frame really took (in milliseconds), so <code>t += deltaTime/1000</code> stays accurate even when frames hiccup.</p>
+        <p><strong>millis() vs deltaTime:</strong> <code>millis()</code> starts at 0 when your sketch starts and just keeps counting. After 5 seconds it's 5000. <code>deltaTime</code> is much smaller, usually around 17: that's how long one frame took in milliseconds. For your own time counter you want that small step, not the total.</p>
+    </aside>
 </section>
 
 <section>
